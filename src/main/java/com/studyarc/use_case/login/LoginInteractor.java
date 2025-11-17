@@ -7,7 +7,9 @@ import java.security.NoSuchAlgorithmException;
 public class LoginInteractor implements LoginInputBoundary{
     private LoginDataAccessInterface dao;
     @Override
-    public LoginResult login(String username, String password) {
+    public LoginResult login(LoginInputData loginInputData) {
+        String username = loginInputData.getUsername();
+        String password = loginInputData.getPassword();
         User u = dao.getUser(username);
         if(u==null){
             return  new LoginResult(false, null);
