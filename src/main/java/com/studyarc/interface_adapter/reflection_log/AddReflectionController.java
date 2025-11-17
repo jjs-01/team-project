@@ -5,16 +5,16 @@ import com.studyarc.use_case.add_reflection.AddReflectionInputData;
 import java.time.LocalDate;
 
 public class AddReflectionController {
-    private AddReflectionInputBoundary reflectionLogInteractor;
+    private final AddReflectionInputBoundary addReflectionUseCaseInteractor;
 
-    public AddReflectionController(AddReflectionInputBoundary reflectionLogUseCaseInteractor) {
-        this.reflectionLogInteractor = reflectionLogUseCaseInteractor;
+    public AddReflectionController(AddReflectionInputBoundary addReflectionUseCaseInteractor) {
+        this.addReflectionUseCaseInteractor = addReflectionUseCaseInteractor;
     }
 
     public void execute(String planName, String contents, LocalDate date) {
         final AddReflectionInputData inputData = new AddReflectionInputData(
                 planName, contents, date);
-        reflectionLogInteractor.execute(inputData);
+        addReflectionUseCaseInteractor.execute(inputData);
     }
 
 }
