@@ -1,16 +1,15 @@
 package com.studyarc.view;
 
-import com.studyarc.interface_adapter.*;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.TextAttribute;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MilestoneTasksView extends JPanel implements ActionListener, PropertyChangeListener {
     private MilestoneTasksController milestoneTasksController;
@@ -21,7 +20,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
     private JButton addMilestone;
     private JButton save;
 
-    // private List<> milestones = new ArrayList<JPanel>();
+    private Map<JButton, JPanel> addTasksToMilestones = new HashMap<>();
 
     public MilestoneTasksView() {
         final JPanel topDetails = new JPanel();
@@ -54,20 +53,48 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                             JPanel individualMilestone = new JPanel();
                             individualMilestone.setLayout(new GridBagLayout());
 
-                            c.gridx = 0; c.gridy = 0;
-                            individualMilestone.add(new JTextField("Milestone name", 20), c);
-                            c.gridx = 1;
-                            individualMilestone.add(new JCheckBox(), c);
-                            c.gridx = 2;
-                            individualMilestone.add(new JTextField("XX/XX/XXXX", 10), c);
+                            GridBagConstraints constraints2 = new GridBagConstraints();
+                            constraints2.gridx = 0; constraints2.gridy = 0;
+                            individualMilestone.add(new JTextField("Milestone name", 20), constraints2);
+                            constraints2.gridx = 1;
+                            individualMilestone.add(new JCheckBox(), constraints2);
+                            constraints2.gridx = 2;
+                            individualMilestone.add(new JTextField("XX/XX/XXXX", 10), constraints2);
+                            constraints2.gridx = 3;
+                            individualMilestone.add(new JButton("x"));
 
-                            c.gridx = 0; c.gridy = 1;
+                            constraints2.gridx = 0; constraints2.gridy = 1;
                             JButton addTask = new JButton("+   add a task");
                             addTask.setFont(new Font("SansSerif", Font.BOLD, 10));
                             addTask.setForeground(new Color(95, 95, 105));
                             addTask.setContentAreaFilled(false);
 
-                            individualMilestone.add(addTask, c);
+                            addTask.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    if (e.getSource().equals(addTask)) {
+                                        constraints2.gridx = 0; constraints2.gridy = GridBagConstraints.RELATIVE;
+                                        individualMilestone.add(new JTextField("Task Name", 10), constraints2);
+                                        constraints2.gridx = 1;
+                                        individualMilestone.add(new JTextField("XX/XX/XXXX", 7), constraints2);
+                                        constraints2.gridx = 2;
+                                        individualMilestone.add(new JComboBox<>(new String[]{"Not Started",
+                                                "In progress", "Done"}), constraints2);
+                                        constraints2.gridx = 3;
+                                        individualMilestone.add(new JButton("x"), constraints2);
+
+                                        individualMilestone.revalidate();
+                                    }
+                                }
+                            });
+
+                            individualMilestone.add(addTask, constraints2);
+                            constraints2.gridx = 1;
+                            individualMilestone.add(new JLabel("Due Date"), constraints2);
+                            constraints2.gridx = 2;
+                            individualMilestone.add(new JLabel("Status"), constraints2);
+                            constraints2.gridx = 3;
+                            individualMilestone.add(new JLabel("Delete?"), constraints2);
 
                             c.gridx = 0; c.gridy = GridBagConstraints.RELATIVE;
                             c.weightx = 2; c.weighty = 1;
