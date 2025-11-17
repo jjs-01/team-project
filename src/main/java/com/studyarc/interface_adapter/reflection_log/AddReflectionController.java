@@ -11,9 +11,9 @@ public class AddReflectionController {
         this.addReflectionUseCaseInteractor = addReflectionUseCaseInteractor;
     }
 
-    public void execute(String planName, String contents, LocalDate date) {
+    public void execute(String planName, String contents) {
         final AddReflectionInputData inputData = new AddReflectionInputData(
-                planName, contents, date);
+                planName, contents);
         addReflectionUseCaseInteractor.execute(inputData);
     }
 
