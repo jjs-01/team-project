@@ -7,5 +7,6 @@ public interface AddReflectionDataAccessInterface {
     User getCurrentUser();
     StudyPlan getPlan(User user, String planName);
     void savePlan(User user, StudyPlan plan);
-
 }
+
+

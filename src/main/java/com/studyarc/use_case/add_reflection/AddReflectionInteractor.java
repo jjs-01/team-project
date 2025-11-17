@@ -4,8 +4,6 @@ import com.studyarc.entity.Reflection;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.User;
 
-import java.time.LocalDate;
-
 public class AddReflectionInteractor implements AddReflectionInputBoundary {
     private final AddReflectionOutputBoundary reflectionLogPresenter;
     private final AddReflectionDataAccessInterface reflectionLogDataAccess;
@@ -20,7 +18,6 @@ public class AddReflectionInteractor implements AddReflectionInputBoundary {
     public void execute(AddReflectionInputData inputData) {
         final String planName = inputData.getPlanName();
         final String contents = inputData.getContents();
-        final LocalDate date = inputData.getDate();
         if (contents.isEmpty()) {
             reflectionLogPresenter.prepareFailView("Please enter a valid contents");
         }
@@ -31,10 +28,10 @@ public class AddReflectionInteractor implements AddReflectionInputBoundary {
                 reflectionLogPresenter.prepareFailView("Plan not found");
             }
             else {
-                Reflection newReflection = new Reflection(contents, date);
+                Reflection newReflection = new Reflection(contents);
                 plan.addReflection(newReflection);
                 reflectionLogDataAccess.savePlan(user, plan);
-                AddReflectionOutputData output = new AddReflectionOutputData(contents, date);
+                AddReflectionOutputData output = new AddReflectionOutputData(contents);
                 reflectionLogPresenter.prepareSuccessView(output);
             }
         }
