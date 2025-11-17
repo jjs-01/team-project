@@ -6,8 +6,8 @@ public class AddReflectionInputData {
     private final String contents;
     private final LocalDate date;
 
-    public AddReflectionInputData(String milestone, String contents, LocalDate date) {
-        this.planName = milestone;
+    public AddReflectionInputData(String planName, String contents, LocalDate date) {
+        this.planName = planName;
         this.contents = contents;
         this.date = date;
     }
