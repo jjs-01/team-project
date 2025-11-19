@@ -123,7 +123,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addJobPostingsUseCase() {
-        final JobPostingsOutputBoundary jobPostingsOutputBoundary = new JobPostingsPresenter(jobPostingsView);
+        final JobPostingsOutputBoundary jobPostingsOutputBoundary = new JobPostingsPresenter(jobPostingsViewModel);
 
         KeywordGenerator keywordGenerator = new LLMKeywordGenerator();
         AdzunaJobGenerator jobGenerator = new AdzunaJobGenerator();

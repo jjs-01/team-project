@@ -28,30 +28,34 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
     @Override
     public void execute(JobPostingsInputData jobPostingsInputData) {
         final String selectedFocus = jobPostingsInputData.getFocus();
-        final String sort =  jobPostingsInputData.getSort();
         // default arguments
+        String sort =  "default";
         String countryCode = "ca";
-        int salaryMin = 0;
+        int salaryMin = 40000;
 
         // strip the format of the salary selection
-        if (!jobPostingsInputData.getMinSalary().isEmpty()) {
+        if (!jobPostingsInputData.getMinSalary().isEmpty() && !jobPostingsInputData.getMinSalary().equals("Select Option")) {
             salaryMin = Integer.parseInt(jobPostingsInputData.getMinSalary().replace("$", "").replace(",", ""));
         }
 
         // set the preferred country location if selected
-        if (!jobPostingsInputData.getPreferredLoc().isEmpty()) countryCode = jobPostingsInputData.getPreferredLoc();
+        if (!jobPostingsInputData.getPreferredLoc().isEmpty() && !jobPostingsInputData.getPreferredLoc().equals("Select Country")) countryCode = jobPostingsInputData.getPreferredLoc();
+        // set the preferred sort if selected
+        if (!jobPostingsInputData.getSort().isEmpty() && !jobPostingsInputData.getSort().equals("Select Sort")) sort = jobPostingsInputData.getSort();
 
         System.out.println("Selected Minimum: " + salaryMin);
         System.out.println("Selected Country: " + countryCode);
         System.out.println("Selected Focus: " + selectedFocus);
         System.out.println("Selected Sort: " + sort);
 
-        if (selectedFocus.isEmpty()) {
+        if (selectedFocus.isEmpty() || selectedFocus.equals("Select Plan")) {
             jobPostingsPresenter.prepareFailView("You must select a focus.");
         } else {
             try {
                 // generates keywords for the focus the user selected
                 KeywordList keywords = keywordGenerator.generate(selectedFocus);
+
+                System.out.println("Calling API on thread: " + Thread.currentThread().getName());
 
                 // generates the job listings for the given keywords
                 List<JobListing> jobListings = jobGenerator.getJobListings(countryCode, keywords, sort, salaryMin);
@@ -62,7 +66,7 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
                 // sends the success view
                 jobPostingsPresenter.prepareSuccessView(jobPostingsOutputData);
             } catch (KeywordGenerator.KeywordGeneratorException | JobRepository.JobRepositoryException e ){
-
+                System.out.println(e.getMessage() + " " + e.getCause() + " " + e.getStackTrace());
                 // sends the failed view with NEED A MESSAGE
                 jobPostingsPresenter.prepareFailView("An error has occurred, please try again later.");
             }

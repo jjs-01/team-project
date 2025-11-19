@@ -140,7 +140,12 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        final JobPostingsState jobPostingsState = jobPostingsViewModel.getState();
 
+        if (jobPostingsState.getListingError() != null) {
+            JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }
 
     public String getViewName() {

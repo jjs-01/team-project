@@ -34,7 +34,7 @@ public class AdzunaJobGenerator implements JobRepository {
         String url = "https://api.adzuna.com/v1/api/jobs/" + countryCode +"/search/1?app_id=" + API_ID + "&app_key=" + API_KEY + "&results_per_page=20&what_or=";
         String jobKeywords = keywords.getKeywords();
         // adds the keywords
-        url += jobKeywords; // + "&content-type=application/json"
+        url += jobKeywords + "&salary_min=" + salaryMin; // current issue, sort isnt working on the api? might need to sort myself?
 
         System.out.println(url);
 

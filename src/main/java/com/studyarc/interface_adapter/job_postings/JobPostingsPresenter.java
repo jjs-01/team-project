@@ -10,20 +10,26 @@ import java.util.ArrayList;
  * The Presenter for the Job Postings Use Case.
  */
 public class JobPostingsPresenter implements JobPostingsOutputBoundary {
-    private final JobPostingsView jobPostingsView;
+    private final JobPostingsViewModel jobPostingsViewModel;
 
-    public JobPostingsPresenter(JobPostingsView jobPostingsView) {
-        this.jobPostingsView = jobPostingsView;
+    public JobPostingsPresenter(JobPostingsViewModel jobPostingsViewModel) {
+        this.jobPostingsViewModel = jobPostingsViewModel;
     }
 
 
     @Override
     public void prepareSuccessView(JobPostingsOutputData outputData) {
-
+        // update the job postings view model state
+        final JobPostingsState jobPostingsState = jobPostingsViewModel.getState();
+        jobPostingsState.setJobListings(outputData.getJobListings());
+        jobPostingsViewModel.firePropertyChange();
     }
 
     @Override
     public void prepareFailView(String errorMessage) {
+        final JobPostingsState jobPostingsState = jobPostingsViewModel.getState();
+        jobPostingsState.setListingError(errorMessage);
+        jobPostingsViewModel.firePropertyChange();
 
     }
 }
