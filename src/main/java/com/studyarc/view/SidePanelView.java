@@ -10,6 +10,7 @@ import com.studyarc.use_case.track_plan.TrackPlanInputBoundary;
 import com.studyarc.use_case.track_plan.TrackPlanInteractor;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,14 +42,24 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         myPlans = new JButton("My Plans");
 
         this.setLayout(new BorderLayout());
-        mainButtonPanel.setLayout(new BoxLayout(mainButtonPanel, BoxLayout.Y_AXIS));
+//        mainButtonPanel.setLayout(new BoxLayout(mainButtonPanel, BoxLayout.Y_AXIS));
+        mainButtonPanel.setLayout(new GridBagLayout());
+
+        this.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 2, Color.DARK_GRAY));
+
+        GridBagConstraints mainButtonLayout = new GridBagConstraints();
+        mainButtonLayout.gridx = 4;
+        mainButtonLayout.ipady = 15;
+        mainButtonLayout.insets = new Insets(50,0,0,0);;
+//        mainButtonLayout.gridy = 2;
+        mainButtonLayout.fill = GridBagConstraints.HORIZONTAL;
+
+        mainButtonPanel.add(seePlans, mainButtonLayout);
+        mainButtonPanel.add(seePapers, mainButtonLayout);
+        mainButtonPanel.add(seeJobs, mainButtonLayout);
+        mainButtonPanel.add(myPlans, mainButtonLayout);
 
         this.add(logo, BorderLayout.NORTH);
-        mainButtonPanel.add(seePlans);
-        mainButtonPanel.add(seePapers);
-        mainButtonPanel.add(seeJobs);
-        mainButtonPanel.add(myPlans);
-
         this.add(mainButtonPanel, BorderLayout.CENTER);
         this.add(userLoggedIn, BorderLayout.SOUTH);
 
