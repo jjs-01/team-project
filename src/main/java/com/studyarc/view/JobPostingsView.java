@@ -39,10 +39,10 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
     private JButton search;
 
-    private String[] locationOptions = {"gb", "us", "ca"};
-    private String[] planOptions = {"Machine Learning"};
-    private String[] salaryOptions = {"$40,000", "$50,000", "$60,000", "$70,000", "$80,000", "$90,000", "$100,000"};
-    private String[] sortOptions = {"default", "hybrid", "date", "salary"};
+    private String[] locationOptions = {"Select Country", "gb", "us", "ca"};
+    private String[] planOptions = {"Select Plan", "Machine Learning"};
+    private String[] salaryOptions = {"Select Option", "$40,000", "$50,000", "$60,000", "$70,000", "$80,000", "$90,000", "$100,000"};
+    private String[] sortOptions = {"Select Sort", "default", "hybrid", "date", "salary"};
 
 
 
@@ -64,6 +64,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         // creates the dropdown selection with label for selecting the focus/plan
         plan = new JLabel(jobPostingsViewModel.PLAN_LABEL);
         planComboBox = new JComboBox<>(planOptions);
+        planComboBox.addActionListener(this);
         planSelectionPanel.add(plan);
         planSelectionPanel.add(planComboBox);
         selections.add(planSelectionPanel);
@@ -71,6 +72,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         // creates the dropdown selection with label for selecting the location
         location = new JLabel(jobPostingsViewModel.LOCATION_LABEL);
         locationComboBox = new JComboBox<>(locationOptions);
+        locationComboBox.addActionListener(this);
         locationSelectionPanel.add(location);
         locationSelectionPanel.add(locationComboBox);
         selections.add(locationSelectionPanel);
@@ -78,6 +80,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         // creates the dropdown selection with label for selecting the minimum selection
         salary = new JLabel(jobPostingsViewModel.SALARAY_LABEL);
         salaryComboBox = new JComboBox<>(salaryOptions);
+        salaryComboBox.addActionListener(this);
         salarySelectionPanel.add(salary);
         salarySelectionPanel.add(salaryComboBox);
         selections.add(salarySelectionPanel);
@@ -85,6 +88,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         // creates the dropdown selection with label for selecting the sorting
         sort = new JLabel(jobPostingsViewModel.SORT_LABEL);
         sortComboBox = new JComboBox<>(sortOptions);
+        sortComboBox.addActionListener(this);
         sortSelectionPanel.add(sort);
         sortSelectionPanel.add(sortComboBox);
         selections.add(sortSelectionPanel);
@@ -124,13 +128,13 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
             currentState.setFocus(planComboBox.getSelectedItem().toString());
         }
         if (e.getSource().equals(locationComboBox)) {
-            currentState.setFocus(locationComboBox.getSelectedItem().toString());
+            currentState.setLocation(locationComboBox.getSelectedItem().toString());
         }
         if (e.getSource().equals(salaryComboBox)) {
-            currentState.setFocus(salaryComboBox.getSelectedItem().toString());
+            currentState.setMinSalary(salaryComboBox.getSelectedItem().toString());
         }
         if (e.getSource().equals(sortComboBox)) {
-            currentState.setFocus(sortComboBox.getSelectedItem().toString());
+            currentState.setSort(sortComboBox.getSelectedItem().toString());
         }
     }
 

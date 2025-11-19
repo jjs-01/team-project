@@ -9,8 +9,10 @@ public class Main {
                 .addSidePanel()
                 .addMilestoneTasksPanel()
                 .addTrackPlanView()
+                .addJobPostingsView()
                 .addTrackPlanUsecase()
                 .addSidebarUseCase()
+                .addJobPostingsUseCase()
                 .addMilestoneTasksUseCase()
                 .build();
 

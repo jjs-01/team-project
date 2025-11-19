@@ -27,25 +27,47 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
 
     @Override
     public void execute(JobPostingsInputData jobPostingsInputData) {
+        final String selectedFocus = jobPostingsInputData.getFocus();
+        final String sort =  jobPostingsInputData.getSort();
+        // default arguments
+        String countryCode = "ca";
+        int salaryMin = 0;
 
-        try {
-            // generates keywords for the focus the user selected
-            KeywordList keywords = keywordGenerator.generate(jobPostingsInputData.getFocus());
-
-            // NEED TO STRIP THE MIN SALARY AND TURN TO INT
-
-            // generates the job listings for the given keywords
-            List<JobListing> jobListings = jobGenerator.getJobListings("NEED TO CALL SMTH TO GET COUNTRY CODE", keywords, "NEED TO GET SORT", 0);
-
-            // creates the output data object
-            final JobPostingsOutputData jobPostingsOutputData = new JobPostingsOutputData(jobListings);
-
-            // sends the success view
-            jobPostingsPresenter.prepareSuccessView(jobPostingsOutputData);
-        } catch (KeywordGenerator.KeywordGeneratorException | JobRepository.JobRepositoryException e ){
-
-            // sends the failed view with NEED A MESSAGE
-            jobPostingsPresenter.prepareFailView("");
+        // strip the format of the salary selection
+        if (!jobPostingsInputData.getMinSalary().isEmpty()) {
+            salaryMin = Integer.parseInt(jobPostingsInputData.getMinSalary().replace("$", "").replace(",", ""));
         }
+
+        // set the preferred country location if selected
+        if (!jobPostingsInputData.getPreferredLoc().isEmpty()) countryCode = jobPostingsInputData.getPreferredLoc();
+
+        System.out.println("Selected Minimum: " + salaryMin);
+        System.out.println("Selected Country: " + countryCode);
+        System.out.println("Selected Focus: " + selectedFocus);
+        System.out.println("Selected Sort: " + sort);
+
+        if (selectedFocus.isEmpty()) {
+            jobPostingsPresenter.prepareFailView("You must select a focus.");
+        } else {
+            try {
+                // generates keywords for the focus the user selected
+                KeywordList keywords = keywordGenerator.generate(selectedFocus);
+
+                // generates the job listings for the given keywords
+                List<JobListing> jobListings = jobGenerator.getJobListings(countryCode, keywords, sort, salaryMin);
+
+                // creates the output data object
+                final JobPostingsOutputData jobPostingsOutputData = new JobPostingsOutputData(jobListings);
+
+                // sends the success view
+                jobPostingsPresenter.prepareSuccessView(jobPostingsOutputData);
+            } catch (KeywordGenerator.KeywordGeneratorException | JobRepository.JobRepositoryException e ){
+
+                // sends the failed view with NEED A MESSAGE
+                jobPostingsPresenter.prepareFailView("An error has occurred, please try again later.");
+            }
+
+        }
+
     }
 }
