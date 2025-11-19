@@ -12,11 +12,18 @@ public class AddReflectionPresenter implements AddReflectionOutputBoundary {
 
     @Override
     public void prepareSuccessView(AddReflectionOutputData outputData) {
-
+        AddReflectionState state = reflectionViewModel.getState();
+        state.setSuccess("Reflection added");
+        state.setError(null);
+        reflectionViewModel.firePropertyChange("add reflection");
     }
 
     @Override
-    public void prepareFailView(String errorMessage) {
+    public void prepareFailView(String error) {
+        AddReflectionState state = reflectionViewModel.getState();
+        state.setError(error);
+        state.setSuccess(null);
+        reflectionViewModel.firePropertyChange("add reflection");
 
     }
 }
