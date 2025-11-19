@@ -44,22 +44,27 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     private String[] salaryOptions = {"Select Option", "$40,000", "$50,000", "$60,000", "$70,000", "$80,000", "$90,000", "$100,000"};
     private String[] sortOptions = {"Select Sort", "default", "hybrid", "date", "salary"};
 
-
-
     public JobPostingsView(JobPostingsViewModel jobPostingsViewModel) {
 
         this.jobPostingsViewModel = jobPostingsViewModel;
         this.jobPostingsViewModel.addPropertyChangeListener(this);
 
-        final JPanel titleAndSelections = new JPanel();
-        titleAndSelections.setLayout(new BoxLayout(titleAndSelections, BoxLayout.Y_AXIS));
+        GridBagConstraints userChoices = new GridBagConstraints();
+        GridBagConstraints topInfo = new GridBagConstraints();
+        topInfo.gridx = 2;
 
-        final JPanel selections = new JPanel();
+        final JPanel titleAndSelections = new JPanel(new GridBagLayout());
+//        titleAndSelections.setLayout(new BoxLayout(titleAndSelections, BoxLayout.Y_AXIS));
+//        titleAndSelections.setBackground(Color.GRAY);
+
+        final JPanel selections = new JPanel(new GridBagLayout());
+        selections.setPreferredSize(new Dimension(800, 100));
+//        selections.setBackground(Color.GRAY);
 
         // adds the title of the page
         pageTitle = new JLabel(jobPostingsViewModel.TITLE_LABEL);
         pageTitle.setFont(new Font("SansSerif", Font.BOLD, 24));
-        titleAndSelections.add(pageTitle);
+        titleAndSelections.add(pageTitle, topInfo);
 
         // creates the dropdown selection with label for selecting the focus/plan
         plan = new JLabel(jobPostingsViewModel.PLAN_LABEL);
@@ -67,7 +72,6 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         planComboBox.addActionListener(this);
         planSelectionPanel.add(plan);
         planSelectionPanel.add(planComboBox);
-        selections.add(planSelectionPanel);
 
         // creates the dropdown selection with label for selecting the location
         location = new JLabel(jobPostingsViewModel.LOCATION_LABEL);
@@ -75,28 +79,32 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         locationComboBox.addActionListener(this);
         locationSelectionPanel.add(location);
         locationSelectionPanel.add(locationComboBox);
-        selections.add(locationSelectionPanel);
 
         // creates the dropdown selection with label for selecting the minimum selection
         salary = new JLabel(jobPostingsViewModel.SALARAY_LABEL);
         salaryComboBox = new JComboBox<>(salaryOptions);
         salaryComboBox.addActionListener(this);
         salarySelectionPanel.add(salary);
-        salarySelectionPanel.add(salaryComboBox);
-        selections.add(salarySelectionPanel);
 
         // creates the dropdown selection with label for selecting the sorting
-        sort = new JLabel(jobPostingsViewModel.SORT_LABEL);
-        sortComboBox = new JComboBox<>(sortOptions);
-        sortComboBox.addActionListener(this);
-        sortSelectionPanel.add(sort);
-        sortSelectionPanel.add(sortComboBox);
-        selections.add(sortSelectionPanel);
+//        sort = new JLabel(jobPostingsViewModel.SORT_LABEL);
+//        sortComboBox = new JComboBox<>(sortOptions);
+//        sortComboBox.addActionListener(this);
+//        sortSelectionPanel.add(sort);
+//        sortSelectionPanel.add(sortComboBox);
+//        selections.add(sortSelectionPanel);
 
         search = new JButton("Search");
-        selections.add(search);
 
-        titleAndSelections.add(selections);
+        // adding all the combo boxes to the overall panel
+        selections.add(planSelectionPanel, userChoices);
+        selections.add(locationSelectionPanel, userChoices);
+        selections.add(salarySelectionPanel, userChoices);
+        salarySelectionPanel.add(salaryComboBox);
+        selections.add(search, userChoices);
+
+        // adding the panel with combo boxes to main panel
+        titleAndSelections.add(selections, topInfo);
 
         this.add(titleAndSelections, BorderLayout.NORTH);
 
