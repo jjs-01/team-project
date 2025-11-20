@@ -18,12 +18,12 @@ public class AddReflectionView extends JDialog implements PropertyChangeListener
     private final JTextArea content = new JTextArea(6, 20);
     private final JButton saveButton = new JButton("Save");
 
-    public AddReflectionView(Frame owner,
+    public AddReflectionView(Window owner,
                              AddReflectionViewModel viewModel,
                              AddReflectionController controller,
                              String planName) {
 
-        super(owner, "Add Reflection", true);
+        super(owner, "Add Reflection", ModalityType.APPLICATION_MODAL);
 
         this.viewModel = viewModel;
         this.controller = controller;

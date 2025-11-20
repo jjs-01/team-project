@@ -14,12 +14,19 @@ import com.studyarc.interface_adapter.job_postings.JobPostingsViewModel;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksPresenter;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
+import com.studyarc.interface_adapter.reflection_log.AddReflectionController;
+import com.studyarc.interface_adapter.reflection_log.AddReflectionPresenter;
+import com.studyarc.interface_adapter.reflection_log.AddReflectionViewModel;
 import com.studyarc.interface_adapter.track_plan.TrackPlanController;
 import com.studyarc.interface_adapter.track_plan.TrackPlanPresenter;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarController;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarPresenter;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarViewModel;
+import com.studyarc.use_case.add_reflection.AddReflectionDataAccessInterface;
+import com.studyarc.use_case.add_reflection.AddReflectionInputBoundary;
+import com.studyarc.use_case.add_reflection.AddReflectionInteractor;
+import com.studyarc.use_case.add_reflection.AddReflectionOutputBoundary;
 import com.studyarc.use_case.delete_plan.DeletePlanInputBoundary;
 import com.studyarc.use_case.delete_plan.DeletePlanInteractor;
 import com.studyarc.use_case.delete_plan.DeletePlanOutputBoundary;
@@ -60,6 +67,7 @@ public class AppBuilder {
 
     private TrackPlansView trackPlansView;
     private TrackPlanViewModel trackPlanViewModel;
+    private AddReflectionViewModel addReflectionViewModel;
 
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
@@ -78,10 +86,12 @@ public class AppBuilder {
 
     public AppBuilder addTrackPlanView() {
         this.trackPlanViewModel = new TrackPlanViewModel();
-        this.trackPlansView = TrackPlansView.getInstance(trackPlanViewModel);
+        this.addReflectionViewModel = new AddReflectionViewModel();
+        this.trackPlansView = TrackPlansView.getInstance(trackPlanViewModel, addReflectionViewModel);
         cardPanel.add(trackPlansView, trackPlansView.getViewname());
 
         return this;
+
     }
 
     public AppBuilder addTrackPlanUsecase() {
@@ -155,6 +165,13 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addAddReflectionUseCase() {
+        AddReflectionOutputBoundary presenter = new AddReflectionPresenter(addReflectionViewModel);
+        AddReflectionInputBoundary interactor = new AddReflectionInteractor(presenter, databaseAccess);
+        AddReflectionController controller = new AddReflectionController(interactor);
+        trackPlansView.setAddReflectionController(controller);
+        return this;
+    }
 
     public JFrame build() {
         final JFrame application = new JFrame("Study Arc");

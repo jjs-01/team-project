@@ -13,6 +13,7 @@ public class Main {
                 .addDeletePlanUsecase()
                 .addSidebarUseCase()
                 .addMilestoneTasksUseCase()
+                .addAddReflectionUseCase()
                 .build();
 
         application.pack();
