@@ -43,13 +43,16 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
         // set the preferred sort if selected
         if (!jobPostingsInputData.getSort().isEmpty() && !jobPostingsInputData.getSort().equals("Select Sort")) sort = jobPostingsInputData.getSort();
 
-        System.out.println("Selected Minimum: " + salaryMin);
-        System.out.println("Selected Country: " + countryCode);
-        System.out.println("Selected Focus: " + selectedFocus);
-        System.out.println("Selected Sort: " + sort);
+//        System.out.println("Selected Minimum: " + salaryMin);
+//        System.out.println("Selected Country: " + countryCode);
+//        System.out.println("Selected Focus: " + selectedFocus);
+//        System.out.println("Selected Sort: " + sort);
 
         if (selectedFocus.isEmpty() || selectedFocus.equals("Select Plan")) {
+            System.out.println("TESTING THE CALL AFTER IT WORKS?: " + selectedFocus);
             jobPostingsPresenter.prepareFailView("You must select a focus.");
+            return;
+
         } else {
             try {
                 // generates keywords for the focus the user selected
@@ -65,10 +68,12 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
 
                 // sends the success view
                 jobPostingsPresenter.prepareSuccessView(jobPostingsOutputData);
+                return;
             } catch (KeywordGenerator.KeywordGeneratorException | JobRepository.JobRepositoryException e ){
                 System.out.println(e.getMessage() + " " + e.getCause() + " " + e.getStackTrace());
                 // sends the failed view with NEED A MESSAGE
                 jobPostingsPresenter.prepareFailView("An error has occurred, please try again later.");
+                return;
             }
 
         }

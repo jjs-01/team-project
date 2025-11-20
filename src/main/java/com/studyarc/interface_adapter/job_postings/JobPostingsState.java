@@ -14,7 +14,7 @@ public class JobPostingsState {
     private String minSalary = "";
     private String sort = "";
     private List<JobListing> jobListings = new ArrayList<>();
-    private String listingError;
+    private String listingError = "";
 
     public String getFocus() {
         return focus;
