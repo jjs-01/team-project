@@ -36,6 +36,8 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         this.sidebarViewModel = sidebarViewModel;
         this.sidebarViewModel.addPropertyChangeListener(this);
 
+        logo.setFont(Styling.getMainFont().deriveFont(20f).deriveFont(Font.BOLD));
+
         seePlans = new JButton("New Plans");
         seePapers = new JButton("Papers");
         seeJobs = new JButton("Jobs");
@@ -45,12 +47,13 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
 //        mainButtonPanel.setLayout(new BoxLayout(mainButtonPanel, BoxLayout.Y_AXIS));
         mainButtonPanel.setLayout(new GridBagLayout());
 
+        this.setMinimumSize(new Dimension(700, 400));
         this.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 2, Color.DARK_GRAY));
 
         GridBagConstraints mainButtonLayout = new GridBagConstraints();
         mainButtonLayout.gridx = 4;
         mainButtonLayout.ipady = 15;
-        mainButtonLayout.insets = new Insets(50,0,0,0);;
+        mainButtonLayout.insets = new Insets(50,0,0,0);
 //        mainButtonLayout.gridy = 2;
         mainButtonLayout.fill = GridBagConstraints.HORIZONTAL;
 
