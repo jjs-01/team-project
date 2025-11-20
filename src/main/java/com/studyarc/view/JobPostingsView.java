@@ -56,7 +56,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     private String[] salaryOptions = {"Select Option", "$40,000", "$50,000", "$60,000", "$70,000", "$80,000", "$90,000", "$100,000"};
     private String[] sortOptions = {"Select Sort", "default", "hybrid", "date", "salary"};
 
-    private final int indJobCard = 800;
+    private final int indJobCard = 750;
     private final Color jobInfoColor = new Color(255, 225, 143);
     private final Color jobDescColor = new Color(232, 231, 230);
 
