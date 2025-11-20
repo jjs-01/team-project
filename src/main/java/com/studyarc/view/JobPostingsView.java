@@ -13,6 +13,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The View for when the user is on the job postings page.
@@ -188,10 +190,24 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final JobPostingsState jobPostingsState = jobPostingsViewModel.getState();
+        List<JobListing> resetJobs = new ArrayList<>();
 
         if (!jobPostingsState.getListingError().equals("")) {
-            JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(), "Error", JOptionPane.ERROR_MESSAGE);
-            jobPostingsState.setListingError("");
+            if (jobPostingsState.getListingError().contains("error") || jobPostingsState.getListingError().contains("Error")) {
+                JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(), "Error", JOptionPane.ERROR_MESSAGE);
+                allJobPostingsPanel.removeAll();
+                allJobPostingsPanel.revalidate();
+                allJobPostingsPanel.repaint();
+
+                jobPostingsState.setListingError("");
+                jobPostingsState.setJobListings(resetJobs);
+            } else {
+                JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(), "Error", JOptionPane.ERROR_MESSAGE);
+                jobPostingsState.setListingError("");
+            }
+
+
+
         }
 
         if (!jobPostingsState.getJobListings().isEmpty()) {
@@ -236,8 +252,8 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
             jobTitle = new JLabel("<html><div style='margin:0; padding:0;'>"
                     + jobListing.getTitle()
                     + "</div></html>");
-            jobTitle.setMaximumSize(new Dimension(indJobCard/3, 70));
-            jobTitle.setPreferredSize(new Dimension(indJobCard/3, 70));
+            jobTitle.setMaximumSize(new Dimension(indJobCard/3, 90));
+            jobTitle.setPreferredSize(new Dimension(indJobCard/3, 90));
             jobTitle.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
             jobTitle.setFont(Styling.getMainFont().deriveFont(Font.BOLD).deriveFont(16f));
 
@@ -249,7 +265,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
             jobLocation.setBorder(BorderFactory.createEmptyBorder(0, 0, 6, 0));
             jobLocation.setFont(Styling.getBodyFont().deriveFont(12f));
 
-            jobSalaryRange = new JLabel(jobListing.getSalaryMin() + " - " + jobListing.getSalaryMax());
+            jobSalaryRange = new JLabel(jobListing.getFormattedMin() + " - " + jobListing.getFormattedMax());
             jobSalaryRange.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
             jobSalaryRange.setFont(Styling.getBodyFont().deriveFont(12f));
 

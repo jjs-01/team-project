@@ -49,7 +49,6 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
 //        System.out.println("Selected Sort: " + sort);
 
         if (selectedFocus.isEmpty() || selectedFocus.equals("Select Plan")) {
-            System.out.println("TESTING THE CALL AFTER IT WORKS?: " + selectedFocus);
             jobPostingsPresenter.prepareFailView("You must select a focus.");
             return;
 

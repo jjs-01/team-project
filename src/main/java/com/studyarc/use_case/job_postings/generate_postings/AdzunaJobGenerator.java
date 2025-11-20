@@ -68,7 +68,7 @@ public class AdzunaJobGenerator implements JobRepository {
                         JobListing newJob = new JobListing(job.get("title").toString(), Long.parseLong(job.get("id").toString()), jobCompany.get("display_name").toString(), Double.parseDouble(job.get("salary_min").toString()), Double.parseDouble(job.get("salary_max").toString()), job.get("description").toString(), jobLocation.get("display_name").toString(), job.get("redirect_url").toString());
                         listings.add(newJob);
 
-                        System.out.println(newJob.getJobId() + " " + newJob.getTitle() + " " + newJob.getCompanyName() + " " + newJob.getSalaryMin() + " " + newJob.getSalaryMax() + " " + newJob.getJobLoc() + " " + newJob.getRedirectUrl() + " " + newJob.getJobDesc());
+//                        System.out.println(newJob.getJobId() + " " + newJob.getTitle() + " " + newJob.getCompanyName() + " " + newJob.getSalaryMin() + " " + newJob.getSalaryMax() + " " + newJob.getJobLoc() + " " + newJob.getRedirectUrl() + " " + newJob.getJobDesc());
 
                     }
 
