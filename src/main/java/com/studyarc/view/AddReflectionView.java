@@ -82,6 +82,7 @@ public class AddReflectionView extends JDialog implements PropertyChangeListener
                     "Success",
                     JOptionPane.INFORMATION_MESSAGE
             );
+            viewModel.removePropertyChangeListener(this);
             this.dispose();
         }
     }
