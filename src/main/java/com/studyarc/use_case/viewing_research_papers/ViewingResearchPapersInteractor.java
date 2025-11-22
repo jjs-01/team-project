@@ -2,7 +2,7 @@ package com.studyarc.use_case.viewing_research_papers;
 import com.studyarc.entity.ResearchPaper;
 import java.util.List;
 
-public class ViewingResearchPapersInteractor implements com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInputBoundary{
+public class ViewingResearchPapersInteractor implements com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInputBoundary {
     private com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersDataAccessInterface repository;
     private com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersOutputBoundary presenter;
 
@@ -11,6 +11,7 @@ public class ViewingResearchPapersInteractor implements com.studyarc.use_case.vi
         this.repository = repository;
         this.presenter = presenter;
     }
+
     @Override
     public void viewPapers(com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInputData inputData) {
         List<ResearchPaper> papers = repository.getAllPapers();
@@ -22,4 +23,5 @@ public class ViewingResearchPapersInteractor implements com.studyarc.use_case.vi
         presenter.present(outputData);
 
 
+    }
 }
