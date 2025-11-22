@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="Use Case 6 entities">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="Use Case 6 Output Data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersDataAccessInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersDataAccessInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersInputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersInputBoundary.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +148,31 @@
       <option name="project" value="LOCAL" />
       <updated>1763835212768</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Use Case 6 Data Access Interface">
+      <option name="closed" value="true" />
+      <created>1763836987326</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1763836987326</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Use Case 6 Input Data">
+      <option name="closed" value="true" />
+      <created>1763837220359</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1763837220359</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Use Case 6 Output Data">
+      <option name="closed" value="true" />
+      <created>1763838510304</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1763838510304</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -157,6 +180,9 @@
     <MESSAGE value="View for use case 6" />
     <MESSAGE value="Minor Additions for Use Case 6" />
     <MESSAGE value="Use Case 6 entities" />
-    <option name="LAST_COMMIT_MESSAGE" value="Use Case 6 entities" />
+    <MESSAGE value="Use Case 6 Data Access Interface" />
+    <MESSAGE value="Use Case 6 Input Data" />
+    <MESSAGE value="Use Case 6 Output Data" />
+    <option name="LAST_COMMIT_MESSAGE" value="Use Case 6 Output Data" />
   </component>
 </project>

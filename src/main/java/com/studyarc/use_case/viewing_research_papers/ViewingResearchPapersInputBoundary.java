@@ -1,4 +1,5 @@
 package com.studyarc.use_case.viewing_research_papers;
 
 public interface ViewingResearchPapersInputBoundary {
+    void viewPapers(ViewingResearchPapersInputData inputData);
 }
