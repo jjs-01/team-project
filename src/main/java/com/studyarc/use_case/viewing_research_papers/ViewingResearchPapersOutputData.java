@@ -7,6 +7,9 @@ public class ViewingResearchPapersOutputData {
     private List<ResearchPaper> papers;
     private boolean hasPapers;
 
+    public ViewingResearchPapersOutputData(List<ResearchPaper> papers, boolean hasPapers) {
+    }
+
     public void ViewPapersOutputData(List<ResearchPaper> papers, boolean hasPapers) {
         this.papers = papers;
         this.hasPapers = hasPapers;
