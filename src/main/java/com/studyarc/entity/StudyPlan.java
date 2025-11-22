@@ -32,4 +32,8 @@ public class StudyPlan {
     public List<Reflection> getReflections() {
         return reflections;
     }
+
+    public void addReflection(Reflection reflection) {
+        this.reflections.add(reflection);
+    }
 }

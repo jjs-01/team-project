@@ -165,7 +165,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addAddReflectionUseCase() {
-        AddReflectionOutputBoundary presenter = new AddReflectionPresenter(addReflectionViewModel);
+        AddReflectionOutputBoundary presenter = new AddReflectionPresenter(addReflectionViewModel,trackPlanViewModel);
         AddReflectionInputBoundary interactor = new AddReflectionInteractor(presenter, databaseAccess);
         AddReflectionController controller = new AddReflectionController(interactor);
         trackPlansView.setAddReflectionController(controller);

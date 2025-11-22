@@ -5,28 +5,38 @@ import com.studyarc.entity.StudyPlan;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ShowReflectionView extends JDialog {
-    public ShowReflectionView(Window owner, StudyPlan plan) {
-        super(owner, "Reflections for " + plan.getTitle(), ModalityType.APPLICATION_MODAL);
+    private final JTextArea reflectionArea;
 
-        setSize(400, 300);
+    public ShowReflectionView(Window owner) {
+        super(owner, "All Reflections", ModalityType.MODELESS);
+
+        reflectionArea = new JTextArea();
+        reflectionArea.setEditable(false);
+        reflectionArea.setLineWrap(true);
+        reflectionArea.setWrapStyleWord(true);
+
+        JScrollPane scrollPane = new JScrollPane(reflectionArea);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        add(scrollPane);
+
+        setSize(400, 350);
         setLocationRelativeTo(owner);
+    }
 
-        JTextArea area = new JTextArea();
-        area.setEditable(false);
-
+    public void refresh(ArrayList<Reflection> reflections) {
         StringBuilder sb = new StringBuilder();
-        int i = 1;
 
-        for (Reflection r : plan.getReflections()) {
-            sb.append(i++)
-                    .append(". ")
+        int i = 1;
+        for (Reflection r : reflections) {
+            sb.append(i++).append(". ")
                     .append(r.getContents())
                     .append("\n\n");
         }
 
-        area.setText(sb.toString());
-        add(new JScrollPane(area));
+        reflectionArea.setText(sb.toString());
     }
 }

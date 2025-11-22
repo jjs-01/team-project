@@ -96,6 +96,10 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             return;
         }
 
+        if (evt.getPropertyName().equals("reflection_added")) {
+            return;
+        }
+
         TrackPlanState currentstate = (TrackPlanState) evt.getNewValue();
         ArrayList<StudyPlan> current_Plans = currentstate.getStudyPlans();
         ArrayList<StudyPlan> Test_Plans = this.generateTestPlans();
@@ -253,7 +257,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         reflectionPanel.setLayout(new BorderLayout());
         reflectionPanel.setBorder(BorderFactory.createTitledBorder("Reflection Log"));
 
-// Header area (Add + Show All buttons)
         JPanel reflectionHeader = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JButton addReflectionButton = new JButton("Add");
@@ -280,8 +283,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         showAllReflectionsButton.addActionListener(e -> {
             new ShowReflectionView(
-                    SwingUtilities.getWindowAncestor(TrackPlansView.this),
-                    plan
+                    SwingUtilities.getWindowAncestor(TrackPlansView.this)
             ).setVisible(true);
         });
 
@@ -434,4 +436,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     public void setAddReflectionController(AddReflectionController controller) {
         this.addReflectionController = controller;
     }
+
+
 }
