@@ -30,9 +30,10 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
         ArrayList<StudyPlan> listofplans = this.getPlanTool.getPlans(username);
 
         TrackPlanOutputData trackPlanOutputData = new TrackPlanOutputData(username, listofplans);
+        presenter.prepareShowPlans(trackPlanOutputData);
         if (listofplans.isEmpty()) {
             System.out.println("interactor executes for emptyplans");
-            presenter.parepareShowRedirect(trackPlanOutputData);
+            presenter.parepareShowRedirect();
         } else {
             System.out.println("interactor executes");
             presenter.prepareShowPlans(trackPlanOutputData);

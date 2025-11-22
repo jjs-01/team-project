@@ -1,31 +1,27 @@
 package com.studyarc.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Milestone {
-    private String title;
-    private ArrayList<Task> tasks;
-    private String duedate;
+    private String name;
+    private ArrayList<Task> subtasks;
+    private String dueDate;
 
     public Milestone(String title) {
-        this.title = title;
-        this.tasks = new ArrayList<>();
+        this.name = title;
+        this.subtasks = new ArrayList<>();
     }
 
     public String getTitle() {
-        return title;
+        return name;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.name = title;
     }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
+    public ArrayList<Task> getSubtasks() {
+        return subtasks;
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
 }

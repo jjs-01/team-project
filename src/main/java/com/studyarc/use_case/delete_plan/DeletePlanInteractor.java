@@ -20,8 +20,6 @@ public class DeletePlanInteractor implements DeletePlanInputBoundary{
     public void execute(DeletePlanInputData input) {
         StudyPlan plan = input.getPlan();
         System.out.println("DeletePlan interactor executes with plan:" + plan.getTitle());
-//      //For test, it uses the generateTestPlans, later to switch to getplans
-
         presenter.ShowPlans(new DeletePlanOutputData(plan));
     }
 }

@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.SwingUtilities;
 import java.util.List;
+import java.util.*;
 
 public class TrackPlansView extends JPanel implements PropertyChangeListener, ActionListener, DocumentListener {
     private static TrackPlansView instance;
@@ -34,7 +36,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     final JPanel titlePanel;
     final JLabel title = new JLabel("MY PLANS");
     private final JButton saveButton = new JButton("Save");
-
+    private final JButton newPlan = new JButton("🌟Create A New Plan🌟");
     private final TrackPlanViewModel trackPlanViewModel;
     private DeletePlanController deletePlanController = null;
 
@@ -62,7 +64,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         this.trackPlanViewModel = trackPlanViewModel;
         this.trackPlanViewModel.addPropertyChangeListener(this);
         this.setLayout(borderLayout);
-
         titlePanel = SetTitlePanel();
         trackPlansPanel = new JPanel();
 
@@ -106,39 +107,37 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         TrackPlanState currentstate = (TrackPlanState) evt.getNewValue();
         ArrayList<StudyPlan> current_Plans = currentstate.getStudyPlans();
-        ArrayList<StudyPlan> Test_Plans = this.generateTestPlans();
-//        if (current_Plans.isEmpty()) {
-//            System.out.println("YOU HAVE NO PLANS！");
-//            //notify user you have no plan
-//        } else {
-//            this.showPlansinView(current_Plans);
-//        }
-        String result = "";
-        for (StudyPlan currentPlan : current_Plans) {
-            result += currentPlan.getTitle() + " ";
+        if (current_Plans.isEmpty()) {
+            this.showRedirectButton();
+        } else {
+            this.showPlansinView(current_Plans);
         }
-        System.out.println("Current Plan in the View: " + result);
-        this.showPlansinView(current_Plans);
+    }
+
+    private void showRedirectButton() {
+        trackPlansPanel.removeAll();
+        JLabel message = new JLabel("You have no Plans! Go Create New Plans!Go Create New Plans!Go Create New Plans!");
+        message.setFont(message.getFont().deriveFont(Font.BOLD, 16f));
+        newPlan.addActionListener(this);
+        trackPlansPanel.add(message);
+        trackPlansPanel.add(newPlan);
+        trackPlansPanel.repaint();
+        trackPlansPanel.revalidate();
     }
 
 
 
     private void showPlansinView(ArrayList<StudyPlan> plans) {
         this.buttonToPlanMap = new HashMap<>();
+        this.titleToPlanMap = new HashMap<>();
         this.trackPlansPanel.removeAll();
-        if (plans == null || plans.isEmpty()) {
-            trackPlansPanel.add(new JLabel("You have no plans yet."));
-        } else {
-            for (StudyPlan plan : plans) {
+        for (StudyPlan plan : plans) {
                 JPanel planPanel = createPlanPanel(plan);
                 trackPlansPanel.add(planPanel);
-                trackPlansPanel.add(Box.createVerticalStrut(15)); // space between plans
-            }
+                trackPlansPanel.add(Box.createVerticalStrut(15));
         }
         trackPlansPanel.repaint();
         trackPlansPanel.revalidate();
-
-
     }
 
     private JPanel createPlanPanel(StudyPlan plan) {
@@ -165,7 +164,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         this.titleToPlanMap.put(planTitleTextField, plan);//Add the title textfield in the map for each plan.
 
         // Delete Button for each plan
-        JButton deleteButton = new JButton("❌");
+        JButton deleteButton = new JButton("Delete " + "❌");
         deleteButton.addActionListener(this);
         this.buttonToPlanMap.put(deleteButton, plan);//Add the delete button in the map for each plan.
 
@@ -189,44 +188,31 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
             // MilestoneHeadPanel setup
             JPanel milestoneHeader = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            JButton upButton = new JButton("Hide");
-            JButton downButton = new JButton("Show");
+            JButton upButton = new JButton("▲");
+            JButton downButton = new JButton("▼");
             JLabel milestoneLabel = new JLabel("milestone " + (i + 1) + " : " + m.getTitle());
+
+            // Check if all subtasks are completed
+            JLabel milestoneCompleted = new JLabel(" ✅ ");
+            milestoneCompleted.setVisible(true);
+            for (Task subtask : m.getSubtasks()) {
+                if (subtask.getStatus().equals("Not Started") | subtask.getStatus().equals("In Progress")) {
+                    milestoneCompleted.setVisible(false);
+                    break;
+                }
+            }
+
 
             milestoneHeader.add(upButton);
             milestoneHeader.add(downButton);
             milestoneHeader.add(milestoneLabel);
-
+            milestoneHeader.add(milestoneCompleted);
 
             // SubTask Panel for each Milestone
             JPanel tasksPanel = new JPanel();
             tasksPanel.setLayout(new BoxLayout(tasksPanel, BoxLayout.Y_AXIS));
-
-            ArrayList<Task> tasks = m.getTasks();
-            for (int j = 0; j < tasks.size(); j++) {
-                Task t = tasks.get(j);
-
-                JPanel taskRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                JLabel taskLabel = new JLabel("Task " + (j + 1) + ": " + t.getName() + "    ");
-
-                String d = t.getDuedate();
-
-                JLabel dueLabel = new JLabel("Due: " + d + "   ");
-
-                JComboBox statusComboBox = new JComboBox(TaskStatus);
-                statusComboBox.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        String selectedStatus = (String) statusComboBox.getSelectedItem();
-                        System.out.println(selectedStatus);
-                    }
-                });
-                taskRow.add(taskLabel);
-                taskRow.add(dueLabel);
-                taskRow.add(statusComboBox);
-
-                tasksPanel.add(taskRow);
-            }
+            //If the milestone is completed, hide it. Show it if it's not
+            tasksPanel.setVisible(!milestoneCompleted.isVisible());
 
             upButton.addActionListener(new ActionListener() {
                 @Override
@@ -246,8 +232,25 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
                     milestonePanel.repaint();
                 }
             });
-            // tasks are originally invisible
-            tasksPanel.setVisible(true);
+
+            ArrayList<Task> tasks = m.getSubtasks();
+            for (int j = 0; j < tasks.size(); j++) {
+                Task t = tasks.get(j);
+
+                JPanel taskRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                JLabel taskLabel = new JLabel("Task " + (j + 1) + ": " + t.getName() + "    ");
+                String d = t.getDuedate();
+                JLabel dueLabel = new JLabel("Due: " + d + "   ");
+
+                //Later on could change String color based on the status.
+                JLabel statusLabel = new JLabel("Status: " + t.getStatus());
+
+                taskRow.add(taskLabel);
+                taskRow.add(dueLabel);
+                taskRow.add(statusLabel);
+                tasksPanel.add(taskRow);
+            }
+
 
             milestonePanel.add(milestoneHeader);
             milestonePanel.add(tasksPanel);
@@ -310,104 +313,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         return viewname;
     }
 
-    private ArrayList<StudyPlan> generateTestPlans() {
-        ArrayList<StudyPlan> plans = new ArrayList<>();
-
-        // Plan 1
-        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>());
-
-        Milestone p1m1 = new Milestone("Milestone 1");
-        String date = "MM/DD/YYYY";
-        p1m1.getTasks().add(new Task("Do step1", date));
-        p1m1.getTasks().add(new Task("Do step2", date));
-
-        Milestone p1m2 = new Milestone("Milesone 2");
-        p1m2.getTasks().add(new Task("Do step1", date));
-        p1m2.getTasks().add(new Task("Do step2", date));
-
-        plan1.getMilestones().add(p1m1);
-        plan1.getMilestones().add(p1m2);
-
-        // Plan 2
-        StudyPlan plan2 = new StudyPlan("Plan 2", new ArrayList<>());
-
-        Milestone p2m1 = new Milestone("Milestone 1");
-        p2m1.getTasks().add(new Task("Do step1", date));
-        p2m1.getTasks().add(new Task("Do step2", date));
-
-        Milestone p2m2 = new Milestone("Milestone 2");
-        p2m2.getTasks().add(new Task("Do step1", date));
-        p2m2.getTasks().add(new Task("Do step2", date));
-
-        plan2.getMilestones().add(p2m1);
-        plan2.getMilestones().add(p2m2);
-
-        // Plan 3
-        StudyPlan plan3 = new StudyPlan("Plan 3", new ArrayList<>());
-
-        Milestone p3m1 = new Milestone("Milestone 1");
-        p3m1.getTasks().add(new Task("Do step1", date));
-        p3m1.getTasks().add(new Task("Do step2", date));
-
-        Milestone p3m2 = new Milestone("Milestone 2");
-        p3m2.getTasks().add(new Task("Do step1", date));
-        p3m2.getTasks().add(new Task("Do step2", date));
-
-        plan3.getMilestones().add(p3m1);
-        plan3.getMilestones().add(p3m2);
-
-        // plan 4
-        StudyPlan plan4 = new StudyPlan("Plan 4", new ArrayList<>());
-
-        Milestone p4m1 = new Milestone("Milestone 1");
-        p3m1.getTasks().add(new Task("Do step1", date));
-        p3m1.getTasks().add(new Task("Do step2", date));
-
-        Milestone p4m2 = new Milestone("Milestone 2");
-        p3m2.getTasks().add(new Task("Do step1", date));
-        p3m2.getTasks().add(new Task("Do step2", date));
-
-        plan4.getMilestones().add(p4m1);
-        plan4.getMilestones().add(p4m2);
-        // Plan 5
-        StudyPlan plan5 = new StudyPlan("Plan 5", new ArrayList<>());
-
-        Milestone p5m1 = new Milestone("Milestone 1");
-        p5m1.getTasks().add(new Task("Do step1", date));
-        p5m1.getTasks().add(new Task("Do step2", date));
-
-        Milestone p5m2 = new Milestone("Milestone 2");
-        p5m2.getTasks().add(new Task("Do step1", date));
-        p5m2.getTasks().add(new Task("Do step2", date));
-
-        plan5.getMilestones().add(p5m1);
-        plan5.getMilestones().add(p5m2);
-
-        //plan 6
-        StudyPlan plan6 = new StudyPlan("Plan 6", new ArrayList<>());
-
-        Milestone p6m1 = new Milestone("Milestone 1");
-        p6m1.getTasks().add(new Task("Do step1", date));
-        p6m1.getTasks().add(new Task("Do step2", date));
-
-        Milestone p6m2 = new Milestone("Milestone 2");
-        p6m2.getTasks().add(new Task("Do step1", date));
-        p6m2.getTasks().add(new Task("Do step2", date));
-
-        plan6.getMilestones().add(p6m1);
-        plan6.getMilestones().add(p6m2);
-
-        //add all plans to plans
-        plans.add(plan1);
-        plans.add(plan2);
-        plans.add(plan3);
-        plans.add(plan4);
-        plans.add(plan5);
-        plans.add(plan6);
-
-        return plans;
-
-    }
 
     public void setDeletePlanController(DeletePlanController deletePlanController) {
         this.deletePlanController = deletePlanController;
@@ -419,29 +324,65 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         JButton button = (JButton) e.getSource();
         if (this.buttonToPlanMap.containsKey(button)) {
             StudyPlan plan = this.buttonToPlanMap.get(button);
-            System.out.println("Trying to delete: " + plan.getTitle());
             this.deletePlanController.execute(plan);
-        } else {
+        }else if(e.getSource() == newPlan){
+            System.out.println("Go create New Plans!");
+        }
+        else {
+            handleSavingEvent(e);
+        }
+    }
 
-            System.out.println("click save button");
+    private void handleSavingEvent(ActionEvent e) {
+        ArrayList<StudyPlan> currentPlansInView = trackPlanViewModel.getState().getStudyPlans();
+
+        Set<String> planTitles = new HashSet<>();
+        for (StudyPlan plan : currentPlansInView) {
+            if (plan.getTitle().strip().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Empty Plan Title! Not allowed!😡😡");
+                System.out.println("Empty Plan Title! Not allowed!");
+                return;
+            }
+            planTitles.add(plan.getTitle());
+        }
+        if (planTitles.size() == currentPlansInView.size()) {
+            System.out.println("All Plans have different names, good to save!");
+            JOptionPane.showMessageDialog(this, "Save Successful!");
+        } else {
+            JOptionPane.showMessageDialog(this, "StudyPlans CAN NOT have the same title😡😡");
+            System.out.println("There are some repetitive names in Plans, fail to save");
         }
     }
 
 
-// DocumentListener for the plan title input field
+    // DocumentListener for the plan title input field
     @Override
     public void insertUpdate(DocumentEvent e) {
-        System.out.println("insert");
+        handleTypingEvent(e);
+
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        System.out.println("remove");
+        handleTypingEvent(e);
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        System.out.println("changed");
+        handleTypingEvent(e);
+    }
+
+    private void handleTypingEvent(DocumentEvent e) {
+        Document doc = e.getDocument();
+        Set<JTextField> textFieldSet = titleToPlanMap.keySet();
+        for (JTextField textField : textFieldSet) {
+            if (textField.getDocument() == doc) {
+                titleToPlanMap.get(textField).setTitle(textField.getText());
+                System.out.println("Find the field of the Plan: " + titleToPlanMap.get(textField).getTitle());
+                System.out.println(titleToPlanMap.get(textField).getTitle());
+                break;
+            }
+        }
     }
 
     public void setAddReflectionController(AddReflectionController controller) {
