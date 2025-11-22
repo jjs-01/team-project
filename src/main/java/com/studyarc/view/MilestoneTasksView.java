@@ -24,14 +24,14 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
     public MilestoneTasksView() {
         final JPanel topDetails = new JPanel();
-        planTitle = new JLabel("HCI Study Plan");
+        planTitle = new JLabel("Study Plan");
         planTitle.setFont(new Font("SansSerif", Font.BOLD, 24));
         topDetails.add(planTitle);
 
         focuses = new JLabel("Focus: ");
         topDetails.add(focuses);
 
-        save = new JButton("Save Plan");
+        save = new JButton("Save Changes");
         topDetails.add(save);
 
         milestoneView.setLayout(new GridBagLayout());
