@@ -1,12 +1,11 @@
 package com.studyarc.view;
 
-import com.studyarc.data_access.DatabaseAccess;
 import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.Task;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanController;
-import com.studyarc.interface_adapter.reflection_log.AddReflectionController;
-import com.studyarc.interface_adapter.reflection_log.AddReflectionViewModel;
+import com.studyarc.interface_adapter.add_reflection.AddReflectionController;
+import com.studyarc.interface_adapter.add_reflection.AddReflectionViewModel;
 import com.studyarc.interface_adapter.track_plan.TrackPlanState;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
 import org.jetbrains.annotations.NotNull;
@@ -19,9 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import javax.swing.SwingUtilities;
 
@@ -151,22 +148,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         JPanel headPanel = new JPanel();
         headPanel.setLayout(new BoxLayout(headPanel, BoxLayout.X_AXIS));
         JLabel planLabel = new JLabel("Plan : ");
-        JButton addReflectionButton = new JButton("Add Reflection");
-
-        addReflectionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddReflectionView dialog = new AddReflectionView(
-                        SwingUtilities.getWindowAncestor(TrackPlansView.this),
-                        addReflectionViewModel,
-                        addReflectionController,
-                        plan.getTitle()
-                );
-
-                dialog.setVisible(true);
-            }
-        });
-
 
         // Text Field for Plan Title
         JTextField planTitleTextField = new JTextField();
@@ -183,7 +164,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         headPanel.add(planLabel);
         headPanel.add(planTitleTextField);
         headPanel.add(deleteButton);
-        headPanel.add(addReflectionButton);
 
 
 
@@ -268,8 +248,47 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             milestonesPanel.add(Box.createVerticalStrut(10));
         }
 
+        // reflection log part.
+        JPanel reflectionPanel = new JPanel();
+        reflectionPanel.setLayout(new BorderLayout());
+        reflectionPanel.setBorder(BorderFactory.createTitledBorder("Reflection Log"));
+
+// Header area (Add + Show All buttons)
+        JPanel reflectionHeader = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        JButton addReflectionButton = new JButton("Add");
+        JButton showAllReflectionsButton = new JButton("Show All");
+
+        reflectionHeader.add(addReflectionButton);
+        reflectionHeader.add(showAllReflectionsButton);
+
+        reflectionPanel.add(reflectionHeader, BorderLayout.NORTH);
+
+        addReflectionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddReflectionView dialog = new AddReflectionView(
+                        SwingUtilities.getWindowAncestor(TrackPlansView.this),
+                        addReflectionViewModel,
+                        addReflectionController,
+                        plan.getTitle()
+                );
+
+                dialog.setVisible(true);
+            }
+        });
+
+        showAllReflectionsButton.addActionListener(e -> {
+            new ShowReflectionView(
+                    SwingUtilities.getWindowAncestor(TrackPlansView.this),
+                    plan
+            ).setVisible(true);
+        });
+
+
         planPanel.add(headPanel, BorderLayout.NORTH);
         planPanel.add(milestonesPanel, BorderLayout.CENTER);
+        planPanel.add(reflectionPanel, BorderLayout.SOUTH);
 
         return planPanel;
     }

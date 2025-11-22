@@ -1,4 +1,4 @@
-package com.studyarc.interface_adapter.reflection_log;
+package com.studyarc.interface_adapter.add_reflection;
 
 import com.studyarc.interface_adapter.ViewModel;
 

@@ -1,16 +1,16 @@
 package com.studyarc.use_case.add_reflection;
 
 public class AddReflectionInputData {
-    private final String planName;
+    private final String planTitle;
     private final String contents;
 
-    public AddReflectionInputData(String planName, String contents) {
-        this.planName = planName;
+    public AddReflectionInputData(String planTitle, String contents) {
+        this.planTitle = planTitle;
         this.contents = contents;
     }
 
-    public String getPlanName() {
-        return planName;
+    public String getPlanTitle() {
+        return planTitle;
     }
 
     public String getContents() {

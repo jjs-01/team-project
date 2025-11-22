@@ -1,8 +1,7 @@
-package com.studyarc.interface_adapter.reflection_log;
+package com.studyarc.interface_adapter.add_reflection;
 
 import com.studyarc.use_case.add_reflection.AddReflectionInputBoundary;
 import com.studyarc.use_case.add_reflection.AddReflectionInputData;
-import java.time.LocalDate;
 
 public class AddReflectionController {
     private final AddReflectionInputBoundary addReflectionUseCaseInteractor;

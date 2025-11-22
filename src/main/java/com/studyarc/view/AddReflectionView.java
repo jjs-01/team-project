@@ -1,8 +1,8 @@
 package com.studyarc.view;
 
-import com.studyarc.interface_adapter.reflection_log.AddReflectionController;
-import com.studyarc.interface_adapter.reflection_log.AddReflectionState;
-import com.studyarc.interface_adapter.reflection_log.AddReflectionViewModel;
+import com.studyarc.interface_adapter.add_reflection.AddReflectionController;
+import com.studyarc.interface_adapter.add_reflection.AddReflectionState;
+import com.studyarc.interface_adapter.add_reflection.AddReflectionViewModel;
 
 import javax.swing.*;
 import java.awt.*;

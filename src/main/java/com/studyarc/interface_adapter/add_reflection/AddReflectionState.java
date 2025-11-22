@@ -1,4 +1,4 @@
-package com.studyarc.interface_adapter.reflection_log;
+package com.studyarc.interface_adapter.add_reflection;
 
 public class AddReflectionState {
     private String error = "";

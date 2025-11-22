@@ -5,34 +5,34 @@ import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.User;
 
 public class AddReflectionInteractor implements AddReflectionInputBoundary {
-    private final AddReflectionOutputBoundary reflectionLogPresenter;
-    private final AddReflectionDataAccessInterface reflectionLogDataAccess;
+    private final AddReflectionOutputBoundary addReflectionPresenter;
+    private final AddReflectionDataAccessInterface addReflectionDataAccess;
 
-    public AddReflectionInteractor(AddReflectionOutputBoundary reflectionLogPresenter,
-                                   AddReflectionDataAccessInterface reflectionLogDataAccess) {
-        this.reflectionLogPresenter = reflectionLogPresenter;
-        this.reflectionLogDataAccess = reflectionLogDataAccess;
+    public AddReflectionInteractor(AddReflectionOutputBoundary addReflectionPresenter,
+                                   AddReflectionDataAccessInterface addReflectionDataAccess) {
+        this.addReflectionPresenter = addReflectionPresenter;
+        this.addReflectionDataAccess = addReflectionDataAccess;
     }
 
     @Override
     public void execute(AddReflectionInputData inputData) {
-        final String planName = inputData.getPlanName();
+        final String planTitle = inputData.getPlanTitle();
         final String contents = inputData.getContents();
         if (contents.isEmpty()) {
-            reflectionLogPresenter.prepareFailView("Please enter a valid contents");
+            addReflectionPresenter.prepareFailView("Please enter a valid contents");
         }
         else {
-            User user = reflectionLogDataAccess.getCurrentUser();
-            StudyPlan plan = reflectionLogDataAccess.getPlan(user, planName);
+            User user = addReflectionDataAccess.getCurrentUser();
+            StudyPlan plan = addReflectionDataAccess.getPlan(user, planTitle);
             if (plan == null) {
-                reflectionLogPresenter.prepareFailView("Plan not found");
+                addReflectionPresenter.prepareFailView("Plan not found");
             }
             else {
                 Reflection newReflection = new Reflection(contents);
-                plan.addReflection(newReflection);
-                reflectionLogDataAccess.savePlan(user, plan);
-                AddReflectionOutputData output = new AddReflectionOutputData(contents);
-                reflectionLogPresenter.prepareSuccessView(output);
+                plan.getReflections().add(newReflection);
+                addReflectionDataAccess.savePlan(user, plan);
+                AddReflectionOutputData output = new AddReflectionOutputData(planTitle, newReflection);
+                addReflectionPresenter.prepareSuccessView(output);
             }
         }
     }

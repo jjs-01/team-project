@@ -29,7 +29,7 @@ public class StudyPlan {
         this.milestones = milestones;
     }
 
-    public void addReflection(Reflection r) {
-        reflections.add(r);
+    public List<Reflection> getReflections() {
+        return reflections;
     }
 }
