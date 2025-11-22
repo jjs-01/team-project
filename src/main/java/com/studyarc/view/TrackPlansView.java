@@ -21,6 +21,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.SwingUtilities;
+import java.util.List;
 
 public class TrackPlansView extends JPanel implements PropertyChangeListener, ActionListener, DocumentListener {
     private static TrackPlansView instance;
@@ -42,6 +43,9 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
     private final AddReflectionViewModel addReflectionViewModel;
     private AddReflectionController addReflectionController = null;
+
+    private String currentSelectedPlanTitle;
+    private ShowReflectionView showReflectionView;
 
     public static TrackPlansView getInstance(TrackPlanViewModel trackPlanViewModel,
                                              AddReflectionViewModel addReflectionViewModel) {
@@ -97,7 +101,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         }
 
         if (evt.getPropertyName().equals("reflection_added")) {
-            return;
+            updateReflectionsUI();
         }
 
         TrackPlanState currentstate = (TrackPlanState) evt.getNewValue();
@@ -282,9 +286,16 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         });
 
         showAllReflectionsButton.addActionListener(e -> {
-            new ShowReflectionView(
-                    SwingUtilities.getWindowAncestor(TrackPlansView.this)
-            ).setVisible(true);
+            currentSelectedPlanTitle = plan.getTitle();
+
+            if (showReflectionView == null) {
+                showReflectionView = new ShowReflectionView(
+                        SwingUtilities.getWindowAncestor(TrackPlansView.this)
+                );
+            }
+
+            showReflectionView.refresh(plan.getReflections());
+            showReflectionView.setVisible(true);
         });
 
 
@@ -435,6 +446,32 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
     public void setAddReflectionController(AddReflectionController controller) {
         this.addReflectionController = controller;
+    }
+
+    private void updateReflectionsUI() {
+        if (currentSelectedPlanTitle == null) {
+            return;
+        }
+
+        TrackPlanState tpState = trackPlanViewModel.getState();
+        List<StudyPlan> plans = tpState.getStudyPlans();
+
+        StudyPlan current = null;
+        for (StudyPlan p : plans) {
+            if (p.getTitle().equals(currentSelectedPlanTitle)) {
+                current = p;
+                break;
+            }
+        }
+
+        if (current == null) {
+            System.out.println("No matching plan found for updateReflectionsUI()");
+            return;
+        }
+
+        if (showReflectionView != null && showReflectionView.isVisible()) {
+            showReflectionView.refresh(current.getReflections());
+        }
     }
 
 

@@ -6,6 +6,7 @@ import com.studyarc.entity.StudyPlan;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShowReflectionView extends JDialog {
     private final JTextArea reflectionArea;
@@ -23,11 +24,11 @@ public class ShowReflectionView extends JDialog {
 
         add(scrollPane);
 
-        setSize(400, 350);
+        setSize(350, 250);
         setLocationRelativeTo(owner);
     }
 
-    public void refresh(ArrayList<Reflection> reflections) {
+    public void refresh(List<Reflection> reflections) {
         StringBuilder sb = new StringBuilder();
 
         int i = 1;
