@@ -56,7 +56,14 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("Not implemented yet");
+                        if (e.getSource().equals(save)) {
+                            final MilestoneTasksState currentState = milestoneViewModel.getState();
+
+                            milestoneTasksController.execute(
+                                currentState.getMilestones(),
+                                currentState.getMilestonestoTasks()
+                            );
+                        }
                     }
                 }
         );
@@ -221,7 +228,6 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                         MilestoneTasksViewModel.BASE_TASK_FIELDS[1],
                         MilestoneTasksViewModel.BASE_TASK_FIELDS[2]);
                 milestoneViewModel.setState(currentState);
-                System.out.println(currentState);
             }
 
             @Override
@@ -336,7 +342,6 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // final milestoneTaskState state =(miles)
         final MilestoneTasksState state = (MilestoneTasksState) evt.getNewValue();
 //        if (state.getMilestoneNameError() != null) {
 //            JOptionPane.showMessageDialog((this, state.get));

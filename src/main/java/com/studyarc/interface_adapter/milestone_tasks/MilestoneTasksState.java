@@ -6,12 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class MilestoneTasksState {
-    private List<String> milestoneNames = new ArrayList<>();
-    private List<String> milestoneDates = new ArrayList<>();
-    private Map<Integer, List<String[]>> milestoneIndexToTasks = new HashMap<>();
-
-
-    // private List<String[]>
+    private final List<String> milestoneNames = new ArrayList<>();
+    private final List<String> milestoneDates = new ArrayList<>();
+    private final Map<Integer, List<String[]>> milestoneIndexToTasks = new HashMap<>();
 
     public void addMilestone(int milestoneIndex, String name, String date) {
         milestoneNames.add(milestoneIndex, name);
@@ -49,29 +46,49 @@ public class MilestoneTasksState {
         taskInfo[2] = newStatus;
     }
 
-    public void removeMilestone(int index) {
-        milestoneNames.remove(index);
-        milestoneDates.remove(index);
-        milestoneIndexToTasks.remove(index);
-    }
-
-    public void removeTask(int milestoneIndex, int taskIndex) {
-        List<String[]> tasks = milestoneIndexToTasks.get(milestoneIndex);
-    }
+    // NOT implemented yet
+//    public void removeMilestone(int index) {
+//        milestoneNames.remove(index);
+//        milestoneDates.remove(index);
+//        milestoneIndexToTasks.remove(index);
+//    }
+//
+//    public void removeTask(int milestoneIndex, int taskIndex) {
+//        List<String[]> tasks = milestoneIndexToTasks.get(milestoneIndex);
+//    }
 
     public List<String[]> getTasks(int milestoneIndex) {
         return milestoneIndexToTasks.get(milestoneIndex);
     }
 
+    public Map<String, List<String[]>> getMilestonestoTasks() {
+        Map<String, List<String[]>> result = new HashMap<>();
+
+        for (int i = 0; i < milestoneNames.size(); i++) {
+            result.put(milestoneNames.get(i), milestoneIndexToTasks.get(i));
+        }
+
+        return result;
+    }
+
+    public Map<String, String> getMilestones() {
+        Map<String, String> result = new HashMap<>();
+        for (int i = 0; i < milestoneNames.size(); i++) {
+            result.put(milestoneNames.get(i), milestoneDates.get(i));
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
+        String newlineComma = "', \n";
         result.append("MilestoneTasksState{[");
 
         for (int i = 0; i < milestoneNames.size(); i++) {
             result.append("milestoneName='")
                     .append(milestoneNames.get(i))
-                    .append("', \n");
+                    .append(newlineComma);
             result.append("dueDate='")
                     .append(milestoneDates.get(i))
                     .append("', \n");
@@ -82,17 +99,17 @@ public class MilestoneTasksState {
             for (String[] task : currTasks) {
                 result.append("[taskName='")
                         .append(task[0])
-                        .append("', \n");
+                        .append(newlineComma);
                 result.append("dueDate='")
                         .append(task[1])
-                        .append("', \n");
+                        .append(newlineComma);
                 result.append("status='")
                         .append(task[2])
-                        .append("'], \n");
+                        .append(newlineComma);
             }
             result.append("], \n");
         }
-        result.append("] BLAH");
+        result.append("]");
 
         return result.toString();
     }
