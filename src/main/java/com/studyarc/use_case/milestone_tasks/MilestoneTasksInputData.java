@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 public class MilestoneTasksInputData {
+    private final String studyPlanName;
     private final ArrayList<Milestone> milestones;
 
-    public MilestoneTasksInputData(Map<String, String> milestoneData,
+    public MilestoneTasksInputData(String studyPlanName, Map<String, String> milestoneData,
                                    Map<String, List<String[]>> milestonesToTasksData) {
+        this.studyPlanName = studyPlanName;
         milestones = new ArrayList<>();
         for (Map.Entry<String, String> milestoneInfo : milestoneData.entrySet()) {
             List<Task> tasks = new ArrayList<>();
@@ -25,4 +27,6 @@ public class MilestoneTasksInputData {
     }
 
     ArrayList<Milestone> getMilestones() { return milestones; }
+
+    String getStudyPlanName() {return studyPlanName; }
 }

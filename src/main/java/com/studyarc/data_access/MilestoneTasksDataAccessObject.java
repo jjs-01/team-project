@@ -21,7 +21,15 @@ public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessI
     }
 
     @Override
-    public void savePlan(User user, StudyPlan plan, Map<Milestone, ArrayList<Task>> milestonesToTasks) {
+    public void savePlan(User user, StudyPlan plan) {
         System.out.println("Not implemented yet");
+    }
+
+    @Override
+    public ArrayList<StudyPlan> getPlans(User user) {return null;}
+
+    @Override
+    public User getUser(String username) {
+        return null;
     }
 }

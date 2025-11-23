@@ -1,10 +1,6 @@
 package com.studyarc.interface_adapter.milestone_tasks;
 
-import com.studyarc.entity.Milestone;
 import com.studyarc.interface_adapter.ViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MilestoneTasksViewModel extends ViewModel<MilestoneTasksState> {
 

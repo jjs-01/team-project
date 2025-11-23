@@ -1,7 +1,6 @@
 package com.studyarc.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Milestone {
@@ -10,18 +9,18 @@ public class Milestone {
     private final List<Task> subtasks;
 
     public Milestone(String name, String dueDate) {
-        if ("".equals(name)) {
-            throw new IllegalArgumentException("Name cannot be empty.");
-        }
+//        if ("".equals(name)) {
+//            throw new IllegalArgumentException("Name cannot be empty.");
+//        }
         this.name = name;
         this.dueDate = dueDate;
         this.subtasks = new ArrayList<>();
     }
 
     public Milestone(String name, String dueDate, List<Task> subtasks) {
-        if ("".equals(name)) {
-            throw new IllegalArgumentException("Name cannot be empty.");
-        }
+//        if ("".equals(name)) {
+//            throw new IllegalArgumentException("Name cannot be empty.");
+//        }
         this.name = name;
         this.dueDate = dueDate;
         this.subtasks = subtasks;
@@ -36,9 +35,9 @@ public class Milestone {
     }
 
     public void setName(String name) {
-        if ("".equals(name)) {
-            throw new IllegalArgumentException("Name cannot be empty.");
-        }
+//        if ("".equals(name)) {
+//            throw new IllegalArgumentException("Name cannot be empty.");
+//        }
         this.name = name;
     }
 

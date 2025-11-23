@@ -1,7 +1,5 @@
 package com.studyarc.interface_adapter.milestone_tasks;
 
-import com.studyarc.entity.Milestone;
-import com.studyarc.entity.Task;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputData;
 
@@ -24,8 +22,9 @@ public class MilestoneTasksController {
      * @param milestones map of the milestones that the user has created
      * @param milestonesToTasks map of the milestone names to the tasks they're associated with
      */
-    public void execute(Map<String, String> milestones, Map<String, List<String[]>> milestonesToTasks) {
-        final MilestoneTasksInputData milestoneInputData = new MilestoneTasksInputData(milestones, milestonesToTasks);
+    public void execute(String studyPlanName, Map<String, String> milestones, Map<String, List<String[]>> milestonesToTasks) {
+        final MilestoneTasksInputData milestoneInputData = new MilestoneTasksInputData(studyPlanName,
+                milestones, milestonesToTasks);
 
         milestoneUseCaseInteractor.execute(milestoneInputData);
     }

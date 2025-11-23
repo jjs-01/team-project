@@ -29,6 +29,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
     private final String viewName = "milestones and tasks";
     private MilestoneTasksController milestoneTasksController;
     private final MilestoneTasksViewModel milestoneViewModel;
+    private final String studyPlanName = "studyPlanTitle";
 
     private final JPanel milestoneView = new JPanel();
     private final JLabel planTitle;
@@ -59,7 +60,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                         if (e.getSource().equals(save)) {
                             final MilestoneTasksState currentState = milestoneViewModel.getState();
 
-                            milestoneTasksController.execute(
+                            milestoneTasksController.execute(studyPlanName,
                                 currentState.getMilestones(),
                                 currentState.getMilestonestoTasks()
                             );
