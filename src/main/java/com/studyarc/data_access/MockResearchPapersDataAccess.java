@@ -10,7 +10,6 @@ public class MockResearchPapersDataAccess implements ViewingResearchPapersDataAc
     public List<ResearchPaper> getAllPapers() {
         List<ResearchPaper> papers = new ArrayList<>();
 
-        // Add some test data with all 5 required parameters: id, title, authors, abstractText, url
         papers.add(new ResearchPaper(
                 "1",
                 "Deep Learning for Computer Vision",
