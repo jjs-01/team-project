@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
+import com.studyarc.view.MilestoneTasksView;
+
 import com.studyarc.view.*;
 
 public class AppBuilder {

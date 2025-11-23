@@ -8,8 +8,7 @@ import java.util.List;
 
 public class MilestoneTasksViewModel extends ViewModel<MilestoneTasksState> {
 
-    public static final String TITLE_LABLE = "Study Plan View";
-    public static final List<Milestone> MILESTONES = new ArrayList<>();
+    public static final String TITLE_LABEL = "Study Plan View";
 
     public static final String[] BASE_MILESTONE_FIELDS = {"Milestone Name", "XX/XX/XXXX"};
     public static final String[] BASE_TASK_STATUS_OPTIONS = {"Not started", "In progress", "Done"};

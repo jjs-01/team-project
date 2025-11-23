@@ -8,7 +8,7 @@ import java.util.Map;
 public class MilestoneTasksState {
     private List<String> milestoneNames = new ArrayList<>();
     private List<String> milestoneDates = new ArrayList<>();
-    private Map<Integer, List<String[]>> milestonesToTasks = new HashMap<>();
+    private Map<Integer, List<String[]>> milestoneIndexToTasks = new HashMap<>();
 
 
     // private List<String[]>
@@ -16,12 +16,13 @@ public class MilestoneTasksState {
     public void addMilestone(int milestoneIndex, String name, String date) {
         milestoneNames.add(milestoneIndex, name);
         milestoneDates.add(milestoneIndex, date);
-        milestonesToTasks.put(milestoneIndex, new ArrayList<>());
+        milestoneIndexToTasks.put(milestoneIndex, new ArrayList<>());
     }
 
-    public void addTask(int milestoneIndex, String[] taskInfo) {
-        if (milestonesToTasks.containsKey(milestoneIndex)) {
-            milestonesToTasks.get(milestoneIndex).add(taskInfo);
+    public void addTask(int milestoneIndex, String name, String date, String status) {
+        if (milestoneIndexToTasks.containsKey(milestoneIndex)) {
+            String[] taskInfo = {name, date, status};
+            milestoneIndexToTasks.get(milestoneIndex).add(taskInfo);
         }
     }
 
@@ -29,18 +30,37 @@ public class MilestoneTasksState {
         milestoneNames.set(index, newName);
     }
 
+    public void setMilestoneDate(int index, String newDate) {
+        milestoneDates.set(index, newDate);
+    }
+
+    public void setTaskName(int milestoneIndex, int taskIndex, String newName) {
+        String[] taskInfo = milestoneIndexToTasks.get(milestoneIndex).get(taskIndex);
+        taskInfo[0] = newName;
+    }
+
+    public void setTaskDate(int milestoneIndex, int taskIndex, String newDate) {
+        String[] taskInfo = milestoneIndexToTasks.get(milestoneIndex).get(taskIndex);
+        taskInfo[1] = newDate;
+    }
+
+    public void setTaskStatus(int milestoneIndex, int taskIndex, String newStatus) {
+        String[] taskInfo = milestoneIndexToTasks.get(milestoneIndex).get(taskIndex);
+        taskInfo[2] = newStatus;
+    }
+
     public void removeMilestone(int index) {
         milestoneNames.remove(index);
         milestoneDates.remove(index);
-        milestonesToTasks.remove(index);
+        milestoneIndexToTasks.remove(index);
     }
 
-    public void removeTask(int milestoneIndex, String taskName) {
-        List<String[]> tasks = milestonesToTasks.get(milestoneIndex);
+    public void removeTask(int milestoneIndex, int taskIndex) {
+        List<String[]> tasks = milestoneIndexToTasks.get(milestoneIndex);
     }
 
     public List<String[]> getTasks(int milestoneIndex) {
-        return milestonesToTasks.get(milestoneIndex);
+        return milestoneIndexToTasks.get(milestoneIndex);
     }
 
     @Override
