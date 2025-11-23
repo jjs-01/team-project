@@ -3,6 +3,8 @@ package com.studyarc.view;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,6 +35,14 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
         save = new JButton("Save Changes");
         topDetails.add(save);
+
+        save.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    }
+                }
+        );
 
         milestoneView.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -65,28 +75,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
                             constraints2.gridx = 0; constraints2.gridy = 1;
                             JButton addTask = new JButton("+   add a task");
-                            addTask.setFont(new Font("SansSerif", Font.BOLD, 10));
-                            addTask.setForeground(new Color(95, 95, 105));
-                            addTask.setContentAreaFilled(false);
-
-                            addTask.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    if (e.getSource().equals(addTask)) {
-                                        constraints2.gridx = 0; constraints2.gridy = GridBagConstraints.RELATIVE;
-                                        individualMilestone.add(new JTextField("Task Name", 10), constraints2);
-                                        constraints2.gridx = 1;
-                                        individualMilestone.add(new JTextField("XX/XX/XXXX", 7), constraints2);
-                                        constraints2.gridx = 2;
-                                        individualMilestone.add(new JComboBox<>(new String[]{"Not Started",
-                                                "In progress", "Done"}), constraints2);
-                                        constraints2.gridx = 3;
-                                        individualMilestone.add(new JButton("x"), constraints2);
-
-                                        individualMilestone.revalidate();
-                                    }
-                                }
-                            });
+                            addTaskListener(addTask, constraints2, individualMilestone);
 
                             individualMilestone.add(addTask, constraints2);
                             constraints2.gridx = 1;
@@ -119,8 +108,48 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         this.add(milestoneScrollPane, BorderLayout.CENTER);
     }
 
-    private void addMilestoneListener() {
+    private void addTaskListener(JButton addTask, GridBagConstraints constraints2, JPanel individualMilestone) {
+        addTask.setFont(new Font("SansSerif", Font.BOLD, 10));
+        addTask.setForeground(new Color(95, 95, 105));
+        addTask.setContentAreaFilled(false);
 
+        addTask.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(addTask)) {
+                    constraints2.gridx = 0; constraints2.gridy = GridBagConstraints.RELATIVE;
+                    individualMilestone.add(new JTextField("Task Name", 10), constraints2);
+                    constraints2.gridx = 1;
+                    individualMilestone.add(new JTextField("XX/XX/XXXX", 7), constraints2);
+                    constraints2.gridx = 2;
+                    individualMilestone.add(new JComboBox<>(new String[]{"Not Started",
+                            "In progress", "Done"}), constraints2);
+                    constraints2.gridx = 3;
+                    individualMilestone.add(new JButton("x"), constraints2);
+
+                    individualMilestone.revalidate();
+                }
+            }
+        });
+    }
+
+    private void addMilestoneNameListener(JTextField milestoneNameField) {
+        milestoneNameField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
     }
 
     private void addTaskListener() {
