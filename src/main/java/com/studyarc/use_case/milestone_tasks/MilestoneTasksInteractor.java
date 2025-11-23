@@ -7,7 +7,7 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
     public MilestoneTasksInteractor (MilestoneTasksDataAccessInterface milestoneDataAccessObject,
                                      MilestoneTasksOutputBoundary milestonePresenter) {
         this.milestoneDataAccessObject = milestoneDataAccessObject;
-        this.milestonePresenter = milestonePresenter;;
+        this.milestonePresenter = milestonePresenter;
     }
 
     @Override

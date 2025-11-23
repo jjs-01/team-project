@@ -3,7 +3,14 @@ package com.studyarc.app;
 import javax.swing.*;
 import java.awt.*;
 
+import com.studyarc.data_access.MilestoneTasksDataAccessObject;
+import com.studyarc.interface_adapter.ViewManagerModel;
+import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
+import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksPresenter;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
+import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputBoundary;
+import com.studyarc.use_case.milestone_tasks.MilestoneTasksInteractor;
+import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputBoundary;
 import com.studyarc.view.MilestoneTasksView;
 
 import com.studyarc.view.*;
@@ -18,6 +25,9 @@ public class AppBuilder {
     private SidePanelView sidePanelView;
     private MilestoneTasksView milestoneTaskView;
     private MilestoneTasksViewModel milestoneViewModel;
+    final ViewManagerModel viewManagerModel = new ViewManagerModel();
+
+    final MilestoneTasksDataAccessObject singleUseCaseDAO = new MilestoneTasksDataAccessObject();
 
 
     public AppBuilder() {
@@ -39,6 +49,17 @@ public class AppBuilder {
         milestoneTaskView = new MilestoneTasksView(milestoneViewModel);
         mainUIPanel.add(milestoneTaskView, BorderLayout.CENTER);
         overallPanel.add(mainUIPanel);
+        return this;
+    }
+
+    public AppBuilder addMilestoneTasksUseCase() {
+        final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(viewManagerModel,
+                milestoneViewModel);
+        final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(singleUseCaseDAO,
+                milestonesOutputBoundary);
+
+        MilestoneTasksController controller = new MilestoneTasksController(milestoneSaveInteractor);
+        milestoneTaskView.setMilestoneTasksController(controller);
         return this;
     }
 

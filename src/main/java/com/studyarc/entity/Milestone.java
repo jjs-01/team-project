@@ -5,11 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 public class Milestone {
-    private Date dueDate;
+    private String dueDate;
     private String name;
     private final List<Task> subtasks;
 
-    public Milestone(String name, Date dueDate) {
+    public Milestone(String name, String dueDate) {
         if ("".equals(name)) {
             throw new IllegalArgumentException("Name cannot be empty.");
         }
@@ -18,7 +18,7 @@ public class Milestone {
         this.subtasks = new ArrayList<>();
     }
 
-    public Milestone(String name, Date dueDate, List<Task> subtasks) {
+    public Milestone(String name, String dueDate, List<Task> subtasks) {
         if ("".equals(name)) {
             throw new IllegalArgumentException("Name cannot be empty.");
         }
@@ -46,11 +46,11 @@ public class Milestone {
         return name;
     }
 
-    public void setDueDate(Date date) {
+    public void setDueDate(String date) {
         dueDate = date;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 }

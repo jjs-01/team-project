@@ -4,17 +4,25 @@ import com.studyarc.entity.Milestone;
 import com.studyarc.entity.Task;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class MilestoneTasksInputData {
-    private Milestone milestone;
-    private ArrayList<Task> tasks;
+    private final ArrayList<Milestone> milestones;
 
-    public MilestoneTasksInputData(Milestone milestone, ArrayList<Task> tasks) {
-        this.milestone = milestone;
-        this.tasks = tasks;
+    public MilestoneTasksInputData(Map<String, String> milestoneData,
+                                   Map<String, List<String[]>> milestonesToTasksData) {
+        milestones = new ArrayList<>();
+        for (Map.Entry<String, String> milestoneInfo : milestoneData.entrySet()) {
+            List<Task> tasks = new ArrayList<>();
+            for (String[] taskData : milestonesToTasksData.get(milestoneInfo.getKey())) {
+                tasks.add(new Task(taskData[0], taskData[1], taskData[2]));
+            }
+
+            Milestone milestone = new Milestone(milestoneInfo.getKey(), milestoneInfo.getValue(), tasks);
+            milestones.add(milestone);
+        }
     }
 
-    Milestone getMilestone() { return milestone; }
-
-    ArrayList<Task> getTasks() { return tasks; }
+    ArrayList<Milestone> getMilestones() { return milestones; }
 }
