@@ -17,7 +17,11 @@ public class ViewingResearchPapersView extends JPanel {
     public ViewingResearchPapersView(ViewingResearchPapersViewModel viewModel) {
         this.viewModel = viewModel;
         this.setLayout(new BorderLayout());
-
+        viewModel.addPropertyChangeListener(evt -> {
+            if (ViewingResearchPapersViewModel.PAPERS_PROPERTY.equals(evt.getPropertyName())) {
+                refreshTable();
+            }
+        });
         JPanel topPanel = new JPanel();
         titleLabel = new JLabel("Research Papers");
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));

@@ -1,35 +1,56 @@
 package com.studyarc.interface_adapter.viewing_research_papers;
-import com.studyarc.entity.ResearchPaper;
-import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInteractor;
 
+import com.studyarc.entity.ResearchPaper;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewingResearchPapersViewModel {
-    private ViewingResearchPapersInteractor interactor;
+    public static final String PAPERS_PROPERTY = "researchPapers";
+    public static final String HAS_PAPERS_PROPERTY = "hasPapers";
+
+    private final PropertyChangeSupport support;
     private List<ResearchPaper> researchPapers;
+    private boolean hasPapers;
 
-    public void ViewResearchPapersViewModel(ViewingResearchPapersInteractor interactor) {
-        this.interactor = interactor;
+    public ViewingResearchPapersViewModel() {
+        this.support = new PropertyChangeSupport(this);
         this.researchPapers = new ArrayList<>();
+        this.hasPapers = false;
     }
 
 
-    public void loadResearchPapers() {
-        List<ResearchPaper> papersFromInteractor = interactor.fetchResearchPapers();
-        if (papersFromInteractor != null) {
-            this.researchPapers = papersFromInteractor;
-        } else {
-            this.researchPapers = new ArrayList<>();
-        }
-    }
-
-    /**
-     * Returns the current list of research papers.
-     * The view calls this when updating the table.
-     */
     public List<ResearchPaper> getResearchPapers() {
-        return researchPapers;
+        return new ArrayList<>(researchPapers);
     }
-}
+
+
+    public void setResearchPapers(List<ResearchPaper> researchPapers) {
+        List<ResearchPaper> oldPapers = this.researchPapers;
+        this.researchPapers = new ArrayList<>(researchPapers);
+        support.firePropertyChange(PAPERS_PROPERTY, oldPapers, this.researchPapers);
+    }
+
+
+    public boolean hasPapers() {
+        return hasPapers;
+    }
+
+
+    public void setHasPapers(boolean hasPapers) {
+        boolean oldValue = this.hasPapers;
+        this.hasPapers = hasPapers;
+        support.firePropertyChange(HAS_PAPERS_PROPERTY, oldValue, hasPapers);
+    }
+
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
+    }
 }
