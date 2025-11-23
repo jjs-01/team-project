@@ -6,8 +6,14 @@ public class Main {
     public static void main(String[] args) {
         AppBuilder appBuilder = new AppBuilder();
         JFrame application = appBuilder
-                .addMilestoneTasksPanel()
                 .addSidePanel()
+                .addMilestoneTasksPanel()
+                .addTrackPlanView()
+                .addJobPostingsView()
+                .addTrackPlanUsecase()
+                .addSidebarUseCase()
+                .addJobPostingsUseCase()
+                .addMilestoneTasksUseCase()
                 .build();
 
         application.pack();

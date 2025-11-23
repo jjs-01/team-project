@@ -1,12 +1,13 @@
-package com.studyarc.use_case.track_plan;
+package com.studyarc.interface_adapter.login;
 
-public class TempUser {
+public class LoginState {
     private String username;
     private String password;
-
-    public TempUser(String password, String username) {
-        this.password = password;
-        this.username = username;
+    private String errorCode;
+    public LoginState(){
+        this.username = "";
+        this.password = "";
+        this.errorCode = "";
     }
 
     public String getUsername() {
@@ -23,5 +24,13 @@ public class TempUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
     }
 }
