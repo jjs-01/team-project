@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="Use Case 6 Controller" />
+    <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="Use Case 6 Controller">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/ViewingResearchPapersView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/ViewingResearchPapersView.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,7 +76,7 @@
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/henrymorton/IdeaProjects/team-project&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;/Users/henrymorton/IdeaProjects/team-project/src/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
@@ -81,7 +86,7 @@
       <option name="ALTERNATIVE_JRE_PATH" value="ms-17" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.studyarc.app.Main" />
-      <module name="team-project" />
+      <module name="TeamProject" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.studyarc.app.*" />
