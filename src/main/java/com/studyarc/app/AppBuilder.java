@@ -2,6 +2,8 @@ package com.studyarc.app;
 
 import javax.swing.*;
 import java.awt.*;
+
+import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 import com.studyarc.view.*;
 
 public class AppBuilder {
@@ -13,6 +15,7 @@ public class AppBuilder {
 
     private SidePanelView sidePanelView;
     private MilestoneTasksView milestoneTaskView;
+    private MilestoneTasksViewModel milestoneViewModel;
 
 
     public AppBuilder() {
@@ -30,7 +33,8 @@ public class AppBuilder {
     }
 
     public AppBuilder addMilestoneTasksPanel() {
-        milestoneTaskView = new MilestoneTasksView();
+        milestoneViewModel = new MilestoneTasksViewModel();
+        milestoneTaskView = new MilestoneTasksView(milestoneViewModel);
         mainUIPanel.add(milestoneTaskView, BorderLayout.CENTER);
         overallPanel.add(mainUIPanel);
         return this;
