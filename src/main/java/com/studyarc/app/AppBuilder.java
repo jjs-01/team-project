@@ -5,6 +5,7 @@ import java.awt.*;
 
 import com.studyarc.data_access.DatabaseAccess;
 import com.studyarc.data_access.MilestoneTasksDatatAccessObject;
+import com.studyarc.data_access.MockResearchPapersDataAccess;
 import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.interface_adapter.job_postings.JobPostingsController;
 import com.studyarc.interface_adapter.job_postings.JobPostingsPresenter;
@@ -18,6 +19,9 @@ import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarController;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarPresenter;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarViewModel;
+import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersController;
+import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersPresenter;
+import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersViewModel;
 import com.studyarc.use_case.job_postings.JobPostingsInputBoundary;
 import com.studyarc.use_case.job_postings.JobPostingsInteractor;
 import com.studyarc.use_case.job_postings.JobPostingsOutputBoundary;
@@ -30,6 +34,10 @@ import com.studyarc.use_case.milestone_tasks.MilestoneTasksInteractor;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputBoundary;
 import com.studyarc.use_case.track_plan.*;
 import com.studyarc.use_case.ui_sidebar.*;
+import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersDataAccessInterface;
+import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInputBoundary;
+import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInteractor;
+import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersOutputBoundary;
 import com.studyarc.view.*;
 
 public class AppBuilder {
@@ -56,6 +64,9 @@ public class AppBuilder {
     private TrackPlansView trackPlansView;
     private TrackPlanViewModel trackPlanViewModel;
 
+    private ViewingResearchPapersViewModel viewingResearchPapersViewModel;
+    private ViewingResearchPapersView viewingResearchPapersView;
+
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
@@ -70,7 +81,9 @@ public class AppBuilder {
         overallPanel.add(sidePanelView, BorderLayout.WEST);
         return this;
     }
-    
+
+
+
     public AppBuilder addTrackPlanView() {
         this.trackPlanViewModel = new TrackPlanViewModel();
         this.trackPlansView = new TrackPlansView(trackPlanViewModel);
@@ -114,7 +127,8 @@ public class AppBuilder {
                 sidebarViewModel,
                 jobPostingsViewModel,
                 milestoneTasksViewModel,
-                trackPlanViewModel);
+                trackPlanViewModel,
+                viewingResearchPapersViewModel);
         final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarDataAccess, sidebarOutputBoundary);
 
         SidebarController sidebarController = new SidebarController(sidebarInteractor);
@@ -144,6 +158,32 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addViewingResearchPapersView() {
+        viewingResearchPapersViewModel = new ViewingResearchPapersViewModel();
+        viewingResearchPapersView = new ViewingResearchPapersView(viewingResearchPapersViewModel);
+
+        cardPanel.add(viewingResearchPapersView, viewingResearchPapersView.getViewName());
+
+        return this;
+    }
+
+    public AppBuilder addViewingResearchPapersUseCase() {
+        final ViewingResearchPapersOutputBoundary presenter =
+                new ViewingResearchPapersPresenter(viewingResearchPapersViewModel);
+
+        final ViewingResearchPapersDataAccessInterface dataAccess =
+                new MockResearchPapersDataAccess();
+
+        final ViewingResearchPapersInputBoundary interactor =
+                new ViewingResearchPapersInteractor(dataAccess, presenter);
+
+        ViewingResearchPapersController controller =
+                new ViewingResearchPapersController(interactor);
+
+        viewingResearchPapersView.setViewingResearchPapersController(controller);
+
+        return this;
+    }
 
     public JFrame build() {
         final JFrame application = new JFrame("Study Arc");

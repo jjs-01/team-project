@@ -18,4 +18,10 @@ public class SidebarController {
     }
 
     public void switchToTrackPlan(){sidebarUseCaseInteractor.switchToTrackPlan();}
+
+    public void switchToPapers() {
+        sidebarUseCaseInteractor.switchToPapers();
+    }
+
+
 }

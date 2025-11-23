@@ -1,6 +1,7 @@
 package com.studyarc.view;
 
 import com.studyarc.entity.ResearchPaper;
+import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersController;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersViewModel;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ public class ViewingResearchPapersView extends JPanel {
     private JTable papersTable;
     private DefaultTableModel tableModel;
     private ViewingResearchPapersViewModel viewModel;
+    private ViewingResearchPapersController controller;
 
     public ViewingResearchPapersView(ViewingResearchPapersViewModel viewModel) {
         this.viewModel = viewModel;
@@ -35,6 +37,22 @@ public class ViewingResearchPapersView extends JPanel {
         this.add(scrollPane, BorderLayout.CENTER);
     }
 
+    public String getViewName() {
+        return "viewing research papers";
+    }
+
+    public void setViewingResearchPapersController(ViewingResearchPapersController controller) {
+        this.controller = controller;
+    }
+
+    @Override
+    public void addNotify() {
+        super.addNotify();
+        // Load data when view becomes visible
+        if (controller != null) {
+            controller.handleViewingResearchPapers();
+        }
+    }
     public void refreshTable() {
         tableModel.setRowCount(0);
 

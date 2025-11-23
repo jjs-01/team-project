@@ -4,10 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="Use Case 6 Controller">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="Use Case 6 View Model">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/MockResearchPapersDataAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/app/AppBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/app/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ui_sidebar/SidebarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ui_sidebar/SidebarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ui_sidebar/SidebarPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ui_sidebar/SidebarPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/ui_sidebar/SidebarInputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/ui_sidebar/SidebarInputBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/ui_sidebar/SidebarInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/ui_sidebar/SidebarInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/ui_sidebar/SidebarOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/ui_sidebar/SidebarOutputBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersOutputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersOutputData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/SidePanelView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/SidePanelView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/ViewingResearchPapersView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/ViewingResearchPapersView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -206,7 +218,23 @@
       <option name="project" value="LOCAL" />
       <updated>1763847575701</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Use Case 6 View">
+      <option name="closed" value="true" />
+      <created>1763867097988</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1763867097988</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Use Case 6 View Model">
+      <option name="closed" value="true" />
+      <created>1763867814756</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1763867814756</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -221,6 +249,8 @@
     <MESSAGE value="Use Case 6 Output Boundary" />
     <MESSAGE value="Use Case 6 Interactor" />
     <MESSAGE value="Use Case 6 Controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="Use Case 6 Controller" />
+    <MESSAGE value="Use Case 6 View" />
+    <MESSAGE value="Use Case 6 View Model" />
+    <option name="LAST_COMMIT_MESSAGE" value="Use Case 6 View Model" />
   </component>
 </project>

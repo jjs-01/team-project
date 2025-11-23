@@ -10,10 +10,12 @@ public class Main {
                 .addMilestoneTasksPanel()
                 .addTrackPlanView()
                 .addJobPostingsView()
+                .addViewingResearchPapersView()
                 .addTrackPlanUsecase()
                 .addSidebarUseCase()
                 .addJobPostingsUseCase()
                 .addMilestoneTasksUseCase()
+                .addViewingResearchPapersUseCase()
                 .build();
 
         application.pack();

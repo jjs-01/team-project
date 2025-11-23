@@ -10,4 +10,6 @@ public interface SidebarOutputBoundary {
     void switchToMilestone();
 
     void switchToTrackPlan();
+
+    void switchToPapers();
 }

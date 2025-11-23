@@ -6,8 +6,8 @@ public class ViewingResearchPapersInteractor implements ViewingResearchPapersInp
     private ViewingResearchPapersDataAccessInterface repository;
     private ViewingResearchPapersOutputBoundary presenter;
 
-    public void ViewingResearchPapersInteractor(ViewingResearchPapersDataAccessInterface repository,
-                                                ViewingResearchPapersOutputBoundary presenter) {
+    public ViewingResearchPapersInteractor(ViewingResearchPapersDataAccessInterface repository,
+                                           ViewingResearchPapersOutputBoundary presenter) {
         this.repository = repository;
         this.presenter = presenter;
     }

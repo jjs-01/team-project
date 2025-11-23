@@ -23,5 +23,10 @@ public class SidebarInteractor implements SidebarInputBoundary {
     @Override
     public void switchToTrackPlan() { userPresenter.switchToTrackPlan();}
 
+    @Override
+    public void switchToPapers() {
+        userPresenter.switchToPapers();
+    }
+
 
 }

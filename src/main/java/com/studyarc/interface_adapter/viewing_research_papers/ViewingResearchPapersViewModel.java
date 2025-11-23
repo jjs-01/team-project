@@ -53,4 +53,9 @@ public class ViewingResearchPapersViewModel {
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
     }
+
+    public String getViewName() {
+        return "viewing research papers";
+    }
+
 }

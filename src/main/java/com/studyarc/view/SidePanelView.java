@@ -94,6 +94,16 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
                     }
                 }
         );
+
+        seePapers.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        System.out.println("clicked Papers");
+                        sidebarController.switchToPapers();
+                    }
+                }
+        );
+
         myPlans.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,6 +114,7 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
             }
         });
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
