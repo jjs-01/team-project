@@ -31,34 +31,38 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
         else {
             User user = milestoneDataAccessObject.getUser("");
 
-            ArrayList<Milestone> milestones = new ArrayList<>();
-
-            for (int i = 0; i < milestoneInputData.getMilestoneNames().size(); i++) {
-                List<String[]> taskInfoList = milestoneInputData.getMilestoneIndexToTasks().get(i);
-                List<Task> tasksForCurrMilestone = new ArrayList<>();
-
-                for (String[] taskInfo : taskInfoList) {
-                    Task newTask = new Task(taskInfo[0], taskInfo[1], taskInfo[2]);
-                    tasksForCurrMilestone.add(newTask);
-                }
-
-                Milestone newMilestone = new Milestone(milestoneInputData.getMilestoneNames().get(i),
-                        milestoneInputData.getMilestoneDates().get(i),
-                        tasksForCurrMilestone);
-                milestones.add(newMilestone);
-            }
+            ArrayList<Milestone> milestones = getMilestones(milestoneInputData);
 
             String targetPlanTitle = milestoneInputData.getStudyPlanName();
             for (StudyPlan plan : milestoneDataAccessObject.getPlans(user)) {
                 if (plan.getTitle().equals(targetPlanTitle)) {
-                    StudyPlan targetPlan = plan;
-                    targetPlan.setMilestones(milestones);
-                    milestoneDataAccessObject.savePlan(user, targetPlan);
+                    plan.setMilestones(milestones);
+                    milestoneDataAccessObject.savePlan(user, plan);
                     break;
                 }
             }
             final MilestoneTasksOutputData outputData = new MilestoneTasksOutputData(milestones.get(0).getName());
             milestonePresenter.prepareSuccessView(outputData);
         }
+    }
+
+    private static ArrayList<Milestone> getMilestones(MilestoneTasksInputData milestoneInputData) {
+        ArrayList<Milestone> milestones = new ArrayList<>();
+
+        for (int i = 0; i < milestoneInputData.getMilestoneNames().size(); i++) {
+            List<String[]> taskInfoList = milestoneInputData.getMilestoneIndexToTasks().get(i);
+            List<Task> tasksForCurrMilestone = new ArrayList<>();
+
+            for (String[] taskInfo : taskInfoList) {
+                Task newTask = new Task(taskInfo[0], taskInfo[1], taskInfo[2]);
+                tasksForCurrMilestone.add(newTask);
+            }
+
+            Milestone newMilestone = new Milestone(milestoneInputData.getMilestoneNames().get(i),
+                    milestoneInputData.getMilestoneDates().get(i),
+                    tasksForCurrMilestone);
+            milestones.add(newMilestone);
+        }
+        return milestones;
     }
 }

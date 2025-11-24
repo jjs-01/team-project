@@ -23,7 +23,7 @@ public class MilestoneTasksController {
      * @param milestoneNames map of the milestone names to the tasks they're associated with
      * @param milestoneDates map of the milestone names to the tasks they're associated with
      */
-    public void execute(String studyPlanName, Map<Integer, List<String[]>> milestoneIndexToTasks,
+    public void execute(String studyPlanName, List<List<String[]>> milestoneIndexToTasks,
                         List<String> milestoneNames, List<String> milestoneDates) {
         final MilestoneTasksInputData milestoneInputData = new MilestoneTasksInputData(studyPlanName,
                 milestoneNames, milestoneDates, milestoneIndexToTasks);

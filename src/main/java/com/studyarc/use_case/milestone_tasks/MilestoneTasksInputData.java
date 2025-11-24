@@ -7,12 +7,12 @@ public class MilestoneTasksInputData {
     private final String studyPlanName;
     private final List<String> milestoneNames;
     private final List<String> milestoneDates;
-    private final Map<Integer,List<String[]>> milestoneIndexToTasks;
+    private final List<List<String[]>> milestoneIndexToTasks;
 
     public MilestoneTasksInputData(String studyPlanName,
                                    List<String> milestoneNames,
                                    List<String> milestoneDates,
-                                   Map<Integer,List<String[]>> milestoneIndexToTasks) {
+                                   List<List<String[]>> milestoneIndexToTasks) {
         this.studyPlanName = studyPlanName;
         this.milestoneNames = milestoneNames;
         this.milestoneDates = milestoneDates;
@@ -23,7 +23,7 @@ public class MilestoneTasksInputData {
 
     List<String> getMilestoneDates() { return milestoneDates; }
 
-    Map<Integer,List<String[]>> getMilestoneIndexToTasks() { return milestoneIndexToTasks; }
+    List<List<String[]>> getMilestoneIndexToTasks() { return milestoneIndexToTasks; }
 
     String getStudyPlanName() {return studyPlanName; }
 }

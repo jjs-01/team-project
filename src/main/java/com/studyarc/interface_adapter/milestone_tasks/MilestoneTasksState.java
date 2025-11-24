@@ -1,23 +1,21 @@
 package com.studyarc.interface_adapter.milestone_tasks;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MilestoneTasksState {
     private final List<String> milestoneNames = new ArrayList<>();
     private final List<String> milestoneDates = new ArrayList<>();
-    private final Map<Integer, List<String[]>> milestoneIndexToTasks = new HashMap<>();
+    private final List<List<String[]>> milestoneIndexToTasks = new ArrayList<>();
 
     public void addMilestone(int milestoneIndex, String name, String date) {
         milestoneNames.add(milestoneIndex, name);
         milestoneDates.add(milestoneIndex, date);
-        milestoneIndexToTasks.put(milestoneIndex, new ArrayList<>());
+        milestoneIndexToTasks.add(milestoneIndex, new ArrayList<>());
     }
 
     public void addTask(int milestoneIndex, String name, String date, String status) {
-        if (milestoneIndexToTasks.containsKey(milestoneIndex)) {
+        if (milestoneIndex < milestoneIndexToTasks.size()) {
             String[] taskInfo = {name, date, status};
             milestoneIndexToTasks.get(milestoneIndex).add(taskInfo);
         }
@@ -46,22 +44,22 @@ public class MilestoneTasksState {
         taskInfo[2] = newStatus;
     }
 
-    // NOT implemented yet
-//    public void removeMilestone(int index) {
-//        milestoneNames.remove(index);
-//        milestoneDates.remove(index);
-//        milestoneIndexToTasks.remove(index);
-//    }
-//
-//    public void removeTask(int milestoneIndex, int taskIndex) {
-//        List<String[]> tasks = milestoneIndexToTasks.get(milestoneIndex);
-//    }
+    public void removeMilestone(int index) {
+        milestoneNames.remove(index);
+        milestoneDates.remove(index);
+        milestoneIndexToTasks.remove(index);
+    }
+
+    public void removeTask(int milestoneIndex, int taskIndex) {
+        List<String[]> taskForMilestone = milestoneIndexToTasks.get(milestoneIndex);
+        taskForMilestone.remove(taskIndex);
+    }
 
     public List<String[]> getTasks(int milestoneIndex) {
         return milestoneIndexToTasks.get(milestoneIndex);
     }
 
-    public Map<Integer, List<String[]>> getMilestoneIndextoTasks() {
+    public List<List<String[]>> getMilestoneIndexToTasks() {
         return milestoneIndexToTasks;
     }
 
