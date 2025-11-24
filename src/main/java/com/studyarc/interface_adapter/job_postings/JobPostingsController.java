@@ -14,7 +14,8 @@ public class JobPostingsController {
     }
 
     public void execute(String focus, String preferredLoc, String minSalary, String sort) {
-        final JobPostingsInputData jobPostingsInputData = new JobPostingsInputData(focus, preferredLoc, minSalary, sort);
+        final JobPostingsInputData jobPostingsInputData = new JobPostingsInputData(focus, preferredLoc,
+                minSalary, sort);
 
         jobPostingsUseCaseInteractor.execute(jobPostingsInputData);
 

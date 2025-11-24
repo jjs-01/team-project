@@ -6,8 +6,6 @@ import com.studyarc.entity.job_postings.KeywordList;
 
 import com.cohere.api.Cohere;
 import com.cohere.api.requests.ChatRequest;
-import com.cohere.api.types.ChatMessage;
-import com.cohere.api.types.Message;
 import com.cohere.api.types.NonStreamedChatResponse;
 import org.json.JSONObject;
 
@@ -25,7 +23,7 @@ public class LLMKeywordGenerator implements KeywordGenerator {
         Cohere cohere = Cohere.builder().token(API_KEY).clientName("snippet").build();
 
         try {
-            System.out.println("Promting Cohere...");
+            System.out.println("Promoting Cohere...");
             // call the llm to generate the keywords
             NonStreamedChatResponse response = cohere.chat(
                     ChatRequest.builder()
@@ -36,9 +34,6 @@ public class LLMKeywordGenerator implements KeywordGenerator {
 
             // creates the KeywordList entity
             KeywordList keywordList = new KeywordList(responseBody.get("text").toString());
-
-//            System.out.println(responseBody.get("text"));
-//            System.out.println(responseBody);
 
             System.out.println("Cohere finished.");
 

@@ -65,11 +65,14 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         this.trackPlanViewModel.addPropertyChangeListener(this);
         this.setLayout(borderLayout);
         titlePanel = SetTitlePanel();
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
         trackPlansPanel = new JPanel();
+
 
         trackPlansPanel.setLayout(new BoxLayout(trackPlansPanel, BoxLayout.Y_AXIS));
         JScrollPane jScrollPane = new JScrollPane(this.trackPlansPanel);
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane.getVerticalScrollBar().setUnitIncrement(Styling.getScroll_pace());
 
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(jScrollPane, BorderLayout.CENTER);
@@ -81,9 +84,12 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
     @NotNull
     private JPanel SetTitlePanel() {
+        GridBagConstraints topInfo = new GridBagConstraints();
+        topInfo.gridx = 2;
+
         final JPanel titlePanel;
         titlePanel = new JPanel();
-        title.setFont(new Font("SansSerif", Font.BOLD, 24));
+        title.setFont(Styling.getMainFont());
 
         titlePanel.setLayout(new BorderLayout());
         titlePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
@@ -117,7 +123,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     private void showRedirectButton() {
         trackPlansPanel.removeAll();
         JLabel message = new JLabel("You have no Plans! Go Create New Plans!Go Create New Plans!Go Create New Plans!");
-        message.setFont(message.getFont().deriveFont(Font.BOLD, 16f));
+        message.setFont(Styling.getSubFont());
         newPlan.addActionListener(this);
         trackPlansPanel.add(message);
         trackPlansPanel.add(newPlan);
@@ -151,10 +157,13 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         planPanel.setLayout(new BorderLayout());
         planPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+
         // Head Part of each plan
         JPanel headPanel = new JPanel();
         headPanel.setLayout(new BoxLayout(headPanel, BoxLayout.X_AXIS));
         JLabel planLabel = new JLabel("Plan : ");
+
+        headPanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 5, 25));
 
         // Text Field for Plan Title
         JTextField planTitleTextField = new JTextField();
@@ -166,7 +175,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         // Delete Button for each plan
         JButton deleteButton = new JButton("Delete " + "❌");
         deleteButton.addActionListener(this);
-        this.buttonToPlanMap.put(deleteButton, plan);//Add the delete button in the map for each plan.
+        this.buttonToPlanMap.put(deleteButton, plan); //Add the delete button in the map for each plan.
 
         headPanel.add(planLabel);
         headPanel.add(planTitleTextField);
@@ -177,6 +186,8 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         // Milestones of each plan
         JPanel milestonesPanel = new JPanel();
         milestonesPanel.setLayout(new BoxLayout(milestonesPanel, BoxLayout.Y_AXIS));
+
+        milestonesPanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         ArrayList<Milestone> milestones = plan.getMilestones();
 

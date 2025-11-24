@@ -6,6 +6,7 @@ import com.studyarc.use_case.job_postings.generate_keywords.KeywordGenerator;
 import com.studyarc.use_case.job_postings.generate_postings.AdzunaJobGenerator;
 import com.studyarc.use_case.job_postings.generate_postings.JobRepository;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -43,14 +44,9 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
         // set the preferred sort if selected
         if (!jobPostingsInputData.getSort().isEmpty() && !jobPostingsInputData.getSort().equals("Select Sort")) sort = jobPostingsInputData.getSort();
 
-//        System.out.println("Selected Minimum: " + salaryMin);
-//        System.out.println("Selected Country: " + countryCode);
-//        System.out.println("Selected Focus: " + selectedFocus);
-//        System.out.println("Selected Sort: " + sort);
-
         if (selectedFocus.isEmpty() || selectedFocus.equals("Select Plan")) {
             jobPostingsPresenter.prepareFailView("You must select a focus.");
-            return;
+
 
         } else {
             try {
@@ -67,12 +63,12 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
 
                 // sends the success view
                 jobPostingsPresenter.prepareSuccessView(jobPostingsOutputData);
-                return;
+
             } catch (KeywordGenerator.KeywordGeneratorException | JobRepository.JobRepositoryException e ){
-                System.out.println(e.getMessage() + " " + e.getCause() + " " + e.getStackTrace());
+                System.out.println(e.getMessage() + " " + e.getCause() + " " + Arrays.toString(e.getStackTrace()));
                 // sends the failed view with NEED A MESSAGE
                 jobPostingsPresenter.prepareFailView("An error has occurred, please try again later.");
-                return;
+
             }
 
         }

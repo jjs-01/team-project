@@ -44,7 +44,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         this.milestoneViewModel.addPropertyChangeListener(this);
         final JPanel topDetails = new JPanel();
         planTitle = new JLabel(MilestoneTasksViewModel.TITLE_LABEL);
-        planTitle.setFont(new Font("SansSerif", Font.BOLD, 24));
+        planTitle.setFont(Styling.getMainFont());
         topDetails.add(planTitle);
 
         focuses = new JLabel("Focus: ");
@@ -52,6 +52,8 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
         save = new JButton("Save Changes");
         topDetails.add(save);
+
+        topDetails.setBorder(BorderFactory.createEmptyBorder(25, 0, 25, 0));
 
         save.addActionListener(
                 new ActionListener() {

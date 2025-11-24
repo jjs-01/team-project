@@ -29,43 +29,20 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     private final JobPostingsViewModel jobPostingsViewModel;
     private JobPostingsController jobPostingsController = null;
 
-    private final JPanel jobPostingsPanel = new JPanel();
-    private JPanel allJobPostingsPanel = new JPanel();
+    private final JPanel allJobPostingsPanel = new JPanel();
 
-    private JPanel locationSelectionPanel = new JPanel();;
-    private JPanel planSelectionPanel = new JPanel();;
-    private JPanel salarySelectionPanel = new JPanel();;
-    private JPanel sortSelectionPanel = new JPanel();;
+    private final JComboBox<String> locationComboBox;
+    private final JComboBox<String> salaryComboBox;
+    private final JComboBox<String> sortComboBox;
+    private final JComboBox<String> planComboBox;
 
-    private JComboBox<String> locationComboBox;
-    private JComboBox<String> salaryComboBox;
-    private JComboBox<String> sortComboBox;
-    private JComboBox<String> planComboBox;
+    private final JButton search;
 
-    private JLabel pageTitle;
-    private JLabel location;
-    private JLabel plan;
-    private JLabel salary;
-    private JLabel sort;
-
-    private JLabel jobTitle;
-    private JLabel jobCompany;
-    private JLabel jobLocation;
-    private JLabel jobSalaryRange;
-    private JLabel jobDesc;
-
-    private JButton search;
-
-    private String[] locationOptions = {"Select Country", "gb", "us", "ca"};
-    private String[] planOptions = {"Select Plan", "Machine Learning"};
-    private String[] salaryOptions = {"Select Option", "$40,000", "$50,000", "$60,000", "$70,000", "$80,000", "$90,000", "$100,000"};
-    private String[] sortOptions = {"Select Sort", "date", "salary", "relevance"};
-
-    private final int indJobCard = 750;
     private final Color jobInfoColor = new Color(255, 225, 143);
     private final Color jobDescColor = new Color(232, 231, 230);
 
     public JobPostingsView(JobPostingsViewModel jobPostingsViewModel) {
+        JPanel jobPostingsPanel = new JPanel();
         jobPostingsPanel.setLayout(new BoxLayout(jobPostingsPanel, BoxLayout.Y_AXIS));
 
         this.jobPostingsViewModel = jobPostingsViewModel;
@@ -78,44 +55,55 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         final JPanel titleAndSelections = new JPanel(new GridBagLayout());
 
         final JPanel selections = new JPanel(new GridLayout(2, 3, 10, 10));
-        selections.setPreferredSize(new Dimension(800, 100));
+        selections.setPreferredSize(new Dimension(Styling.getWidth(), 100));
         selections.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // adds the title of the page
-        pageTitle = new JLabel(jobPostingsViewModel.TITLE_LABEL);
+        JLabel pageTitle = new JLabel(JobPostingsViewModel.TITLE_LABEL);
         pageTitle.setFont(Styling.getMainFont());
         titleAndSelections.add(pageTitle, topInfo);
+        titleAndSelections.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 
         // creates the dropdown selection with label for selecting the focus/plan
-        plan = new JLabel(jobPostingsViewModel.PLAN_LABEL);
+        JLabel plan = new JLabel(JobPostingsViewModel.PLAN_LABEL);
         plan.setFont(Styling.getSubFont().deriveFont(14f));
+        String[] planOptions = {"Select Plan", "Machine Learning"};
         planComboBox = new JComboBox<>(planOptions);
         planComboBox.setFont(Styling.getSubFont().deriveFont(12f));
         planComboBox.addActionListener(this);
+        JPanel planSelectionPanel = new JPanel();
         planSelectionPanel.add(plan);
         planSelectionPanel.add(planComboBox);
 
         // creates the dropdown selection with label for selecting the location
-        location = new JLabel(jobPostingsViewModel.LOCATION_LABEL);
+        JLabel location = new JLabel(JobPostingsViewModel.LOCATION_LABEL);
         location.setFont(Styling.getSubFont().deriveFont(14f));
+        String[] locationOptions = {"Select Country", "gb", "us", "ca"};
         locationComboBox = new JComboBox<>(locationOptions);
         locationComboBox.setFont(Styling.getSubFont().deriveFont(12f));
         locationComboBox.addActionListener(this);
+        JPanel locationSelectionPanel = new JPanel();
         locationSelectionPanel.add(location);
         locationSelectionPanel.add(locationComboBox);
 
         // creates the dropdown selection with label for selecting the minimum selection
-        salary = new JLabel(jobPostingsViewModel.SALARAY_LABEL);
+        JLabel salary = new JLabel(JobPostingsViewModel.SALARAY_LABEL);
         salary.setFont(Styling.getSubFont().deriveFont(14f));
+        String[] salaryOptions = {"Select Option", "$40,000", "$50,000", "$60,000", "$70,000",
+                "$80,000", "$90,000", "$100,000"};
         salaryComboBox = new JComboBox<>(salaryOptions);
         salaryComboBox.setFont(Styling.getSubFont().deriveFont(12f));
         salaryComboBox.addActionListener(this);
+        JPanel salarySelectionPanel = new JPanel();
         salarySelectionPanel.add(salary);
 
         // creates the dropdown selection with label for selecting the sorting
-        sort = new JLabel(jobPostingsViewModel.SORT_LABEL);
+        JLabel sort = new JLabel(JobPostingsViewModel.SORT_LABEL);
+        String[] sortOptions = {"Select Sort", "date", "salary", "relevance"};
         sortComboBox = new JComboBox<>(sortOptions);
         sortComboBox.addActionListener(this);
+        sortComboBox.setFont(Styling.getSubFont().deriveFont(12f));
+        JPanel sortSelectionPanel = new JPanel();
         sortSelectionPanel.add(sort);
         sortSelectionPanel.add(sortComboBox);
 
@@ -139,16 +127,13 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         allJobPostingsPanel.setLayout(new BoxLayout(allJobPostingsPanel, BoxLayout.Y_AXIS));
         JScrollPane scroller = new JScrollPane(allJobPostingsPanel);
 
-//        JScrollPane scroller = new JScrollPane(jobPostingsPanel);
-        scroller.setPreferredSize(new Dimension(800, 800));
-        scroller.getVerticalScrollBar().setUnitIncrement(30);
+        scroller.setPreferredSize(new Dimension(Styling.getWidth(), Styling.getHeight()));
+        scroller.getVerticalScrollBar().setUnitIncrement(Styling.getScroll_pace());
         scroller.setBorder(BorderFactory.createEmptyBorder());
 
-//        this.add(jobPostingsPanel);
         this.setLayout(new BorderLayout());
         this.add(titleAndSelections, BorderLayout.NORTH);
         this.add(scroller, BorderLayout.CENTER);
-//        this.add(scroller);
 
         search.addActionListener(
                 new ActionListener() {
@@ -197,8 +182,10 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         List<JobListing> resetJobs = new ArrayList<>();
 
         if (!jobPostingsState.getListingError().equals("")) {
-            if (jobPostingsState.getListingError().contains("error") || jobPostingsState.getListingError().contains("Error")) {
-                JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(), "Error", JOptionPane.ERROR_MESSAGE);
+            if (jobPostingsState.getListingError().contains("error")
+                    || jobPostingsState.getListingError().contains("Error")) {
+                JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 allJobPostingsPanel.removeAll();
                 allJobPostingsPanel.revalidate();
                 allJobPostingsPanel.repaint();
@@ -206,7 +193,8 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
                 jobPostingsState.setListingError("");
                 jobPostingsState.setJobListings(resetJobs);
             } else {
-                JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 jobPostingsState.setListingError("");
             }
 
@@ -226,19 +214,25 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     }
 
     private void createIndividualJobPostings(JobPostingsState jobPostingsState) {
+        JLabel jobTitle;
+        JLabel jobCompany;
+        JLabel jobLocation;
+        JLabel jobSalaryRange;
+        JLabel jobDesc;
         for (JobListing jobListing : jobPostingsState.getJobListings()) {
             JPanel individualJobPostingsPanel = new JPanel();
             individualJobPostingsPanel.setLayout(new BoxLayout(individualJobPostingsPanel, BoxLayout.X_AXIS));
 
 
+            int indJobCard = 750;
             individualJobPostingsPanel.setPreferredSize(new Dimension(indJobCard, 300));
             individualJobPostingsPanel.setMaximumSize(new Dimension(indJobCard, 300));
             individualJobPostingsPanel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 
             JPanel jobInfo = new JPanel();
             jobInfo.setLayout(new BoxLayout(jobInfo, BoxLayout.Y_AXIS));
-            jobInfo.setPreferredSize(new Dimension(indJobCard/3, 300));
-            jobInfo.setMaximumSize(new Dimension(indJobCard/3, 300));
+            jobInfo.setPreferredSize(new Dimension(indJobCard /3, 300));
+            jobInfo.setMaximumSize(new Dimension(indJobCard /3, 300));
             jobInfo.add(Box.createRigidArea(new Dimension(10, 0)));
             jobInfo.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
             jobInfo.setBackground(jobInfoColor);
@@ -247,15 +241,14 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
             jobDescPanel.setLayout(new BoxLayout(jobDescPanel, BoxLayout.Y_AXIS));
             jobDescPanel.setPreferredSize(new Dimension(indJobCard * 2/3, 300));
             jobDescPanel.setMaximumSize(new Dimension(indJobCard * 2/3, 300));
-//                jobDescPanel.add(Box.createRigidArea(new Dimension(10, 0)));
             jobDescPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
             jobDescPanel.setBackground(jobDescColor);
 
             jobTitle = new JLabel("<html><div style='margin:0; padding:0;'>"
                     + jobListing.getTitle()
                     + "</div></html>");
-            jobTitle.setMaximumSize(new Dimension(indJobCard/3, 90));
-            jobTitle.setPreferredSize(new Dimension(indJobCard/3, 90));
+            jobTitle.setMaximumSize(new Dimension(indJobCard /3, 90));
+            jobTitle.setPreferredSize(new Dimension(indJobCard /3, 90));
             jobTitle.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
             jobTitle.setFont(Styling.getMainFont().deriveFont(Font.BOLD).deriveFont(16f));
 
