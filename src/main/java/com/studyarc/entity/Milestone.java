@@ -1,31 +1,60 @@
 package com.studyarc.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 public class Milestone {
-    private String title;
-    private ArrayList<Task> tasks;
-    private Date duedate;
-
+    private String dueDate;
+    private String name;
+    private final List<Task> subtasks;
+  
     public Milestone(String title) {
-        this.title = title;
-        this.tasks = new ArrayList<>();
+        this.name = title;
+        this.subtasks = new ArrayList<>();
+    }
+
+    public Milestone(String name, String dueDate) {
+//        if ("".equals(name)) {
+//            throw new IllegalArgumentException("Name cannot be empty.");
+//        }
+        this.name = name;
+        this.dueDate = dueDate;
+        this.subtasks = new ArrayList<>();
+    }
+
+    public Milestone(String name, String dueDate, List<Task> subtasks) {
+//        if ("".equals(name)) {
+//            throw new IllegalArgumentException("Name cannot be empty.");
+//        }
+        this.name = name;
+        this.dueDate = dueDate;
+        this.subtasks = subtasks;
+    }
+
+    public void addTask(Task task) {
+        subtasks.add(task);
+    }
+
+    public List<Task> getSubtasks() {
+        return subtasks;
+    }
+
+    public void setTitle(String name) {
+//        if ("".equals(name)) {
+//            throw new IllegalArgumentException("Name cannot be empty.");
+//        }
+        this.name = name;
     }
 
     public String getTitle() {
-        return title;
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDueDate(String date) {
+        dueDate = date;
     }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+    public String getDueDate() {
+        return dueDate;
     }
 }

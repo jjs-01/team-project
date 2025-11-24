@@ -12,12 +12,13 @@ public class Main {
                 .addJobPostingsView()
                 .addViewingResearchPapersView()
                 .addTrackPlanUsecase()
+                .addDeletePlanUsecase()
                 .addSidebarUseCase()
                 .addJobPostingsUseCase()
                 .addMilestoneTasksUseCase()
+                .addAddReflectionUseCase()
                 .addViewingResearchPapersUseCase()
                 .build();
-
         application.pack();
         application.setLocationRelativeTo(null);
         application.setSize(800, 400);

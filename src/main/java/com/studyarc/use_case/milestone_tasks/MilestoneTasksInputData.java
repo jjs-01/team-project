@@ -1,20 +1,29 @@
 package com.studyarc.use_case.milestone_tasks;
 
-import com.studyarc.entity.Milestone;
-import com.studyarc.entity.Task;
-
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class MilestoneTasksInputData {
-    private Milestone milestone;
-    private ArrayList<Task> tasks;
+    private final String studyPlanName;
+    private final List<String> milestoneNames;
+    private final List<String> milestoneDates;
+    private final List<List<String[]>> milestoneIndexToTasks;
 
-    public MilestoneTasksInputData(Milestone milestone, ArrayList<Task> tasks) {
-        this.milestone = milestone;
-        this.tasks = tasks;
+    public MilestoneTasksInputData(String studyPlanName,
+                                   List<String> milestoneNames,
+                                   List<String> milestoneDates,
+                                   List<List<String[]>> milestoneIndexToTasks) {
+        this.studyPlanName = studyPlanName;
+        this.milestoneNames = milestoneNames;
+        this.milestoneDates = milestoneDates;
+        this.milestoneIndexToTasks = milestoneIndexToTasks;
     }
 
-    Milestone getMilestone() { return milestone; }
+    List<String> getMilestoneNames() { return milestoneNames; }
 
-    ArrayList<Task> getTasks() { return tasks; }
+    List<String> getMilestoneDates() { return milestoneDates; }
+
+    List<List<String[]>> getMilestoneIndexToTasks() { return milestoneIndexToTasks; }
+
+    String getStudyPlanName() {return studyPlanName; }
 }

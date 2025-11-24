@@ -9,10 +9,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import java.awt.Color;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +59,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     private String[] locationOptions = {"Select Country", "gb", "us", "ca"};
     private String[] planOptions = {"Select Plan", "Machine Learning"};
     private String[] salaryOptions = {"Select Option", "$40,000", "$50,000", "$60,000", "$70,000", "$80,000", "$90,000", "$100,000"};
-    private String[] sortOptions = {"Select Sort", "default", "hybrid", "date", "salary"};
+    private String[] sortOptions = {"Select Sort", "date", "salary", "relevance"};
 
     private final int indJobCard = 750;
     private final Color jobInfoColor = new Color(255, 225, 143);
@@ -74,8 +77,9 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
         final JPanel titleAndSelections = new JPanel(new GridBagLayout());
 
-        final JPanel selections = new JPanel(new GridBagLayout());
+        final JPanel selections = new JPanel(new GridLayout(2, 3, 10, 10));
         selections.setPreferredSize(new Dimension(800, 100));
+        selections.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // adds the title of the page
         pageTitle = new JLabel(jobPostingsViewModel.TITLE_LABEL);
@@ -109,12 +113,11 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         salarySelectionPanel.add(salary);
 
         // creates the dropdown selection with label for selecting the sorting
-//        sort = new JLabel(jobPostingsViewModel.SORT_LABEL);
-//        sortComboBox = new JComboBox<>(sortOptions);
-//        sortComboBox.addActionListener(this);
-//        sortSelectionPanel.add(sort);
-//        sortSelectionPanel.add(sortComboBox);
-//        selections.add(sortSelectionPanel);
+        sort = new JLabel(jobPostingsViewModel.SORT_LABEL);
+        sortComboBox = new JComboBox<>(sortOptions);
+        sortComboBox.addActionListener(this);
+        sortSelectionPanel.add(sort);
+        sortSelectionPanel.add(sortComboBox);
 
         search = new JButton("Search");
         search.setFont(Styling.getSubFont().deriveFont(12f));
@@ -124,6 +127,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         selections.add(locationSelectionPanel, userChoices);
         selections.add(salarySelectionPanel, userChoices);
         salarySelectionPanel.add(salaryComboBox);
+        selections.add(sortSelectionPanel);
         selections.add(search, userChoices);
 
         // adding the panel with combo boxes to main panel
@@ -182,9 +186,9 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
             currentState.setMinSalary(salaryComboBox.getSelectedItem().toString());
             jobPostingsViewModel.setState(currentState);
         }
-//        if (e.getSource().equals(sortComboBox)) {
-//            currentState.setSort(sortComboBox.getSelectedItem().toString());
-//        }
+        if (e.getSource().equals(sortComboBox)) {
+            currentState.setSort(sortComboBox.getSelectedItem().toString());
+        }
     }
 
     @Override
@@ -205,8 +209,6 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
                 JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(), "Error", JOptionPane.ERROR_MESSAGE);
                 jobPostingsState.setListingError("");
             }
-
-
 
         }
 
@@ -287,6 +289,22 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
             // adds padding between the postings
             allJobPostingsPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+            String url = jobListing.getRedirectUrl();
+            if (url != null) {
+                individualJobPostingsPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+                individualJobPostingsPanel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        try {
+                            Desktop.getDesktop().browse(new URI(url));
+                        } catch (Exception ex) {
+                            System.out.println("Error opening the link " + url + ": " + ex.getMessage());
+                        }
+                    }
+                });
+            }
 
             allJobPostingsPanel.add(individualJobPostingsPanel);
 

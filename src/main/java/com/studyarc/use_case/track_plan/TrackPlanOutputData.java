@@ -16,7 +16,7 @@ public class TrackPlanOutputData {
     //this class may contain all the plans we get from the database and pack it to the presenter.
 
     public ArrayList<StudyPlan> getListofplan() {
-        return listofplan;
+        return this.listofplan;
     }
 
     public void setListofplan(ArrayList<StudyPlan> listofplan) {

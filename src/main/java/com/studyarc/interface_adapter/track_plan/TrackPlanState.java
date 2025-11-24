@@ -5,11 +5,12 @@ import com.studyarc.entity.StudyPlan;
 import java.util.ArrayList;
 
 public class TrackPlanState {
-    private ArrayList<StudyPlan> studyPlans = null;
+    private ArrayList<StudyPlan> studyPlans;
     private String Username = "";
 
+
     public ArrayList<StudyPlan> getStudyPlans() {
-        return studyPlans;
+        return this.studyPlans;
     }
 
     public void setStudyPlans(ArrayList<StudyPlan> studyPlans) {
@@ -23,4 +24,6 @@ public class TrackPlanState {
     public void setUsername(String username) {
         Username = username;
     }
+
+
 }

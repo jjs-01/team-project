@@ -12,6 +12,7 @@ public class DeletePlanController {
     }
 
     public void execute(StudyPlan plan){
+        System.out.println("Deleted Controller executes with plan:" + plan.getTitle());
         DeletePlanInputData input = new DeletePlanInputData(plan);
         this.interactor.execute(input);
     }

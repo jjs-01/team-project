@@ -1,16 +1,14 @@
 package com.studyarc.entity;
 
-import java.util.Date;
-
 public class Task {
     private String name;
-    private Date duedate;
-    private boolean completed;
+    private String duedate;
+    private String completionstatus;
 
-    public Task(String name, Date duedate) {
+    public Task(String name, String duedate, String status) {
         this.name = name;
         this.duedate = duedate;
-        this.completed = false;
+        this.completionstatus = status;
     }
 
     public String getName() {
@@ -21,19 +19,19 @@ public class Task {
         this.name = name;
     }
 
-    public Date getDuedate() {
+    public String getDuedate() {
         return duedate;
     }
 
-    public void setDuedate(Date duedate) {
+    public void setDuedate(String duedate) {
         this.duedate = duedate;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public String getStatus() {
+        return this.completionstatus;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void setStatus(String status) {
+        this.completionstatus = status;
     }
 }

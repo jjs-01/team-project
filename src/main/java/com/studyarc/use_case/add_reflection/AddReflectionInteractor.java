@@ -1,29 +1,39 @@
 package com.studyarc.use_case.add_reflection;
 
-import java.time.LocalDate;
+import com.studyarc.entity.Reflection;
+import com.studyarc.entity.StudyPlan;
+import com.studyarc.entity.User;
 
 public class AddReflectionInteractor implements AddReflectionInputBoundary {
-    private final AddReflectionOutputBoundary reflectionLogPresenter;
-    private final AddReflectionDataAccessInterface reflectionLogDataAccess;
+    private final AddReflectionOutputBoundary addReflectionPresenter;
+    private final AddReflectionDataAccessInterface addReflectionDataAccess;
 
-    public AddReflectionInteractor(AddReflectionOutputBoundary reflectionLogPresenter,
-                                   AddReflectionDataAccessInterface reflectionLogDataAccess) {
-        this.reflectionLogPresenter = reflectionLogPresenter;
-        this.reflectionLogDataAccess = reflectionLogDataAccess;
+    public AddReflectionInteractor(AddReflectionOutputBoundary addReflectionPresenter,
+                                   AddReflectionDataAccessInterface addReflectionDataAccess) {
+        this.addReflectionPresenter = addReflectionPresenter;
+        this.addReflectionDataAccess = addReflectionDataAccess;
     }
 
     @Override
     public void execute(AddReflectionInputData inputData) {
+        final String planTitle = inputData.getPlanTitle();
         final String contents = inputData.getContents();
-        final LocalDate date = inputData.getDate() ;
         if (contents.isEmpty()) {
-            reflectionLogPresenter.prepareFailView("Please enter a valid contents");
+            addReflectionPresenter.prepareFailView("Please enter a valid contents");
         }
         else {
-            AddReflectionOutputData output = new AddReflectionOutputData();
-            reflectionLogPresenter.prepareSuccessView(output);
-
+            User user = addReflectionDataAccess.getCurrentUser();
+            StudyPlan plan = addReflectionDataAccess.getPlan(user, planTitle);
+            if (plan == null) {
+                addReflectionPresenter.prepareFailView("Plan not found");
+            }
+            else {
+                Reflection newReflection = new Reflection(contents);
+                plan.getReflections().add(newReflection);
+                addReflectionDataAccess.savePlan(user, plan);
+                AddReflectionOutputData output = new AddReflectionOutputData(planTitle, newReflection);
+                addReflectionPresenter.prepareSuccessView(output);
+            }
         }
     }
-
 }

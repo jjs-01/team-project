@@ -4,15 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 
 import com.studyarc.data_access.DatabaseAccess;
-import com.studyarc.data_access.MilestoneTasksDatatAccessObject;
+import com.studyarc.data_access.MilestoneTasksDataAccessObject;
 import com.studyarc.data_access.MockResearchPapersDataAccess;
 import com.studyarc.interface_adapter.ViewManagerModel;
+import com.studyarc.interface_adapter.delete_plan.DeletePlanController;
+import com.studyarc.interface_adapter.delete_plan.DeletePlanPresenter;
 import com.studyarc.interface_adapter.job_postings.JobPostingsController;
 import com.studyarc.interface_adapter.job_postings.JobPostingsPresenter;
 import com.studyarc.interface_adapter.job_postings.JobPostingsViewModel;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksPresenter;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
+import com.studyarc.interface_adapter.add_reflection.AddReflectionController;
+import com.studyarc.interface_adapter.add_reflection.AddReflectionPresenter;
+import com.studyarc.interface_adapter.add_reflection.AddReflectionViewModel;
 import com.studyarc.interface_adapter.track_plan.TrackPlanController;
 import com.studyarc.interface_adapter.track_plan.TrackPlanPresenter;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
@@ -22,6 +27,12 @@ import com.studyarc.interface_adapter.ui_sidebar.SidebarViewModel;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersController;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersPresenter;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersViewModel;
+import com.studyarc.use_case.add_reflection.AddReflectionInputBoundary;
+import com.studyarc.use_case.add_reflection.AddReflectionInteractor;
+import com.studyarc.use_case.add_reflection.AddReflectionOutputBoundary;
+import com.studyarc.use_case.delete_plan.DeletePlanInputBoundary;
+import com.studyarc.use_case.delete_plan.DeletePlanInteractor;
+import com.studyarc.use_case.delete_plan.DeletePlanOutputBoundary;
 import com.studyarc.use_case.job_postings.JobPostingsInputBoundary;
 import com.studyarc.use_case.job_postings.JobPostingsInteractor;
 import com.studyarc.use_case.job_postings.JobPostingsOutputBoundary;
@@ -43,7 +54,8 @@ import com.studyarc.view.*;
 public class AppBuilder {
     private final DatabaseAccess databaseAccess = new DatabaseAccess();
     private final SidebarDataAccessInterface sidebarDataAccess = new SidebarDataAccessObject();
-    private final MilestoneTasksDataAccessInterface milestoneDataAccessObject = new MilestoneTasksDatatAccessObject();
+    private final MilestoneTasksDataAccessInterface milestoneDataAccessObject = new MilestoneTasksDataAccessObject();
+    private final MilestoneTasksDataAccessObject singleUseCaseDAO = new MilestoneTasksDataAccessObject();
 
     private final JPanel overallPanel = new JPanel(new BorderLayout());
     private final JPanel cardPanel = new JPanel(new CardLayout());
@@ -60,16 +72,17 @@ public class AppBuilder {
 
     private MilestoneTasksViewModel milestoneTasksViewModel;
     private MilestoneTasksView milestoneTaskView;
+    private MilestoneTasksViewModel milestoneViewModel;
 
     private TrackPlansView trackPlansView;
     private TrackPlanViewModel trackPlanViewModel;
+    private AddReflectionViewModel addReflectionViewModel;
 
     private ViewingResearchPapersViewModel viewingResearchPapersViewModel;
     private ViewingResearchPapersView viewingResearchPapersView;
 
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
-
 
     public AppBuilder() {
     }
@@ -82,12 +95,10 @@ public class AppBuilder {
         return this;
     }
 
-
-
     public AppBuilder addTrackPlanView() {
         this.trackPlanViewModel = new TrackPlanViewModel();
-        this.trackPlansView = new TrackPlansView(trackPlanViewModel);
-
+        this.addReflectionViewModel = new AddReflectionViewModel();
+        this.trackPlansView = TrackPlansView.getInstance(trackPlanViewModel, addReflectionViewModel);
         cardPanel.add(trackPlansView, trackPlansView.getViewname());
 
         return this;
@@ -95,11 +106,18 @@ public class AppBuilder {
 
     public AppBuilder addTrackPlanUsecase() {
         TrackPlanOutputBoundary presenter = new TrackPlanPresenter(trackPlanViewModel, viewManagerModel);
-        TrackPlanDataAccessinterface dataaccess = new TrackPlanDataAccessTool();
+        TrackPlanDataAccessinterface dataaccess = new DatabaseAccess();
 
         TrackPlanInputBoundary interactor = new TrackPlanInteractor(presenter, dataaccess);
         TrackPlanController trackPlanController = new TrackPlanController(interactor);
         sidePanelView.setTrackPlanController(trackPlanController);
+        return this;
+    }
+
+    public AppBuilder addDeletePlanUsecase() {
+        DeletePlanOutputBoundary presenter = new DeletePlanPresenter(this.trackPlanViewModel, this.viewManagerModel);
+        DeletePlanInputBoundary interactor = new DeletePlanInteractor(presenter, new DatabaseAccess());
+        trackPlansView.setDeletePlanController(new DeletePlanController(interactor));
         return this;
     }
 
@@ -149,12 +167,22 @@ public class AppBuilder {
         return this;
     }
 
-    public AppBuilder addMilestoneTasksUseCase() {
-        final MilestoneTasksOutputBoundary milestoneTasksOutputBoundary = new MilestoneTasksPresenter(milestoneTaskView);
-        final MilestoneTasksInputBoundary milestoneTasksInteractor = new MilestoneTasksInteractor(milestoneDataAccessObject, milestoneTasksOutputBoundary);
+    public AppBuilder addAddReflectionUseCase() {
+        AddReflectionOutputBoundary presenter = new AddReflectionPresenter(addReflectionViewModel, trackPlanViewModel);
+        AddReflectionInputBoundary interactor = new AddReflectionInteractor(presenter, databaseAccess);
+        AddReflectionController controller = new AddReflectionController(interactor);
+        trackPlansView.setAddReflectionController(controller);
+        return this;
+    }
 
-        MilestoneTasksController milestoneTasksController = new MilestoneTasksController(milestoneTasksInteractor);
-        milestoneTaskView.setMilestoneTasksController(milestoneTasksController);
+    public AppBuilder addMilestoneTasksUseCase() {
+        final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(viewManagerModel,
+                milestoneViewModel);
+        final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(singleUseCaseDAO,
+                milestonesOutputBoundary);
+
+        MilestoneTasksController controller = new MilestoneTasksController(milestoneSaveInteractor);
+        milestoneTaskView.setMilestoneTasksController(controller);
         return this;
     }
 
@@ -197,6 +225,4 @@ public class AppBuilder {
 
         return application;
     }
-
-
 }

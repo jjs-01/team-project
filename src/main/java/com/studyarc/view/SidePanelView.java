@@ -106,14 +106,11 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         myPlans.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 trackPlanController.execute("qyz");
                 sidebarController.switchToTrackPlan();
-
             }
         });
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

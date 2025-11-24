@@ -17,7 +17,7 @@ public class SidebarPresenter implements SidebarOutputBoundary {
 
     public SidebarPresenter(ViewManagerModel viewManagerModel, SidebarViewModel sidebarViewModel,
                             JobPostingsViewModel jobPostingsViewModel, MilestoneTasksViewModel milestoneTasksViewModel,
-                            TrackPlanViewModel trackPlanViewModel, ViewingResearchPapersViewModel  viewingResearchPapersViewModel ) {
+                            TrackPlanViewModel trackPlanViewModel, ViewingResearchPapersViewModel viewingResearchPapersViewModel) {
         this.sidebarViewModel = sidebarViewModel;
         this.jobPostingsViewModel = jobPostingsViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -30,7 +30,6 @@ public class SidebarPresenter implements SidebarOutputBoundary {
     public void switchToJobBoard() {
         viewManagerModel.setState(jobPostingsViewModel.getViewName());
         viewManagerModel.firePropertyChange();
-
     }
 
     @Override
@@ -50,5 +49,4 @@ public class SidebarPresenter implements SidebarOutputBoundary {
         viewManagerModel.setState(viewingResearchPapersViewModel.getViewName());
         viewManagerModel.firePropertyChange();
     }
-
 }
