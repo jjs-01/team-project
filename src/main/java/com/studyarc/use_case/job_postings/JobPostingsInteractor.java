@@ -29,7 +29,7 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
     public void execute(JobPostingsInputData jobPostingsInputData) {
         final String selectedFocus = jobPostingsInputData.getFocus();
         // default arguments
-        String sort =  "default";
+        String sort =  "date";
         String countryCode = "ca";
         int salaryMin = 40000;
 
