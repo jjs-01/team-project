@@ -152,4 +152,17 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
     public User getUser(String username) {
         return null;
     }
+
+    @Override
+    public StudyPlan getPlan(User user, String planName) {return null;}
+
+    @Override
+    public void savePlan(User user, StudyPlan plan) {
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return null;
+    }
 }
+

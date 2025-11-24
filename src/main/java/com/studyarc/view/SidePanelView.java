@@ -10,11 +10,15 @@ import com.studyarc.use_case.track_plan.TrackPlanInputBoundary;
 import com.studyarc.use_case.track_plan.TrackPlanInteractor;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SidePanelView extends JPanel implements ActionListener, PropertyChangeListener  {
     private final SidebarViewModel sidebarViewModel;
@@ -28,6 +32,7 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
     private final JButton seeJobs;
     private final JButton myPlans;
 
+    private final Color mainColor = new Color(232, 231, 230);
     //controller of TrackPlan usecase
     private TrackPlanController trackPlanController;
 
@@ -35,20 +40,40 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         this.sidebarViewModel = sidebarViewModel;
         this.sidebarViewModel.addPropertyChangeListener(this);
 
+        logo.setFont(Styling.getMainFont().deriveFont(Font.BOLD));
+        logo.setHorizontalAlignment(SwingConstants.CENTER);
+        userLoggedIn.setHorizontalAlignment(SwingConstants.CENTER);
+
         seePlans = new JButton("New Plans");
         seePapers = new JButton("Papers");
         seeJobs = new JButton("Jobs");
         myPlans = new JButton("My Plans");
 
+        final JButton[] buttons = {seePlans, seePapers, seeJobs, myPlans};
+
         this.setLayout(new BorderLayout());
-        mainButtonPanel.setLayout(new BoxLayout(mainButtonPanel, BoxLayout.Y_AXIS));
+        mainButtonPanel.setLayout(new GridBagLayout());
+
+        this.setPreferredSize(new Dimension(180, 800));
+        this.setMaximumSize(new Dimension(180, 800));
+        this.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 2, Color.DARK_GRAY));
+        this.setBackground(mainColor);
+
+        GridBagConstraints mainButtonLayout = new GridBagConstraints();
+        mainButtonLayout.fill = GridBagConstraints.HORIZONTAL;
+        mainButtonLayout.gridx = 0;
+        mainButtonLayout.insets = new Insets(50,0,0,0);
+        mainButtonLayout.fill = GridBagConstraints.HORIZONTAL;
+
+        for (int i = 0; i < buttons.length; i++) {
+            mainButtonLayout.gridy = i;
+            mainButtonPanel.add(buttons[i], mainButtonLayout);
+            buttons[i].setFont(Styling.getSubFont().deriveFont(14f));
+        }
+
+        mainButtonPanel.setBackground(mainColor);
 
         this.add(logo, BorderLayout.NORTH);
-        mainButtonPanel.add(seePlans);
-        mainButtonPanel.add(seePapers);
-        mainButtonPanel.add(seeJobs);
-        mainButtonPanel.add(myPlans);
-
         this.add(mainButtonPanel, BorderLayout.CENTER);
         this.add(userLoggedIn, BorderLayout.SOUTH);
 

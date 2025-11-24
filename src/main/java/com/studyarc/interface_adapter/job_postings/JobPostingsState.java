@@ -1,5 +1,10 @@
 package com.studyarc.interface_adapter.job_postings;
 
+import com.studyarc.entity.job_postings.JobListing;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The state for the Job Postings View Model.
  */
@@ -8,6 +13,8 @@ public class JobPostingsState {
     private String location = "";
     private String minSalary = "";
     private String sort = "";
+    private List<JobListing> jobListings = new ArrayList<>();
+    private String listingError = "";
 
     public String getFocus() {
         return focus;
@@ -25,6 +32,14 @@ public class JobPostingsState {
         return sort;
     }
 
+    public List<JobListing> getJobListings() {
+        return jobListings;
+    }
+
+    public String getListingError() {
+        return listingError;
+    }
+
     public void setFocus(String focus) {
         this.focus = focus;
     }
@@ -39,6 +54,14 @@ public class JobPostingsState {
 
     public void setSort(String sort) {
         this.sort = sort;
+    }
+
+    public void setJobListings(List<JobListing> jobListings) {
+        this.jobListings = jobListings;
+    }
+
+    public void setListingError(String listingError) {
+        this.listingError = listingError;
     }
 
 }

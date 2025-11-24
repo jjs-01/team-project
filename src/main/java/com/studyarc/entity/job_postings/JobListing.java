@@ -6,6 +6,8 @@ public class JobListing {
     private final String companyName;
     private final double salaryMin;
     private final double salaryMax;
+    private String formattedMin = "";
+    private String formattedMax = "";
     private final String jobDesc;
     private final String jobLoc;
     private final String redirectUrl;
@@ -44,5 +46,21 @@ public class JobListing {
     }
     public String getRedirectUrl() {
         return redirectUrl;
+    }
+    public String getFormattedMin() {
+        return formattedMin;
+    }
+    public String getFormattedMax() {
+        return formattedMax;
+    }
+
+    public String setFormattedMin(String salaryMin) {
+        this.formattedMin = salaryMin;
+        return formattedMin;
+    }
+
+    public String setFormattedMax(String salaryMax) {
+        this.formattedMax = salaryMax;
+        return formattedMax;
     }
 }
