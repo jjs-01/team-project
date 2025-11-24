@@ -41,7 +41,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
     public MilestoneTasksView(MilestoneTasksViewModel milestoneViewModel) {
         this.milestoneViewModel = milestoneViewModel;
-        this.milestoneTasksViewModel.addPropertyChangeListener(this);
+        this.milestoneViewModel.addPropertyChangeListener(this);
         final JPanel topDetails = new JPanel();
         planTitle = new JLabel(MilestoneTasksViewModel.TITLE_LABEL);
         planTitle.setFont(new Font("SansSerif", Font.BOLD, 24));

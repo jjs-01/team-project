@@ -233,7 +233,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
                 }
             });
 
-            ArrayList<Task> tasks = m.getSubtasks();
+            List<Task> tasks = m.getSubtasks();
             for (int j = 0; j < tasks.size(); j++) {
                 Task t = tasks.get(j);
 

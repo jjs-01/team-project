@@ -11,12 +11,6 @@ import java.util.Map;
  * Controller for the MilestoneTasks Use Case
  */
 public class MilestoneTasksController {
-    private final MilestoneTasksInputBoundary milestoneTasksUseCaseInteractor;
-
-    public MilestoneTasksController(MilestoneTasksInputBoundary milestoneTasksUseCaseInteractor) {
-        this.milestoneTasksUseCaseInteractor = milestoneTasksUseCaseInteractor;
-    }
-
     private final MilestoneTasksInputBoundary milestoneUseCaseInteractor;
 
     public MilestoneTasksController(MilestoneTasksInputBoundary milestoneUseCaseInteractor) {
