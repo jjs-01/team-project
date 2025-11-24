@@ -1,6 +1,7 @@
 package com.studyarc.view;
 
 import com.studyarc.entity.ResearchPaper;
+import com.studyarc.interface_adapter.viewing_research_papers.ResearchPaperState;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersController;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersViewModel;
 
@@ -67,9 +68,8 @@ public class ViewingResearchPapersView extends JPanel {
 
     public void refreshTable() {
         tableModel.setRowCount(0);
-
-        List<ResearchPaper> papers = viewModel.getResearchPapers();
-        for (ResearchPaper paper : papers) {
+        List<ResearchPaperState> papers = viewModel.getResearchPapers();
+        for (ResearchPaperState paper : papers) {
             Object[] row = {
                     paper.getTitle(),
                     paper.getAuthors(),
