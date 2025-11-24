@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import com.studyarc.data_access.DatabaseAccess;
-import com.studyarc.data_access.MilestoneTasksDatatAccessObject;
+import com.studyarc.data_access.MilestoneTasksDataAccessObject;
 import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanController;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanPresenter;
@@ -47,7 +47,7 @@ import com.studyarc.view.*;
 public class AppBuilder {
     private final DatabaseAccess databaseAccess = new DatabaseAccess();
     private final SidebarDataAccessInterface sidebarDataAccess = new SidebarDataAccessObject();
-    private final MilestoneTasksDataAccessInterface milestoneDataAccessObject = new MilestoneTasksDatatAccessObject();
+    private final MilestoneTasksDataAccessInterface milestoneDataAccessObject = new MilestoneTasksDataAccessObject();
 
     private final JPanel overallPanel = new JPanel(new BorderLayout());
     private final JPanel cardPanel = new JPanel(new CardLayout());
@@ -73,7 +73,6 @@ public class AppBuilder {
     private TrackPlanViewModel trackPlanViewModel;
     private AddReflectionViewModel addReflectionViewModel;
 
-    final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
 

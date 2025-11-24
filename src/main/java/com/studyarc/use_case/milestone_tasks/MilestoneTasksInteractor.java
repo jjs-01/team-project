@@ -29,19 +29,19 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
             milestonePresenter.prepareFailView("Can't save a study plan with an empty title");
         }
         else {
-            User user = milestoneDataAccessObject.getUser("");
+            String username = milestoneDataAccessObject.getUser("").getUsername();
 
             ArrayList<Milestone> milestones = getMilestones(milestoneInputData);
 
             String targetPlanTitle = milestoneInputData.getStudyPlanName();
-            for (StudyPlan plan : milestoneDataAccessObject.getPlans(user)) {
+            for (StudyPlan plan : milestoneDataAccessObject.getPlans(username)) {
                 if (plan.getTitle().equals(targetPlanTitle)) {
                     plan.setMilestones(milestones);
-                    milestoneDataAccessObject.savePlan(user, plan);
+                    milestoneDataAccessObject.savePlan(milestoneDataAccessObject.getUser(""), plan);
                     break;
                 }
             }
-            final MilestoneTasksOutputData outputData = new MilestoneTasksOutputData(milestones.get(0).getName());
+            final MilestoneTasksOutputData outputData = new MilestoneTasksOutputData(milestones.get(0).getTitle());
             milestonePresenter.prepareSuccessView(outputData);
         }
     }
