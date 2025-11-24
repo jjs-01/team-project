@@ -11,6 +11,6 @@ public class ViewingResearchPapersController {
 
     public void handleViewingResearchPapers() {
         ViewingResearchPapersInputData inputData = new ViewingResearchPapersInputData();
-        inputBoundary.viewPapers(inputData);
+        inputBoundary.execute(inputData);
     }
 }

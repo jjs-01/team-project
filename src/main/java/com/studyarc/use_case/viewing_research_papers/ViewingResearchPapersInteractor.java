@@ -14,7 +14,7 @@ public class ViewingResearchPapersInteractor implements ViewingResearchPapersInp
     }
 
     @Override
-    public void viewPapers(ViewingResearchPapersInputData inputData) {
+    public void execute(ViewingResearchPapersInputData inputData) {
         try {
             List<ResearchPaper> papers = repository.getAllPapers();
             boolean hasPapers = !papers.isEmpty();
