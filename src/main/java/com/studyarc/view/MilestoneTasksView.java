@@ -19,7 +19,9 @@ import java.util.*;
 import java.util.List;
 
 /**
- *
+ * TODO (today): Implement the load plan use case
+ * TODO (later): fix checkstyle issues
+ * TODO (later): make the UI look nice
  *
  */
 public class MilestoneTasksView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -51,19 +53,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         save = new JButton("Save Changes");
         topDetails.add(save);
 
-        save.addActionListener(
-                e -> {
-                    if (e.getSource().equals(save)) {
-                        final MilestoneTasksState currentState = milestoneViewModel.getState();
-
-                        milestoneTasksController.execute(studyPlanName,
-                            currentState.getMilestoneIndexToTasks(),
-                            currentState.getMilestoneNames(),
-                            currentState.getMilestoneDates()
-                        );
-                    }
-                }
-        );
+        save.addActionListener(this);
 
         milestonePanel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -420,19 +410,27 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final MilestoneTasksState state = (MilestoneTasksState) evt.getNewValue();
-        // if state is loaded
+        // if state is loaded (add an && state.getLoadedState)
         if (!state.getMilestoneSaveError().isEmpty()) {
             JOptionPane.showMessageDialog(this, state.getMilestoneSaveError());
             state.setMilestoneSaveError("");
         } else {
             JOptionPane.showMessageDialog(this, "Saved!");
         }
-        // if state is not loaded
+        // if state is not loaded ! state.getLoadedState()
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(this, "Not implemented");
+        if (e.getSource() == save) {
+            final MilestoneTasksState currentState = milestoneViewModel.getState();
+
+            milestoneTasksController.execute(studyPlanName,
+                    currentState.getMilestoneIndexToTasks(),
+                    currentState.getMilestoneNames(),
+                    currentState.getMilestoneDates()
+            );
+        }
     }
 
     public String getViewName() { return viewName; }
