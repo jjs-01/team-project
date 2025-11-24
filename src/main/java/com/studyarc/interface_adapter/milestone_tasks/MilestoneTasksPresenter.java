@@ -18,7 +18,7 @@ public class MilestoneTasksPresenter implements MilestoneTasksOutputBoundary {
     @Override
     public void prepareSuccessView(MilestoneTasksOutputData response) {
         // idk what to do here tbh
-        System.out.println("Saved!");
+        System.out.println("Saved for " + response.getUsername());
     }
 
     @Override

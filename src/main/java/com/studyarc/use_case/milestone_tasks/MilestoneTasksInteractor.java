@@ -1,7 +1,14 @@
 package com.studyarc.use_case.milestone_tasks;
 
+import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
+import com.studyarc.entity.Task;
 import com.studyarc.entity.User;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.List;
 
 public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
     private final MilestoneTasksDataAccessInterface milestoneDataAccessObject;
@@ -15,23 +22,42 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
 
     @Override
     public void execute(MilestoneTasksInputData milestoneInputData) {
-        if (true) {
-            milestonePresenter.prepareFailView("Can't save a plan yet");
-            // want one for: milestones with an empty name
-            // want one for more than one milestone with the same name
-        } else {
+        Set<String> set = new HashSet<>(milestoneInputData.getMilestoneNames());
+        if (set.size() < milestoneInputData.getMilestoneNames().size()) {
+            milestonePresenter.prepareFailView("Can't have more than one milestone with the same name");
+        } else if (milestoneInputData.getMilestoneNames().contains("")) {
+            milestonePresenter.prepareFailView("Can't save a study plan with an empty title");
+        }
+        else {
             User user = milestoneDataAccessObject.getUser("");
+
+            ArrayList<Milestone> milestones = new ArrayList<>();
+
+            for (int i = 0; i < milestoneInputData.getMilestoneNames().size(); i++) {
+                List<String[]> taskInfoList = milestoneInputData.getMilestoneIndexToTasks().get(i);
+                List<Task> tasksForCurrMilestone = new ArrayList<>();
+
+                for (String[] taskInfo : taskInfoList) {
+                    Task newTask = new Task(taskInfo[0], taskInfo[1], taskInfo[2]);
+                    tasksForCurrMilestone.add(newTask);
+                }
+
+                Milestone newMilestone = new Milestone(milestoneInputData.getMilestoneNames().get(i),
+                        milestoneInputData.getMilestoneDates().get(i),
+                        tasksForCurrMilestone);
+                milestones.add(newMilestone);
+            }
 
             String targetPlanTitle = milestoneInputData.getStudyPlanName();
             for (StudyPlan plan : milestoneDataAccessObject.getPlans(user)) {
                 if (plan.getTitle().equals(targetPlanTitle)) {
                     StudyPlan targetPlan = plan;
-                    targetPlan.setMilestones(milestoneInputData.getMilestones());
+                    targetPlan.setMilestones(milestones);
                     milestoneDataAccessObject.savePlan(user, targetPlan);
                     break;
                 }
             }
-            final MilestoneTasksOutputData outputData = new MilestoneTasksOutputData("user");
+            final MilestoneTasksOutputData outputData = new MilestoneTasksOutputData(milestones.get(0).getName());
             milestonePresenter.prepareSuccessView(outputData);
         }
     }

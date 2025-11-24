@@ -7,9 +7,12 @@ import com.studyarc.entity.User;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessInterface {
+    List<StudyPlan> studyPlans = new ArrayList<>();
+
     @Override
     public ArrayList<Task> getTasksForMilestone(User user, StudyPlan plan, Milestone milestone) {
         return new ArrayList<>();
@@ -26,7 +29,10 @@ public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessI
     }
 
     @Override
-    public ArrayList<StudyPlan> getPlans(User user) {return null;}
+    public ArrayList<StudyPlan> getPlans(User user) {
+        studyPlans.add(new StudyPlan("Title", null));
+        return (ArrayList<StudyPlan>) studyPlans;
+    }
 
     @Override
     public User getUser(String username) {

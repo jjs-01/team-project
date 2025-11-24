@@ -19,12 +19,14 @@ public class MilestoneTasksController {
 
     /**
      * Executes the MilestoneTasks Use Case
-     * @param milestones map of the milestones that the user has created
-     * @param milestonesToTasks map of the milestone names to the tasks they're associated with
+     * @param milestoneIndexToTasks map of the milestones that the user has created
+     * @param milestoneNames map of the milestone names to the tasks they're associated with
+     * @param milestoneDates map of the milestone names to the tasks they're associated with
      */
-    public void execute(String studyPlanName, Map<String, String> milestones, Map<String, List<String[]>> milestonesToTasks) {
+    public void execute(String studyPlanName, Map<Integer, List<String[]>> milestoneIndexToTasks,
+                        List<String> milestoneNames, List<String> milestoneDates) {
         final MilestoneTasksInputData milestoneInputData = new MilestoneTasksInputData(studyPlanName,
-                milestones, milestonesToTasks);
+                milestoneNames, milestoneDates, milestoneIndexToTasks);
 
         milestoneUseCaseInteractor.execute(milestoneInputData);
     }

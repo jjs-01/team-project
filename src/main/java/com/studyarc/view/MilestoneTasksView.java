@@ -61,8 +61,9 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                             final MilestoneTasksState currentState = milestoneViewModel.getState();
 
                             milestoneTasksController.execute(studyPlanName,
-                                currentState.getMilestones(),
-                                currentState.getMilestonestoTasks()
+                                currentState.getMilestoneIndextoTasks(),
+                                currentState.getMilestoneNames(),
+                                currentState.getMilestoneDates()
                             );
                         }
                     }
@@ -78,7 +79,19 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         addMilestone.setContentAreaFilled(false);
 
         milestoneView.add(addMilestone);
+        addMilestoneActionListener(milestoneViewModel, c);
 
+        JScrollPane milestoneScrollPane = new JScrollPane(milestoneView);
+        milestoneScrollPane.getHorizontalScrollBar().setUnitIncrement(20);
+        milestoneScrollPane.getVerticalScrollBar().setUnitIncrement(20);
+        milestoneScrollPane.setBorder(null);
+
+        this.setLayout(new BorderLayout());
+        this.add(topDetails, BorderLayout.NORTH);
+        this.add(milestoneScrollPane, BorderLayout.CENTER);
+    }
+
+    private void addMilestoneActionListener(MilestoneTasksViewModel milestoneViewModel, GridBagConstraints c) {
         addMilestone.addActionListener(
                 new ActionListener() {
 
@@ -150,15 +163,6 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                     }
                 }
         );
-
-        JScrollPane milestoneScrollPane = new JScrollPane(milestoneView);
-        milestoneScrollPane.getHorizontalScrollBar().setUnitIncrement(20);
-        milestoneScrollPane.getVerticalScrollBar().setUnitIncrement(20);
-        milestoneScrollPane.setBorder(null);
-
-        this.setLayout(new BorderLayout());
-        this.add(topDetails, BorderLayout.NORTH);
-        this.add(milestoneScrollPane, BorderLayout.CENTER);
     }
 
     private void addMilestoneNameListener(JTextField milestoneNameField, JPanel individualMilestone) {
@@ -349,7 +353,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         deleteButton.addActionListener(new ActionListener() {
 
             private void deleteTaskButtonListenerHelper() {
-
+                final MilestoneTasksState currentState = milestoneViewModel.getState();
             }
 
             @Override
