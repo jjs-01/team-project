@@ -30,7 +30,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
     }
 
     @Override
-    public void savePlan(User user, StudyPlan plan, Map<Milestone, ArrayList<Task>> milestonesToTasks) {
+    public void savePlan(User user, StudyPlan plan) {
 
     }
 

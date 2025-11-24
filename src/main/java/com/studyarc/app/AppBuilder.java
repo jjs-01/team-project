@@ -41,6 +41,7 @@ import com.studyarc.use_case.milestone_tasks.MilestoneTasksInteractor;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputBoundary;
 import com.studyarc.use_case.track_plan.*;
 import com.studyarc.use_case.ui_sidebar.*;
+import com.studyarc.view.MilestoneTasksView;
 import com.studyarc.view.*;
 
 public class AppBuilder {
@@ -63,6 +64,10 @@ public class AppBuilder {
 
     private MilestoneTasksViewModel milestoneTasksViewModel;
     private MilestoneTasksView milestoneTaskView;
+    private MilestoneTasksViewModel milestoneViewModel;
+    final ViewManagerModel viewManagerModel = new ViewManagerModel();
+
+    final MilestoneTasksDataAccessObject singleUseCaseDAO = new MilestoneTasksDataAccessObject();
 
     private TrackPlansView trackPlansView;
     private TrackPlanViewModel trackPlanViewModel;
@@ -155,20 +160,22 @@ public class AppBuilder {
         return this;
     }
 
-    public AppBuilder addMilestoneTasksUseCase() {
-        final MilestoneTasksOutputBoundary milestoneTasksOutputBoundary = new MilestoneTasksPresenter(milestoneTaskView);
-        final MilestoneTasksInputBoundary milestoneTasksInteractor = new MilestoneTasksInteractor(milestoneDataAccessObject, milestoneTasksOutputBoundary);
-
-        MilestoneTasksController milestoneTasksController = new MilestoneTasksController(milestoneTasksInteractor);
-        milestoneTaskView.setMilestoneTasksController(milestoneTasksController);
-        return this;
-    }
-
     public AppBuilder addAddReflectionUseCase() {
         AddReflectionOutputBoundary presenter = new AddReflectionPresenter(addReflectionViewModel,trackPlanViewModel);
         AddReflectionInputBoundary interactor = new AddReflectionInteractor(presenter, databaseAccess);
         AddReflectionController controller = new AddReflectionController(interactor);
         trackPlansView.setAddReflectionController(controller);
+        return this;
+    }
+
+    public AppBuilder addMilestoneTasksUseCase() {
+        final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(viewManagerModel,
+                milestoneViewModel);
+        final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(singleUseCaseDAO,
+                milestonesOutputBoundary);
+
+        MilestoneTasksController controller = new MilestoneTasksController(milestoneSaveInteractor);
+        milestoneTaskView.setMilestoneTasksController(controller);
         return this;
     }
 

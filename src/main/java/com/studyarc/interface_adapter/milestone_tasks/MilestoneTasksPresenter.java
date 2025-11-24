@@ -1,19 +1,28 @@
 package com.studyarc.interface_adapter.milestone_tasks;
 
+import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputData;
-import com.studyarc.view.MilestoneTasksView;
 
 public class MilestoneTasksPresenter implements MilestoneTasksOutputBoundary {
 
-    private final MilestoneTasksView milestoneTasksView;
+    private final MilestoneTasksViewModel milestoneTasksViewModel;
+    private final ViewManagerModel viewManagerModel;
 
-    public MilestoneTasksPresenter(MilestoneTasksView milestoneTasksView) {
-        this.milestoneTasksView = milestoneTasksView;
+    public MilestoneTasksPresenter(ViewManagerModel viewManagerModel,
+                                   MilestoneTasksViewModel milestoneTasksViewModel) {
+        this.viewManagerModel = viewManagerModel;
+        this.milestoneTasksViewModel = milestoneTasksViewModel;
     }
 
     @Override
-    public void prepareSuccessView(MilestoneTasksOutputData outputData) {
+    public void prepareSuccessView(MilestoneTasksOutputData response) {
+        // idk what to do here tbh
+        System.out.println("Saved for " + response.getUsername());
+    }
 
+    @Override
+    public void prepareFailView(String error) {
+        System.out.println(error + "Couldn't save");
     }
 }
