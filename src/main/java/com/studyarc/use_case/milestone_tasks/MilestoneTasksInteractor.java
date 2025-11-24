@@ -41,7 +41,14 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
                     break;
                 }
             }
-            final MilestoneTasksOutputData outputData = new MilestoneTasksOutputData(milestones.get(0).getTitle());
+
+            // hardcoded for now (output data should be with the studyplan name)
+            final MilestoneTasksOutputData outputData;
+            if (milestones.isEmpty()) {
+                outputData = new MilestoneTasksOutputData("empty milestones");
+            } else {
+                outputData = new MilestoneTasksOutputData(milestones.get(0).getTitle());
+            }
             milestonePresenter.prepareSuccessView(outputData);
         }
     }
