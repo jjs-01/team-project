@@ -5,60 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="Use Case 6 clean architecture refactor 2">
-      <change afterPath="$PROJECT_DIR$/env.example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/MilestoneTasksDataAccessObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/add_reflection/AddReflectionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/add_reflection/AddReflectionPresenter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/add_reflection/AddReflectionState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/add_reflection/AddReflectionViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/AddReflectionView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/ShowReflectionView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/app/AppBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/app/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/Milestone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/Milestone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/Reflection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/Reflection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/StudyPlan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/StudyPlan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/delete_plan/DeletePlanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/delete_plan/DeletePlanController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/delete_plan/DeletePlanPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/delete_plan/DeletePlanPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/milestone_tasks/MilestoneTasksController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/milestone_tasks/MilestoneTasksController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/milestone_tasks/MilestoneTasksPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/milestone_tasks/MilestoneTasksPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/milestone_tasks/MilestoneTasksState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/milestone_tasks/MilestoneTasksState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/milestone_tasks/MilestoneTasksViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/milestone_tasks/MilestoneTasksViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/reflection_log/AddReflectionController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/reflection_log/AddReflectionPresenter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/reflection_log/AddReflectionViewModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/track_plan/TrackPlanPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/track_plan/TrackPlanPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/track_plan/TrackPlanState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/track_plan/TrackPlanState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ui_sidebar/SidebarPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ui_sidebar/SidebarPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_reflection/AddReflectionDataAccessInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_reflection/AddReflectionDataAccessInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_reflection/AddReflectionInputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_reflection/AddReflectionInputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_reflection/AddReflectionInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_reflection/AddReflectionInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_reflection/AddReflectionOutputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_reflection/AddReflectionOutputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/delete_plan/DeletePlanInputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/delete_plan/DeletePlanInputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/delete_plan/DeletePlanInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/delete_plan/DeletePlanInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/delete_plan/DeletePlanOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/delete_plan/DeletePlanOutputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/delete_plan/DeletePlanOutputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/delete_plan/DeletePlanOutputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/job_postings/JobPostingsInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/job_postings/JobPostingsInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/job_postings/generate_postings/AdzunaJobGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/job_postings/generate_postings/AdzunaJobGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksDataAccessInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksDataAccessInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksInputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksInputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksOutputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksOutputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksOutputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanDataAccessTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanDataAccessTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanDataAccessinterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanDataAccessinterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanOutputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanOutputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanOutputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/JobPostingsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/JobPostingsView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/MilestoneTasksView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/MilestoneTasksView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/SidePanelView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/SidePanelView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/TrackPlansView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/TrackPlansView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/MilestoneTasksDatatAccessObject.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,12 +70,13 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "#25 on Merging View-Research-Papers",
+    "git-widget-placeholder": "#25 on View-Research-Papers",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/henrymorton/IdeaProjects/team-project",
     "onboarding.tips.debug.path": "/Users/henrymorton/IdeaProjects/team-project/src/Main.java",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
   }
