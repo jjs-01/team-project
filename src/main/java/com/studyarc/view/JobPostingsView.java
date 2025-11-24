@@ -38,9 +38,6 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
     private final JButton search;
 
-    private final Color jobInfoColor = new Color(255, 225, 143);
-    private final Color jobDescColor = new Color(232, 231, 230);
-
     public JobPostingsView(JobPostingsViewModel jobPostingsViewModel) {
         JPanel jobPostingsPanel = new JPanel();
         jobPostingsPanel.setLayout(new BoxLayout(jobPostingsPanel, BoxLayout.Y_AXIS));
@@ -235,14 +232,14 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
             jobInfo.setMaximumSize(new Dimension(indJobCard /3, 300));
             jobInfo.add(Box.createRigidArea(new Dimension(10, 0)));
             jobInfo.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
-            jobInfo.setBackground(jobInfoColor);
+            jobInfo.setBackground(Styling.getYellow());
 
             JPanel jobDescPanel = new JPanel();
             jobDescPanel.setLayout(new BoxLayout(jobDescPanel, BoxLayout.Y_AXIS));
             jobDescPanel.setPreferredSize(new Dimension(indJobCard * 2/3, 300));
             jobDescPanel.setMaximumSize(new Dimension(indJobCard * 2/3, 300));
             jobDescPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-            jobDescPanel.setBackground(jobDescColor);
+            jobDescPanel.setBackground(Styling.getGray());
 
             jobTitle = new JLabel("<html><div style='margin:0; padding:0;'>"
                     + jobListing.getTitle()

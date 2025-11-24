@@ -26,4 +26,12 @@ public class Styling {
     public static int getHeight() {
         return 800;
     }
+
+    public static Color getYellow() {
+        return new Color(255, 225, 143);
+    }
+
+    public static Color getGray() {
+        return new Color(232, 231, 230);
+    }
 }

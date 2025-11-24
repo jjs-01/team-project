@@ -64,18 +64,25 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         this.trackPlanViewModel = trackPlanViewModel;
         this.trackPlanViewModel.addPropertyChangeListener(this);
         this.setLayout(borderLayout);
-        titlePanel = SetTitlePanel();
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
-        trackPlansPanel = new JPanel();
+        this.setBackground(Color.DARK_GRAY);
 
+        titlePanel = SetTitlePanel();
+        titlePanel.setBorder(
+                BorderFactory.createEmptyBorder(25, 25, 5, 25));
+
+        titlePanel.setBackground(Styling.getYellow());
+        trackPlansPanel = new JPanel();
 
         trackPlansPanel.setLayout(new BoxLayout(trackPlansPanel, BoxLayout.Y_AXIS));
         JScrollPane jScrollPane = new JScrollPane(this.trackPlansPanel);
-        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane.getVerticalScrollBar().setUnitIncrement(Styling.getScroll_pace());
+        jScrollPane.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(jScrollPane, BorderLayout.CENTER);
+
+        jScrollPane.getViewport().setBackground(Styling.getYellow());
+        jScrollPane.setBackground(Styling.getYellow());
 
         this.addReflectionViewModel = addReflectionViewModel;
         this.addReflectionViewModel.addPropertyChangeListener(this);
@@ -94,6 +101,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         titlePanel.setLayout(new BorderLayout());
         titlePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         saveButton.addActionListener(this);
+        saveButton.setFont(Styling.getSubFont().deriveFont(12f));
         titlePanel.add(title, BorderLayout.CENTER);
         titlePanel.add(saveButton, BorderLayout.EAST);
         return titlePanel;
@@ -151,17 +159,19 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             @Override
             public Dimension getMaximumSize() {
                 Dimension size = getPreferredSize();
-                return new Dimension(Integer.MAX_VALUE, size.height);
+                return new Dimension(750, size.height);
             }
         };
         planPanel.setLayout(new BorderLayout());
-        planPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        planPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.DARK_GRAY));
+        planPanel.setBackground(Styling.getGray());
 
 
         // Head Part of each plan
         JPanel headPanel = new JPanel();
         headPanel.setLayout(new BoxLayout(headPanel, BoxLayout.X_AXIS));
         JLabel planLabel = new JLabel("Plan : ");
+        headPanel.setBackground(Styling.getGray());
 
         headPanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 5, 25));
 
@@ -174,6 +184,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         // Delete Button for each plan
         JButton deleteButton = new JButton("Delete " + "❌");
+        deleteButton.setFont(Styling.getSubFont().deriveFont(12f));
         deleteButton.addActionListener(this);
         this.buttonToPlanMap.put(deleteButton, plan); //Add the delete button in the map for each plan.
 
@@ -186,6 +197,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         // Milestones of each plan
         JPanel milestonesPanel = new JPanel();
         milestonesPanel.setLayout(new BoxLayout(milestonesPanel, BoxLayout.Y_AXIS));
+        milestonesPanel.setBackground(Styling.getGray());
 
         milestonesPanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -195,12 +207,16 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             Milestone m = milestones.get(i);
 
             JPanel milestonePanel = new JPanel();
+            milestonePanel.setBackground(Styling.getGray());
             milestonePanel.setLayout(new BoxLayout(milestonePanel, BoxLayout.Y_AXIS));
 
             // MilestoneHeadPanel setup
             JPanel milestoneHeader = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            milestoneHeader.setBackground(Styling.getGray());
             JButton upButton = new JButton("▲");
             JButton downButton = new JButton("▼");
+            upButton.setFont(Styling.getSubFont().deriveFont(12f));
+            downButton.setFont(Styling.getSubFont().deriveFont(12f));
             JLabel milestoneLabel = new JLabel("milestone " + (i + 1) + " : " + m.getTitle());
 
             // Check if all subtasks are completed
@@ -221,6 +237,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
             // SubTask Panel for each Milestone
             JPanel tasksPanel = new JPanel();
+            tasksPanel.setBackground(Styling.getGray());
             tasksPanel.setLayout(new BoxLayout(tasksPanel, BoxLayout.Y_AXIS));
             //If the milestone is completed, hide it. Show it if it's not
             tasksPanel.setVisible(!milestoneCompleted.isVisible());
@@ -249,6 +266,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
                 Task t = tasks.get(j);
 
                 JPanel taskRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                taskRow.setBackground(Styling.getGray());
                 JLabel taskLabel = new JLabel("Task " + (j + 1) + ": " + t.getName() + "    ");
                 String d = t.getDuedate();
                 JLabel dueLabel = new JLabel("Due: " + d + "   ");
@@ -278,7 +296,9 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         JPanel reflectionHeader = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JButton addReflectionButton = new JButton("Add");
+        addReflectionButton.setFont(Styling.getSubFont().deriveFont(12f));
         JButton showAllReflectionsButton = new JButton("Show All");
+        showAllReflectionsButton.setFont(Styling.getSubFont().deriveFont(12f));
 
         reflectionHeader.add(addReflectionButton);
         reflectionHeader.add(showAllReflectionsButton);
