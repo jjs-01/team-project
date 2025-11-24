@@ -64,7 +64,6 @@ public class AppBuilder {
 
     private MilestoneTasksViewModel milestoneTasksViewModel;
     private MilestoneTasksView milestoneTaskView;
-    private MilestoneTasksViewModel milestoneViewModel;
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
 
     final MilestoneTasksDataAccessObject singleUseCaseDAO = new MilestoneTasksDataAccessObject();
@@ -169,7 +168,7 @@ public class AppBuilder {
 
     public AppBuilder addMilestoneTasksUseCase() {
         final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(viewManagerModel,
-                milestoneViewModel);
+                milestoneTasksViewModel);
         final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(singleUseCaseDAO,
                 milestonesOutputBoundary);
 

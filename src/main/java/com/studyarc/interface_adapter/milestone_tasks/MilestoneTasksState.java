@@ -7,6 +7,7 @@ public class MilestoneTasksState {
     private final List<String> milestoneNames = new ArrayList<>();
     private final List<String> milestoneDates = new ArrayList<>();
     private final List<List<String[]>> milestoneIndexToTasks = new ArrayList<>();
+    private String saveChangesError;
 
     public void addMilestone(int milestoneIndex, String name, String date) {
         milestoneNames.add(milestoneIndex, name);
@@ -44,6 +45,10 @@ public class MilestoneTasksState {
         taskInfo[2] = newStatus;
     }
 
+    public void setMilestoneSaveError(String error) {
+        saveChangesError = error;
+    }
+
     public void removeMilestone(int index) {
         milestoneNames.remove(index);
         milestoneDates.remove(index);
@@ -69,6 +74,10 @@ public class MilestoneTasksState {
 
     public List<String> getMilestoneDates() {
         return milestoneDates;
+    }
+
+    public String getMilestoneSaveError() {
+        return saveChangesError;
     }
 
     @Override
