@@ -229,12 +229,13 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                         MilestoneTasksViewModel.BASE_TASK_FIELDS[1],
                         MilestoneTasksViewModel.BASE_TASK_FIELDS[2]);
                 milestoneViewModel.setState(currentState);
+                System.out.println(currentState);
             }
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(addTask)) {
-                    JComponent[] taskComponents = new JComponent[3];
+                    JComponent[] taskComponents = new JComponent[4];
                     milestoneToTaskComponents.get(milestoneIndex).add(taskComponents);
                     int taskIndex = milestoneToTaskComponents.get(milestoneIndex).indexOf(taskComponents);
 
@@ -262,7 +263,10 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
                     // Creates delete button
                     constraints2.gridx = 3;
-                    individualMilestone.add(new JButton("x"), constraints2);
+                    JButton deleteButton = new JButton("x");
+                    individualMilestone.add(deleteButton, constraints2);
+                    addDeleteTaskButtonListener(deleteButton, milestoneIndex, taskIndex);
+                    taskComponents[3] = deleteButton;
 
                     addTaskListenerHelper();
                     individualMilestone.revalidate();
@@ -337,6 +341,20 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     itemListenerHelper();
                 }
+            }
+        });
+    }
+
+    private void addDeleteTaskButtonListener(JButton deleteButton, int milestoneIndex, int taskIndex) {
+        deleteButton.addActionListener(new ActionListener() {
+
+            private void deleteTaskButtonListenerHelper() {
+
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }

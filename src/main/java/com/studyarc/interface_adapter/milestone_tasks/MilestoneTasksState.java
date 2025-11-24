@@ -61,22 +61,16 @@ public class MilestoneTasksState {
         return milestoneIndexToTasks.get(milestoneIndex);
     }
 
-    public Map<String, List<String[]>> getMilestonestoTasks() {
-        Map<String, List<String[]>> result = new HashMap<>();
-
-        for (int i = 0; i < milestoneNames.size(); i++) {
-            result.put(milestoneNames.get(i), milestoneIndexToTasks.get(i));
-        }
-
-        return result;
+    public Map<Integer, List<String[]>> getMilestoneIndextoTasks() {
+        return milestoneIndexToTasks;
     }
 
-    public Map<String, String> getMilestones() {
-        Map<String, String> result = new HashMap<>();
-        for (int i = 0; i < milestoneNames.size(); i++) {
-            result.put(milestoneNames.get(i), milestoneDates.get(i));
-        }
-        return result;
+    public List<String> getMilestoneNames() {
+        return milestoneNames;
+    }
+
+    public List<String> getMilestoneDates() {
+        return milestoneDates;
     }
 
     @Override

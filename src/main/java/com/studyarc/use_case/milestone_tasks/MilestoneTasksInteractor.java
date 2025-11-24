@@ -17,6 +17,8 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
     public void execute(MilestoneTasksInputData milestoneInputData) {
         if (true) {
             milestonePresenter.prepareFailView("Can't save a plan yet");
+            // want one for: milestones with an empty name
+            // want one for more than one milestone with the same name
         } else {
             User user = milestoneDataAccessObject.getUser("");
 

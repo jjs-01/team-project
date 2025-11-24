@@ -31,12 +31,12 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
     }
 
     @Override
-    public void savePlan(User user, StudyPlan plan, Map<Milestone, ArrayList<Task>> milestonesToTasks) {
+    public void savePlan(User user, StudyPlan plan) {
 
     }
 
     @Override
-    public ArrayList<StudyPlan> getPlans(String username) {return null;}
+    public ArrayList<StudyPlan> getPlans(User user) {return null;}
 
     @Override
     public boolean registerUser(User u) {
@@ -45,6 +45,11 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
 
     @Override
     public User getUser(String username) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<StudyPlan> getPlans(String username) {
         return null;
     }
 }
