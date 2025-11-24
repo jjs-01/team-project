@@ -42,7 +42,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         this.milestoneViewModel.addPropertyChangeListener(this);
         final JPanel topDetails = new JPanel();
         planTitle = new JLabel(MilestoneTasksViewModel.TITLE_LABEL);
-        planTitle.setFont(new Font("SansSerif", Font.BOLD, 24));
+        planTitle.setFont(new Font(MilestoneTasksViewModel.FONT, Font.BOLD, 24));
         topDetails.add(planTitle);
 
         focuses = new JLabel("Focus: ");
@@ -69,7 +69,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         GridBagConstraints c = new GridBagConstraints();
 
         addMilestone = new JButton("+   add a milestone");
-        addMilestone.setFont(new Font("SansSerif", Font.BOLD, 12));
+        addMilestone.setFont(new Font(MilestoneTasksViewModel.FONT, Font.BOLD, 12));
         addMilestone.setForeground(new Color(75, 75, 95));
         addMilestone.setContentAreaFilled(false);
 
@@ -236,7 +236,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
     }
 
     private void addTaskListener(JButton addTask, GridBagConstraints constraints2, JPanel individualMilestone) {
-        addTask.setFont(new Font("SansSerif", Font.BOLD, 10));
+        addTask.setFont(new Font(MilestoneTasksViewModel.FONT, Font.BOLD, 10));
         addTask.setForeground(new Color(95, 95, 105));
         addTask.setContentAreaFilled(false);
 
