@@ -2,22 +2,47 @@ package com.studyarc.entity.job_postings;
 
 public class JobListing {
     private final String title;
-    private final int jobId;
+    private final long jobId;
     private final String companyName;
-    private final int salaryMin;
-    private final int salaryMax;
+    private final double salaryMin;
+    private final double salaryMax;
     private final String jobDesc;
     private final String jobLoc;
     private final String redirectUrl;
 
-    public JobListing(String title, int jobId, String companyName, int salaryMin, int salaryMax, String jobDesc, String jobLoc, String redirectUrl, int jobId1, String companyName1, int salaryMin1, int salaryMax1, String jobDesc1, String jobLoc1, String redirectUrl1) {
+    public JobListing(String title, long jobId, String companyName, double salaryMin, double salaryMax, String jobDesc, String jobLoc, String redirectUrl) {
         this.title = title;
-        this.jobId = jobId1;
-        this.companyName = companyName1;
-        this.salaryMin = salaryMin1;
-        this.salaryMax = salaryMax1;
-        this.jobDesc = jobDesc1;
-        this.jobLoc = jobLoc1;
-        this.redirectUrl = redirectUrl1;
+        this.jobId = jobId;
+        this.companyName = companyName;
+        this.salaryMin = salaryMin;
+        this.salaryMax = salaryMax;
+        this.jobDesc = jobDesc;
+        this.jobLoc = jobLoc;
+        this.redirectUrl = redirectUrl;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+    public long getJobId() {
+        return jobId;
+    }
+    public String getCompanyName() {
+        return companyName;
+    }
+    public double getSalaryMin() {
+        return salaryMin;
+    }
+    public double getSalaryMax() {
+        return salaryMax;
+    }
+    public String getJobDesc() {
+        return jobDesc;
+    }
+    public String getJobLoc() {
+        return jobLoc;
+    }
+    public String getRedirectUrl() {
+        return redirectUrl;
     }
 }

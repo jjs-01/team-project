@@ -1,7 +1,9 @@
 package com.studyarc.view;
 
 import com.studyarc.interface_adapter.*;
+import com.studyarc.interface_adapter.job_postings.JobPostingsController;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
+import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +15,11 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class MilestoneTasksView extends JPanel implements ActionListener, PropertyChangeListener {
-    private MilestoneTasksController milestoneTasksController;
+
+    private final String viewName = "milestone tasks";
+
+    private final MilestoneTasksViewModel milestoneTasksViewModel;
+    private MilestoneTasksController milestoneTasksController = null;
 
     private JPanel milestoneView = new JPanel();
     private JLabel planTitle;
@@ -23,7 +29,11 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
     // private List<> milestones = new ArrayList<JPanel>();
 
-    public MilestoneTasksView() {
+    public MilestoneTasksView(MilestoneTasksViewModel milestoneTasksViewModel) {
+
+        this.milestoneTasksViewModel = milestoneTasksViewModel;
+        this.milestoneTasksViewModel.addPropertyChangeListener(this);
+
         final JPanel topDetails = new JPanel();
         planTitle = new JLabel("HCI Study Plan");
         planTitle.setFont(new Font("SansSerif", Font.BOLD, 24));
@@ -109,4 +119,13 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
     public void actionPerformed(ActionEvent e) {
 
     }
+
+    public String getViewName() {
+        return viewName;
+    }
+
+    public void setMilestoneTasksController(MilestoneTasksController milestoneTasksController) {
+        this.milestoneTasksController = milestoneTasksController;
+    }
+
 }

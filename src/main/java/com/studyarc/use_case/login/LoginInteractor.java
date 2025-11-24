@@ -6,20 +6,23 @@ import java.security.NoSuchAlgorithmException;
 
 public class LoginInteractor implements LoginInputBoundary{
     private LoginDataAccessInterface dao;
+    private LoginOutputBoundary loginPresenter;
     @Override
-    public LoginResult login(String username, String password) {
+    public void login(LoginInputData loginInputData) {
+        String username = loginInputData.getUsername();
+        String password = loginInputData.getPassword();
         User u = dao.getUser(username);
         if(u==null){
-            return  new LoginResult(false, null);
+            loginPresenter.prepareView(new LoginOutputData(false, null));
         }
         try {
             boolean result = u.validateHash(password);
             if (result){
-                return new LoginResult(true, u);
+                loginPresenter.prepareView(new LoginOutputData(true, u));
             }
-            return new LoginResult(false, null);
+            loginPresenter.prepareView(new LoginOutputData(false, null));
         } catch (NoSuchAlgorithmException e) {
-            return  new LoginResult(false, null);
+            loginPresenter.prepareView(new LoginOutputData(false, null));
         }
     }
 
