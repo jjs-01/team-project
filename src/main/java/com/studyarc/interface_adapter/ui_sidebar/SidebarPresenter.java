@@ -47,8 +47,6 @@ public class SidebarPresenter implements SidebarOutputBoundary {
 
     @Override
     public void switchToPapers() {
-        System.out.println("SidebarPresenter: switching to papers");
-        System.out.println("View name: " + viewingResearchPapersViewModel.getViewName());
         viewManagerModel.setState(viewingResearchPapersViewModel.getViewName());
         viewManagerModel.firePropertyChange();
     }

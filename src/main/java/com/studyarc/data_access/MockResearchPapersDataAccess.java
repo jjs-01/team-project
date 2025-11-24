@@ -8,6 +8,11 @@ import java.util.List;
 public class MockResearchPapersDataAccess implements ViewingResearchPapersDataAccessInterface {
     @Override
     public List<ResearchPaper> getAllPapers() {
+        boolean simulateFailure = true;
+        if (simulateFailure) {
+            throw new RuntimeException("Database connection failed");
+        }
+
         List<ResearchPaper> papers = new ArrayList<>();
 
         papers.add(new ResearchPaper(

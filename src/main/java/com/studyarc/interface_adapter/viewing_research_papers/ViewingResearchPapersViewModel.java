@@ -9,6 +9,7 @@ import java.util.List;
 public class ViewingResearchPapersViewModel {
     public static final String PAPERS_PROPERTY = "researchPapers";
     public static final String HAS_PAPERS_PROPERTY = "hasPapers";
+    private String errorMessage;
 
     private final PropertyChangeSupport support;
     private List<ResearchPaper> researchPapers;
@@ -58,4 +59,13 @@ public class ViewingResearchPapersViewModel {
         return "viewing research papers";
     }
 
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        String oldMessage = this.errorMessage;
+        this.errorMessage = errorMessage;
+        support.firePropertyChange("errorMessage", oldMessage, errorMessage);
+    }
 }

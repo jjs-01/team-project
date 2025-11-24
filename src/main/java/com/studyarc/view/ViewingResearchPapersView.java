@@ -15,6 +15,7 @@ public class ViewingResearchPapersView extends JPanel {
     private DefaultTableModel tableModel;
     private ViewingResearchPapersViewModel viewModel;
     private ViewingResearchPapersController controller;
+    private boolean dataLoaded = false;
 
     public ViewingResearchPapersView(ViewingResearchPapersViewModel viewModel) {
         this.viewModel = viewModel;
@@ -45,14 +46,25 @@ public class ViewingResearchPapersView extends JPanel {
         this.controller = controller;
     }
 
+
+
     @Override
     public void addNotify() {
         super.addNotify();
-        // Load data when view becomes visible
-        if (controller != null) {
+        if (controller != null && !dataLoaded && this.isShowing()) {
+            controller.handleViewingResearchPapers();
+            dataLoaded = true;
+        }
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible && controller != null) {
             controller.handleViewingResearchPapers();
         }
     }
+
     public void refreshTable() {
         tableModel.setRowCount(0);
 

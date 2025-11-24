@@ -98,7 +98,6 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         seePapers.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        System.out.println("clicked Papers");
                         sidebarController.switchToPapers();
                     }
                 }
