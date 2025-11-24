@@ -1,5 +1,6 @@
 package com.studyarc.interface_adapter.milestone_tasks;
 
+import com.studyarc.use_case.job_postings.JobPostingsInputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputData;
 
@@ -10,6 +11,11 @@ import java.util.Map;
  * Controller for the MilestoneTasks Use Case
  */
 public class MilestoneTasksController {
+    private final MilestoneTasksInputBoundary milestoneTasksUseCaseInteractor;
+
+    public MilestoneTasksController(MilestoneTasksInputBoundary milestoneTasksUseCaseInteractor) {
+        this.milestoneTasksUseCaseInteractor = milestoneTasksUseCaseInteractor;
+    }
 
     private final MilestoneTasksInputBoundary milestoneUseCaseInteractor;
 

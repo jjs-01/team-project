@@ -3,6 +3,7 @@ package com.studyarc.view;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksState;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
+import com.studyarc.interface_adapter.job_postings.JobPostingsController;
 
 
 import javax.swing.*;
@@ -40,6 +41,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
     public MilestoneTasksView(MilestoneTasksViewModel milestoneViewModel) {
         this.milestoneViewModel = milestoneViewModel;
+        this.milestoneTasksViewModel.addPropertyChangeListener(this);
         final JPanel topDetails = new JPanel();
         planTitle = new JLabel(MilestoneTasksViewModel.TITLE_LABEL);
         planTitle.setFont(new Font("SansSerif", Font.BOLD, 24));

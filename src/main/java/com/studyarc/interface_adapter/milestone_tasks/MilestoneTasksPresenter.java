@@ -23,6 +23,6 @@ public class MilestoneTasksPresenter implements MilestoneTasksOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        System.out.println(error + ". Couldn't save");
+        System.out.println(error + "Couldn't save");
     }
 }

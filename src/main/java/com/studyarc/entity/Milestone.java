@@ -7,6 +7,11 @@ public class Milestone {
     private String dueDate;
     private String name;
     private final List<Task> subtasks;
+  
+    public Milestone(String title) {
+        this.name = title;
+        this.subtasks = new ArrayList<>();
+    }
 
     public Milestone(String name, String dueDate) {
 //        if ("".equals(name)) {
@@ -30,18 +35,18 @@ public class Milestone {
         subtasks.add(task);
     }
 
-    public List<Task> getTasks() {
+    public List<Task> getSubtasks() {
         return subtasks;
     }
 
-    public void setName(String name) {
+    public void setTitle(String name) {
 //        if ("".equals(name)) {
 //            throw new IllegalArgumentException("Name cannot be empty.");
 //        }
         this.name = name;
     }
 
-    public String getName() {
+    public String getTitle() {
         return name;
     }
 
