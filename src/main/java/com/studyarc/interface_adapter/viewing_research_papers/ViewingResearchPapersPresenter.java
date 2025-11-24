@@ -17,6 +17,8 @@ public class ViewingResearchPapersPresenter implements ViewingResearchPapersOutp
 
     @Override
     public void prepareSuccessView(ViewingResearchPapersOutputData outputData) {
+        // Convert ResearchPaper entities to ResearchPaperState objects
+        // This maintains Clean Architecture by keeping entities out of the ViewModel
         List<ResearchPaperState> paperStates = outputData.getPapers().stream()
                 .map(paper -> new ResearchPaperState(
                         paper.getId(),
@@ -34,7 +36,8 @@ public class ViewingResearchPapersPresenter implements ViewingResearchPapersOutp
     @Override
     public void prepareFailView(String errorMessage) {
         System.err.println("Error loading papers: " + errorMessage);
-        viewModel.setErrorMessage(errorMessage);
+        // Set a user-friendly error message for the GUI
+        viewModel.setErrorMessage("Unable to load research papers. Please try again later.");
         viewModel.setResearchPapers(new ArrayList<>());
         viewModel.setHasPapers(false);
     }

@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="Use Case 6 clean architecture refactor 1">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ResearchPaperState.java" afterDir="false" />
+    <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="Use Case 6 clean architecture refactor 2">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/MockResearchPapersDataAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/MockResearchPapersDataAccess.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersViewModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/ViewingResearchPapersView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/ViewingResearchPapersView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -254,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763953948174</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Use Case 6 clean architecture refactor 2">
+      <option name="closed" value="true" />
+      <created>1763956192815</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1763956192815</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -275,6 +283,18 @@
     <MESSAGE value="Use Case 6 fix" />
     <MESSAGE value="Use Case 6 fail and success views" />
     <MESSAGE value="Use Case 6 clean architecture refactor 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Use Case 6 clean architecture refactor 1" />
+    <MESSAGE value="Use Case 6 clean architecture refactor 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Use Case 6 clean architecture refactor 2" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/studyarc/view/ViewingResearchPapersView.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
