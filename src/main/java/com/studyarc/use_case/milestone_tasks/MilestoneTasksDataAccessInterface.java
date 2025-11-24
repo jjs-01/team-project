@@ -29,6 +29,9 @@ public interface MilestoneTasksDataAccessInterface {
      * Saves the milestones and tasks to the User's StudyPlan
      * @return an ArrayList of Task Objects
      */
-    void savePlan(User user, StudyPlan plan, Map<Milestone, ArrayList<Task>> milestonesToTasks);
+    void savePlan(User user, StudyPlan plan);
 
+    User getUser(String username);
+
+    ArrayList<StudyPlan> getPlans(String user);
 }

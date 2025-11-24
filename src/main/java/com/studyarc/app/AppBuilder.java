@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import com.studyarc.data_access.DatabaseAccess;
-import com.studyarc.data_access.MilestoneTasksDatatAccessObject;
+import com.studyarc.data_access.MilestoneTasksDataAccessObject;
 import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanController;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanPresenter;
@@ -41,12 +41,13 @@ import com.studyarc.use_case.milestone_tasks.MilestoneTasksInteractor;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputBoundary;
 import com.studyarc.use_case.track_plan.*;
 import com.studyarc.use_case.ui_sidebar.*;
+import com.studyarc.view.MilestoneTasksView;
 import com.studyarc.view.*;
 
 public class AppBuilder {
     private final DatabaseAccess databaseAccess = new DatabaseAccess();
     private final SidebarDataAccessInterface sidebarDataAccess = new SidebarDataAccessObject();
-    private final MilestoneTasksDataAccessInterface milestoneDataAccessObject = new MilestoneTasksDatatAccessObject();
+    private final MilestoneTasksDataAccessInterface milestoneDataAccessObject = new MilestoneTasksDataAccessObject();
 
     private final JPanel overallPanel = new JPanel(new BorderLayout());
     private final JPanel cardPanel = new JPanel(new CardLayout());
@@ -63,12 +64,15 @@ public class AppBuilder {
 
     private MilestoneTasksViewModel milestoneTasksViewModel;
     private MilestoneTasksView milestoneTaskView;
+    private MilestoneTasksViewModel milestoneViewModel;
+    final ViewManagerModel viewManagerModel = new ViewManagerModel();
+
+    final MilestoneTasksDataAccessObject singleUseCaseDAO = new MilestoneTasksDataAccessObject();
 
     private TrackPlansView trackPlansView;
     private TrackPlanViewModel trackPlanViewModel;
     private AddReflectionViewModel addReflectionViewModel;
 
-    final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
 
@@ -155,20 +159,22 @@ public class AppBuilder {
         return this;
     }
 
-    public AppBuilder addMilestoneTasksUseCase() {
-        final MilestoneTasksOutputBoundary milestoneTasksOutputBoundary = new MilestoneTasksPresenter(milestoneTaskView);
-        final MilestoneTasksInputBoundary milestoneTasksInteractor = new MilestoneTasksInteractor(milestoneDataAccessObject, milestoneTasksOutputBoundary);
-
-        MilestoneTasksController milestoneTasksController = new MilestoneTasksController(milestoneTasksInteractor);
-        milestoneTaskView.setMilestoneTasksController(milestoneTasksController);
-        return this;
-    }
-
     public AppBuilder addAddReflectionUseCase() {
         AddReflectionOutputBoundary presenter = new AddReflectionPresenter(addReflectionViewModel,trackPlanViewModel);
         AddReflectionInputBoundary interactor = new AddReflectionInteractor(presenter, databaseAccess);
         AddReflectionController controller = new AddReflectionController(interactor);
         trackPlansView.setAddReflectionController(controller);
+        return this;
+    }
+
+    public AppBuilder addMilestoneTasksUseCase() {
+        final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(viewManagerModel,
+                milestoneViewModel);
+        final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(singleUseCaseDAO,
+                milestonesOutputBoundary);
+
+        MilestoneTasksController controller = new MilestoneTasksController(milestoneSaveInteractor);
+        milestoneTaskView.setMilestoneTasksController(controller);
         return this;
     }
 

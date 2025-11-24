@@ -30,11 +30,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
     }
 
     @Override
-    public void savePlan(User user, StudyPlan plan, Map<Milestone, ArrayList<Task>> milestonesToTasks) {
-
-    }
-
-    @Override
     public ArrayList<StudyPlan> getPlans(String username) {
         return this.generateTestPlans();
     }
