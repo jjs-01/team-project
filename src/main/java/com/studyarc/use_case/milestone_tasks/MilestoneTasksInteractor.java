@@ -3,7 +3,6 @@ package com.studyarc.use_case.milestone_tasks;
 import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.Task;
-import com.studyarc.entity.User;
 
 import java.util.ArrayList;
 import java.util.HashSet;

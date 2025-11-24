@@ -5,10 +5,10 @@ import java.util.List;
 
 public class StudyPlan {
     private String title;
-    private ArrayList<Milestone> milestones;
+    private List<Milestone> milestones;
     private final List<Reflection> reflections = new ArrayList<>();
 
-    public StudyPlan(String title, ArrayList<Milestone> milestones) {
+    public StudyPlan(String title, List<Milestone> milestones) {
         this.title = title;
         this.milestones = milestones;
     }
@@ -21,11 +21,11 @@ public class StudyPlan {
         this.title = title;
     }
 
-    public ArrayList<Milestone> getMilestones() {
+    public List<Milestone> getMilestones() {
         return milestones;
     }
 
-    public void setMilestones(ArrayList<Milestone> milestones) {
+    public void setMilestones(List<Milestone> milestones) {
         this.milestones = milestones;
     }
 

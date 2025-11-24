@@ -1,7 +1,6 @@
 package com.studyarc.use_case.milestone_tasks;
 
 import java.util.List;
-import java.util.Map;
 
 public class MilestoneTasksInputData {
     private final String studyPlanName;
