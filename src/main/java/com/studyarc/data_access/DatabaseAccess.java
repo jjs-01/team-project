@@ -5,6 +5,7 @@ import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.Task;
 import com.studyarc.entity.User;
 import com.studyarc.use_case.job_postings.JobPostingsDataAccessInterface;
+import com.studyarc.use_case.load_milestones.LoadMilestonesDataAccessInterface;
 import com.studyarc.use_case.login.LoginDataAccessInterface;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.add_reflection.AddReflectionDataAccessInterface;
@@ -12,7 +13,12 @@ import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
 
 import java.util.*;
 
-public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginDataAccessInterface, MilestoneTasksDataAccessInterface, AddReflectionDataAccessInterface, TrackPlanDataAccessinterface {
+public class DatabaseAccess implements JobPostingsDataAccessInterface,
+        LoginDataAccessInterface,
+        MilestoneTasksDataAccessInterface,
+        AddReflectionDataAccessInterface,
+        TrackPlanDataAccessinterface,
+        LoadMilestonesDataAccessInterface {
 
     @Override
     public ArrayList<String> getFocuses() {
@@ -27,11 +33,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
     @Override
     public ArrayList<Milestone> getMilestones(User user, StudyPlan plan) {
         return null;
-    }
-
-    @Override
-    public void savePlan(User user, StudyPlan plan, Map<Milestone, ArrayList<Task>> milestonesToTasks) {
-
     }
 
     @Override

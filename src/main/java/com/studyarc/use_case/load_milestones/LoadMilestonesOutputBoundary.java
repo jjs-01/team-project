@@ -1,11 +1,11 @@
-package com.studyarc.use_case.milestone_tasks;
+package com.studyarc.use_case.load_milestones;
 
-public interface MilestoneTasksOutputBoundary {
+public interface LoadMilestonesOutputBoundary {
     /**
      * Prepares the success view for the Signup Use Case.
      * @param outputData the output data
      */
-    void prepareSuccessView(MilestoneTasksOutputData outputData);
+    void prepareSuccessView(LoadMilestonesOutputData outputData);
 
     /**
      * Prepares the fail view for the Signup Use Case.

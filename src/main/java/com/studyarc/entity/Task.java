@@ -2,13 +2,13 @@ package com.studyarc.entity;
 
 public class Task {
     private String name;
-    private String duedate;
-    private String completionstatus;
+    private String dueDate;
+    private String completionStatus;
 
-    public Task(String name, String duedate, String status) {
+    public Task(String name, String dueDate, String status) {
         this.name = name;
-        this.duedate = duedate;
-        this.completionstatus = status;
+        this.dueDate = dueDate;
+        this.completionStatus = status;
     }
 
     public String getName() {
@@ -19,19 +19,19 @@ public class Task {
         this.name = name;
     }
 
-    public String getDuedate() {
-        return duedate;
+    public String getDueDate() {
+        return dueDate;
     }
 
-    public void setDuedate(String duedate) {
-        this.duedate = duedate;
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 
     public String getStatus() {
-        return this.completionstatus;
+        return this.completionStatus;
     }
 
     public void setStatus(String status) {
-        this.completionstatus = status;
+        this.completionStatus = status;
     }
 }
