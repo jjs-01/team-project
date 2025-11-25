@@ -15,7 +15,7 @@ public class MilestoneTasksViewModel extends ViewModel<MilestoneTasksState> {
 
 
     public MilestoneTasksViewModel() {
-        super("milestones and tasks");
+        super("milestone tasks");
         setState(new MilestoneTasksState());
     }
 }
