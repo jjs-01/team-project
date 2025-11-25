@@ -30,12 +30,7 @@ public class LoadMilestonesPresenter implements LoadMilestonesOutputBoundary {
 
         // populate tasks
         List<List<String[]>> milestoneToTaskInfoList = response.getTaskInfo();
-        for (int i = 0; i < milestoneToTaskInfoList.size(); i++) {
-            List<String[]> taskInfoList = milestoneToTaskInfoList.get(i);
-            for (String[] taskInfo : taskInfoList) {
-                loadMilestonesState.addTask(i, taskInfo[0], taskInfo[1], taskInfo[2]);
-            }
-        }
+        loadMilestonesState.setMilestoneIndexToTasks(milestoneToTaskInfoList);
 
         loadMilestonesViewModel.firePropertyChange();
     }

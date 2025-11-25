@@ -3,7 +3,7 @@ package com.studyarc.interface_adapter.load_milestones;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksState;
 
 public class LoadMilestonesState extends MilestoneTasksState {
-    private boolean isLoaded = true;
+    private boolean isLoaded = false;
     private String loadError = "";
 
     public String getLoadError() {

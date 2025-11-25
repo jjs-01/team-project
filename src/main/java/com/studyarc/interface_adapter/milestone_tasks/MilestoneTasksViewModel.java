@@ -25,4 +25,8 @@ public class MilestoneTasksViewModel extends ViewModel<MilestoneTasksState> {
         super("milestones and tasks");
         setState(new MilestoneTasksState());
     }
+
+    public void prepareNewPlan() {
+        setState(new MilestoneTasksState());
+    }
 }

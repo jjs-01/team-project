@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MilestoneTasksState {
-    private final List<String> milestoneNames = new ArrayList<>();
-    private final List<String> milestoneDates = new ArrayList<>();
-    private final List<List<String[]>> milestoneIndexToTasks = new ArrayList<>();
+    private List<String> milestoneNames = new ArrayList<>();
+    private List<String> milestoneDates = new ArrayList<>();
+    private List<List<String[]>> milestoneIndexToTasks = new ArrayList<>();
     private String saveChangesError = "";
     private String studyPlanName;
 
@@ -29,6 +29,18 @@ public class MilestoneTasksState {
 
     public void setMilestoneName(int index, String newName) {
         milestoneNames.set(index, newName);
+    }
+
+    public void setMilestoneNameList(List<String> nameList) {
+        milestoneNames = nameList;
+    }
+
+    public void setMilestoneDateList(List<String> dateList) {
+        milestoneDates = dateList;
+    }
+
+    public void setMilestoneIndexToTasks(List<List<String[]>> newMap) {
+        milestoneIndexToTasks = newMap;
     }
 
     public void setMilestoneDate(int index, String newDate) {

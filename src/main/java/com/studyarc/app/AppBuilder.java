@@ -211,6 +211,8 @@ public class AppBuilder {
         LoadMilestonesController loadController = new LoadMilestonesController(loadMilestonesInteractor);
         loadMilestonesView.setLoadMilestonesController(loadController);
         loadMilestonesView.setMilestoneTasksController(saveController);
+
+        loadMilestonesView.loadView();
         return this;
     }
 
