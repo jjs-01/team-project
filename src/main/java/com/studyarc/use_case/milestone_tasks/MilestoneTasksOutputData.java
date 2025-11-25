@@ -2,9 +2,9 @@ package com.studyarc.use_case.milestone_tasks;
 
 public class MilestoneTasksOutputData {
 
-    private final String username;
+    private final String firstMilestone;
 
-    public MilestoneTasksOutputData(String username) {this.username = username;}
+    public MilestoneTasksOutputData(String firstMilestone) {this.firstMilestone = firstMilestone;}
 
-    public String getUsername() { return username; }
+    public String getFirstMilestone() { return firstMilestone; }
 }

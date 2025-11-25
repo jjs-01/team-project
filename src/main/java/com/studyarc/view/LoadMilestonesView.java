@@ -8,7 +8,6 @@ import com.studyarc.interface_adapter.load_milestones.LoadMilestonesViewModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -22,7 +21,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
     private final MilestoneTasksViewModel milestoneViewModel;
     private final String viewName = "loaded milestones";
 
-    private final JButton loadMilestones = new JButton("Load Milestones");
     private final JPanel milestonePanel;
 
     public LoadMilestonesView(MilestoneTasksViewModel milestoneViewModel, LoadMilestonesViewModel loadViewModel) {
@@ -44,8 +42,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
     private void loadStudyPlan(List<String> milestoneNames,
                                List<String> milestoneDates,
                                List<List<String[]>> milestonesTaskList) {
-        System.out.println("Currently implementing");
-
         List<JPanel> milestones = super.getMilestones();
         Map<JPanel, List<JComponent[]>> milestoneToTaskComponents = super.getMilestoneToTaskComponents();
         GridBagConstraints milestonePanelConstraints = super.getMilestonePanelConstraints();

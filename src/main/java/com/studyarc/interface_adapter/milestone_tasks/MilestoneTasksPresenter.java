@@ -17,7 +17,7 @@ public class MilestoneTasksPresenter implements MilestoneTasksOutputBoundary {
 
     @Override
     public void prepareSuccessView(MilestoneTasksOutputData response) {
-        System.out.println(response.getUsername());
+        System.out.println(response.getFirstMilestone());
         milestoneTasksViewModel.firePropertyChange();
     }
 

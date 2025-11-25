@@ -19,7 +19,6 @@ import java.util.*;
 import java.util.List;
 
 /**
- * TODO (today): Implement the load plan use case
  * TODO (later): fix checkstyle issues
  * TODO (later): make the UI look nice
  *
@@ -43,8 +42,6 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
     public MilestoneTasksView(MilestoneTasksViewModel milestoneViewModel) {
         this.milestoneViewModel = milestoneViewModel;
         this.milestoneViewModel.addPropertyChangeListener(this);
-
-        MilestoneTasksState state = milestoneViewModel.getState();
 
         final JPanel topDetails = new JPanel();
         planTitle = new JLabel(MilestoneTasksViewModel.TITLE_LABEL);
