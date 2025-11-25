@@ -410,14 +410,12 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final MilestoneTasksState state = (MilestoneTasksState) evt.getNewValue();
-        // if state is loaded (add an && state.getLoadedState)
         if (!state.getMilestoneSaveError().isEmpty()) {
             JOptionPane.showMessageDialog(this, state.getMilestoneSaveError());
             state.setMilestoneSaveError("");
         } else {
             JOptionPane.showMessageDialog(this, "Saved!");
         }
-        // if state is not loaded ! state.getLoadedState()
     }
 
     @Override

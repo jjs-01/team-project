@@ -3,6 +3,7 @@ package com.studyarc.use_case.milestone_tasks;
 import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.Task;
+import com.studyarc.entity.User;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -28,18 +29,13 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
             milestonePresenter.prepareFailView("Can't save a study plan with an empty title");
         }
         else {
-            String username = milestoneDataAccessObject.getUser("").getUsername();
+            User user = milestoneDataAccessObject.getUser("");
 
             ArrayList<Milestone> milestones = getMilestones(milestoneInputData);
 
-            String targetPlanTitle = milestoneInputData.getStudyPlanName();
-            for (StudyPlan plan : milestoneDataAccessObject.getPlans(username)) {
-                if (plan.getTitle().equals(targetPlanTitle)) {
-                    plan.setMilestones(milestones);
-                    milestoneDataAccessObject.savePlan(milestoneDataAccessObject.getUser(""), plan);
-                    break;
-                }
-            }
+            StudyPlan plan = milestoneDataAccessObject.getPlan(user, milestoneInputData.getStudyPlanName());
+            plan.setMilestones(milestones);
+            milestoneDataAccessObject.savePlan(milestoneDataAccessObject.getUser(""), plan);
 
             // hardcoded for now (output data should be with the studyplan name)
             final MilestoneTasksOutputData outputData;

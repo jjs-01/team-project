@@ -32,4 +32,6 @@ public interface MilestoneTasksDataAccessInterface {
     User getUser(String username);
 
     ArrayList<StudyPlan> getPlans(String user);
+
+    StudyPlan getPlan(User user, String planName);
 }
