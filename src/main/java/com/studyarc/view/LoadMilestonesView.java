@@ -160,16 +160,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
             taskComponents[3] = deleteButton;
             super.addDeleteTaskButtonListener(deleteButton, individualMilestone, taskComponents);
         }
-
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource() == loadMilestones) {
-            final LoadMilestonesState currentState = loadViewModel.getState();
-            loadController.execute(currentState.getStudyPlanName());
-        }
-        super.actionPerformed(evt);
     }
 
     @Override
