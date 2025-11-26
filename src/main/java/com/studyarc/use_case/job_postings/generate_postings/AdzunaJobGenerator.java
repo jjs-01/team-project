@@ -30,12 +30,12 @@ public class AdzunaJobGenerator implements JobRepository {
     private static final OkHttpClient client = new OkHttpClient();
 
     @Override
-    public List<JobListing> getJobListings(String countryCode, KeywordList keywords, String sort, int salaryMin) throws JobRepositoryException{
+    public List<JobListing> getJobListings(String focus, String countryCode, KeywordList keywords, String sort, int salaryMin) throws JobRepositoryException{
         String url = "https://api.adzuna.com/v1/api/jobs/" + countryCode +"/search/1?app_id=" + API_ID + "&app_key=" + API_KEY + "&results_per_page=20&what_or=";
         String jobKeywords = keywords.getKeywords();
 
         // adds the keywords
-        url += jobKeywords + "&sort_by=" + sort + "&salary_min=" + salaryMin; // current issue, sort isnt working on the api? might need to sort myself?
+        url += jobKeywords +"&title_only=" + focus + "&sort_by=" + sort + "&salary_min=" + salaryMin; // current issue, sort isnt working on the api? might need to sort myself?
 
         System.out.println(url);
 

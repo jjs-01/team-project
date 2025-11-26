@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface JobRepository {
 
-    List<JobListing> getJobListings(String countryCode, KeywordList jobKeywords, String sort, int salaryMin) throws JobRepositoryException;
+    List<JobListing> getJobListings(String foucus, String countryCode, KeywordList jobKeywords, String sort, int salaryMin) throws JobRepositoryException;
 
     class JobRepositoryException extends Exception {
         public JobRepositoryException(String message) {

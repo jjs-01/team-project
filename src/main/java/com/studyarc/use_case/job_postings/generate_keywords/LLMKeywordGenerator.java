@@ -27,13 +27,15 @@ public class LLMKeywordGenerator implements KeywordGenerator {
             // call the llm to generate the keywords
             NonStreamedChatResponse response = cohere.chat(
                     ChatRequest.builder()
-                            .message("Given this computer science focus: " + focus + ". Generate a list of 10 keywords that may be used to find jobs in relation to the focus. Return me a string of all of the keywords and instead of spaces, input %20 for ALL SPACES. Multiple terms may be space separated. No commas. Do not write me a confirmation message understanding my prompt, just return the answer.")
+                            .message("Given this computer science focus: " + focus + ". Generate a list of 5 keywords that may be used to find jobs in relation to the focus. Return me a string of all of the keywords and instead of spaces, input %20 for ALL SPACES. Multiple terms may be space separated. No commas. Do not write me a confirmation message understanding my prompt, just return the answer.")
                             .build());
 
             final JSONObject responseBody = new JSONObject(response);
 
             // creates the KeywordList entity
             KeywordList keywordList = new KeywordList(responseBody.get("text").toString());
+
+            System.out.println("Keywords: " + responseBody.get("text").toString());
 
             System.out.println("Cohere finished.");
 

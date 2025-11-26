@@ -28,7 +28,7 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
 
     @Override
     public void execute(JobPostingsInputData jobPostingsInputData) {
-        final String selectedFocus = jobPostingsInputData.getFocus();
+        String selectedFocus = jobPostingsInputData.getFocus();
         // default arguments
         String sort =  "date";
         String countryCode = "ca";
@@ -47,7 +47,6 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
         if (selectedFocus.isEmpty() || selectedFocus.equals("Select Plan")) {
             jobPostingsPresenter.prepareFailView("You must select a focus.");
 
-
         } else {
             try {
                 // generates keywords for the focus the user selected
@@ -55,14 +54,22 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
 
                 System.out.println("Calling API on thread: " + Thread.currentThread().getName());
 
+                // format the focus to call the job listings api
+                selectedFocus = selectedFocus.replaceAll(" ", "%20");
+
                 // generates the job listings for the given keywords
-                List<JobListing> jobListings = jobGenerator.getJobListings(countryCode, keywords, sort, salaryMin);
+                List<JobListing> jobListings = jobGenerator.getJobListings(selectedFocus, countryCode, keywords, sort, salaryMin);
 
                 // creates the output data object
                 final JobPostingsOutputData jobPostingsOutputData = new JobPostingsOutputData(jobListings);
 
-                // sends the success view
-                jobPostingsPresenter.prepareSuccessView(jobPostingsOutputData);
+                if (jobListings.isEmpty()) {
+                    jobPostingsPresenter.prepareFailView("No jobs found.");
+                } else {
+                    // sends the success view
+                    jobPostingsPresenter.prepareSuccessView(jobPostingsOutputData);
+                }
+
 
             } catch (KeywordGenerator.KeywordGeneratorException | JobRepository.JobRepositoryException e ){
                 System.out.println(e.getMessage() + " " + e.getCause() + " " + Arrays.toString(e.getStackTrace()));
