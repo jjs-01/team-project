@@ -29,14 +29,41 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     private final JobPostingsViewModel jobPostingsViewModel;
     private JobPostingsController jobPostingsController = null;
 
-    private final JPanel allJobPostingsPanel = new JPanel();
+    private final JPanel jobPostingsPanel = new JPanel();
+    private JPanel allJobPostingsPanel = new JPanel();
 
-    private final JComboBox<String> locationComboBox;
-    private final JComboBox<String> salaryComboBox;
-    private final JComboBox<String> sortComboBox;
-    private final JComboBox<String> planComboBox;
+    private JPanel locationSelectionPanel = new JPanel();;
+    private JPanel planSelectionPanel = new JPanel();;
+    private JPanel salarySelectionPanel = new JPanel();;
+    private JPanel sortSelectionPanel = new JPanel();;
 
-    private final JButton search;
+    private JComboBox<String> locationComboBox;
+    private JComboBox<String> salaryComboBox;
+    private JComboBox<String> sortComboBox;
+    private JComboBox<String> planComboBox;
+
+    private JLabel pageTitle;
+    private JLabel location;
+    private JLabel plan;
+    private JLabel salary;
+    private JLabel sort;
+
+    private JLabel jobTitle;
+    private JLabel jobCompany;
+    private JLabel jobLocation;
+    private JLabel jobSalaryRange;
+    private JLabel jobDesc;
+
+    private JButton search;
+
+    private String[] locationOptions = {"Select Country", "gb", "us", "ca"};
+    private String[] planOptions = {"Select Plan", "Machine Learning"};
+    private String[] salaryOptions = {"Select Option", "$40,000", "$50,000", "$60,000", "$70,000", "$80,000", "$90,000", "$100,000"};
+    private String[] sortOptions = {"Select Sort", "date", "salary", "relevance"};
+
+    private final int indJobCard = 750;
+    private final Color jobInfoColor = new Color(255, 225, 143);
+    private final Color jobDescColor = new Color(232, 231, 230);
 
     public JobPostingsView(JobPostingsViewModel jobPostingsViewModel) {
         JPanel jobPostingsPanel = new JPanel();
@@ -52,7 +79,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         final JPanel titleAndSelections = new JPanel(new GridBagLayout());
 
         final JPanel selections = new JPanel(new GridLayout(2, 3, 10, 10));
-        selections.setPreferredSize(new Dimension(Styling.getWidth(), 100));
+        selections.setPreferredSize(new Dimension(800, 100));
         selections.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // adds the title of the page
@@ -95,12 +122,9 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         salarySelectionPanel.add(salary);
 
         // creates the dropdown selection with label for selecting the sorting
-        JLabel sort = new JLabel(JobPostingsViewModel.SORT_LABEL);
-        String[] sortOptions = {"Select Sort", "date", "salary", "relevance"};
+        sort = new JLabel(jobPostingsViewModel.SORT_LABEL);
         sortComboBox = new JComboBox<>(sortOptions);
         sortComboBox.addActionListener(this);
-        sortComboBox.setFont(Styling.getSubFont().deriveFont(12f));
-        JPanel sortSelectionPanel = new JPanel();
         sortSelectionPanel.add(sort);
         sortSelectionPanel.add(sortComboBox);
 
