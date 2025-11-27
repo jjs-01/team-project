@@ -10,6 +10,7 @@ import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.add_reflection.AddReflectionDataAccessInterface;
 import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -45,6 +46,14 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
 
     @Override
     public User getUser(String username) {
+        return null;
+        if(username.equals("admin")){
+            try {
+                return new User(username, "admin", "Artificial Intelligence");
+            } catch (NoSuchAlgorithmException e) {
+                return null;
+            }
+        }
         return null;
     }
 }
