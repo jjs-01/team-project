@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginDataAccessInterface, MilestoneTasksDataAccessInterface, AddReflectionDataAccessInterface, TrackPlanDataAccessinterface {
-
+    private User currentUser;
     @Override
     public ArrayList<String> getFocuses() {
         return null;
@@ -46,7 +46,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
 
     @Override
     public User getUser(String username) {
-        return null;
         if(username.equals("admin")){
             try {
                 return new User(username, "admin", "Artificial Intelligence");
@@ -55,5 +54,9 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
             }
         }
         return null;
+    }
+
+    public void setUser(User u){
+        this.currentUser = u;
     }
 }
