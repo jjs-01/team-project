@@ -28,21 +28,11 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
 
     @Override
     public void execute(JobPostingsInputData jobPostingsInputData) {
+        // getting the arguments
         String selectedFocus = jobPostingsInputData.getFocus();
-        // default arguments
-        String sort =  "date";
-        String countryCode = "ca";
-        int salaryMin = 40000;
-
-        // strip the format of the salary selection
-        if (!jobPostingsInputData.getMinSalary().isEmpty() && !jobPostingsInputData.getMinSalary().equals("Select Option")) {
-            salaryMin = Integer.parseInt(jobPostingsInputData.getMinSalary().replace("$", "").replace(",", ""));
-        }
-
-        // set the preferred country location if selected
-        if (!jobPostingsInputData.getPreferredLoc().isEmpty() && !jobPostingsInputData.getPreferredLoc().equals("Select Country")) countryCode = jobPostingsInputData.getPreferredLoc();
-        // set the preferred sort if selected
-        if (!jobPostingsInputData.getSort().isEmpty() && !jobPostingsInputData.getSort().equals("Select Sort")) sort = jobPostingsInputData.getSort();
+        String sort = jobPostingsInputData.getSort();
+        String countryCode = jobPostingsInputData.getPreferredLoc();
+        String salaryMin = jobPostingsInputData.getMinSalary();
 
         if (selectedFocus.isEmpty() || selectedFocus.equals("Select Plan")) {
             jobPostingsPresenter.prepareFailView("You must select a focus.");
@@ -51,11 +41,6 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
             try {
                 // generates keywords for the focus the user selected
                 KeywordList keywords = keywordGenerator.generate(selectedFocus);
-
-                System.out.println("Calling API on thread: " + Thread.currentThread().getName());
-
-                // format the focus to call the job listings api
-                selectedFocus = selectedFocus.replaceAll(" ", "%20");
 
                 // generates the job listings for the given keywords
                 List<JobListing> jobListings = jobGenerator.getJobListings(selectedFocus, countryCode, keywords, sort, salaryMin);
@@ -69,7 +54,6 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
                     // sends the success view
                     jobPostingsPresenter.prepareSuccessView(jobPostingsOutputData);
                 }
-
 
             } catch (KeywordGenerator.KeywordGeneratorException | JobRepository.JobRepositoryException e ){
                 System.out.println(e.getMessage() + " " + e.getCause() + " " + Arrays.toString(e.getStackTrace()));

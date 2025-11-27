@@ -26,21 +26,40 @@ public class AdzunaJobGenerator implements JobRepository {
     private static final Dotenv DOTENV = Dotenv.load();
     private static final String API_KEY = DOTENV.get("ADZUNA_API_KEY");
     private static final String API_ID = DOTENV.get("ADZUNA_ID");
+    private String focus;
+    private String sort;
+    private String countryCode;
+    private int salaryMin;
 
     private static final OkHttpClient client = new OkHttpClient();
 
     @Override
-    public List<JobListing> getJobListings(String focus, String countryCode, KeywordList keywords, String sort, int salaryMin) throws JobRepositoryException{
-        String url = "https://api.adzuna.com/v1/api/jobs/" + countryCode +"/search/1?app_id=" + API_ID + "&app_key=" + API_KEY + "&results_per_page=20&what_or=";
+    public List<JobListing> getJobListings(String focus, String countryCode, KeywordList keywords, String sort, String salaryMin) throws JobRepositoryException{
+        // default arguments
+        this.sort =  "date";
+        this.countryCode = "ca";
+        this.salaryMin = 40000;
+        this.focus = focus.replaceAll(" ", "%20"); // format the focus to call the job listings api
+
+        // strip the format of the salary selection
+        if (!salaryMin.isEmpty() && !salaryMin.equals("Select Option")) {
+            this.salaryMin = Integer.parseInt(salaryMin.replace("$", "").replace(",", ""));
+        }
+
+        // set the preferred country location if selected
+        if (!countryCode.isEmpty() && !countryCode.equals("Select Country")) this.countryCode = countryCode;
+        // set the preferred sort if selected
+        if (!sort.isEmpty() && !sort.equals("Select Sort")) this.sort = sort;
+
+        String url = "https://api.adzuna.com/v1/api/jobs/" + this.countryCode +"/search/1?app_id=" + API_ID + "&app_key=" + API_KEY + "&results_per_page=20&what_or=";
         String jobKeywords = keywords.getKeywords();
 
         // adds the keywords
-        url += jobKeywords +"&title_only=" + focus + "&sort_by=" + sort + "&salary_min=" + salaryMin; // current issue, sort isnt working on the api? might need to sort myself?
+        url += jobKeywords +"&title_only=" + this.focus + "&sort_by=" + this.sort + "&salary_min=" + this.salaryMin; // current issue, sort isnt working on the api? might need to sort myself?
 
         System.out.println(url);
 
         final Request request = new Request.Builder().url(url).build();
-
 
         try {
             final Response response = client.newCall(request).execute();
