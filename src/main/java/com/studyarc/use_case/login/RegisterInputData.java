@@ -1,14 +1,16 @@
 package com.studyarc.use_case.login;
 
-public class LoginInputData {
+public class RegisterInputData {
     private final String username;
     private final String password;
-    private boolean goToRegister;
+    private final String focus;
+    private final boolean goToLogin;
 
-    public LoginInputData(String username, String password, boolean goToRegister){
+    public RegisterInputData(String username, String password, String focus, boolean goToLogin){
         this.username = username;
         this.password = password;
-        this.goToRegister = goToRegister;
+        this.focus = focus;
+        this.goToLogin = goToLogin;
     }
     public String getUsername() {
         return username;
@@ -18,7 +20,7 @@ public class LoginInputData {
         return password;
     }
 
-    public boolean isGoToRegister() {
-        return goToRegister;
+    public String getFocus(){
+        return focus;
     }
 }
