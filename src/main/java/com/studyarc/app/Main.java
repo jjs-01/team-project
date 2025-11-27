@@ -6,8 +6,16 @@ public class Main {
     public static void main(String[] args) {
         AppBuilder appBuilder = new AppBuilder();
         JFrame application = appBuilder
-                .addLoginView()
-                .addLoginUseCase()
+                .addSidePanel()
+                .addMilestoneTasksPanel()
+                .addTrackPlanView()
+                .addJobPostingsView()
+                .addTrackPlanUsecase()
+                .addDeletePlanUsecase()
+                .addSidebarUseCase()
+                .addJobPostingsUseCase()
+                .addMilestoneTasksUseCase()
+                .addAddReflectionUseCase()
                 .build();
 
         application.pack();

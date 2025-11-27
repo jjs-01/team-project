@@ -1,8 +1,10 @@
 package com.studyarc.use_case.track_plan;
 //
 //use case Interactor for tracking a plan
-//1. access all plans from the user in database
-//2. display all the plan in w.e the view is called
+// To do next:
+// 1. Finish Implementing show plans on the view ✅
+// 2. implement dataaccesstool to get plans from a user.(Later after Saturday)
+
 
 import com.studyarc.entity.StudyPlan;
 
@@ -20,15 +22,20 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
 
     @Override
     public void execute(TrackPlanInputData inputData) {
-        System.out.println("interactor executes");
+
 
         String username = inputData.getUsername();
-        ArrayList<StudyPlan> listofplans = this.getPlanTool.getPlans(username);
-        TrackPlanOutputData trackPlanOutputData = new TrackPlanOutputData(username, listofplans);
 
+        //use generateTestPlans for testing the usecase, switch to getplans later;
+        ArrayList<StudyPlan> listofplans = this.getPlanTool.getPlans(username);
+
+        TrackPlanOutputData trackPlanOutputData = new TrackPlanOutputData(username, listofplans);
+        presenter.prepareShowPlans(trackPlanOutputData);
         if (listofplans.isEmpty()) {
-            presenter.parepareShowRedirect(trackPlanOutputData);
+            System.out.println("interactor executes for emptyplans");
+            presenter.parepareShowRedirect();
         } else {
+            System.out.println("interactor executes");
             presenter.prepareShowPlans(trackPlanOutputData);
         }
 

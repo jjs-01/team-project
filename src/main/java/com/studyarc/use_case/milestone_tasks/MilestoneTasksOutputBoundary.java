@@ -6,4 +6,10 @@ public interface MilestoneTasksOutputBoundary {
      * @param outputData the output data
      */
     void prepareSuccessView(MilestoneTasksOutputData outputData);
+
+    /**
+     * Prepares the fail view for the Signup Use Case.
+     * @param error the output error
+     */
+    void prepareFailView(String error);
 }

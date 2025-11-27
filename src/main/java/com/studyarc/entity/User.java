@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class User {
     private byte[] salt;
@@ -37,6 +38,11 @@ public class User {
         this.focus = focus;
     }
 
+
+    private String username;
+    private String password;
+    private ArrayList<StudyPlan> studyPlans;
+
     public boolean validateHash(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(password.getBytes(StandardCharsets.UTF_8));
@@ -47,4 +53,17 @@ public class User {
     public String getUsername() {
         return username;
     }
+
+    public ArrayList<StudyPlan> getStudyPlans() {
+        return studyPlans;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
 }
