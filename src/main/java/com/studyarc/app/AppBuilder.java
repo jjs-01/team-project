@@ -2,9 +2,16 @@ package com.studyarc.app;
 
 import javax.swing.*;
 import java.awt.*;
+
+import com.studyarc.data_access.DatabaseAccess;
+import com.studyarc.interface_adapter.login.*;
+import com.studyarc.use_case.login.LoginInputBoundary;
+import com.studyarc.use_case.login.LoginInteractor;
+import com.studyarc.use_case.login.LoginOutputBoundary;
 import com.studyarc.view.*;
 
 public class AppBuilder {
+    private final DatabaseAccess dao = new DatabaseAccess();
     private final JPanel overallPanel = new JPanel();
     private final BorderLayout borderLayout = new BorderLayout();
     private final JPanel mainUIPanel = new JPanel();
@@ -13,6 +20,11 @@ public class AppBuilder {
 
     private SidePanelView sidePanelView;
     private MilestoneTasksView milestoneTaskView;
+
+    private LoginViewModel loginViewModel;
+    private LoginView loginView;
+    private RegisterViewModel registerViewModel;
+    private RegisterView registerView;
 
 
     public AppBuilder() {
@@ -33,6 +45,26 @@ public class AppBuilder {
         milestoneTaskView = new MilestoneTasksView();
         mainUIPanel.add(milestoneTaskView, BorderLayout.CENTER);
         overallPanel.add(mainUIPanel);
+        return this;
+    }
+
+    public AppBuilder addLoginView() {
+        this.loginViewModel = new LoginViewModel("login");
+        this.loginView = new LoginView(loginViewModel);
+        overallPanel.add(loginView, "login");
+        this.registerViewModel = new RegisterViewModel("register");
+        this.registerView = new RegisterView(registerViewModel);
+        overallPanel.add(loginView, "register");
+        return this;
+    }
+
+    public AppBuilder addLoginUseCase() {
+        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(this.loginViewModel, this.registerViewModel);
+        LoginInputBoundary loginInteractor = new LoginInteractor(dao, loginOutputBoundary);
+
+        LoginController loginController = new LoginController(loginInteractor);
+        this.loginView.setLoginController(loginController);
+        this.registerView.setRegisterController(new RegisterController(loginInteractor));
         return this;
     }
 
