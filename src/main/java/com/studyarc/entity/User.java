@@ -38,9 +38,6 @@ public class User {
         this.focus = focus;
     }
 
-
-    private String username;
-    private String password;
     private ArrayList<StudyPlan> studyPlans;
 
     public boolean validateHash(String password) throws NoSuchAlgorithmException {
@@ -56,14 +53,6 @@ public class User {
 
     public ArrayList<StudyPlan> getStudyPlans() {
         return studyPlans;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
 }
