@@ -75,7 +75,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         trackPlansPanel.setLayout(new BoxLayout(trackPlansPanel, BoxLayout.Y_AXIS));
         JScrollPane jScrollPane = new JScrollPane(this.trackPlansPanel);
-        jScrollPane.getVerticalScrollBar().setUnitIncrement(Styling.getScroll_pace());
+        jScrollPane.getVerticalScrollBar().setUnitIncrement(Styling.getScrollPace());
         jScrollPane.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         this.add(titlePanel, BorderLayout.NORTH);

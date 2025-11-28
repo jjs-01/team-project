@@ -157,7 +157,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         JScrollPane scroller = new JScrollPane(allJobPostingsPanel);
 
         scroller.setPreferredSize(new Dimension(Styling.getWidth(), Styling.getHeight()));
-        scroller.getVerticalScrollBar().setUnitIncrement(Styling.getScroll_pace());
+        scroller.getVerticalScrollBar().setUnitIncrement(Styling.getScrollPace());
         scroller.setBorder(BorderFactory.createEmptyBorder());
 
         this.setLayout(new BorderLayout());

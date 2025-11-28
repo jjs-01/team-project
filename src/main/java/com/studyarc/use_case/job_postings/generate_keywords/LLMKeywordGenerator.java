@@ -23,7 +23,7 @@ public class LLMKeywordGenerator implements KeywordGenerator {
         Cohere cohere = Cohere.builder().token(API_KEY).clientName("snippet").build();
 
         try {
-            System.out.println("Promoting Cohere...");
+            System.out.println("Prompting Cohere...");
             // call the llm to generate the keywords
             NonStreamedChatResponse response = cohere.chat(
                     ChatRequest.builder()

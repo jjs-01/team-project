@@ -17,7 +17,7 @@ public class Styling {
     public static Font getBodyFont() {
         return bodyFont;
     }
-    public static int getScroll_pace() {
+    public static int getScrollPace() {
         return 30;
     }
     public static int getWidth() {
