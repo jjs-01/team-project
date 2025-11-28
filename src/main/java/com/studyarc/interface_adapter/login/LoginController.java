@@ -14,7 +14,6 @@ public class LoginController {
     }
 
     public void goToRegister(){
-        final LoginInputData inputData = new LoginInputData(null, null, true);
-        this.loginInteractor.login(inputData);
+        this.loginInteractor.login(new LoginInputData(null, null, true));
     }
 }
