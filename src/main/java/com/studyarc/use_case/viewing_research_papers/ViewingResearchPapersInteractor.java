@@ -1,7 +1,7 @@
 package com.studyarc.use_case.viewing_research_papers;
-import com.studyarc.entity.ResearchPaper;
+
+import com.studyarc.entity.StudyPlan;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewingResearchPapersInteractor implements ViewingResearchPapersInputBoundary {
     private ViewingResearchPapersDataAccessInterface repository;
@@ -16,10 +16,11 @@ public class ViewingResearchPapersInteractor implements ViewingResearchPapersInp
     @Override
     public void execute(ViewingResearchPapersInputData inputData) {
         try {
-            List<ResearchPaper> papers = repository.getAllPapers();
-            boolean hasPapers = !papers.isEmpty();
+            ArrayList<StudyPlan> plans = repository.getPlans("currentUser");
+            boolean hasPlans = !plans.isEmpty();
+
             ViewingResearchPapersOutputData outputData =
-                    new ViewingResearchPapersOutputData(papers, hasPapers);
+                    new ViewingResearchPapersOutputData(plans, hasPlans);
             presenter.prepareSuccessView(outputData);
         } catch (Exception e) {
             presenter.prepareFailView("Failed to load research papers: " + e.getMessage());

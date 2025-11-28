@@ -5,7 +5,6 @@ import java.awt.*;
 
 import com.studyarc.data_access.DatabaseAccess;
 import com.studyarc.data_access.MilestoneTasksDataAccessObject;
-import com.studyarc.data_access.MockResearchPapersDataAccess;
 import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanController;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanPresenter;
@@ -44,6 +43,7 @@ import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInteractor;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputBoundary;
 import com.studyarc.use_case.track_plan.*;
+import com.studyarc.use_case.track_plan.TrackPlanDataAccessTool;
 import com.studyarc.use_case.ui_sidebar.*;
 import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersDataAccessInterface;
 import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInputBoundary;
@@ -199,8 +199,9 @@ public class AppBuilder {
         final ViewingResearchPapersOutputBoundary presenter =
                 new ViewingResearchPapersPresenter(viewingResearchPapersViewModel);
 
+        // Use TrackPlanDataAccessTool instead of MockResearchPapersDataAccess
         final ViewingResearchPapersDataAccessInterface dataAccess =
-                new MockResearchPapersDataAccess();
+                new TrackPlanDataAccessTool();
 
         final ViewingResearchPapersInputBoundary interactor =
                 new ViewingResearchPapersInteractor(dataAccess, presenter);

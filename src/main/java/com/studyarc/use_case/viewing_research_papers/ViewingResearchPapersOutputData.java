@@ -1,19 +1,23 @@
 package com.studyarc.use_case.viewing_research_papers;
-import com.studyarc.entity.ResearchPaper;
+
+import com.studyarc.entity.StudyPlan;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewingResearchPapersOutputData {
-    private List<ResearchPaper> papers;
-    private boolean hasPapers;
+    private final List<StudyPlan> plans;
+    private final boolean hasPlans;
 
-    // Fix the constructor - remove the empty one and use this:
-    public ViewingResearchPapersOutputData(List<ResearchPaper> papers, boolean hasPapers) {
-        this.papers = papers;
-        this.hasPapers = hasPapers;
+    public ViewingResearchPapersOutputData(List<StudyPlan> plans, boolean hasPlans) {
+        this.plans = plans;
+        this.hasPlans = hasPlans;
     }
 
-    // Remove the ViewPapersOutputData method - it's not needed
+    public List<StudyPlan> getPlans() {
+        return plans;
+    }
 
-    public List<ResearchPaper> getPapers() { return papers; }
-    public boolean hasPapers() { return hasPapers; }
+    public boolean hasPlans() {
+        return hasPlans;
+    }
 }

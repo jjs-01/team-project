@@ -4,10 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="Actually done?">
+    <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="Remodelled view research papers design">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersInteractorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/app/AppBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/milestone_tasks/MilestoneTasksViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/milestone_tasks/MilestoneTasksViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/MockResearchPapersDataAccess.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/StudyPlan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/StudyPlan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanDataAccessTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanDataAccessTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersDataAccessInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersDataAccessInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersOutputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersOutputData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/ViewingResearchPapersView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/ViewingResearchPapersView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +80,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "JUnit.ViewingResearchPapersInteractorTest.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -270,7 +282,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764026866783</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Noticed the view plans button wasn't working, fixed it">
+      <option name="closed" value="true" />
+      <created>1764029058050</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1764029058050</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -293,14 +313,16 @@
     <MESSAGE value="Use Case 6 clean architecture refactor 1" />
     <MESSAGE value="Use Case 6 clean architecture refactor 2" />
     <MESSAGE value="Actually done?" />
-    <option name="LAST_COMMIT_MESSAGE" value="Actually done?" />
+    <MESSAGE value="Noticed the view plans button wasn't working, fixed it" />
+    <MESSAGE value="Remodelled view research papers design" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remodelled view research papers design" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/studyarc/view/ViewingResearchPapersView.java</url>
-          <line>56</line>
+          <line>87</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

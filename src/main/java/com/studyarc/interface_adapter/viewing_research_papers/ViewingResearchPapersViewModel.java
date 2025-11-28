@@ -1,43 +1,45 @@
 package com.studyarc.interface_adapter.viewing_research_papers;
 
+import com.studyarc.entity.StudyPlan;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewingResearchPapersViewModel {
-    public static final String PAPERS_PROPERTY = "researchPapers";
-    public static final String HAS_PAPERS_PROPERTY = "hasPapers";
+    public static final String PLANS_PROPERTY = "studyPlans";
+    public static final String HAS_PLANS_PROPERTY = "hasPlans";
 
     private String errorMessage;
     private final PropertyChangeSupport support;
-    private List<ResearchPaperState> researchPapers;
-    private boolean hasPapers;
+    private List<StudyPlan> studyPlans;  // Changed from List<ResearchPaperState>
+    private boolean hasPlans;
 
     public ViewingResearchPapersViewModel() {
         this.support = new PropertyChangeSupport(this);
-        this.researchPapers = new ArrayList<>();
-        this.hasPapers = false;
+        this.studyPlans = new ArrayList<>();
+        this.hasPlans = false;
     }
 
-    public List<ResearchPaperState> getResearchPapers() {
-        return new ArrayList<>(researchPapers);
+    public List<StudyPlan> getStudyPlans() {
+        return new ArrayList<>(studyPlans);
     }
 
-    public void setResearchPapers(List<ResearchPaperState> researchPapers) {
-        List<ResearchPaperState> oldPapers = this.researchPapers;
-        this.researchPapers = new ArrayList<>(researchPapers);
-        support.firePropertyChange(PAPERS_PROPERTY, oldPapers, this.researchPapers);
+    public void setStudyPlans(List<StudyPlan> studyPlans) {
+        List<StudyPlan> oldPlans = this.studyPlans;
+        this.studyPlans = new ArrayList<>(studyPlans);
+        support.firePropertyChange(PLANS_PROPERTY, oldPlans, this.studyPlans);
     }
 
-    public boolean hasPapers() {
-        return hasPapers;
+    public boolean hasPlans() {
+        return hasPlans;
     }
 
-    public void setHasPapers(boolean hasPapers) {
-        boolean oldValue = this.hasPapers;
-        this.hasPapers = hasPapers;
-        support.firePropertyChange(HAS_PAPERS_PROPERTY, oldValue, hasPapers);
+    public void setHasPlans(boolean hasPlans) {
+        boolean oldValue = this.hasPlans;
+        this.hasPlans = hasPlans;
+        support.firePropertyChange(HAS_PLANS_PROPERTY, oldValue, hasPlans);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

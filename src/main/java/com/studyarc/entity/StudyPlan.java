@@ -7,6 +7,7 @@ public class StudyPlan {
     private String title;
     private ArrayList<Milestone> milestones;
     private final List<Reflection> reflections = new ArrayList<>();
+    private final List<ResearchPaper> researchPapers = new ArrayList<>();
 
     public StudyPlan(String title, ArrayList<Milestone> milestones) {
         this.title = title;
@@ -36,4 +37,13 @@ public class StudyPlan {
     public void addReflection(Reflection reflection) {
         this.reflections.add(reflection);
     }
+
+    public List<ResearchPaper> getResearchPapers() {
+        return researchPapers;
+    }
+
+    public void addResearchPaper(ResearchPaper paper) {
+        this.researchPapers.add(paper);
+    }
+
 }
