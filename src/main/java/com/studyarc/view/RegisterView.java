@@ -12,7 +12,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class RegisterView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "register";
+    private final String viewName;
     private static final String[] FOCUS_LIST = new String[]{"Artificial Intelligence", "Data Science", "Game Design", "Human Computer Interaction", "Web and Internet Technologies"};
 
     private final JTextField usernameInput = new JTextField(18);
@@ -27,6 +27,7 @@ public class RegisterView extends JPanel implements ActionListener, PropertyChan
 
     public RegisterView(RegisterViewModel registerViewModel){
         this.registerViewModel = registerViewModel;
+        this.viewName = registerViewModel.getViewName();
         this.registerViewModel.addPropertyChangeListener(this);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         final JLabel title = new JLabel("Register");
@@ -79,5 +80,9 @@ public class RegisterView extends JPanel implements ActionListener, PropertyChan
 
     public void setRegisterController(RegisterController registerController){
         this.registerController = registerController;
+    }
+
+    public String getViewName() {
+        return viewName;
     }
 }

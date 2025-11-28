@@ -13,7 +13,7 @@ import java.beans.PropertyChangeListener;
 
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private final String viewName = "log in";
+    private final String viewName;
 
     private final JTextField usernameInput = new JTextField(18);
     private final JTextField passwordInput = new JPasswordField(18);
@@ -27,6 +27,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public LoginView(LoginViewModel loginViewModel){
         this.loginViewModel = loginViewModel;
+        this.viewName = loginViewModel.getViewName();
         this.loginViewModel.addPropertyChangeListener(this);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         final JLabel title = new JLabel("Login");
@@ -78,5 +79,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public void setLoginController(LoginController loginController){
         this.loginController = loginController;
+    }
+
+    public String getViewName() {
+        return viewName;
     }
 }
