@@ -5,5 +5,7 @@ public interface TrackPlanOutputBoundary {
     void prepareShowPlans(TrackPlanOutputData outputData);
 
     //if the use does not have plans, show a redirect link in the screen -> alternative flow
-    void parepareShowRedirect();
+    void prepareShowRedirect();
+
+    void prepareShowSavingResult(String message);
 }

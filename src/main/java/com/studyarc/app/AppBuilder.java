@@ -38,6 +38,7 @@ import com.studyarc.use_case.job_postings.JobPostingsOutputBoundary;
 import com.studyarc.use_case.job_postings.generate_keywords.KeywordGenerator;
 import com.studyarc.use_case.job_postings.generate_keywords.LLMKeywordGenerator;
 import com.studyarc.use_case.job_postings.generate_postings.AdzunaJobGenerator;
+import com.studyarc.use_case.load_milestones.LoadMilestonesDataAccessInterface;
 import com.studyarc.use_case.load_milestones.LoadMilestonesInputBoundary;
 import com.studyarc.use_case.load_milestones.LoadMilestonesInteractor;
 import com.studyarc.use_case.load_milestones.LoadMilestonesOutputBoundary;
@@ -107,16 +108,36 @@ public class AppBuilder {
 
     public AppBuilder addTrackPlanUsecase() {
         TrackPlanOutputBoundary presenter = new TrackPlanPresenter(trackPlanViewModel, viewManagerModel);
-        TrackPlanDataAccessinterface dataaccess = new DatabaseAccess();//Siwtch to DataAccess later
+        TrackPlanDataAccessinterface dataaccess = new DatabaseAccess();
 
+        // Add LoadMileStone Controller to TrackPlanView
+        LoadMilestonesDataAccessInterface loadMileStoneData = new MilestoneTasksDataAccessObject();
+        LoadMilestonesOutputBoundary loadpresenter = new LoadMilestonesPresenter(viewManagerModel,
+                loadMilestonesViewModel);
+        LoadMilestonesInputBoundary loadmilesIneractor = new LoadMilestonesInteractor(loadMileStoneData, loadpresenter);
+        LoadMilestonesController loadMilestonesController = new LoadMilestonesController(loadmilesIneractor);
+        this.trackPlansView.setLoadMilestonesController(loadMilestonesController);
+
+        // Add SideBar Controller to TrackPlanView
+        final SidebarOutputBoundary sidebarOutputBoundary = new SidebarPresenter(viewManagerModel,
+                sidebarViewModel,
+                jobPostingsViewModel,
+                milestoneTasksViewModel,
+                trackPlanViewModel);
+        final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarDataAccess, sidebarOutputBoundary);
+        final SidebarController sidebarController = new SidebarController(sidebarInteractor);
+        this.trackPlansView.setSidebarController(sidebarController);
+
+        // Add TrackPlan Controller to TrackPlanView
         TrackPlanInputBoundary interactor = new TrackPlanInteractor(presenter, dataaccess);
         TrackPlanController trackPlanController = new TrackPlanController(interactor);
+        this.trackPlansView.setTrackPlanController(trackPlanController);
         sidePanelView.setTrackPlanController(trackPlanController);
         return this;
     }
 
     public AppBuilder addDeletePlanUsecase() {
-        DeletePlanOutputBoundary presenter = new DeletePlanPresenter(this.trackPlanViewModel, this.viewManagerModel);
+        DeletePlanOutputBoundary presenter = new DeletePlanPresenter(this.trackPlanViewModel);
         DeletePlanInputBoundary interactor = new DeletePlanInteractor(presenter, new DatabaseAccess());
         trackPlansView.setDeletePlanController(new DeletePlanController(interactor));
         return this;
