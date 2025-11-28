@@ -131,6 +131,7 @@ public class AppBuilder {
         // Add TrackPlan Controller to TrackPlanView
         TrackPlanInputBoundary interactor = new TrackPlanInteractor(presenter, dataaccess);
         TrackPlanController trackPlanController = new TrackPlanController(interactor);
+        this.trackPlansView.setTrackPlanController(trackPlanController);
         sidePanelView.setTrackPlanController(trackPlanController);
         return this;
     }

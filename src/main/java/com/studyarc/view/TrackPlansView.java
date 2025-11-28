@@ -7,6 +7,7 @@ import com.studyarc.interface_adapter.delete_plan.DeletePlanController;
 import com.studyarc.interface_adapter.add_reflection.AddReflectionController;
 import com.studyarc.interface_adapter.add_reflection.AddReflectionViewModel;
 import com.studyarc.interface_adapter.load_milestones.LoadMilestonesController;
+import com.studyarc.interface_adapter.track_plan.TrackPlanController;
 import com.studyarc.interface_adapter.track_plan.TrackPlanState;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarController;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import javax.swing.SwingUtilities;
 import java.util.List;
 import java.util.*;
+
 /***
  * TrackPlan view for Trackplan usecase, can only have one instance throughout the application.
  *
@@ -45,6 +47,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     private final JButton newPlan = new JButton("🌟Create A New Plan🌟");
     private final TrackPlanViewModel trackPlanViewModel;
 
+    private TrackPlanController trackPlanController = null;
     private DeletePlanController deletePlanController = null;
     private LoadMilestonesController loadMilestonesController = null;
     private SidebarController sidebarController = null;
@@ -118,6 +121,11 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         TrackPlanState currentstate = (TrackPlanState) evt.getNewValue();
         ArrayList<StudyPlan> current_Plans = currentstate.getStudyPlans();
+
+        if (!currentstate.getSavingMessage().isEmpty()) {
+            JOptionPane.showMessageDialog(this, currentstate.getSavingMessage());
+            return;
+        }
         if (current_Plans.isEmpty()) {
             this.showRedirectButton();
         } else {
@@ -339,43 +347,20 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         if (this.buttonToPlanMap.containsKey(button)) {
-            StudyPlan plan = this.buttonToPlanMap.get(button);
-            this.deletePlanController.execute(plan);
-        } else if (e.getSource() == newPlan) {
+            this.deletePlanController.execute(this.buttonToPlanMap.get(button));
 
+        } else if (e.getSource() == newPlan) {
             this.sidebarController.switchToMilestone();
 
         } else if (this.editButtonToPlanMap.containsKey(button)) {
-            StudyPlan plan = this.editButtonToPlanMap.get(button);
-            System.out.println("EditPlan: " + plan.getTitle());
-            this.loadMilestonesController.execute(plan.getTitle());
-        } else {
-            handleSavingEvent(e);
+            System.out.println("EditPlan: " + this.editButtonToPlanMap.get(button).getTitle());
+            this.loadMilestonesController.execute(this.editButtonToPlanMap.get(button).getTitle());
+
+        } else if (e.getSource() == saveButton) {
+            TrackPlanState state = this.trackPlanViewModel.getState();
+            this.trackPlanController.execute(state.getStudyPlans(), state.getUsername());
         }
     }
-
-    private void handleSavingEvent(ActionEvent e) {
-        ArrayList<StudyPlan> currentPlansInView = trackPlanViewModel.getState().getStudyPlans();
-
-        Set<String> planTitles = new HashSet<>();
-        for (StudyPlan plan : currentPlansInView) {
-            if (plan.getTitle().strip().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Empty Plan Title! Not allowed!😡😡");
-                System.out.println("Empty Plan Title! Not allowed!");
-                return;
-            }
-            planTitles.add(plan.getTitle());
-        }
-        if (planTitles.size() == currentPlansInView.size()) {
-
-            System.out.println("All Plans have different names, good to save!");
-            JOptionPane.showMessageDialog(this, "Save Successful!");
-        } else {
-            JOptionPane.showMessageDialog(this, "StudyPlans CAN NOT have the same title😡😡");
-            System.out.println("There are some repetitive names in Plans, fail to save");
-        }
-    }
-
 
     // DocumentListener for the plan title input field
     @Override
@@ -426,7 +411,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
                 break;
             }
         }
-
         if (current == null) {
             System.out.println("No matching plan found for updateReflectionsUI()");
             return;
@@ -440,7 +424,12 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     public void setLoadMilestonesController(LoadMilestonesController loadMilestonesController) {
         this.loadMilestonesController = loadMilestonesController;
     }
-    public void setSidebarController(SidebarController controller){
+
+    public void setSidebarController(SidebarController controller) {
         this.sidebarController = controller;
+    }
+
+    public void setTrackPlanController(TrackPlanController trackPlanController) {
+        this.trackPlanController = trackPlanController;
     }
 }

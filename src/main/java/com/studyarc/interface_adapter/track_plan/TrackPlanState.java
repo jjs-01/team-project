@@ -29,5 +29,8 @@ public class TrackPlanState {
     public void setSavingMessage(String savingMessage) {
         this.savingMessage = savingMessage;
     }
+    public String getSavingMessage(){
+        return this.savingMessage;
+    }
 }
 
