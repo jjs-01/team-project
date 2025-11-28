@@ -11,6 +11,7 @@ import com.studyarc.interface_adapter.delete_plan.DeletePlanPresenter;
 import com.studyarc.interface_adapter.job_postings.JobPostingsController;
 import com.studyarc.interface_adapter.job_postings.JobPostingsPresenter;
 import com.studyarc.interface_adapter.job_postings.JobPostingsViewModel;
+import com.studyarc.interface_adapter.login.*;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksPresenter;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
@@ -35,6 +36,9 @@ import com.studyarc.use_case.job_postings.JobPostingsOutputBoundary;
 import com.studyarc.use_case.job_postings.generate_keywords.KeywordGenerator;
 import com.studyarc.use_case.job_postings.generate_keywords.LLMKeywordGenerator;
 import com.studyarc.use_case.job_postings.generate_postings.AdzunaJobGenerator;
+import com.studyarc.use_case.login.LoginInputBoundary;
+import com.studyarc.use_case.login.LoginInteractor;
+import com.studyarc.use_case.login.LoginOutputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInteractor;
@@ -73,6 +77,10 @@ public class AppBuilder {
     private TrackPlanViewModel trackPlanViewModel;
     private AddReflectionViewModel addReflectionViewModel;
 
+    private LoginView loginView;
+    private LoginViewModel loginViewModel;
+    private RegisterView registerView;
+    private RegisterViewModel registerViewModel;
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
 
