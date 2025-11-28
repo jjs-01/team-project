@@ -66,6 +66,8 @@ public class RegisterView extends JPanel implements ActionListener, PropertyChan
             state.setErrorCode("");
             state.setFocus((String) this.focuses.getSelectedItem());
             this.registerController.execute(state);
+        } else if(e.getSource() == loginButton){
+            this.registerController.goToLogin();
         }
     }
 
