@@ -33,6 +33,7 @@ public class SidebarPresenter implements SidebarOutputBoundary {
     @Override
     public void switchToMilestone() {
         viewManagerModel.setState(milestoneTasksViewModel.getViewName());
+        milestoneTasksViewModel.prepareNewPlan();
         viewManagerModel.firePropertyChange();
     }
 

@@ -11,6 +11,9 @@ import com.studyarc.interface_adapter.delete_plan.DeletePlanPresenter;
 import com.studyarc.interface_adapter.job_postings.JobPostingsController;
 import com.studyarc.interface_adapter.job_postings.JobPostingsPresenter;
 import com.studyarc.interface_adapter.job_postings.JobPostingsViewModel;
+import com.studyarc.interface_adapter.load_milestones.LoadMilestonesController;
+import com.studyarc.interface_adapter.load_milestones.LoadMilestonesPresenter;
+import com.studyarc.interface_adapter.load_milestones.LoadMilestonesViewModel;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksPresenter;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
@@ -35,6 +38,9 @@ import com.studyarc.use_case.job_postings.JobPostingsOutputBoundary;
 import com.studyarc.use_case.job_postings.generate_keywords.KeywordGenerator;
 import com.studyarc.use_case.job_postings.generate_keywords.LLMKeywordGenerator;
 import com.studyarc.use_case.job_postings.generate_postings.AdzunaJobGenerator;
+import com.studyarc.use_case.load_milestones.LoadMilestonesInputBoundary;
+import com.studyarc.use_case.load_milestones.LoadMilestonesInteractor;
+import com.studyarc.use_case.load_milestones.LoadMilestonesOutputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInteractor;
@@ -62,10 +68,12 @@ public class AppBuilder {
     private JobPostingsViewModel jobPostingsViewModel;
     private JobPostingsView jobPostingsView;
 
-    private MilestoneTasksViewModel milestoneTasksViewModel;
+    private final MilestoneTasksViewModel milestoneTasksViewModel = new MilestoneTasksViewModel();
     private MilestoneTasksView milestoneTaskView;
-    private MilestoneTasksViewModel milestoneViewModel;
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
+
+    private LoadMilestonesViewModel loadMilestonesViewModel;
+    private LoadMilestonesView loadMilestonesView;
 
     final MilestoneTasksDataAccessObject singleUseCaseDAO = new MilestoneTasksDataAccessObject();
 
@@ -124,10 +132,19 @@ public class AppBuilder {
     }
 
     public AppBuilder addMilestoneTasksPanel() {
-        milestoneTasksViewModel = new MilestoneTasksViewModel();
         milestoneTaskView = new MilestoneTasksView(milestoneTasksViewModel);
 
         cardPanel.add(milestoneTaskView, milestoneTaskView.getViewName());
+        overallPanel.add(cardPanel, BorderLayout.CENTER);
+
+        return this;
+    }
+
+    public AppBuilder addLoadMilestonesPanel() {
+        loadMilestonesViewModel = new LoadMilestonesViewModel();
+        loadMilestonesView = new LoadMilestonesView(milestoneTasksViewModel, loadMilestonesViewModel);
+
+        cardPanel.add(loadMilestonesView, loadMilestonesView.getViewName());
         overallPanel.add(cardPanel, BorderLayout.CENTER);
 
         return this;
@@ -169,12 +186,33 @@ public class AppBuilder {
 
     public AppBuilder addMilestoneTasksUseCase() {
         final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(viewManagerModel,
-                milestoneViewModel);
+                milestoneTasksViewModel);
         final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(singleUseCaseDAO,
                 milestonesOutputBoundary);
 
         MilestoneTasksController controller = new MilestoneTasksController(milestoneSaveInteractor);
         milestoneTaskView.setMilestoneTasksController(controller);
+        return this;
+    }
+
+    public AppBuilder addLoadMilestonesUseCase() {
+        final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(viewManagerModel,
+                milestoneTasksViewModel);
+        final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(singleUseCaseDAO,
+                milestonesOutputBoundary);
+        MilestoneTasksController saveController = new MilestoneTasksController(milestoneSaveInteractor);
+
+        final LoadMilestonesOutputBoundary loadMilestonesOutputBoundary = new LoadMilestonesPresenter(viewManagerModel,
+                loadMilestonesViewModel) {
+        };
+        final LoadMilestonesInputBoundary loadMilestonesInteractor = new LoadMilestonesInteractor(singleUseCaseDAO,
+                loadMilestonesOutputBoundary);
+
+        LoadMilestonesController loadController = new LoadMilestonesController(loadMilestonesInteractor);
+        loadMilestonesView.setLoadMilestonesController(loadController);
+        loadMilestonesView.setMilestoneTasksController(saveController);
+
+        loadMilestonesView.loadView();
         return this;
     }
 
@@ -184,8 +222,8 @@ public class AppBuilder {
         application.add(overallPanel);
         application.setMinimumSize(new Dimension(1000, 800));
 
-        viewManagerModel.setState(milestoneTaskView.getViewName());
-        System.out.println(milestoneTaskView.getViewName());
+        viewManagerModel.setState(loadMilestonesView.getViewName());
+        System.out.println(loadMilestonesView.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;

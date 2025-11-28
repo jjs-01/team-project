@@ -201,7 +201,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         milestonesPanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
-        ArrayList<Milestone> milestones = plan.getMilestones();
+        List<Milestone> milestones = plan.getMilestones();
 
         for (int i = 0; i < milestones.size(); i++) {
             Milestone m = milestones.get(i);
@@ -268,7 +268,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
                 JPanel taskRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
                 taskRow.setBackground(Styling.getGray());
                 JLabel taskLabel = new JLabel("Task " + (j + 1) + ": " + t.getName() + "    ");
-                String d = t.getDuedate();
+                String d = t.getDueDate();
                 JLabel dueLabel = new JLabel("Due: " + d + "   ");
 
                 //Later on could change String color based on the status.
