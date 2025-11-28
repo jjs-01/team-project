@@ -13,4 +13,8 @@ public class RegisterController {
         final RegisterInputData inputData = new RegisterInputData(state.getUsername(), state.getPassword(), state.getFocus(), false);
         this.loginInteractor.register(inputData);
     }
+
+    public void goToLogin(){
+        this.loginInteractor.register(new RegisterInputData("", "", "", true));
+    }
 }
