@@ -144,7 +144,7 @@ public class AppBuilder {
         milestoneTaskView = new MilestoneTasksView(milestoneTasksViewModel);
 
         cardPanel.add(milestoneTaskView, milestoneTaskView.getViewName());
-        overallPanel.add(cardPanel, BorderLayout.CENTER);
+
 
         return this;
     }
@@ -205,6 +205,7 @@ public class AppBuilder {
     }
 
     public JFrame build() {
+        overallPanel.add(cardPanel, BorderLayout.CENTER);
         final JFrame application = new JFrame("Study Arc");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         application.add(overallPanel);
