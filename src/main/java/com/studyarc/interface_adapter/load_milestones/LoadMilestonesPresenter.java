@@ -33,6 +33,9 @@ public class LoadMilestonesPresenter implements LoadMilestonesOutputBoundary {
         loadMilestonesState.setMilestoneIndexToTasks(milestoneToTaskInfoList);
 
         loadMilestonesViewModel.firePropertyChange();
+
+        viewManagerModel.setState("loaded milestones");
+        viewManagerModel.firePropertyChange();
     }
 
     @Override

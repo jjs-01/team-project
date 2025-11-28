@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class TrackPlanState {
     private ArrayList<StudyPlan> studyPlans;
     private String Username = "";
+    private String savingMessage = "";
 
 
     public ArrayList<StudyPlan> getStudyPlans() {
@@ -25,6 +26,8 @@ public class TrackPlanState {
         Username = username;
     }
 
-
+    public void setSavingMessage(String savingMessage) {
+        this.savingMessage = savingMessage;
+    }
 }
 

@@ -80,7 +80,6 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         seeJobs.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        System.out.println("clicked Jobs");
                         sidebarController.switchToJobBoard();
                     }
                 }
@@ -89,7 +88,6 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         seePlans.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        System.out.println("clicked Plans");
                         sidebarController.switchToMilestone();
                     }
                 }
