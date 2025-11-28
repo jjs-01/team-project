@@ -23,4 +23,8 @@ public class RegisterInputData {
     public String getFocus(){
         return focus;
     }
+
+    public boolean isGoToLogin() {
+        return goToLogin;
+    }
 }
