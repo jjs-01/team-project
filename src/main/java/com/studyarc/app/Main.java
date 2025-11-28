@@ -15,7 +15,7 @@ public class Main {
                 .addTrackPlanUsecase()
                 .addDeletePlanUsecase()
                 .addSidebarUseCase()
-//                .addJobPostingsUseCase()
+                .addJobPostingsUseCase()
                 .addMilestoneTasksUseCase()
                 .addAddReflectionUseCase()
                 .build();
