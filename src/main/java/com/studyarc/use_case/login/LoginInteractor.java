@@ -16,6 +16,7 @@ public class LoginInteractor implements LoginInputBoundary{
     public void login(LoginInputData loginInputData) {
         if(loginInputData.isGoToRegister()){
             loginPresenter.prepareView(new LoginOutputData(false, true));
+            return;
         }
         String username = loginInputData.getUsername();
         String password = loginInputData.getPassword();
@@ -40,6 +41,10 @@ public class LoginInteractor implements LoginInputBoundary{
         }
     }
     public void register(RegisterInputData registerInputData){
+        if(registerInputData.isGoToLogin()){
+            loginPresenter.prepareView(new RegisterOutputData(false, true));
+            return;
+        }
         String username = registerInputData.getUsername();
         String password = registerInputData.getPassword();
         User u = dao.getUser(username);
