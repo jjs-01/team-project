@@ -122,7 +122,15 @@ public class AppBuilder {
 
         return this;
     }
-
+    public AppBuilder addLoginView(){
+        loginViewModel = new LoginViewModel();
+        loginView = new LoginView(loginViewModel);
+        cardPanel.add(loginView, loginView.getViewName());
+        registerViewModel = new RegisterViewModel();
+        registerView = new RegisterView(registerViewModel);
+        cardPanel.add(registerView, registerView.getViewName());
+        return this;
+    }
     public AppBuilder addMilestoneTasksPanel() {
         milestoneTasksViewModel = new MilestoneTasksViewModel();
         milestoneTaskView = new MilestoneTasksView(milestoneTasksViewModel);
@@ -175,6 +183,16 @@ public class AppBuilder {
 
         MilestoneTasksController controller = new MilestoneTasksController(milestoneSaveInteractor);
         milestoneTaskView.setMilestoneTasksController(controller);
+        return this;
+    }
+
+    public AppBuilder addLoginUseCase() {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, registerViewModel, viewManagerModel, trackPlanViewModel, milestoneTasksViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(databaseAccess, loginOutputBoundary);
+
+        loginView.setLoginController(new LoginController(loginInteractor));
+        registerView.setRegisterController(new RegisterController(loginInteractor));
+
         return this;
     }
 
