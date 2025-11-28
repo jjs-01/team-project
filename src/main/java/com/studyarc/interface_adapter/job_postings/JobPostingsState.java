@@ -15,6 +15,7 @@ public class JobPostingsState {
     private String sort = "";
     private List<JobListing> jobListings = new ArrayList<>();
     private String listingError = "";
+    private String numberOfResults = "0";
 
     public String getFocus() {
         return focus;
@@ -40,6 +41,8 @@ public class JobPostingsState {
         return listingError;
     }
 
+    public String getNumberOfResults() { return numberOfResults; }
+
     public void setFocus(String focus) {
         this.focus = focus;
     }
@@ -63,5 +66,7 @@ public class JobPostingsState {
     public void setListingError(String listingError) {
         this.listingError = listingError;
     }
+
+    public void setNumberOfResults(String numberOfResults) { this.numberOfResults = numberOfResults; }
 
 }

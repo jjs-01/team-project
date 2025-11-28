@@ -16,10 +16,10 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
     private final JobPostingsDataAccessInterface userDataAccessObject;
     private final JobPostingsOutputBoundary jobPostingsPresenter;
     private final KeywordGenerator keywordGenerator;
-    private final AdzunaJobGenerator jobGenerator;
+    private final JobRepository jobGenerator;
 
 
-    public JobPostingsInteractor(JobPostingsDataAccessInterface userDataAccessObject, JobPostingsOutputBoundary jobPostingsPresenter, KeywordGenerator keywordGenerator, AdzunaJobGenerator jobGenerator) {
+    public JobPostingsInteractor(JobPostingsDataAccessInterface userDataAccessObject, JobPostingsOutputBoundary jobPostingsPresenter, KeywordGenerator keywordGenerator, JobRepository jobGenerator) {
         this.userDataAccessObject = userDataAccessObject;
         this.jobPostingsPresenter = jobPostingsPresenter;
         this.keywordGenerator = keywordGenerator;
@@ -45,10 +45,12 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
                 // generates the job listings for the given keywords
                 List<JobListing> jobListings = jobGenerator.getJobListings(selectedFocus, countryCode, keywords, sort, salaryMin);
 
+                // gets the number of results
+                int numberOfResults = jobGenerator.numberResults(jobListings);
                 // creates the output data object
-                final JobPostingsOutputData jobPostingsOutputData = new JobPostingsOutputData(jobListings);
+                final JobPostingsOutputData jobPostingsOutputData = new JobPostingsOutputData(jobListings, numberOfResults);
 
-                if (jobListings.isEmpty()) {
+                if (numberOfResults == 0) {
                     jobPostingsPresenter.prepareFailView("No jobs found.");
                 } else {
                     // sends the success view

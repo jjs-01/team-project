@@ -17,6 +17,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import java.util.List;
@@ -39,7 +41,7 @@ public class AdzunaJobGenerator implements JobRepository {
         this.sort =  "date";
         this.countryCode = "ca";
         this.salaryMin = 40000;
-        this.focus = focus.replaceAll(" ", "%20"); // format the focus to call the job listings api
+        this.focus = URLEncoder.encode(focus, StandardCharsets.UTF_8); // format the focus to call the job listings api
 
         // strip the format of the salary selection
         if (!salaryMin.isEmpty() && !salaryMin.equals("Select Option")) {
@@ -99,6 +101,10 @@ public class AdzunaJobGenerator implements JobRepository {
             throw new JobRepositoryException(e.getMessage());
         }
         return List.of();
+    }
+
+    public int numberResults(List<JobListing> listings) {
+        return listings.size();
     }
 
 }

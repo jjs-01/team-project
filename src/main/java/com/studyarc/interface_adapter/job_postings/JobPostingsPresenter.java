@@ -19,6 +19,7 @@ public class JobPostingsPresenter implements JobPostingsOutputBoundary {
         // update the job postings view model state
         final JobPostingsState jobPostingsState = jobPostingsViewModel.getState();
         jobPostingsState.setJobListings(outputData.getJobListings());
+        jobPostingsState.setNumberOfResults(String.valueOf(outputData.getNumberOfResults()));
 
         // formatting the range
         formattingRange(jobPostingsState);

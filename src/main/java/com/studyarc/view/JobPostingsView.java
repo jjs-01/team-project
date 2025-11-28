@@ -32,10 +32,11 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     private final JPanel jobPostingsPanel = new JPanel();
     private JPanel allJobPostingsPanel = new JPanel();
 
-    private JPanel locationSelectionPanel = new JPanel();;
-    private JPanel planSelectionPanel = new JPanel();;
-    private JPanel salarySelectionPanel = new JPanel();;
-    private JPanel sortSelectionPanel = new JPanel();;
+    private JPanel locationSelectionPanel = new JPanel();
+    private JPanel planSelectionPanel = new JPanel();
+    private JPanel salarySelectionPanel = new JPanel();
+    private JPanel sortSelectionPanel = new JPanel();
+    private JPanel listingNumberPanel = new JPanel();
 
     private JComboBox<String> locationComboBox;
     private JComboBox<String> salaryComboBox;
@@ -47,6 +48,8 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     private JLabel plan;
     private JLabel salary;
     private JLabel sort;
+    private JLabel listingNumberLabel;
+    private String listingNumber = "0";
 
     private JLabel jobTitle;
     private JLabel jobCompany;
@@ -128,6 +131,10 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         sortSelectionPanel.add(sort);
         sortSelectionPanel.add(sortComboBox);
 
+        listingNumberLabel = new JLabel("Showing Results: " + listingNumber);
+        listingNumberLabel.setFont(Styling.getSubFont().deriveFont(12f));
+        listingNumberPanel.add(listingNumberLabel);
+
         search = new JButton("Search");
         search.setFont(Styling.getSubFont().deriveFont(12f));
 
@@ -138,6 +145,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         salarySelectionPanel.add(salaryComboBox);
         selections.add(sortSelectionPanel);
         selections.add(search, userChoices);
+        selections.add(listingNumberPanel, userChoices);
 
         // adding the panel with combo boxes to main panel
         titleAndSelections.add(selections, topInfo);
@@ -213,16 +221,22 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
                 jobPostingsState.setListingError("");
                 jobPostingsState.setJobListings(resetJobs);
+                jobPostingsState.setNumberOfResults("0");
+                showListingTotal(jobPostingsState);
+
             } else {
                 JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(),
                         "Error", JOptionPane.ERROR_MESSAGE);
                 jobPostingsState.setListingError("");
+                showListingTotal(jobPostingsState);
             }
 
         }
 
         if (!jobPostingsState.getJobListings().isEmpty()) {
             allJobPostingsPanel.removeAll();
+
+            showListingTotal(jobPostingsState);
 
             createIndividualJobPostings(jobPostingsState);
 
@@ -232,6 +246,11 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         }
 
 
+    }
+
+    private void showListingTotal(JobPostingsState jobPostingsState) {
+        listingNumber = jobPostingsState.getNumberOfResults();
+        listingNumberLabel.setText("Showing Results: " + listingNumber);
     }
 
     private void createIndividualJobPostings(JobPostingsState jobPostingsState) {
