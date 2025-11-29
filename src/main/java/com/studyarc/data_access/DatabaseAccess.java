@@ -164,8 +164,9 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
 
     @Override
     public User getUser(String username) {
-        return user;
+        return null;
     }
+
     public void setUser(User u){
         this.user = u;
     }

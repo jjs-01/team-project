@@ -53,11 +53,13 @@ public class SidebarPresenter implements SidebarOutputBoundary {
         // reset the loginstate
         loginViewModel.setState(new LoginState());
         //reset the sidebar username
-        sidebarViewModel.getState().setUserName(null);
+        sidebarViewModel.getState().setUserName("");
 
         loginViewModel.firePropertyChange();
-        viewManagerModel.setState("login");
+        viewManagerModel.setState(loginViewModel.getViewName());
+        sidebarViewModel.firePropertyChange();
         viewManagerModel.firePropertyChange();
+
     }
 
     @Override
