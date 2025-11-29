@@ -28,11 +28,21 @@ public class TrackPlanPresenter implements TrackPlanOutputBoundary {
     }
 
     @Override
-    public void parepareShowRedirect() {
+    public void prepareShowRedirect() {
         trackPlanViewModel.firePropertyChange();
 
         //update the viewname in the viewmanagermodel and invoke propertychange in view manager to switch view.
         this.viewManagerModel.setState(trackPlanViewModel.getViewName());
         viewManagerModel.firePropertyChange();
+    }
+
+    @Override
+    public void prepareShowSavingResult(String message) {
+        TrackPlanState state = trackPlanViewModel.getState();
+        state.setSavingMessage(message);
+        trackPlanViewModel.firePropertyChange();
+
+        //change the Savingmessage to empty after each saving event.
+        trackPlanViewModel.getState().setSavingMessage("");
     }
 }

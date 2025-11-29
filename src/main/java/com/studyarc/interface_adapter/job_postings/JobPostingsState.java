@@ -9,12 +9,14 @@ import java.util.List;
  * The state for the Job Postings View Model.
  */
 public class JobPostingsState {
+    private ArrayList<String> focuses =  new ArrayList<>();
     private String focus = "";
     private String location = "";
     private String minSalary = "";
     private String sort = "";
     private List<JobListing> jobListings = new ArrayList<>();
     private String listingError = "";
+    private String numberOfResults = "0";
 
     public String getFocus() {
         return focus;
@@ -40,6 +42,10 @@ public class JobPostingsState {
         return listingError;
     }
 
+    public String getNumberOfResults() { return numberOfResults; }
+
+    public ArrayList<String> getFocuses() { return focuses; }
+
     public void setFocus(String focus) {
         this.focus = focus;
     }
@@ -63,5 +69,9 @@ public class JobPostingsState {
     public void setListingError(String listingError) {
         this.listingError = listingError;
     }
+
+    public void setNumberOfResults(String numberOfResults) { this.numberOfResults = numberOfResults; }
+
+    public void setFocuses(ArrayList<String> focuses) { this.focuses = focuses; }
 
 }

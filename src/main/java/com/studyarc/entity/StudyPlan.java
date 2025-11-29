@@ -5,12 +5,14 @@ import java.util.List;
 
 public class StudyPlan {
     private String title;
-    private ArrayList<Milestone> milestones;
+    private List<Milestone> milestones;
     private final List<Reflection> reflections = new ArrayList<>();
+    private String focus;
 
-    public StudyPlan(String title, ArrayList<Milestone> milestones) {
+    public StudyPlan(String title, List<Milestone> milestones, String focus) {
         this.title = title;
         this.milestones = milestones;
+        this.focus = focus;
     }
 
     public String getTitle() {
@@ -21,11 +23,11 @@ public class StudyPlan {
         this.title = title;
     }
 
-    public ArrayList<Milestone> getMilestones() {
+    public List<Milestone> getMilestones() {
         return milestones;
     }
 
-    public void setMilestones(ArrayList<Milestone> milestones) {
+    public void setMilestones(List<Milestone> milestones) {
         this.milestones = milestones;
     }
 
@@ -36,4 +38,8 @@ public class StudyPlan {
     public void addReflection(Reflection reflection) {
         this.reflections.add(reflection);
     }
+
+    public String getFocus() { return focus; }
+
+    public void setFocus(String focus) { this.focus = focus; }
 }

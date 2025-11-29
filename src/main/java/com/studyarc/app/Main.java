@@ -7,9 +7,11 @@ public class Main {
         AppBuilder appBuilder = new AppBuilder();
         JFrame application = appBuilder
                 .addSidePanel()
+                .addLoadMilestonesPanel()
                 .addMilestoneTasksPanel()
                 .addTrackPlanView()
                 .addJobPostingsView()
+                .addLoadMilestonesUseCase()
                 .addTrackPlanUsecase()
                 .addDeletePlanUsecase()
                 .addSidebarUseCase()

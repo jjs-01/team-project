@@ -11,13 +11,10 @@ import com.studyarc.use_case.track_plan.TrackPlanOutputData;
 import java.util.ArrayList;
 
 public class DeletePlanPresenter implements DeletePlanOutputBoundary {
-    private final ViewManagerModel viewManagerModel;
     private final TrackPlanViewModel trackPlanViewModel;
 
-    public DeletePlanPresenter(TrackPlanViewModel trackPlanViewModel,
-                               ViewManagerModel viewManagerModel) {
+    public DeletePlanPresenter(TrackPlanViewModel trackPlanViewModel) {
         this.trackPlanViewModel = trackPlanViewModel;
-        this.viewManagerModel = viewManagerModel;
     }
 
     @Override

@@ -6,8 +6,11 @@ import com.studyarc.entity.Task;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanController;
 import com.studyarc.interface_adapter.add_reflection.AddReflectionController;
 import com.studyarc.interface_adapter.add_reflection.AddReflectionViewModel;
+import com.studyarc.interface_adapter.load_milestones.LoadMilestonesController;
+import com.studyarc.interface_adapter.track_plan.TrackPlanController;
 import com.studyarc.interface_adapter.track_plan.TrackPlanState;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
+import com.studyarc.interface_adapter.ui_sidebar.SidebarController;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -25,12 +28,17 @@ import javax.swing.SwingUtilities;
 import java.util.List;
 import java.util.*;
 
+/***
+ * TrackPlan view for Trackplan usecase, can only have one instance throughout the application.
+ *
+ */
+
+
 public class TrackPlansView extends JPanel implements PropertyChangeListener, ActionListener, DocumentListener {
     private static TrackPlansView instance;
 
     final String viewname = "track plan";
     final BorderLayout borderLayout = new BorderLayout();
-    final String[] TaskStatus = {"Not Started", "In Progress", "Completed"};
 
     final JPanel trackPlansPanel;
     final JPanel titlePanel;
@@ -38,10 +46,15 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     private final JButton saveButton = new JButton("Save");
     private final JButton newPlan = new JButton("🌟Create A New Plan🌟");
     private final TrackPlanViewModel trackPlanViewModel;
+
+    private TrackPlanController trackPlanController = null;
     private DeletePlanController deletePlanController = null;
+    private LoadMilestonesController loadMilestonesController = null;
+    private SidebarController sidebarController = null;
 
     private HashMap<JButton, StudyPlan> buttonToPlanMap;
     private HashMap<JTextField, StudyPlan> titleToPlanMap;
+    private HashMap<JButton, StudyPlan> editButtonToPlanMap;
 
     private final AddReflectionViewModel addReflectionViewModel;
     private AddReflectionController addReflectionController = null;
@@ -60,19 +73,30 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     private TrackPlansView(TrackPlanViewModel trackPlanViewModel, AddReflectionViewModel addReflectionViewModel) {
         this.buttonToPlanMap = new HashMap<>();
         this.titleToPlanMap = new HashMap<>();
+        this.editButtonToPlanMap = new HashMap<>();
 
         this.trackPlanViewModel = trackPlanViewModel;
         this.trackPlanViewModel.addPropertyChangeListener(this);
         this.setLayout(borderLayout);
+        this.setBackground(Color.DARK_GRAY);
+
         titlePanel = SetTitlePanel();
+        titlePanel.setBorder(
+                BorderFactory.createEmptyBorder(25, 25, 5, 25));
+
+        titlePanel.setBackground(Styling.getYellow());
         trackPlansPanel = new JPanel();
 
         trackPlansPanel.setLayout(new BoxLayout(trackPlansPanel, BoxLayout.Y_AXIS));
         JScrollPane jScrollPane = new JScrollPane(this.trackPlansPanel);
-        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane.getVerticalScrollBar().setUnitIncrement(Styling.getScrollPace());
+        jScrollPane.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(jScrollPane, BorderLayout.CENTER);
+
+        jScrollPane.getViewport().setBackground(Styling.getYellow());
+        jScrollPane.setBackground(Styling.getYellow());
 
         this.addReflectionViewModel = addReflectionViewModel;
         this.addReflectionViewModel.addPropertyChangeListener(this);
@@ -81,13 +105,17 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
     @NotNull
     private JPanel SetTitlePanel() {
+        GridBagConstraints topInfo = new GridBagConstraints();
+        topInfo.gridx = 2;
+
         final JPanel titlePanel;
         titlePanel = new JPanel();
-        title.setFont(new Font("SansSerif", Font.BOLD, 24));
+        title.setFont(Styling.getMainFont());
 
         titlePanel.setLayout(new BorderLayout());
         titlePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         saveButton.addActionListener(this);
+        saveButton.setFont(Styling.getSubFont().deriveFont(12f));
         titlePanel.add(title, BorderLayout.CENTER);
         titlePanel.add(saveButton, BorderLayout.EAST);
         return titlePanel;
@@ -107,6 +135,11 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         TrackPlanState currentstate = (TrackPlanState) evt.getNewValue();
         ArrayList<StudyPlan> current_Plans = currentstate.getStudyPlans();
+
+        if (!currentstate.getSavingMessage().isEmpty()) {
+            JOptionPane.showMessageDialog(this, currentstate.getSavingMessage());
+            return;
+        }
         if (current_Plans.isEmpty()) {
             this.showRedirectButton();
         } else {
@@ -117,7 +150,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     private void showRedirectButton() {
         trackPlansPanel.removeAll();
         JLabel message = new JLabel("You have no Plans! Go Create New Plans!Go Create New Plans!Go Create New Plans!");
-        message.setFont(message.getFont().deriveFont(Font.BOLD, 16f));
+        message.setFont(Styling.getSubFont());
         newPlan.addActionListener(this);
         trackPlansPanel.add(message);
         trackPlansPanel.add(newPlan);
@@ -126,15 +159,16 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     }
 
 
-
     private void showPlansinView(ArrayList<StudyPlan> plans) {
         this.buttonToPlanMap = new HashMap<>();
         this.titleToPlanMap = new HashMap<>();
+        this.editButtonToPlanMap = new HashMap<>();
+
         this.trackPlansPanel.removeAll();
         for (StudyPlan plan : plans) {
-                JPanel planPanel = createPlanPanel(plan);
-                trackPlansPanel.add(planPanel);
-                trackPlansPanel.add(Box.createVerticalStrut(15));
+            JPanel planPanel = createPlanPanel(plan);
+            trackPlansPanel.add(planPanel);
+            trackPlansPanel.add(Box.createVerticalStrut(15));
         }
         trackPlansPanel.repaint();
         trackPlansPanel.revalidate();
@@ -145,16 +179,21 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             @Override
             public Dimension getMaximumSize() {
                 Dimension size = getPreferredSize();
-                return new Dimension(Integer.MAX_VALUE, size.height);
+                return new Dimension(750, size.height);
             }
         };
         planPanel.setLayout(new BorderLayout());
-        planPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        planPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.DARK_GRAY));
+        planPanel.setBackground(Styling.getGray());
+
 
         // Head Part of each plan
         JPanel headPanel = new JPanel();
         headPanel.setLayout(new BoxLayout(headPanel, BoxLayout.X_AXIS));
         JLabel planLabel = new JLabel("Plan : ");
+        headPanel.setBackground(Styling.getGray());
+
+        headPanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 5, 25));
 
         // Text Field for Plan Title
         JTextField planTitleTextField = new JTextField();
@@ -165,31 +204,44 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         // Delete Button for each plan
         JButton deleteButton = new JButton("Delete " + "❌");
+        deleteButton.setFont(Styling.getSubFont().deriveFont(12f));
+        JButton editButton = new JButton("Edit");
         deleteButton.addActionListener(this);
+        this.buttonToPlanMap.put(deleteButton, plan); //Add the delete button in the map for each plan.
+        editButton.addActionListener(this);
+
         this.buttonToPlanMap.put(deleteButton, plan);//Add the delete button in the map for each plan.
+        this.editButtonToPlanMap.put(editButton, plan);
 
         headPanel.add(planLabel);
         headPanel.add(planTitleTextField);
+        headPanel.add(editButton);
         headPanel.add(deleteButton);
-
 
 
         // Milestones of each plan
         JPanel milestonesPanel = new JPanel();
         milestonesPanel.setLayout(new BoxLayout(milestonesPanel, BoxLayout.Y_AXIS));
+        milestonesPanel.setBackground(Styling.getGray());
 
-        ArrayList<Milestone> milestones = plan.getMilestones();
+        milestonesPanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+
+        List<Milestone> milestones = plan.getMilestones();
 
         for (int i = 0; i < milestones.size(); i++) {
             Milestone m = milestones.get(i);
 
             JPanel milestonePanel = new JPanel();
+            milestonePanel.setBackground(Styling.getGray());
             milestonePanel.setLayout(new BoxLayout(milestonePanel, BoxLayout.Y_AXIS));
 
             // MilestoneHeadPanel setup
             JPanel milestoneHeader = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            milestoneHeader.setBackground(Styling.getGray());
             JButton upButton = new JButton("▲");
             JButton downButton = new JButton("▼");
+            upButton.setFont(Styling.getSubFont().deriveFont(12f));
+            downButton.setFont(Styling.getSubFont().deriveFont(12f));
             JLabel milestoneLabel = new JLabel("milestone " + (i + 1) + " : " + m.getTitle());
 
             // Check if all subtasks are completed
@@ -210,6 +262,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
             // SubTask Panel for each Milestone
             JPanel tasksPanel = new JPanel();
+            tasksPanel.setBackground(Styling.getGray());
             tasksPanel.setLayout(new BoxLayout(tasksPanel, BoxLayout.Y_AXIS));
             //If the milestone is completed, hide it. Show it if it's not
             tasksPanel.setVisible(!milestoneCompleted.isVisible());
@@ -238,8 +291,9 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
                 Task t = tasks.get(j);
 
                 JPanel taskRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                taskRow.setBackground(Styling.getGray());
                 JLabel taskLabel = new JLabel("Task " + (j + 1) + ": " + t.getName() + "    ");
-                String d = t.getDuedate();
+                String d = t.getDueDate();
                 JLabel dueLabel = new JLabel("Due: " + d + "   ");
 
                 //Later on could change String color based on the status.
@@ -267,7 +321,9 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         JPanel reflectionHeader = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JButton addReflectionButton = new JButton("Add");
+        addReflectionButton.setFont(Styling.getSubFont().deriveFont(12f));
         JButton showAllReflectionsButton = new JButton("Show All");
+        showAllReflectionsButton.setFont(Styling.getSubFont().deriveFont(12f));
 
         reflectionHeader.add(addReflectionButton);
         reflectionHeader.add(showAllReflectionsButton);
@@ -318,42 +374,25 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         this.deletePlanController = deletePlanController;
     }
 
-    // Delete button triggers here
+    // Button Actions
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         if (this.buttonToPlanMap.containsKey(button)) {
-            StudyPlan plan = this.buttonToPlanMap.get(button);
-            this.deletePlanController.execute(plan);
-        }else if(e.getSource() == newPlan){
-            System.out.println("Go create New Plans!");
-        }
-        else {
-            handleSavingEvent(e);
+            this.deletePlanController.execute(this.buttonToPlanMap.get(button));
+
+        } else if (e.getSource() == newPlan) {
+            this.sidebarController.switchToMilestone();
+
+        } else if (this.editButtonToPlanMap.containsKey(button)) {
+            System.out.println("EditPlan: " + this.editButtonToPlanMap.get(button).getTitle());
+            this.loadMilestonesController.execute(this.editButtonToPlanMap.get(button).getTitle());
+
+        } else if (e.getSource() == saveButton) {
+            TrackPlanState state = this.trackPlanViewModel.getState();
+            this.trackPlanController.execute(state.getStudyPlans(), state.getUsername());
         }
     }
-
-    private void handleSavingEvent(ActionEvent e) {
-        ArrayList<StudyPlan> currentPlansInView = trackPlanViewModel.getState().getStudyPlans();
-
-        Set<String> planTitles = new HashSet<>();
-        for (StudyPlan plan : currentPlansInView) {
-            if (plan.getTitle().strip().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Empty Plan Title! Not allowed!😡😡");
-                System.out.println("Empty Plan Title! Not allowed!");
-                return;
-            }
-            planTitles.add(plan.getTitle());
-        }
-        if (planTitles.size() == currentPlansInView.size()) {
-            System.out.println("All Plans have different names, good to save!");
-            JOptionPane.showMessageDialog(this, "Save Successful!");
-        } else {
-            JOptionPane.showMessageDialog(this, "StudyPlans CAN NOT have the same title😡😡");
-            System.out.println("There are some repetitive names in Plans, fail to save");
-        }
-    }
-
 
     // DocumentListener for the plan title input field
     @Override
@@ -404,7 +443,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
                 break;
             }
         }
-
         if (current == null) {
             System.out.println("No matching plan found for updateReflectionsUI()");
             return;
@@ -415,5 +453,15 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         }
     }
 
+    public void setLoadMilestonesController(LoadMilestonesController loadMilestonesController) {
+        this.loadMilestonesController = loadMilestonesController;
+    }
 
+    public void setSidebarController(SidebarController controller) {
+        this.sidebarController = controller;
+    }
+
+    public void setTrackPlanController(TrackPlanController trackPlanController) {
+        this.trackPlanController = trackPlanController;
+    }
 }

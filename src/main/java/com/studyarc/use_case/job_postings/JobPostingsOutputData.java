@@ -10,12 +10,16 @@ import java.util.List;
 public class JobPostingsOutputData {
 
     private final List<JobListing> jobListings;
+    private final int numberOfResults;
 
-    public JobPostingsOutputData(List<JobListing> jobListings) {
+    public JobPostingsOutputData(List<JobListing> jobListings, int numberOfResults) {
+
         this.jobListings = jobListings;
+        this.numberOfResults = numberOfResults;
     }
 
     public List<JobListing> getJobListings() {
         return jobListings;
     }
+    public int getNumberOfResults() { return numberOfResults; }
 }

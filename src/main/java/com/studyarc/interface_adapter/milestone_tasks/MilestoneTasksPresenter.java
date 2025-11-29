@@ -17,12 +17,14 @@ public class MilestoneTasksPresenter implements MilestoneTasksOutputBoundary {
 
     @Override
     public void prepareSuccessView(MilestoneTasksOutputData response) {
-        // idk what to do here tbh
-        System.out.println("Saved for " + response.getUsername());
+        System.out.println(response.getFirstMilestone());
+        milestoneTasksViewModel.firePropertyChange();
     }
 
     @Override
     public void prepareFailView(String error) {
-        System.out.println(error + "Couldn't save");
+        final MilestoneTasksState saveState = milestoneTasksViewModel.getState();
+        saveState.setMilestoneSaveError(error);
+        milestoneTasksViewModel.firePropertyChange();
     }
 }
