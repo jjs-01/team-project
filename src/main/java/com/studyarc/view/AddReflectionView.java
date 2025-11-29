@@ -1,13 +1,15 @@
 package com.studyarc.view;
 
+import java.awt.*;
+
+import javax.swing.*;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+
 import com.studyarc.interface_adapter.add_reflection.AddReflectionController;
 import com.studyarc.interface_adapter.add_reflection.AddReflectionState;
 import com.studyarc.interface_adapter.add_reflection.AddReflectionViewModel;
-
-import javax.swing.*;
-import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 public class AddReflectionView extends JDialog implements PropertyChangeListener {
 
@@ -31,10 +33,10 @@ public class AddReflectionView extends JDialog implements PropertyChangeListener
 
         this.viewModel.addPropertyChangeListener(this);
 
-        JPanel panel = new JPanel(new BorderLayout());
+        final JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JLabel("Reflection:"), BorderLayout.NORTH);
 
-        JScrollPane scrollPane = new JScrollPane(content);
+        final JScrollPane scrollPane = new JScrollPane(content);
         panel.add(scrollPane, BorderLayout.CENTER);
 
         panel.add(saveButton, BorderLayout.SOUTH);
@@ -47,7 +49,7 @@ public class AddReflectionView extends JDialog implements PropertyChangeListener
     }
 
     private void save() {
-        String contents = content.getText().trim();
+        final String contents = content.getText().trim();
 
         if (contents.isEmpty()) {
             JOptionPane.showMessageDialog(
@@ -64,7 +66,7 @@ public class AddReflectionView extends JDialog implements PropertyChangeListener
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        AddReflectionState state = viewModel.getState();
+        final AddReflectionState state = viewModel.getState();
 
         if (state.getErrorMessage() != null && !state.getErrorMessage().isEmpty()) {
             JOptionPane.showMessageDialog(

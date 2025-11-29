@@ -26,8 +26,8 @@ public class AddReflectionInteractor implements AddReflectionInputBoundary {
             addReflectionPresenter.prepareFailView("Reflection cannot be empty.");
         }
         else {
-            User user = addReflectionDataAccess.getCurrentUser();
-            StudyPlan plan = addReflectionDataAccess.getPlan(user, planTitle);
+            final User user = addReflectionDataAccess.getCurrentUser();
+            final StudyPlan plan = addReflectionDataAccess.getPlan(user, planTitle);
             if (plan == null) {
                 addReflectionPresenter.prepareFailView("Plan not found");
             }
@@ -35,7 +35,7 @@ public class AddReflectionInteractor implements AddReflectionInputBoundary {
                 final Reflection newReflection = reflectionFactory.create(contents);
                 plan.getReflections().add(newReflection);
                 addReflectionDataAccess.savePlan(user, plan);
-                AddReflectionOutputData output = new AddReflectionOutputData(planTitle, newReflection);
+                final AddReflectionOutputData output = new AddReflectionOutputData(planTitle, newReflection);
                 addReflectionPresenter.prepareSuccessView(output);
             }
         }

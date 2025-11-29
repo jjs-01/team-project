@@ -2,6 +2,7 @@ package com.studyarc.interface_adapter;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+
 /**
  * The ViewModel for our CA implementation.
  * This class delegates work to a PropertyChangeSupport object for
@@ -60,6 +61,10 @@ public class ViewModel<T> {
         this.support.addPropertyChangeListener(listener);
     }
 
+    /**
+     * Removes a PropertyChangeListener to this ViewModel.
+     * @param listener The PropertyChangeListener to be added
+     */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         this.support.removePropertyChangeListener(listener);
     }
