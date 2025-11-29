@@ -11,5 +11,7 @@ public interface SidebarOutputBoundary {
 
     void switchToTrackPlan();
 
+    void switchToLogin();
+
     void setUser(String username);
 }
