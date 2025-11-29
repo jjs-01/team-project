@@ -7,10 +7,12 @@ import com.studyarc.entity.User;
 import com.studyarc.use_case.load_milestones.LoadMilestonesDataAccessInterface;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessInterface, LoadMilestonesDataAccessInterface {
+public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessInterface,
+        LoadMilestonesDataAccessInterface {
     List<StudyPlan> studyPlans = new ArrayList<>();
 
     @Override
@@ -37,8 +39,15 @@ public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessI
 
     @Override
     public User getUser(String username) {
-        return new User();
+        User user;
+        try {
+            user = new User("User", "password", "focus");
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
+        return user;
     }
+
 
     @Override
     public StudyPlan getPlan(User user, String planName) {
