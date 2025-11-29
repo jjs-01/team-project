@@ -5,6 +5,7 @@ import java.awt.*;
 
 import com.studyarc.data_access.DatabaseAccess;
 import com.studyarc.data_access.MilestoneTasksDataAccessObject;
+import com.studyarc.entity.ReflectionFactory;
 import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanController;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanPresenter;
@@ -72,6 +73,7 @@ public class AppBuilder {
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
 
     final MilestoneTasksDataAccessObject singleUseCaseDAO = new MilestoneTasksDataAccessObject();
+    final ReflectionFactory reflectionFactory = new ReflectionFactory();
 
     private TrackPlansView trackPlansView;
     private TrackPlanViewModel trackPlanViewModel;
@@ -177,7 +179,7 @@ public class AppBuilder {
 
     public AppBuilder addAddReflectionUseCase() {
         AddReflectionOutputBoundary presenter = new AddReflectionPresenter(addReflectionViewModel,trackPlanViewModel);
-        AddReflectionInputBoundary interactor = new AddReflectionInteractor(presenter, databaseAccess);
+        AddReflectionInputBoundary interactor = new AddReflectionInteractor(presenter, databaseAccess, reflectionFactory);
         AddReflectionController controller = new AddReflectionController(interactor);
         trackPlansView.setAddReflectionController(controller);
         return this;
