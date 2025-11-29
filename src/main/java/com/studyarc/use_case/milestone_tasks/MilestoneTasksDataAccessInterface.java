@@ -29,7 +29,7 @@ public interface MilestoneTasksDataAccessInterface {
      */
     void savePlan(User user, StudyPlan plan);
 
-    User getUser(String username);
+//    User getUser(String username);
 
     ArrayList<StudyPlan> getPlans(String user);
 
