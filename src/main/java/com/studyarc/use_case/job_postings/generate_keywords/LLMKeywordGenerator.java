@@ -35,8 +35,6 @@ public class LLMKeywordGenerator implements KeywordGenerator {
             // creates the KeywordList entity
             KeywordList keywordList = new KeywordList(responseBody.get("text").toString());
 
-            System.out.println("Keywords: " + responseBody.get("text").toString());
-
             System.out.println("Cohere finished.");
 
             return keywordList;

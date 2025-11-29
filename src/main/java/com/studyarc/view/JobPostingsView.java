@@ -60,7 +60,6 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     private JButton search;
 
     private String[] locationOptions = {"Select Country", "gb", "us", "ca"};
-//    private String[] planOptions = {"Select Plan", "Machine Learning"};
     List<String> planOptions = new ArrayList<>();
     private String[] salaryOptions = {"Select Option", "$40,000", "$50,000", "$60,000", "$70,000", "$80,000", "$90,000", "$100,000"};
     private String[] sortOptions = {"Select Sort", "date", "salary", "relevance"};
@@ -93,7 +92,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         titleAndSelections.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 
         // creates the dropdown selection with label for selecting the focus/plan
-        JLabel plan = new JLabel(JobPostingsViewModel.PLAN_LABEL);
+        JLabel plan = new JLabel(JobPostingsViewModel.FOCUS);
         plan.setFont(Styling.getSubFont().deriveFont(14f));
         planOptions = new ArrayList<>(List.of("Select Plan"));
         planComboBox = new JComboBox<>(planOptions.toArray(new String[0]));
@@ -210,6 +209,8 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     public void propertyChange(PropertyChangeEvent evt) {
         final JobPostingsState jobPostingsState = jobPostingsViewModel.getState();
         List<JobListing> resetJobs = new ArrayList<>();
+        // saves previous selection
+        String previousSelection = (String) planComboBox.getSelectedItem();
 
         if (!jobPostingsState.getFocuses().isEmpty()) {
             ArrayList<String> usersFocuses = jobPostingsState.getFocuses();
@@ -220,11 +221,17 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
                     planOptions.add(focus);
                 }
             }
-
+             // resets the combo box with the updated selections
             planComboBox.setModel(new DefaultComboBoxModel<>(planOptions.toArray(new String[0])));
+
+            // sets the previous selection
+            if (previousSelection != null && planOptions.contains(previousSelection)) {
+                planComboBox.setSelectedItem(previousSelection);
+            }
 
         }
 
+        // if an error appears, clear the panel and show the error
         if (!jobPostingsState.getListingError().equals("")) {
             if (jobPostingsState.getListingError().contains("error")
                     || jobPostingsState.getListingError().contains("Error")) {
@@ -248,6 +255,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
         }
 
+        // show the job listings if there are some
         if (!jobPostingsState.getJobListings().isEmpty()) {
             allJobPostingsPanel.removeAll();
 
