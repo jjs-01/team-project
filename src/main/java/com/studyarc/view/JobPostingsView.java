@@ -60,7 +60,8 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     private JButton search;
 
     private String[] locationOptions = {"Select Country", "gb", "us", "ca"};
-    private String[] planOptions = {"Select Plan", "Machine Learning"};
+//    private String[] planOptions = {"Select Plan", "Machine Learning"};
+    List<String> planOptions = new ArrayList<>();
     private String[] salaryOptions = {"Select Option", "$40,000", "$50,000", "$60,000", "$70,000", "$80,000", "$90,000", "$100,000"};
     private String[] sortOptions = {"Select Sort", "date", "salary", "relevance"};
 
@@ -94,8 +95,8 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         // creates the dropdown selection with label for selecting the focus/plan
         JLabel plan = new JLabel(JobPostingsViewModel.PLAN_LABEL);
         plan.setFont(Styling.getSubFont().deriveFont(14f));
-        String[] planOptions = {"Select Plan", "Machine Learning"};
-        planComboBox = new JComboBox<>(planOptions);
+        planOptions = new ArrayList<>(List.of("Select Plan"));
+        planComboBox = new JComboBox<>(planOptions.toArray(new String[0]));
         planComboBox.setFont(Styling.getSubFont().deriveFont(12f));
         planComboBox.addActionListener(this);
         JPanel planSelectionPanel = new JPanel();
@@ -209,6 +210,13 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     public void propertyChange(PropertyChangeEvent evt) {
         final JobPostingsState jobPostingsState = jobPostingsViewModel.getState();
         List<JobListing> resetJobs = new ArrayList<>();
+
+        if (jobPostingsState.getFocuses().size() != 0) {
+            ArrayList<String> usersFocuses = jobPostingsState.getFocuses();
+            planOptions.addAll(usersFocuses);
+
+            planComboBox.setModel(new DefaultComboBoxModel<>(planOptions.toArray(new String[0])));
+        }
 
         if (!jobPostingsState.getListingError().equals("")) {
             if (jobPostingsState.getListingError().contains("error")

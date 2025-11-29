@@ -9,6 +9,7 @@ import java.util.List;
  * The state for the Job Postings View Model.
  */
 public class JobPostingsState {
+    private ArrayList<String> focuses =  new ArrayList<>();
     private String focus = "";
     private String location = "";
     private String minSalary = "";
@@ -43,6 +44,8 @@ public class JobPostingsState {
 
     public String getNumberOfResults() { return numberOfResults; }
 
+    public ArrayList<String> getFocuses() { return focuses; }
+
     public void setFocus(String focus) {
         this.focus = focus;
     }
@@ -68,5 +71,7 @@ public class JobPostingsState {
     }
 
     public void setNumberOfResults(String numberOfResults) { this.numberOfResults = numberOfResults; }
+
+    public void setFocuses(ArrayList<String> focuses) { this.focuses = focuses; }
 
 }
