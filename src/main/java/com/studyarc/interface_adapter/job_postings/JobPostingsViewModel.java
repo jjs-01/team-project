@@ -2,8 +2,6 @@ package com.studyarc.interface_adapter.job_postings;
 
 import com.studyarc.interface_adapter.ViewModel;
 
-import java.beans.PropertyChangeSupport;
-
 /**
  * The View Model for the Job Postings View.
  */

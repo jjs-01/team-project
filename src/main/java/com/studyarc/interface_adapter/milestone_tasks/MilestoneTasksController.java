@@ -1,11 +1,9 @@
 package com.studyarc.interface_adapter.milestone_tasks;
 
-import com.studyarc.use_case.job_postings.JobPostingsInputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputData;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Controller for the MilestoneTasks Use Case
@@ -24,9 +22,9 @@ public class MilestoneTasksController {
      * @param milestoneDates map of the milestone names to the tasks they're associated with
      */
     public void execute(String studyPlanName, List<List<String[]>> milestoneIndexToTasks,
-                        List<String> milestoneNames, List<String> milestoneDates) {
+                        List<String> milestoneNames, List<String> milestoneDates, String focus) {
         final MilestoneTasksInputData milestoneInputData = new MilestoneTasksInputData(studyPlanName,
-                milestoneNames, milestoneDates, milestoneIndexToTasks);
+                milestoneNames, milestoneDates, milestoneIndexToTasks, focus);
 
         milestoneUseCaseInteractor.execute(milestoneInputData);
     }
