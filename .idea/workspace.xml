@@ -7,9 +7,7 @@
     <list default="true" id="f7c9c41c-69a4-4c7f-8a04-53a383fcfacf" name="Changes" comment="Basic testing for the app, need to pull the ViewManagerModel from main to continue progress.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/MilestoneTasksDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/MilestoneTasksDataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksDataAccessInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksDataAccessInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/milestone_tasks/MilestoneTasksInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/JobPostingsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/JobPostingsView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -15,13 +15,18 @@ import java.util.*;
 
 public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginDataAccessInterface, MilestoneTasksDataAccessInterface, LoadMilestonesDataAccessInterface, AddReflectionDataAccessInterface, TrackPlanDataAccessinterface {
     private User user;
+    private ArrayList<String> focuses = new ArrayList<>();
+
     @Override
     public ArrayList<String> getFocuses(String userUsername) {
+//        System.out.println("Checking user:" + user);
+
         ArrayList<StudyPlan> allStudyPlans = this.getPlans(userUsername);
-        ArrayList<String> focuses = new ArrayList<>();
 
         for (StudyPlan studyPlan : allStudyPlans) {
-            focuses.add(studyPlan.getFocus());
+            if (!focuses.contains(studyPlan.getFocus())) {
+                focuses.add(studyPlan.getFocus());
+            }
         }
 
         // removes duplicates
@@ -50,7 +55,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
         ArrayList<StudyPlan> plans = new ArrayList<>();
 
         // Plan 1
-        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>(), "focus");
+        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>(), "Machine Learning");
 
         Milestone p1m1 = new Milestone("Milestone 1");
 
@@ -70,7 +75,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
         plan1.getMilestones().add(p1m2);
 
         // Plan 2
-        StudyPlan plan2 = new StudyPlan("Plan 2", new ArrayList<>(), "focus");
+        StudyPlan plan2 = new StudyPlan("Plan 2", new ArrayList<>(), "Artificial Intelligence");
 
         Milestone p2m1 = new Milestone("Milestone 1");
         p2m1.getSubtasks().add(doStep1);
@@ -84,7 +89,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
         plan2.getMilestones().add(p2m2);
 
         // Plan 3
-        StudyPlan plan3 = new StudyPlan("Plan 3", new ArrayList<>(),  "focus");
+        StudyPlan plan3 = new StudyPlan("Plan 3", new ArrayList<>(),  "Machine Learning");
 
         Milestone p3m1 = new Milestone("Milestone 1");
         p3m1.getSubtasks().add(doStep1);
@@ -98,7 +103,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
         plan3.getMilestones().add(p3m2);
 
         // plan 4
-        StudyPlan plan4 = new StudyPlan("Plan 4", new ArrayList<>(), "focus");
+        StudyPlan plan4 = new StudyPlan("Plan 4", new ArrayList<>(), "Game Development");
 
         Milestone p4m1 = new Milestone("Milestone 1");
         p4m1.getSubtasks().add(doStep1);

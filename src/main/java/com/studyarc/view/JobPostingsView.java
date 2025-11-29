@@ -211,11 +211,18 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         final JobPostingsState jobPostingsState = jobPostingsViewModel.getState();
         List<JobListing> resetJobs = new ArrayList<>();
 
-        if (jobPostingsState.getFocuses().size() != 0) {
+        if (!jobPostingsState.getFocuses().isEmpty()) {
             ArrayList<String> usersFocuses = jobPostingsState.getFocuses();
-            planOptions.addAll(usersFocuses);
+
+            // Adds the focuses if they aren't in  planOptions already
+            for (String focus :  usersFocuses) {
+                if (!planOptions.contains(focus)) {
+                    planOptions.add(focus);
+                }
+            }
 
             planComboBox.setModel(new DefaultComboBoxModel<>(planOptions.toArray(new String[0])));
+
         }
 
         if (!jobPostingsState.getListingError().equals("")) {
