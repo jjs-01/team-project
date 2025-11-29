@@ -62,10 +62,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
             individualMilestone.add(milestoneNameField, individualMilestoneConstraints);
             super.addMilestoneNameListener(milestoneNameField, individualMilestone);
 
-            // Add completed check mark
-            individualMilestoneConstraints.gridx = 1;
-            individualMilestone.add(new JCheckBox(), individualMilestoneConstraints);
-
             // Add dueDate textfield
             individualMilestoneConstraints.gridx = 2;
             JTextField milestoneDateField = new JTextField(milestoneDates.get(i), 10);

@@ -392,7 +392,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         if (this.buttonToPlanMap.containsKey(button)) {
             this.deletePlanController.execute(this.buttonToPlanMap.get(button));
-
         } else if (e.getSource() == newPlan) {
             StudyPlan addedPlan = new StudyPlan(state.getNextDefaultTitle(), new ArrayList<>(), "Artificial Intelligence");
             trackPlansPanel.add(createPlanPanel(addedPlan));

@@ -19,12 +19,10 @@ import java.util.*;
 import java.util.List;
 
 /**
- * TODO: fix issue with removing tasks. Make a factory for this use case that is called each time new view is selected?
  * TODO: connect with backend
  * TODO: Write test cases for use case and entity
  * TODO (later): fix checkstyle issues
  * TODO (later): make the UI look nice
- *
  */
 public class MilestoneTasksView extends JPanel implements ActionListener, PropertyChangeListener {
     private static final String VIEW_NAME = "milestones and tasks";
@@ -120,9 +118,6 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                             individualMilestone.add(milestoneNameField, constraints2);
                             addMilestoneNameListener(milestoneNameField, individualMilestone);
 
-                            // Add completed check mark
-                            constraints2.gridx = 1;
-                            individualMilestone.add(new JCheckBox(), constraints2);
 
                             // Add dueDate textfield
                             constraints2.gridx = 2;
