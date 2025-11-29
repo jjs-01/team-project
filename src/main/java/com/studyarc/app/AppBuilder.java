@@ -212,7 +212,6 @@ public class AppBuilder {
 
         JobPostingsController jobPostingsController = new JobPostingsController(jobPostingsInteractor);
         jobPostingsView.setJobPostingsController(jobPostingsController);
-        sidePanelView.setJobPostingsController(jobPostingsController);
         return this;
     }
 

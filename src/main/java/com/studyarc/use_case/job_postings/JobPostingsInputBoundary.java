@@ -10,8 +10,4 @@ public interface JobPostingsInputBoundary {
      * @param jobPostingsInputData the input data
      */
     void execute(JobPostingsInputData jobPostingsInputData);
-
-   void retrieveAvailableFocuses(String userUsername);
-
-
 }

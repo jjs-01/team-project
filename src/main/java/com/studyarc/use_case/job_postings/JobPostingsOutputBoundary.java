@@ -1,7 +1,5 @@
 package com.studyarc.use_case.job_postings;
 
-import java.util.ArrayList;
-
 /**
  * The output boundary for the Job Postings Use Case.
  */
@@ -17,7 +15,5 @@ public interface JobPostingsOutputBoundary {
      * @param errorMessage the explanation of the failure
      */
     void prepareFailView(String errorMessage);
-
-    void showUsersFocuses(ArrayList<String> usersFocuses);
 
 }

@@ -16,17 +16,12 @@ import java.util.*;
 public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginDataAccessInterface, MilestoneTasksDataAccessInterface, LoadMilestonesDataAccessInterface, AddReflectionDataAccessInterface, TrackPlanDataAccessinterface {
     private User user;
     @Override
-    public ArrayList<String> getFocuses(String userUsername) {
-        ArrayList<StudyPlan> allStudyPlans = this.getPlans(userUsername);
+    public ArrayList<String> getFocuses(ArrayList<StudyPlan> allStudyPlans) {
         ArrayList<String> focuses = new ArrayList<>();
 
         for (StudyPlan studyPlan : allStudyPlans) {
             focuses.add(studyPlan.getFocus());
         }
-
-        // removes duplicates
-        Set<String> set = new HashSet<>(focuses);
-        focuses = new ArrayList<>(set);
 
         return focuses;
     }
@@ -50,7 +45,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
         ArrayList<StudyPlan> plans = new ArrayList<>();
 
         // Plan 1
-        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>(), "focus");
+        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>(),  "focus");
 
         Milestone p1m1 = new Milestone("Milestone 1");
 

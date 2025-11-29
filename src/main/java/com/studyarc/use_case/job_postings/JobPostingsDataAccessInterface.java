@@ -13,5 +13,5 @@ public interface JobPostingsDataAccessInterface {
      * Returns the user's focuses from all the plans they created
      * @return
      */
-    ArrayList<String> getFocuses(String userUsername);
+    ArrayList<String> getFocuses(ArrayList<StudyPlan> allStudyPlans);
 }
