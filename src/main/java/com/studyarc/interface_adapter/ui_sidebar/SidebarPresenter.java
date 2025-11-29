@@ -43,5 +43,13 @@ public class SidebarPresenter implements SidebarOutputBoundary {
         viewManagerModel.firePropertyChange();
     }
 
+    @Override
+    public void setUser(String username) {
+        final SidebarState sidebarState = sidebarViewModel.getState();
+        sidebarState.setUserName(username);
+
+        sidebarViewModel.firePropertyChange();
+    }
+
 
 }

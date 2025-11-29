@@ -19,7 +19,9 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
 
     @Override
     public ArrayList<String> getFocuses(String userUsername) {
-//        System.out.println("Checking user:" + user);
+        System.out.println("Checking user:" + user);
+        System.out.println("Checking user:" + user.getUsername());
+        System.out.println("Checking user:" + user.getStudyPlans());
 
         ArrayList<StudyPlan> allStudyPlans = this.getPlans(userUsername);
 

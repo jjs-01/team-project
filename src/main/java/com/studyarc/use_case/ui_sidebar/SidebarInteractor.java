@@ -1,5 +1,7 @@
 package com.studyarc.use_case.ui_sidebar;
 
+import com.studyarc.interface_adapter.ui_sidebar.SidebarPresenter;
+
 public class SidebarInteractor implements SidebarInputBoundary {
     private final SidebarDataAccessInterface userDataAccessObject;
     private final SidebarOutputBoundary userPresenter;
@@ -22,6 +24,11 @@ public class SidebarInteractor implements SidebarInputBoundary {
 
     @Override
     public void switchToTrackPlan() { userPresenter.switchToTrackPlan();}
+
+    @Override
+    public void setUser(String username) {
+        userPresenter.setUser(username);
+    }
 
 
 }
