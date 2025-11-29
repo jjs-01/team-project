@@ -22,15 +22,12 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
     private static final String VIEW_NAME = "loaded milestones";
 
     private final JPanel milestonePanel;
-    private final JComboBox focusSelection;
 
     public LoadMilestonesView(MilestoneTasksViewModel milestoneViewModel, LoadMilestonesViewModel loadViewModel) {
         super(milestoneViewModel);
         this.milestoneViewModel = milestoneViewModel;
         this.loadViewModel = loadViewModel;
         this.loadViewModel.addPropertyChangeListener(this);
-
-        focusSelection = (JComboBox) ((JPanel) (((JPanel) (this.getComponents()[0])).getComponents()[1])).getComponents()[1];
 
         milestonePanel = (JPanel) ((JScrollPane) this.getComponents()[LoadMilestonesViewModel.SCROLL_PANE_INDEX])
                 .getViewport()
@@ -55,7 +52,7 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
             milestonePanel.remove(individualMilestone);
         }
 
-        focusSelection.setSelectedItem(focus);
+        super.getFocusSelector().setSelectedItem(focus);
         // then add all the milestones that are saved
         for (int i = 0; i < milestoneNames.size(); i++) {
             assert milestoneNames.size() == milestoneDates.size();
@@ -180,13 +177,7 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
                         state.getMilestoneDates(),
                         state.getMilestoneIndexToTasks());
 
-                MilestoneTasksState saveState = milestoneViewModel.getState();
-                saveState.setMilestoneNameList(state.getMilestoneNames());
-                saveState.setMilestoneDateList(state.getMilestoneDates());
-                saveState.setMilestoneIndexToTasks(state.getMilestoneIndexToTasks());
-
-                System.out.println(state);
-
+                milestoneViewModel.setState(state);
                 state.setLoaded(true);
             }
         }

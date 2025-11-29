@@ -459,6 +459,10 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         return milestones;
     }
 
+    protected JComboBox<String> getFocusSelector() {
+        return focusesComboBox;
+    }
+
     protected Map<JPanel, List<JComponent[]>> getMilestoneToTaskComponents() {
         return milestoneToTaskComponents;
     }

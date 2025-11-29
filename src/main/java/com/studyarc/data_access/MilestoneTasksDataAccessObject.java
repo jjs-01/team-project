@@ -33,7 +33,7 @@ public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessI
 
     @Override
     public ArrayList<StudyPlan> getPlans(String user) {
-        studyPlans.add(new StudyPlan("Title", null, "focus"));
+        studyPlans.add(new StudyPlan("Title", null, "Game Design"));
         return (ArrayList<StudyPlan>) studyPlans;
     }
 
@@ -41,7 +41,7 @@ public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessI
     public User getUser(String username) {
         User user;
         try {
-            user = new User("User", "password", "focus");
+            user = new User("User", "password", "Game Design");
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
@@ -65,6 +65,6 @@ public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessI
         tasks2.add(new Task("Task 5", "Oct 15", "Not Started"));
         milestones.add( new Milestone("milestone 2", "Oct 20", tasks2) );
 
-        return new StudyPlan("test study plan", milestones, "focus");
+        return new StudyPlan("test study plan", milestones, "Game Design");
     }
 }
