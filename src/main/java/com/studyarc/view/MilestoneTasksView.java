@@ -29,18 +29,14 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
     private final String viewName = "milestones and tasks";
     private MilestoneTasksController milestoneTasksController;
     private final MilestoneTasksViewModel milestoneViewModel;
-    private final String studyPlanName = "studyPlanTitle";
 
     private final JPanel milestonePanel = new JPanel();
     private final GridBagConstraints milestonePanelConstraints;
     private final JLabel planTitle;
-    private final JLabel focuses;
     private final JButton addMilestone;
     private final JButton save;
 
-    private JPanel focusesPanel;
     private final JComboBox<String> focusesComboBox;
-    private final String[] focusesOptions =  {"Artificial Intelligence", "Game Design", "Human Computer Interaction", "Web and Internet Technologies", "Data Science"};
 
     private final List<JPanel> milestones = new ArrayList<>();
     private final Map<JPanel, List<JComponent[]>> milestoneToTaskComponents = new HashMap<>();
@@ -55,9 +51,11 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         planTitle.setFont(new Font(MilestoneTasksViewModel.FONT, Font.BOLD, 24));
         topDetails.add(planTitle);
 
-        focusesPanel = new JPanel();
-        focuses = new JLabel("Focus: ");
+        JPanel focusesPanel = new JPanel();
+        JLabel focuses = new JLabel("Focus: ");
         focusesPanel.add(focuses);
+        String[] focusesOptions = {"Artificial Intelligence", "Game Design",
+                "Human Computer Interaction", "Web and Internet Technologies", "Data Science"};
         focusesComboBox = new JComboBox<>(focusesOptions);
         focusesComboBox.addActionListener(this);
         focusesPanel.add(focusesComboBox);
@@ -439,7 +437,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         final MilestoneTasksState currentState = milestoneViewModel.getState();
 
         if (e.getSource() == save) {
-            milestoneTasksController.execute(studyPlanName,
+            milestoneTasksController.execute(MilestoneTasksViewModel.TITLE_LABEL,
                     currentState.getMilestoneIndexToTasks(),
                     currentState.getMilestoneNames(),
                     currentState.getMilestoneDates(),
