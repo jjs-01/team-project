@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7c9c41c-69a4-4c7f-8a04-53a383fcfacf" name="Changes" comment="Basic testing for the app, need to pull the ViewManagerModel from main to continue progress.">
-      <change afterPath="$PROJECT_DIR$/src/test/java/job_postings/JobPostingsInteractorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/job_postings/generate_postings/AdzunaJobGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/job_postings/generate_postings/AdzunaJobGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/job_postings/generate_postings/JobRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/job_postings/generate_postings/JobRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/job_postings/JobPostingsInteractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/job_postings/JobPostingsInteractorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +69,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "JUnit.JobPostingsInteractorTest.executor": "Run",
+    "JUnit.JobPostingsInteractorTest.testFailAdzunaJobGeneratorException.executor": "Run",
+    "JUnit.JobPostingsInteractorTest.testFailEmptyFocus.executor": "Run",
+    "JUnit.JobPostingsInteractorTest.testFailKeywordException.executor": "Run",
+    "JUnit.JobPostingsInteractorTest.testFailNoJobs.executor": "Run",
     "JUnit.JobPostingsInteractorTest.testSuccess.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -88,21 +89,8 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.JobPostingsInteractorTest.testSuccess">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.studyarc.app.Main" />
-      <module name="TeamProject" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.studyarc.app.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JobPostingsInteractorTest.testSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.JobPostingsInteractorTest">
+    <configuration name="JobPostingsInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TeamProject" />
       <extension name="coverage">
         <pattern>
@@ -112,7 +100,70 @@
       </extension>
       <option name="PACKAGE_NAME" value="job_postings" />
       <option name="MAIN_CLASS_NAME" value="job_postings.JobPostingsInteractorTest" />
-      <option name="METHOD_NAME" value="testSuccess" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JobPostingsInteractorTest.testFailAdzunaJobGeneratorException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeamProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="job_postings.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="job_postings" />
+      <option name="MAIN_CLASS_NAME" value="job_postings.JobPostingsInteractorTest" />
+      <option name="METHOD_NAME" value="testFailAdzunaJobGeneratorException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JobPostingsInteractorTest.testFailEmptyFocus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeamProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="job_postings.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="job_postings" />
+      <option name="MAIN_CLASS_NAME" value="job_postings.JobPostingsInteractorTest" />
+      <option name="METHOD_NAME" value="testFailEmptyFocus" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JobPostingsInteractorTest.testFailKeywordException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeamProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="job_postings.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="job_postings" />
+      <option name="MAIN_CLASS_NAME" value="job_postings.JobPostingsInteractorTest" />
+      <option name="METHOD_NAME" value="testFailKeywordException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JobPostingsInteractorTest.testFailNoJobs" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeamProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="job_postings.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="job_postings" />
+      <option name="MAIN_CLASS_NAME" value="job_postings.JobPostingsInteractorTest" />
+      <option name="METHOD_NAME" value="testFailNoJobs" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -126,8 +177,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.JobPostingsInteractorTest.testSuccess" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.JobPostingsInteractorTest" />
+        <item itemvalue="JUnit.JobPostingsInteractorTest.testFailAdzunaJobGeneratorException" />
+        <item itemvalue="JUnit.JobPostingsInteractorTest.testFailKeywordException" />
+        <item itemvalue="JUnit.JobPostingsInteractorTest.testFailNoJobs" />
+        <item itemvalue="JUnit.JobPostingsInteractorTest.testFailEmptyFocus" />
       </list>
     </recent_temporary>
   </component>
@@ -153,7 +207,7 @@
       <workItem from="1764219985704" duration="3326000" />
       <workItem from="1764435728018" duration="2598000" />
       <workItem from="1764439626074" duration="6351000" />
-      <workItem from="1764447375994" duration="5005000" />
+      <workItem from="1764447375994" duration="7392000" />
     </task>
     <task id="LOCAL-00001" summary="Create dummy implementation of getUser.">
       <option name="closed" value="true" />
