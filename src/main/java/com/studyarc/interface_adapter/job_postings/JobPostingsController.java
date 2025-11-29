@@ -20,4 +20,8 @@ public class JobPostingsController {
         jobPostingsUseCaseInteractor.execute(jobPostingsInputData);
 
     }
+
+    public void retrieveAvailableFocuses(String userUsername) {
+        jobPostingsUseCaseInteractor.retrieveAvailableFocuses(userUsername);
+    }
 }

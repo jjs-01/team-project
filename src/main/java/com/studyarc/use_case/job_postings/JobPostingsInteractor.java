@@ -6,6 +6,7 @@ import com.studyarc.use_case.job_postings.generate_keywords.KeywordGenerator;
 import com.studyarc.use_case.job_postings.generate_postings.AdzunaJobGenerator;
 import com.studyarc.use_case.job_postings.generate_postings.JobRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -67,4 +68,12 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
         }
 
     }
+
+    @Override
+    public void retrieveAvailableFocuses(String userUsername) {
+        ArrayList<String> usersFocuses = userDataAccessObject.getFocuses(userUsername);
+        jobPostingsPresenter.showUsersFocuses(usersFocuses);
+    }
+
+
 }
