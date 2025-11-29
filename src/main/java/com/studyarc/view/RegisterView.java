@@ -1,8 +1,6 @@
 package com.studyarc.view;
 
-import com.studyarc.interface_adapter.login.LoginController;
-import com.studyarc.interface_adapter.login.LoginState;
-import com.studyarc.interface_adapter.login.LoginViewModel;
+import com.studyarc.interface_adapter.login.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,27 +8,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
-public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
-
+public class RegisterView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName;
+    private static final String[] FOCUS_LIST = new String[]{"Artificial Intelligence", "Data Science", "Game Design", "Human Computer Interaction", "Web and Internet Technologies"};
 
     private final JTextField usernameInput = new JTextField(18);
     private final JTextField passwordInput = new JPasswordField(18);
 
     private final JLabel errorField;
-    private final JButton logInButton;
     private final JButton registerButton;
-    private final LoginViewModel loginViewModel;
-    private LoginController loginController = null;
+    private final JButton loginButton;
+    private final JComboBox<String> focuses;
+    private final RegisterViewModel registerViewModel;
+    private RegisterController registerController = null;
 
-
-    public LoginView(LoginViewModel loginViewModel){
-        this.loginViewModel = loginViewModel;
-        this.viewName = loginViewModel.getViewName();
-        this.loginViewModel.addPropertyChangeListener(this);
+    public RegisterView(RegisterViewModel registerViewModel){
+        this.registerViewModel = registerViewModel;
+        this.viewName = registerViewModel.getViewName();
+        this.registerViewModel.addPropertyChangeListener(this);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        final JLabel title = new JLabel("Login");
+        final JLabel title = new JLabel("Register");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(title);
         final LabelTextPanel usernameInfo = new LabelTextPanel(
@@ -43,42 +43,45 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.errorField.setForeground(new Color(255, 0, 0));
         this.errorField.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(errorField);
+        this.focuses = new JComboBox<>(FOCUS_LIST);
+        this.add(focuses);
         final JPanel button = new JPanel();
         this.add(button);
-        logInButton = new JButton("Log In");
         this.registerButton = new JButton("Register");
-        button.add(logInButton);
+        this.loginButton = new JButton("Log In");
         button.add(registerButton);
-        logInButton.addActionListener(this);
+        button.add(loginButton);
         registerButton.addActionListener(this);
+        loginButton.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Performed action");
 
-        if(e.getSource()==logInButton){
-            LoginState state = this.loginViewModel.getState();
+        if(e.getSource()== registerButton){
+            RegisterState state = this.registerViewModel.getState();
             state.setUsername(this.usernameInput.getText());
             state.setPassword(this.passwordInput.getText());
             state.setErrorCode("");
-            this.loginController.execute(state);
-        }
-        else if(e.getSource() == registerButton){
-            this.loginController.goToRegister();
+            state.setFocus((String) this.focuses.getSelectedItem());
+            this.registerController.execute(state);
+        } else if(e.getSource() == loginButton){
+            this.registerController.goToLogin();
         }
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        LoginState newState = (LoginState) evt.getNewValue();
+        RegisterState newState = (RegisterState) evt.getNewValue();
         this.usernameInput.setText(newState.getUsername());
         this.passwordInput.setText(newState.getPassword());
         this.errorField.setText(newState.getErrorCode());
+        this.focuses.setSelectedIndex(Arrays.binarySearch(FOCUS_LIST, newState.getFocus()));
     }
 
-    public void setLoginController(LoginController loginController){
-        this.loginController = loginController;
+    public void setRegisterController(RegisterController registerController){
+        this.registerController = registerController;
     }
 
     public String getViewName() {
