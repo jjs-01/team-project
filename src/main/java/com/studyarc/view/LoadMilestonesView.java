@@ -19,7 +19,7 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
     private final LoadMilestonesViewModel loadViewModel;
     private LoadMilestonesController loadController;
     private final MilestoneTasksViewModel milestoneViewModel;
-    private final String viewName = "loaded milestones";
+    private static final String VIEW_NAME = "loaded milestones";
 
     private final JPanel milestonePanel;
 
@@ -160,7 +160,8 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getNewValue() instanceof LoadMilestonesState) {
+        if (evt.getPropertyName().equals("load plan")) {
+            super.propertyChange(evt);
             final LoadMilestonesState state = (LoadMilestonesState) evt.getNewValue();
             if (!state.getLoadError().isEmpty()) {
                 JOptionPane.showMessageDialog(this, state.getLoadError());
@@ -187,6 +188,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
 
     @Override
     public String getViewName() {
-        return this.viewName;
+        return this.VIEW_NAME;
     }
 }

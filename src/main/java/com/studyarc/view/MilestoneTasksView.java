@@ -27,7 +27,7 @@ import java.util.List;
  *
  */
 public class MilestoneTasksView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "milestones and tasks";
+    private static final String VIEW_NAME = "milestones and tasks";
     private MilestoneTasksController milestoneTasksController;
     private final MilestoneTasksViewModel milestoneViewModel;
 
@@ -47,7 +47,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         this.milestoneViewModel.addPropertyChangeListener(this);
 
         final JPanel topDetails = new JPanel();
-        planTitle = new JLabel(MilestoneTasksViewModel.TITLE_LABEL);
+        planTitle = new JLabel();
         planTitle.setFont(Styling.getMainFont());
         planTitle.setFont(new Font(MilestoneTasksViewModel.FONT, Font.BOLD, 24));
         topDetails.add(planTitle);
@@ -425,11 +425,13 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final MilestoneTasksState state = (MilestoneTasksState) evt.getNewValue();
-        if (!state.getMilestoneSaveError().isEmpty()) {
+        if (evt.getPropertyName().equals("failed to save")) {
             JOptionPane.showMessageDialog(this, state.getMilestoneSaveError());
             state.setMilestoneSaveError("");
-        } else {
+        } else if (evt.getPropertyName().equals("saved plan")){
             JOptionPane.showMessageDialog(this, "Saved!");
+        } else {
+            planTitle.setText(state.getStudyPlanName());
         }
     }
 
@@ -451,7 +453,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         }
     }
 
-    public String getViewName() { return viewName; }
+    public String getViewName() { return VIEW_NAME; }
 
     public void setMilestoneTasksController(MilestoneTasksController controller) {
         this.milestoneTasksController = controller;

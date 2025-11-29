@@ -18,7 +18,9 @@ public class LoadMilestonesInteractor implements LoadMilestonesInputBoundary {
         User user = loadMilestonesDataAccessObject.getUser("");
         StudyPlan studyPlan = loadMilestonesDataAccessObject.getPlan(user, loadMilestonesInputData.getStudyPlanName());
 
-        final LoadMilestonesOutputData loadMilestonesOutputData = new LoadMilestonesOutputData(studyPlan.getMilestones());
+        final LoadMilestonesOutputData loadMilestonesOutputData =
+                new LoadMilestonesOutputData(loadMilestonesInputData.getStudyPlanName(),
+                studyPlan.getMilestones());
 
         loadPresenter.prepareSuccessView(loadMilestonesOutputData);
     }

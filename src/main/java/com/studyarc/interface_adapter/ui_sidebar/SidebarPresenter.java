@@ -2,6 +2,7 @@ package com.studyarc.interface_adapter.ui_sidebar;
 
 import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.interface_adapter.job_postings.JobPostingsViewModel;
+import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksState;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
 import com.studyarc.use_case.ui_sidebar.SidebarOutputBoundary;
@@ -33,7 +34,11 @@ public class SidebarPresenter implements SidebarOutputBoundary {
     @Override
     public void switchToMilestone() {
         viewManagerModel.setState(milestoneTasksViewModel.getViewName());
-        milestoneTasksViewModel.prepareNewPlan();
+
+        MilestoneTasksState milestoneState = milestoneTasksViewModel.getState();
+        milestoneState.setStudyPlanName("New study plan");
+
+        milestoneTasksViewModel.firePropertyChange();
         viewManagerModel.firePropertyChange();
     }
 
