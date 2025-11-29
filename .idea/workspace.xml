@@ -6,17 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f7c9c41c-69a4-4c7f-8a04-53a383fcfacf" name="Changes" comment="Basic testing for the app, need to pull the ViewManagerModel from main to continue progress.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/app/AppBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/app/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ui_sidebar/SidebarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ui_sidebar/SidebarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ui_sidebar/SidebarPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ui_sidebar/SidebarPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ui_sidebar/SidebarState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/ui_sidebar/SidebarState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/ui_sidebar/SidebarInputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/ui_sidebar/SidebarInputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/ui_sidebar/SidebarInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/ui_sidebar/SidebarInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/ui_sidebar/SidebarOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/ui_sidebar/SidebarOutputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/RegisterView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/RegisterView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/SidePanelView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/SidePanelView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/Styling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/Styling.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +131,8 @@
       <workItem from="1764216559579" duration="2947000" />
       <workItem from="1764219985704" duration="3326000" />
       <workItem from="1764435728018" duration="2598000" />
-      <workItem from="1764439626074" duration="6016000" />
+      <workItem from="1764439626074" duration="6351000" />
+      <workItem from="1764447375994" duration="674000" />
     </task>
     <task id="LOCAL-00001" summary="Create dummy implementation of getUser.">
       <option name="closed" value="true" />

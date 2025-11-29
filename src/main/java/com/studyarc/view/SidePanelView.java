@@ -46,6 +46,7 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
 
         logo.setFont(Styling.getMainFont().deriveFont(Font.BOLD));
         logo.setHorizontalAlignment(SwingConstants.CENTER);
+        userLoggedIn.setFont(Styling.getSubFont());
         userLoggedIn.setHorizontalAlignment(SwingConstants.CENTER);
 
         seePlans = new JButton("New Plans");
@@ -81,6 +82,7 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         this.add(mainButtonPanel, BorderLayout.CENTER);
         this.add(userLoggedIn, BorderLayout.SOUTH);
 
+        this.setVisible(false);
         seeJobs.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
@@ -122,7 +124,8 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         System.out.println("state= " + state);
 
         userName = state.getUserName();
-        this.userLoggedIn.setText(userName);
+        this.userLoggedIn.setText("Welcome, " + userName);
+        this.setVisible(true);
 
     }
 
