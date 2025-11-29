@@ -20,6 +20,8 @@ public class LoadMilestonesPresenter implements LoadMilestonesOutputBoundary {
     public void prepareSuccessView(LoadMilestonesOutputData response) {
         final LoadMilestonesState loadMilestonesState = loadMilestonesViewModel.getState();
 
+        loadMilestonesState.setFocus(response.getFocus());
+
         List<String[]> milestoneInfoList = response.getMilestoneInfo();
 
         // populate milestones

@@ -22,12 +22,15 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
     private static final String VIEW_NAME = "loaded milestones";
 
     private final JPanel milestonePanel;
+    private final JComboBox focusSelection;
 
     public LoadMilestonesView(MilestoneTasksViewModel milestoneViewModel, LoadMilestonesViewModel loadViewModel) {
         super(milestoneViewModel);
         this.milestoneViewModel = milestoneViewModel;
         this.loadViewModel = loadViewModel;
         this.loadViewModel.addPropertyChangeListener(this);
+
+        focusSelection = (JComboBox) ((JPanel) (((JPanel) (this.getComponents()[0])).getComponents()[1])).getComponents()[1];
 
         milestonePanel = (JPanel) ((JScrollPane) this.getComponents()[LoadMilestonesViewModel.SCROLL_PANE_INDEX])
                 .getViewport()
@@ -39,13 +42,21 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
         loadController.execute(currentState.getStudyPlanName());
     }
 
-    private void loadStudyPlan(List<String> milestoneNames,
+    private void loadStudyPlan(String focus,
+                               List<String> milestoneNames,
                                List<String> milestoneDates,
                                List<List<String[]>> milestonesTaskList) {
         List<JPanel> milestones = super.getMilestones();
         Map<JPanel, List<JComponent[]>> milestoneToTaskComponents = super.getMilestoneToTaskComponents();
         GridBagConstraints milestonePanelConstraints = super.getMilestonePanelConstraints();
 
+        // first remove all current milestones:
+        for (JPanel individualMilestone : milestones) {
+            milestonePanel.remove(individualMilestone);
+        }
+
+        focusSelection.setSelectedItem(focus);
+        // then add all the milestones that are saved
         for (int i = 0; i < milestoneNames.size(); i++) {
             assert milestoneNames.size() == milestoneDates.size();
 
@@ -164,7 +175,10 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
 
                 state.setLoadError("");
             } else if (!state.getLoaded()) {
-                loadStudyPlan(state.getMilestoneNames(), state.getMilestoneDates(), state.getMilestoneIndexToTasks());
+                loadStudyPlan(state.getFocus(),
+                        state.getMilestoneNames(),
+                        state.getMilestoneDates(),
+                        state.getMilestoneIndexToTasks());
 
                 MilestoneTasksState saveState = milestoneViewModel.getState();
                 saveState.setMilestoneNameList(state.getMilestoneNames());

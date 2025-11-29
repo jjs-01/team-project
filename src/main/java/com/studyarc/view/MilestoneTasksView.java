@@ -19,6 +19,7 @@ import java.util.*;
 import java.util.List;
 
 /**
+ * TODO: have the selected item change with the state
  * TODO: connect with backend
  * TODO: Write test cases for use case and entity
  * TODO (later): fix checkstyle issues
