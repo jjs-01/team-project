@@ -18,21 +18,21 @@ StudyArc allows users to:
 - Retrieve relevant research papers using the CORE API
 - Discover real-world job listings tied to their topics of interest via the Adzuna API
 - Track progress across multiple study plans with milestones and subtasks
-- Add reflections linked to specific milestones
+- Add reflections linked to specific plan
 - Securely log in and access private, user-specific data
 
 # Team Contract
 
 ## User Stories & Responsibilities
 
-| User Story # | Description | Team Member |
-|--------------|-------------|-------------|
-| 1 | As a user, I want my credentials to be secure so my privacy is respected. | Tom Philip |
-| 2 | As a user, I want to add reflection logs to specific milestones. | An Chen |
-| 3 | As a user, I want to see real-world applications (job listings) for my topics. | Sofia Borodaenko |
+| User Story # | Description                                                                            | Team Member |
+|--------------|----------------------------------------------------------------------------------------|-------------|
+| 1 | As a user, I want my credentials to be secure so my privacy is respected.              | Tom Philip |
+| 2 | As a user, I want to add reflection logs to specific plan.                             | An Chen |
+| 3 | As a user, I want to see real-world applications (job listings) for my topics.         | Sofia Borodaenko |
 | 4 | As a user, I want to create a personalized study plan based on my focus and interests. | Julia Sinclair |
-| 5 | As a user, I want to track and edit my study plans for flexible studying. | Yizhou Qian |
-| 6 | As a user, I want to view recommended or past research papers. | Henry Morton |
+| 5 | As a user, I want to track and edit my study plans for flexible studying.              | Yizhou Qian |
+| 6 | As a user, I want to view recommended or past research papers.                         | Henry Morton |
 
 
 ## APIs Used

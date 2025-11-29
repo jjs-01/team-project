@@ -7,6 +7,7 @@ public class Main {
         AppBuilder appBuilder = new AppBuilder();
         JFrame application = appBuilder
                 .addSidePanel()
+                .addLoginView()
                 .addLoadMilestonesPanel()
                 .addMilestoneTasksPanel()
                 .addTrackPlanView()
@@ -18,6 +19,7 @@ public class Main {
                 .addJobPostingsUseCase()
                 .addMilestoneTasksUseCase()
                 .addAddReflectionUseCase()
+                .addLoginUseCase()
                 .build();
 
         application.pack();

@@ -18,4 +18,8 @@ public class SidebarController {
     }
 
     public void switchToTrackPlan(){sidebarUseCaseInteractor.switchToTrackPlan();}
+
+    public void setUser(String username) {
+        sidebarUseCaseInteractor.setUser(username);
+    }
 }

@@ -5,6 +5,7 @@ import java.awt.*;
 
 import com.studyarc.data_access.DatabaseAccess;
 import com.studyarc.data_access.MilestoneTasksDataAccessObject;
+import com.studyarc.entity.ReflectionFactory;
 import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanController;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanPresenter;
@@ -14,6 +15,7 @@ import com.studyarc.interface_adapter.job_postings.JobPostingsViewModel;
 import com.studyarc.interface_adapter.load_milestones.LoadMilestonesController;
 import com.studyarc.interface_adapter.load_milestones.LoadMilestonesPresenter;
 import com.studyarc.interface_adapter.load_milestones.LoadMilestonesViewModel;
+import com.studyarc.interface_adapter.login.*;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksPresenter;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
@@ -42,6 +44,9 @@ import com.studyarc.use_case.load_milestones.LoadMilestonesDataAccessInterface;
 import com.studyarc.use_case.load_milestones.LoadMilestonesInputBoundary;
 import com.studyarc.use_case.load_milestones.LoadMilestonesInteractor;
 import com.studyarc.use_case.load_milestones.LoadMilestonesOutputBoundary;
+import com.studyarc.use_case.login.LoginInputBoundary;
+import com.studyarc.use_case.login.LoginInteractor;
+import com.studyarc.use_case.login.LoginOutputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInteractor;
@@ -68,6 +73,7 @@ public class AppBuilder {
     private SidePanelView sidePanelView;
     private JobPostingsViewModel jobPostingsViewModel;
     private JobPostingsView jobPostingsView;
+    private RegisterView registerView;
 
     private final MilestoneTasksViewModel milestoneTasksViewModel = new MilestoneTasksViewModel();
     private MilestoneTasksView milestoneTaskView;
@@ -77,11 +83,15 @@ public class AppBuilder {
     private LoadMilestonesView loadMilestonesView;
 
     final MilestoneTasksDataAccessObject singleUseCaseDAO = new MilestoneTasksDataAccessObject();
+    final ReflectionFactory reflectionFactory = new ReflectionFactory();
 
     private TrackPlansView trackPlansView;
     private TrackPlanViewModel trackPlanViewModel;
     private AddReflectionViewModel addReflectionViewModel;
 
+    private LoginView loginView;
+    private LoginViewModel loginViewModel;
+    private RegisterViewModel registerViewModel;
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
 
@@ -151,12 +161,20 @@ public class AppBuilder {
 
         return this;
     }
-
+    public AppBuilder addLoginView(){
+        loginViewModel = new LoginViewModel();
+        loginView = new LoginView(loginViewModel);
+        cardPanel.add(loginView, loginView.getViewName());
+        registerViewModel = new RegisterViewModel();
+        registerView = new RegisterView(registerViewModel);
+        cardPanel.add(registerView, registerView.getViewName());
+        return this;
+    }
     public AppBuilder addMilestoneTasksPanel() {
         milestoneTaskView = new MilestoneTasksView(milestoneTasksViewModel);
 
         cardPanel.add(milestoneTaskView, milestoneTaskView.getViewName());
-        overallPanel.add(cardPanel, BorderLayout.CENTER);
+
 
         return this;
     }
@@ -181,6 +199,7 @@ public class AppBuilder {
 
         SidebarController sidebarController = new SidebarController(sidebarInteractor);
         sidePanelView.setSidebarController(sidebarController);
+        registerView.setSideBarController(sidebarController);
         return this;
     }
 
@@ -200,7 +219,7 @@ public class AppBuilder {
 
     public AppBuilder addAddReflectionUseCase() {
         AddReflectionOutputBoundary presenter = new AddReflectionPresenter(addReflectionViewModel,trackPlanViewModel);
-        AddReflectionInputBoundary interactor = new AddReflectionInteractor(presenter, databaseAccess);
+        AddReflectionInputBoundary interactor = new AddReflectionInteractor(presenter, databaseAccess, reflectionFactory);
         AddReflectionController controller = new AddReflectionController(interactor);
         trackPlansView.setAddReflectionController(controller);
         return this;
@@ -236,16 +255,29 @@ public class AppBuilder {
 
         loadMilestonesView.loadView();
         return this;
+}
+  
+    public AppBuilder addLoginUseCase() {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, registerViewModel, viewManagerModel, trackPlanViewModel, milestoneTasksViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(databaseAccess, loginOutputBoundary);
+
+        loginView.setLoginController(new LoginController(loginInteractor));
+        registerView.setRegisterController(new RegisterController(loginInteractor));
+//        registerView.setSideBarController(new SidebarController());
+
+        return this;
     }
 
     public JFrame build() {
+        overallPanel.add(cardPanel, BorderLayout.CENTER);
         final JFrame application = new JFrame("Study Arc");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         application.add(overallPanel);
         application.setMinimumSize(new Dimension(1000, 800));
 
-        viewManagerModel.setState(loadMilestonesView.getViewName());
-        System.out.println(loadMilestonesView.getViewName());
+//        viewManagerModel.setState(loadMilestonesView.getViewName());
+//        System.out.println(loadMilestonesView.getViewName());
+        viewManagerModel.setState(loginViewModel.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;
