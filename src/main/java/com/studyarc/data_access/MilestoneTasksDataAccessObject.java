@@ -12,6 +12,7 @@ import java.util.List;
 
 public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessInterface, LoadMilestonesDataAccessInterface {
     List<StudyPlan> studyPlans = new ArrayList<>();
+    DatabaseAccess userInfo =  new DatabaseAccess();
 
     @Override
     public ArrayList<Task> getTasksForMilestone(User user, StudyPlan plan, Milestone milestone) {
@@ -37,7 +38,7 @@ public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessI
 
     @Override
     public User getUser(String username) {
-        return new User();
+        return userInfo.getUser(username);
     }
 
     @Override

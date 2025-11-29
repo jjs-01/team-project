@@ -32,6 +32,8 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
     private final JButton seeJobs;
     private final JButton myPlans;
 
+    private String userName;
+
     private final Color mainColor = new Color(232, 231, 230);
     //controller of TrackPlan usecase
     private TrackPlanController trackPlanController;
@@ -119,6 +121,9 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         SidebarState state = sidebarViewModel.getState();
         System.out.println("state= " + state);
 
+        userName = state.getUserName();
+        this.userLoggedIn.setText(userName);
+
     }
 
     public void setSidebarController(SidebarController sidebarController) {
@@ -131,5 +136,12 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
 
     public void setJobPostingsController(JobPostingsController jobPostingsController) {
         this.jobPostingsController = jobPostingsController;
+    }
+
+    public void setLoggedInUser(String username) {
+        SidebarState state = sidebarViewModel.getState();
+        state.setUserName(username);
+
+//        this.userLoggedIn.setText(username);
     }
 }
