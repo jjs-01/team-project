@@ -114,10 +114,20 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         titlePanel.setLayout(new BorderLayout());
         titlePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
+        JPanel buttonPanel = new JPanel();
+
+        newPlan.addActionListener(this);
+        buttonPanel.add(newPlan);
+
         saveButton.addActionListener(this);
         saveButton.setFont(Styling.getSubFont().deriveFont(12f));
+        buttonPanel.add(saveButton);
+
+        buttonPanel.setBackground(Styling.getYellow());
+
         titlePanel.add(title, BorderLayout.CENTER);
-        titlePanel.add(saveButton, BorderLayout.EAST);
+        titlePanel.add(buttonPanel, BorderLayout.EAST);
         return titlePanel;
     }
 
@@ -377,19 +387,26 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     // Button Actions
     @Override
     public void actionPerformed(ActionEvent e) {
+        TrackPlanState state = this.trackPlanViewModel.getState();
         JButton button = (JButton) e.getSource();
+
         if (this.buttonToPlanMap.containsKey(button)) {
             this.deletePlanController.execute(this.buttonToPlanMap.get(button));
 
         } else if (e.getSource() == newPlan) {
-            this.sidebarController.switchToMilestone();
+            StudyPlan newPlan = new StudyPlan(state.getNextDefaultTitle(), new ArrayList<>(), "Artificial Intelligence");
+            trackPlansPanel.add(createPlanPanel(newPlan));
+            trackPlansPanel.add(Box.createVerticalStrut(15));
+            state.getStudyPlans().add(newPlan);
+            trackPlansPanel.revalidate();
+            this.trackPlanController.execute(state.getStudyPlans(), state.getUsername());
+            // this.sidebarController.switchToMilestone();
 
         } else if (this.editButtonToPlanMap.containsKey(button)) {
             System.out.println("EditPlan: " + this.editButtonToPlanMap.get(button).getTitle());
             this.loadMilestonesController.execute(this.editButtonToPlanMap.get(button).getTitle());
 
         } else if (e.getSource() == saveButton) {
-            TrackPlanState state = this.trackPlanViewModel.getState();
             this.trackPlanController.execute(state.getStudyPlans(), state.getUsername());
         }
     }

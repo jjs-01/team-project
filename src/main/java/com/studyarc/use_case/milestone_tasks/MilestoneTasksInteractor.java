@@ -40,6 +40,7 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
 
             // hardcoded for now (output data should be with the studyplan name)
             final MilestoneTasksOutputData outputData;
+            System.out.println(milestones.size());
             if (milestones.isEmpty()) {
                 outputData = new MilestoneTasksOutputData("empty milestones" + " focus: " + plan.getFocus());
             } else {

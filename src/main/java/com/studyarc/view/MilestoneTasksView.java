@@ -19,6 +19,7 @@ import java.util.*;
 import java.util.List;
 
 /**
+ * TODO: fix issue with removing tasks. Make a factory for this use case that is called each time new view is selected?
  * TODO: connect with backend
  * TODO: Write test cases for use case and entity
  * TODO (later): fix checkstyle issues
