@@ -35,14 +35,15 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
 
             StudyPlan plan = milestoneDataAccessObject.getPlan(user, milestoneInputData.getStudyPlanName());
             plan.setMilestones(milestones);
+            plan.setFocus(milestoneInputData.getFocus());
             milestoneDataAccessObject.savePlan(milestoneDataAccessObject.getUser(""), plan);
 
             // hardcoded for now (output data should be with the studyplan name)
             final MilestoneTasksOutputData outputData;
             if (milestones.isEmpty()) {
-                outputData = new MilestoneTasksOutputData("empty milestones");
+                outputData = new MilestoneTasksOutputData("empty milestones" + " focus: " + plan.getFocus());
             } else {
-                outputData = new MilestoneTasksOutputData(milestones.get(0).getTitle());
+                outputData = new MilestoneTasksOutputData(milestones.get(0).getTitle() + " focus: " + plan.getFocus());
             }
             milestonePresenter.prepareSuccessView(outputData);
         }
