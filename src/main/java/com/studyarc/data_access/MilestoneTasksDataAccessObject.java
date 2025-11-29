@@ -50,7 +50,7 @@ public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessI
 
 
     @Override
-    public StudyPlan getPlan(User user, String planName) {
+    public StudyPlan getPlan(String username, String planName) {
         // hard coded in for now
         List<Milestone> milestones = new ArrayList<>();
         List<Task> tasks = new ArrayList<>();

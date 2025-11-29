@@ -157,17 +157,27 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
 
     @Override
     public User getUser(String username) {
-        return null;
+        return this.user;
     }
     public void setUser(User u){
         this.user = u;
     }
 
     @Override
-    public StudyPlan getPlan(User user, String planName) {return null;}
+    public StudyPlan getPlan(User user, String planName) {
+        ArrayList<StudyPlan> userStudyPlans = getPlans(user.getUsername());
+        for (StudyPlan plan : userStudyPlans) {
+            if (plan.getTitle().equals(planName)) {
+                return plan;
+            }
+        }
+        return null;
+        // OR throw new IllegalArgumentException("Plan does not exist");
+    }
 
     @Override
     public void savePlan(User user, StudyPlan plan) {
+        user.getStudyPlans().add(plan);
     }
 
     @Override
