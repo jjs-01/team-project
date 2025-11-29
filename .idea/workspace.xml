@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f7c9c41c-69a4-4c7f-8a04-53a383fcfacf" name="Changes" comment="Basic testing for the app, need to pull the ViewManagerModel from main to continue progress." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "history": [
+    {
+      "state": "OPEN"
+    }
+  ],
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GitHubPullRequestState"><![CDATA[{
+  "prStates": [
+    {
+      "id": {
+        "id": "PR_kwDOP_CDP861x1IW",
+        "number": 33
+      },
+      "lastSeen": 1764223427911
+    }
+  ]
+}]]></component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/jjs-01/team-project.git&quot;,
+    &quot;accountId&quot;: &quot;21ed5cc4-208b-41de-b02f-67891f345459&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="35cIilh3n4C5XlsMPqxDNyjNxJM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.studyarc.app.Main" />
+      <module name="TeamProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.studyarc.app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="team-project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
+        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-IU-252.26199.169" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f7c9c41c-69a4-4c7f-8a04-53a383fcfacf" name="Changes" comment="" />
+      <created>1763403062320</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1763403062320</updated>
+      <workItem from="1763403063463" duration="6268000" />
+      <workItem from="1763663964238" duration="14000" />
+      <workItem from="1764007513816" duration="6507000" />
+      <workItem from="1764216559579" duration="2947000" />
+      <workItem from="1764219985704" duration="3326000" />
+    </task>
+    <task id="LOCAL-00001" summary="Create dummy implementation of getUser.">
+      <option name="closed" value="true" />
+      <created>1764222510408</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222510408</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add user parameter so the DAO can provide for the other use cases.">
+      <option name="closed" value="true" />
+      <created>1764222555199</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222555199</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Create LoginController.">
+      <option name="closed" value="true" />
+      <created>1764222569419</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222569419</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add registration to the login usecase.">
+      <option name="closed" value="true" />
+      <created>1764222615804</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222615804</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add an option to LoginInputData to tell the interactor to switch to the register view.">
+      <option name="closed" value="true" />
+      <created>1764222651347</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222651347</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add an overloaded prepareView method to the output boundary to handle registration.">
+      <option name="closed" value="true" />
+      <created>1764222700585</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222700585</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Remove the user part of login output as it does not need to go to the presenter. Add a goToRegistration boolean.">
+      <option name="closed" value="true" />
+      <created>1764222830955</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222830955</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Implement as much of the LoginPresenter as possible.">
+      <option name="closed" value="true" />
+      <created>1764222850254</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222850254</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Improve LoginView.">
+      <option name="closed" value="true" />
+      <created>1764222886589</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222886589</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add a setState to the login ViewModel.">
+      <option name="closed" value="true" />
+      <created>1764222903127</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222903127</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Create registration classes.">
+      <option name="closed" value="true" />
+      <created>1764222924348</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222924348</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add focus to the user class and constructors, and properly do hash validation.">
+      <option name="closed" value="true" />
+      <created>1764222963976</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222963976</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fill in the propertyChange method of ViewManager.">
+      <option name="closed" value="true" />
+      <created>1764222988883</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1764222988883</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Basic testing for the app, need to pull the ViewManagerModel from main to continue progress.">
+      <option name="closed" value="true" />
+      <created>1764223043086</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1764223043086</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Create dummy implementation of getUser." />
+    <MESSAGE value="Add user parameter so the DAO can provide for the other use cases." />
+    <MESSAGE value="Create LoginController." />
+    <MESSAGE value="Add registration to the login usecase." />
+    <MESSAGE value="Add an option to LoginInputData to tell the interactor to switch to the register view." />
+    <MESSAGE value="Add an overloaded prepareView method to the output boundary to handle registration." />
+    <MESSAGE value="Remove the user part of login output as it does not need to go to the presenter. Add a goToRegistration boolean." />
+    <MESSAGE value="Implement as much of the LoginPresenter as possible." />
+    <MESSAGE value="Improve LoginView." />
+    <MESSAGE value="Add a setState to the login ViewModel." />
+    <MESSAGE value="Create registration classes." />
+    <MESSAGE value="Add focus to the user class and constructors, and properly do hash validation." />
+    <MESSAGE value="Fill in the propertyChange method of ViewManager." />
+    <MESSAGE value="Basic testing for the app, need to pull the ViewManagerModel from main to continue progress." />
+    <option name="LAST_COMMIT_MESSAGE" value="Basic testing for the app, need to pull the ViewManagerModel from main to continue progress." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/studyarc/entity/User.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

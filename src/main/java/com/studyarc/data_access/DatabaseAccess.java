@@ -13,7 +13,7 @@ import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
 import java.util.*;
 
 public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginDataAccessInterface, MilestoneTasksDataAccessInterface, AddReflectionDataAccessInterface, TrackPlanDataAccessinterface {
-
+    private User user;
     @Override
     public ArrayList<String> getFocuses() {
         return null;
@@ -147,6 +147,9 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
     public User getUser(String username) {
         return null;
     }
+    public void setUser(User u){
+        this.user = u;
+    }
 
     @Override
     public StudyPlan getPlan(User user, String planName) {return null;}
@@ -159,5 +162,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
     public User getCurrentUser() {
         return null;
     }
+
+
 }
 

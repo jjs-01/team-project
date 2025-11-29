@@ -11,6 +11,7 @@ import com.studyarc.interface_adapter.delete_plan.DeletePlanPresenter;
 import com.studyarc.interface_adapter.job_postings.JobPostingsController;
 import com.studyarc.interface_adapter.job_postings.JobPostingsPresenter;
 import com.studyarc.interface_adapter.job_postings.JobPostingsViewModel;
+import com.studyarc.interface_adapter.login.*;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksPresenter;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
@@ -35,6 +36,9 @@ import com.studyarc.use_case.job_postings.JobPostingsOutputBoundary;
 import com.studyarc.use_case.job_postings.generate_keywords.KeywordGenerator;
 import com.studyarc.use_case.job_postings.generate_keywords.LLMKeywordGenerator;
 import com.studyarc.use_case.job_postings.generate_postings.AdzunaJobGenerator;
+import com.studyarc.use_case.login.LoginInputBoundary;
+import com.studyarc.use_case.login.LoginInteractor;
+import com.studyarc.use_case.login.LoginOutputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInteractor;
@@ -73,6 +77,10 @@ public class AppBuilder {
     private TrackPlanViewModel trackPlanViewModel;
     private AddReflectionViewModel addReflectionViewModel;
 
+    private LoginView loginView;
+    private LoginViewModel loginViewModel;
+    private RegisterView registerView;
+    private RegisterViewModel registerViewModel;
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
 
@@ -122,13 +130,21 @@ public class AppBuilder {
 
         return this;
     }
-
+    public AppBuilder addLoginView(){
+        loginViewModel = new LoginViewModel();
+        loginView = new LoginView(loginViewModel);
+        cardPanel.add(loginView, loginView.getViewName());
+        registerViewModel = new RegisterViewModel();
+        registerView = new RegisterView(registerViewModel);
+        cardPanel.add(registerView, registerView.getViewName());
+        return this;
+    }
     public AppBuilder addMilestoneTasksPanel() {
         milestoneTasksViewModel = new MilestoneTasksViewModel();
         milestoneTaskView = new MilestoneTasksView(milestoneTasksViewModel);
 
         cardPanel.add(milestoneTaskView, milestoneTaskView.getViewName());
-        overallPanel.add(cardPanel, BorderLayout.CENTER);
+
 
         return this;
     }
@@ -178,7 +194,18 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addLoginUseCase() {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, registerViewModel, viewManagerModel, trackPlanViewModel, milestoneTasksViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(databaseAccess, loginOutputBoundary);
+
+        loginView.setLoginController(new LoginController(loginInteractor));
+        registerView.setRegisterController(new RegisterController(loginInteractor));
+
+        return this;
+    }
+
     public JFrame build() {
+        overallPanel.add(cardPanel, BorderLayout.CENTER);
         final JFrame application = new JFrame("Study Arc");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         application.add(overallPanel);
