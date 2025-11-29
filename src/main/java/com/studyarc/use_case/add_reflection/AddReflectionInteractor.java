@@ -1,17 +1,21 @@
 package com.studyarc.use_case.add_reflection;
 
 import com.studyarc.entity.Reflection;
+import com.studyarc.entity.ReflectionFactory;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.User;
 
 public class AddReflectionInteractor implements AddReflectionInputBoundary {
     private final AddReflectionOutputBoundary addReflectionPresenter;
     private final AddReflectionDataAccessInterface addReflectionDataAccess;
+    private final ReflectionFactory reflectionFactory;
 
     public AddReflectionInteractor(AddReflectionOutputBoundary addReflectionPresenter,
-                                   AddReflectionDataAccessInterface addReflectionDataAccess) {
+                                   AddReflectionDataAccessInterface addReflectionDataAccess,
+                                   ReflectionFactory reflectionFactory) {
         this.addReflectionPresenter = addReflectionPresenter;
         this.addReflectionDataAccess = addReflectionDataAccess;
+        this.reflectionFactory = reflectionFactory;
     }
 
     @Override
@@ -28,7 +32,7 @@ public class AddReflectionInteractor implements AddReflectionInputBoundary {
                 addReflectionPresenter.prepareFailView("Plan not found");
             }
             else {
-                Reflection newReflection = new Reflection(contents);
+                final Reflection newReflection = reflectionFactory.create(contents);
                 plan.getReflections().add(newReflection);
                 addReflectionDataAccess.savePlan(user, plan);
                 AddReflectionOutputData output = new AddReflectionOutputData(planTitle, newReflection);
