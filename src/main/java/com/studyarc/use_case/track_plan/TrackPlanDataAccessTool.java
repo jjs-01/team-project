@@ -22,7 +22,7 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface{
         ArrayList<StudyPlan> plans = new ArrayList<>();
 
         // Plan 1
-        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>());
+        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>(), "focus");
 
         Milestone p1m1 = new Milestone("Milestone 1");
 
@@ -42,7 +42,7 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface{
         plan1.getMilestones().add(p1m2);
 
         // Plan 2
-        StudyPlan plan2 = new StudyPlan("Plan 2", new ArrayList<>());
+        StudyPlan plan2 = new StudyPlan("Plan 2", new ArrayList<>(), "focus");
 
         Milestone p2m1 = new Milestone("Milestone 1");
         p2m1.getSubtasks().add(doStep1);
@@ -56,7 +56,7 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface{
         plan2.getMilestones().add(p2m2);
 
         // Plan 3
-        StudyPlan plan3 = new StudyPlan("Plan 3", new ArrayList<>());
+        StudyPlan plan3 = new StudyPlan("Plan 3", new ArrayList<>(), "focus");
 
         Milestone p3m1 = new Milestone("Milestone 1");
         p3m1.getSubtasks().add(doStep1);
@@ -70,7 +70,7 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface{
         plan3.getMilestones().add(p3m2);
 
         // plan 4
-        StudyPlan plan4 = new StudyPlan("Plan 4", new ArrayList<>());
+        StudyPlan plan4 = new StudyPlan("Plan 4", new ArrayList<>(), "focus");
 
         Milestone p4m1 = new Milestone("Milestone 1");
         p4m1.getSubtasks().add(doStep1);
@@ -83,7 +83,7 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface{
         plan4.getMilestones().add(p4m1);
         plan4.getMilestones().add(p4m2);
         // Plan 5
-        StudyPlan plan5 = new StudyPlan("Plan 5", new ArrayList<>());
+        StudyPlan plan5 = new StudyPlan("Plan 5", new ArrayList<>(),  "focus");
 
         Milestone p5m1 = new Milestone("Milestone 1");
         p5m1.getSubtasks().add(doStep1);
@@ -97,7 +97,7 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface{
         plan5.getMilestones().add(p5m2);
 
         //plan 6
-        StudyPlan plan6 = new StudyPlan("Plan 6", new ArrayList<>());
+        StudyPlan plan6 = new StudyPlan("Plan 6", new ArrayList<>(),  "focus");
 
         Milestone p6m1 = new Milestone("Milestone 1");
         p6m1.getSubtasks().add(doStep1);

@@ -9,6 +9,7 @@ public class MilestoneTasksState {
     private List<List<String[]>> milestoneIndexToTasks = new ArrayList<>();
     private String saveChangesError = "";
     private String studyPlanName;
+    private String focus = "";
 
     public void addMilestone(int milestoneIndex, String name, String date) {
         milestoneNames.add(milestoneIndex, name);
@@ -66,6 +67,10 @@ public class MilestoneTasksState {
         saveChangesError = error;
     }
 
+    public void setFocus(String focus) {
+        this.focus = focus;
+    }
+
     public void removeMilestone(int index) {
         milestoneNames.remove(index);
         milestoneDates.remove(index);
@@ -100,6 +105,8 @@ public class MilestoneTasksState {
     public String getStudyPlanName() {
         return studyPlanName;
     }
+
+    public String getFocus() { return focus; }
 
     @Override
     public String toString() {

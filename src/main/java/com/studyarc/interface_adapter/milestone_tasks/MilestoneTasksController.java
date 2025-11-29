@@ -22,9 +22,9 @@ public class MilestoneTasksController {
      * @param milestoneDates map of the milestone names to the tasks they're associated with
      */
     public void execute(String studyPlanName, List<List<String[]>> milestoneIndexToTasks,
-                        List<String> milestoneNames, List<String> milestoneDates) {
+                        List<String> milestoneNames, List<String> milestoneDates, String focus) {
         final MilestoneTasksInputData milestoneInputData = new MilestoneTasksInputData(studyPlanName,
-                milestoneNames, milestoneDates, milestoneIndexToTasks);
+                milestoneNames, milestoneDates, milestoneIndexToTasks, focus);
 
         milestoneUseCaseInteractor.execute(milestoneInputData);
     }
