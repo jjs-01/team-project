@@ -7,10 +7,12 @@ public class StudyPlan {
     private String title;
     private List<Milestone> milestones;
     private final List<Reflection> reflections = new ArrayList<>();
+    private String focus;
 
-    public StudyPlan(String title, List<Milestone> milestones) {
+    public StudyPlan(String title, List<Milestone> milestones, String focus) {
         this.title = title;
         this.milestones = milestones;
+        this.focus = focus;
     }
 
     public String getTitle() {
@@ -36,4 +38,8 @@ public class StudyPlan {
     public void addReflection(Reflection reflection) {
         this.reflections.add(reflection);
     }
+
+    public String getFocus() { return focus; }
+
+    public void setFocus(String focus) { this.focus = focus; }
 }

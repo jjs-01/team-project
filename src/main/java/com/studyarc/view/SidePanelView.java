@@ -35,6 +35,8 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
     private final Color mainColor = new Color(232, 231, 230);
     //controller of TrackPlan usecase
     private TrackPlanController trackPlanController;
+    // controller for job postings controller
+    private JobPostingsController jobPostingsController;
 
     public SidePanelView(SidebarViewModel sidebarViewModel) {
         this.sidebarViewModel = sidebarViewModel;
@@ -80,7 +82,9 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         seeJobs.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
+                        jobPostingsController.retrieveAvailableFocuses("");
                         sidebarController.switchToJobBoard();
+
                     }
                 }
         );
@@ -123,5 +127,9 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
 
     public void setTrackPlanController(TrackPlanController trackPlanController) {
         this.trackPlanController = trackPlanController;
+    }
+
+    public void setJobPostingsController(JobPostingsController jobPostingsController) {
+        this.jobPostingsController = jobPostingsController;
     }
 }

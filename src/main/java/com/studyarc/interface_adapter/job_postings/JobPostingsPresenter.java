@@ -3,7 +3,6 @@ package com.studyarc.interface_adapter.job_postings;
 import com.studyarc.entity.job_postings.JobListing;
 import com.studyarc.use_case.job_postings.JobPostingsOutputBoundary;
 import com.studyarc.use_case.job_postings.JobPostingsOutputData;
-import com.studyarc.view.JobPostingsView;
 
 import java.util.ArrayList;
 
@@ -23,6 +22,7 @@ public class JobPostingsPresenter implements JobPostingsOutputBoundary {
         // update the job postings view model state
         final JobPostingsState jobPostingsState = jobPostingsViewModel.getState();
         jobPostingsState.setJobListings(outputData.getJobListings());
+        jobPostingsState.setNumberOfResults(String.valueOf(outputData.getNumberOfResults()));
 
         // formatting the range
         formattingRange(jobPostingsState);
@@ -78,5 +78,12 @@ public class JobPostingsPresenter implements JobPostingsOutputBoundary {
         jobPostingsState.setListingError(errorMessage);
         jobPostingsViewModel.firePropertyChange();
 
+    }
+
+    @Override
+    public void showUsersFocuses(ArrayList<String> usersFocuses) {
+        final JobPostingsState jobPostingsState = jobPostingsViewModel.getState();
+        jobPostingsState.setFocuses(usersFocuses);
+        jobPostingsViewModel.firePropertyChange();
     }
 }
