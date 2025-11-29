@@ -23,7 +23,7 @@ public class AddReflectionInteractor implements AddReflectionInputBoundary {
         final String planTitle = inputData.getPlanTitle();
         final String contents = inputData.getContents();
         if (contents.isEmpty()) {
-            addReflectionPresenter.prepareFailView("Please enter a valid contents");
+            addReflectionPresenter.prepareFailView("Reflection cannot be empty.");
         }
         else {
             User user = addReflectionDataAccess.getCurrentUser();
