@@ -110,6 +110,7 @@ public class AdzunaJobGenerator implements JobRepository {
         return List.of();
     }
 
+    @Override
     public int numberResults(List<JobListing> listings) {
         return listings.size();
     }

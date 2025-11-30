@@ -4,12 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MilestoneTasksState {
+    private String username;
     private List<String> milestoneNames = new ArrayList<>();
     private List<String> milestoneDates = new ArrayList<>();
     private List<List<String[]>> milestoneIndexToTasks = new ArrayList<>();
     private String saveChangesError = "";
     private String studyPlanName;
-    private String focus = "";
+    private String focus = "Game Design";
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
 
     public void addMilestone(int milestoneIndex, String name, String date) {
         milestoneNames.add(milestoneIndex, name);

@@ -27,6 +27,7 @@ public class MilestoneTasksViewModel extends ViewModel<MilestoneTasksState> {
     }
 
     public void prepareNewPlan() {
-        setState(new MilestoneTasksState());
+        // setState(new MilestoneTasksState());
+        System.out.println("Need to figure out how to remove everything when loading this view.");
     }
 }

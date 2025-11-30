@@ -50,15 +50,16 @@ public class LoginInteractor implements LoginInputBoundary{
         User u = dao.getUser(username);
         if(u!=null){
             System.out.println("User already exists!");
-            // go back
             return;
+            // go back
         }
         try {
-            this.dao.setUser(new User(username, password, registerInputData.getFocus()));
-            loginPresenter.prepareView(new RegisterOutputData(true, false));
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+                this.dao.setUser(new User(username, password, registerInputData.getFocus()));
+                loginPresenter.prepareView(new RegisterOutputData(true, false));
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+
     }
 
 }

@@ -19,7 +19,7 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
     private final LoadMilestonesViewModel loadViewModel;
     private LoadMilestonesController loadController;
     private final MilestoneTasksViewModel milestoneViewModel;
-    private final String viewName = "loaded milestones";
+    private static final String VIEW_NAME = "loaded milestones";
 
     private final JPanel milestonePanel;
 
@@ -39,13 +39,21 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
         loadController.execute(currentState.getStudyPlanName());
     }
 
-    private void loadStudyPlan(List<String> milestoneNames,
+    private void loadStudyPlan(String focus,
+                               List<String> milestoneNames,
                                List<String> milestoneDates,
                                List<List<String[]>> milestonesTaskList) {
         List<JPanel> milestones = super.getMilestones();
         Map<JPanel, List<JComponent[]>> milestoneToTaskComponents = super.getMilestoneToTaskComponents();
         GridBagConstraints milestonePanelConstraints = super.getMilestonePanelConstraints();
 
+        // first remove all current milestones:
+        for (JPanel individualMilestone : milestones) {
+            milestonePanel.remove(individualMilestone);
+        }
+
+        super.getFocusSelector().setSelectedItem(focus);
+        // then add all the milestones that are saved
         for (int i = 0; i < milestoneNames.size(); i++) {
             assert milestoneNames.size() == milestoneDates.size();
 
@@ -61,10 +69,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
             JTextField milestoneNameField = new JTextField(milestoneNames.get(i), 20);
             individualMilestone.add(milestoneNameField, individualMilestoneConstraints);
             super.addMilestoneNameListener(milestoneNameField, individualMilestone);
-
-            // Add completed check mark
-            individualMilestoneConstraints.gridx = 1;
-            individualMilestone.add(new JCheckBox(), individualMilestoneConstraints);
 
             // Add dueDate textfield
             individualMilestoneConstraints.gridx = 2;
@@ -160,22 +164,20 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getNewValue() instanceof LoadMilestonesState) {
+        if (evt.getPropertyName().equals("load plan")) {
+            super.propertyChange(evt);
             final LoadMilestonesState state = (LoadMilestonesState) evt.getNewValue();
             if (!state.getLoadError().isEmpty()) {
                 JOptionPane.showMessageDialog(this, state.getLoadError());
 
                 state.setLoadError("");
             } else if (!state.getLoaded()) {
-                loadStudyPlan(state.getMilestoneNames(), state.getMilestoneDates(), state.getMilestoneIndexToTasks());
+                loadStudyPlan(state.getFocus(),
+                        state.getMilestoneNames(),
+                        state.getMilestoneDates(),
+                        state.getMilestoneIndexToTasks());
 
-                MilestoneTasksState saveState = milestoneViewModel.getState();
-                saveState.setMilestoneNameList(state.getMilestoneNames());
-                saveState.setMilestoneDateList(state.getMilestoneDates());
-                saveState.setMilestoneIndexToTasks(state.getMilestoneIndexToTasks());
-
-                System.out.println(state);
-
+                milestoneViewModel.setState(state);
                 state.setLoaded(true);
             }
         }
@@ -187,6 +189,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
 
     @Override
     public String getViewName() {
-        return this.viewName;
+        return this.VIEW_NAME;
     }
 }

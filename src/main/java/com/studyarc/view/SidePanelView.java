@@ -31,6 +31,7 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
     private final JButton seePapers;
     private final JButton seeJobs;
     private final JButton myPlans;
+    private final JButton logout;
 
     private String userName;
 
@@ -46,14 +47,16 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
 
         logo.setFont(Styling.getMainFont().deriveFont(Font.BOLD));
         logo.setHorizontalAlignment(SwingConstants.CENTER);
+        userLoggedIn.setFont(Styling.getSubFont());
         userLoggedIn.setHorizontalAlignment(SwingConstants.CENTER);
 
         seePlans = new JButton("New Plans");
         seePapers = new JButton("Papers");
         seeJobs = new JButton("Jobs");
         myPlans = new JButton("My Plans");
+        logout = new JButton("logout");
 
-        final JButton[] buttons = {seePlans, seePapers, seeJobs, myPlans};
+        final JButton[] buttons = {seePlans, seePapers, seeJobs, myPlans, logout};
 
         this.setLayout(new BorderLayout());
         mainButtonPanel.setLayout(new GridBagLayout());
@@ -81,10 +84,12 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         this.add(mainButtonPanel, BorderLayout.CENTER);
         this.add(userLoggedIn, BorderLayout.SOUTH);
 
+        this.setVisible(false);
         seeJobs.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        jobPostingsController.retrieveAvailableFocuses("");
+                        // TODO: use the username that is logged in
+                        jobPostingsController.retrieveAvailableFocuses(getLoggedInUserName());
                         sidebarController.switchToJobBoard();
 
                     }
@@ -107,22 +112,27 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
 
             }
         });
+        logout.addActionListener(this);
+        this.setVisible(false);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(seeJobs)) {
-
+        if(e.getSource() == logout){
+            this.sidebarController.switchToLogin();
+            this.setVisible(false);
         }
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        this.setVisible(true);
         SidebarState state = sidebarViewModel.getState();
         System.out.println("state= " + state);
 
         userName = state.getUserName();
-        this.userLoggedIn.setText(userName);
+        this.userLoggedIn.setText("Welcome, " + userName);
+        this.setVisible(true);
 
     }
 
@@ -143,5 +153,10 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         state.setUserName(username);
 
 //        this.userLoggedIn.setText(username);
+    }
+
+    public String getLoggedInUserName() {
+        SidebarState state = sidebarViewModel.getState();
+        return state.getUserName();
     }
 }

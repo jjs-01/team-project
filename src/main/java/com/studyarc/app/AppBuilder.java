@@ -110,7 +110,7 @@ public class AppBuilder {
         this.trackPlanViewModel = new TrackPlanViewModel();
         this.addReflectionViewModel = new AddReflectionViewModel();
         this.trackPlansView = TrackPlansView.getInstance(trackPlanViewModel, addReflectionViewModel);
-        cardPanel.add(trackPlansView, trackPlansView.getViewname());
+        cardPanel.add(trackPlansView, trackPlansView.getViewName());
 
         return this;
 
@@ -133,7 +133,8 @@ public class AppBuilder {
                 sidebarViewModel,
                 jobPostingsViewModel,
                 milestoneTasksViewModel,
-                trackPlanViewModel);
+                trackPlanViewModel,
+                loginViewModel);
         final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarDataAccess, sidebarOutputBoundary);
         final SidebarController sidebarController = new SidebarController(sidebarInteractor);
         this.trackPlansView.setSidebarController(sidebarController);
@@ -194,7 +195,8 @@ public class AppBuilder {
                 sidebarViewModel,
                 jobPostingsViewModel,
                 milestoneTasksViewModel,
-                trackPlanViewModel);
+                trackPlanViewModel,
+                loginViewModel);
         final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarDataAccess, sidebarOutputBoundary);
 
         SidebarController sidebarController = new SidebarController(sidebarInteractor);
@@ -258,7 +260,7 @@ public class AppBuilder {
 }
   
     public AppBuilder addLoginUseCase() {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, registerViewModel, viewManagerModel, trackPlanViewModel, milestoneTasksViewModel);
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, registerViewModel, viewManagerModel, trackPlanViewModel, milestoneTasksViewModel, sidebarViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(databaseAccess, loginOutputBoundary);
 
         loginView.setLoginController(new LoginController(loginInteractor));

@@ -26,6 +26,9 @@ public class SidebarInteractor implements SidebarInputBoundary {
     public void switchToTrackPlan() { userPresenter.switchToTrackPlan();}
 
     @Override
+    public void switchToLogin(){userPresenter.switchToLogin();}
+
+    @Override
     public void setUser(String username) {
         userPresenter.setUser(username);
     }

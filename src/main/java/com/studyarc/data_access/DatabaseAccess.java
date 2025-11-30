@@ -19,9 +19,9 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
 
     @Override
     public ArrayList<String> getFocuses(String userUsername) {
-        System.out.println("Checking user:" + user);
-        System.out.println("Checking user:" + user.getUsername());
-        System.out.println("Checking user:" + user.getStudyPlans());
+//        System.out.println("Checking user:" + user);
+//        System.out.println("Checking user:" + user.getUsername());
+//        System.out.println("Checking user:" + user.getStudyPlans());
 
         ArrayList<StudyPlan> allStudyPlans = this.getPlans(userUsername);
 
@@ -39,19 +39,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
     }
 
     @Override
-    public ArrayList<Task> getTasksForMilestone(User user, StudyPlan plan, Milestone milestone) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Milestone> getMilestones(User user, StudyPlan plan) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<StudyPlan> getPlans(String username) {
-        return this.generateTestPlans();
-    }
+    public ArrayList<StudyPlan> getPlans(String username) { return this.generateTestPlans(); }
 
     public ArrayList<StudyPlan> generateTestPlans() {
         ArrayList<StudyPlan> plans = new ArrayList<>();
@@ -164,17 +152,28 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
 
     @Override
     public User getUser(String username) {
-        return user;
+        return this.user;
     }
+
     public void setUser(User u){
         this.user = u;
     }
 
     @Override
-    public StudyPlan getPlan(User user, String planName) {return null;}
+    public StudyPlan getPlan(User user, String planName) {
+        ArrayList<StudyPlan> userStudyPlans = getPlans(user.getUsername());
+        for (StudyPlan plan : userStudyPlans) {
+            if (plan.getTitle().equals(planName)) {
+                return plan;
+            }
+        }
+        return null;
+        // OR throw new IllegalArgumentException("Plan does not exist");
+    }
 
     @Override
     public void savePlan(User user, StudyPlan plan) {
+        user.getStudyPlans().add(plan);
     }
 
     @Override

@@ -7,10 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoadMilestonesOutputData {
+    private final String studyPlanName;
+    private final String focus;
     private final List<Milestone> milestones;
 
-    public LoadMilestonesOutputData(List<Milestone> milestones) {
+    public LoadMilestonesOutputData(String studyPlanName, String focus, List<Milestone> milestones) {
+        this.studyPlanName = studyPlanName;
+        this.focus = focus;
         this.milestones = milestones;
+    }
+
+    public String getStudyPlanName() {
+        return studyPlanName;
+    }
+
+    public String getFocus() {
+        return focus;
     }
 
     public List<String[]> getMilestoneInfo() {
