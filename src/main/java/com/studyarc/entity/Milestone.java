@@ -1,16 +1,17 @@
 package com.studyarc.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Milestone entity class
  */
-public class Milestone {
+public class Milestone implements Serializable {
     private String dueDate;
     private String name;
     private final List<Task> subtasks;
-  
+
     public Milestone(String title) {
         if ("".equals(title)) {
             throw new IllegalArgumentException("Name cannot be empty.");

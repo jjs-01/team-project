@@ -12,6 +12,7 @@ import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.add_reflection.AddReflectionDataAccessInterface;
 import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
 
+import java.io.*;
 import java.util.*;
 
 public class DatabaseAccess implements JobPostingsDataAccessInterface,
@@ -21,10 +22,22 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         AddReflectionDataAccessInterface,
         TrackPlanDataAccessinterface,
         AddPlanDataAccessInterface {
+    private static DatabaseAccess instance;
     private User user;
-
+    private List<User> allUsers;
     private ArrayList<String> focuses = new ArrayList<>();
 
+    @SuppressWarnings("unchecked")
+    private DatabaseAccess(){
+        try {
+            FileInputStream fileInputStream = new FileInputStream("studyarc-users.ser");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            this.allUsers = (List<User>) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+            e.printStackTrace();
+        }
+        this.user = null;
+    }
     @Override
     public ArrayList<String> getFocuses() {
 //        System.out.println("Checking user:" + user);
@@ -192,6 +205,22 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
 
     @Override
     public void savePlan(StudyPlan plan){
+    }
+
+    public static DatabaseAccess getInstance(){
+        return DatabaseAccess.instance == null ? (DatabaseAccess.instance = new DatabaseAccess()) : DatabaseAccess.instance;
+    }
+
+    public void save() {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream("studyarc-users.ser");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(this.allUsers);
+            objectOutputStream.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
