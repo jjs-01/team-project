@@ -32,16 +32,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
     }
 
     @Override
-    public ArrayList<Task> getTasksForMilestone(User user, StudyPlan plan, Milestone milestone) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Milestone> getMilestones(User user, StudyPlan plan) {
-        return null;
-    }
-
-    @Override
     public ArrayList<StudyPlan> getPlans(String username) {
         return this.generateTestPlans();
     }
