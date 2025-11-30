@@ -3,6 +3,7 @@ package com.studyarc.view;
 import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.Task;
+import com.studyarc.interface_adapter.add_plan.AddPlanController;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanController;
 import com.studyarc.interface_adapter.add_reflection.AddReflectionController;
 import com.studyarc.interface_adapter.add_reflection.AddReflectionViewModel;
@@ -50,6 +51,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     private TrackPlanController trackPlanController = null;
     private DeletePlanController deletePlanController = null;
     private LoadMilestonesController loadMilestonesController = null;
+    private AddPlanController addPlanController;
     private SidebarController sidebarController = null;
 
     private HashMap<JButton, StudyPlan> buttonToPlanMap;
@@ -150,6 +152,14 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             JOptionPane.showMessageDialog(this, currentState.getSavingMessage());
             return;
         }
+
+        if (evt.getPropertyName().equals("added plan")) {
+            StudyPlan lastAddedPlan = currentState.getStudyPlans().get(currentState.getStudyPlans().size() - 1);
+            trackPlansPanel.add(createPlanPanel(lastAddedPlan));
+            trackPlansPanel.add(Box.createVerticalStrut(15));
+            trackPlansPanel.revalidate();
+        }
+
         if (currentPlans.isEmpty()) {
             this.showRedirectButton();
         } else {
@@ -159,11 +169,9 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
     private void showRedirectButton() {
         trackPlansPanel.removeAll();
-        JLabel message = new JLabel("You have no Plans! Go Create New Plans!Go Create New Plans!Go Create New Plans!");
+        JLabel message = new JLabel("You have no Plans! Go Create New Plans!");
         message.setFont(Styling.getSubFont());
-        newPlan.addActionListener(this);
         trackPlansPanel.add(message);
-        trackPlansPanel.add(newPlan);
         trackPlansPanel.repaint();
         trackPlansPanel.revalidate();
     }
@@ -393,14 +401,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         if (this.buttonToPlanMap.containsKey(button)) {
             this.deletePlanController.execute(this.buttonToPlanMap.get(button));
         } else if (e.getSource() == newPlan) {
-            StudyPlan addedPlan = new StudyPlan(state.getNextDefaultTitle(), new ArrayList<>(), "Artificial Intelligence");
-            trackPlansPanel.add(createPlanPanel(addedPlan));
-            trackPlansPanel.add(Box.createVerticalStrut(15));
-            state.getStudyPlans().add(addedPlan);
-            trackPlansPanel.revalidate();
-            this.trackPlanController.execute(state.getStudyPlans(), state.getUsername());
-            // this.sidebarController.switchToMilestone();
-
+            addPlanController.execute(state.getStudyPlanTitles());
         } else if (this.editButtonToPlanMap.containsKey(button)) {
             System.out.println("EditPlan: " + this.editButtonToPlanMap.get(button).getTitle());
             this.loadMilestonesController.execute(this.editButtonToPlanMap.get(button).getTitle());
@@ -442,6 +443,10 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
     public void setAddReflectionController(AddReflectionController controller) {
         this.addReflectionController = controller;
+    }
+
+    public void setAddPlanController(AddPlanController controller) {
+        this.addPlanController = controller;
     }
 
     private void updateReflectionsUI() {

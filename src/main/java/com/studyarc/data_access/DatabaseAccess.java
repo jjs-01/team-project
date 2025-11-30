@@ -4,6 +4,7 @@ import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.Task;
 import com.studyarc.entity.User;
+import com.studyarc.use_case.add_plan.AddPlanDataAccessInterface;
 import com.studyarc.use_case.job_postings.JobPostingsDataAccessInterface;
 import com.studyarc.use_case.load_milestones.LoadMilestonesDataAccessInterface;
 import com.studyarc.use_case.login.LoginDataAccessInterface;
@@ -13,8 +14,17 @@ import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
 
 import java.util.*;
 
-public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginDataAccessInterface, MilestoneTasksDataAccessInterface, LoadMilestonesDataAccessInterface, AddReflectionDataAccessInterface, TrackPlanDataAccessinterface {
+public class DatabaseAccess implements JobPostingsDataAccessInterface,
+        LoginDataAccessInterface,
+        MilestoneTasksDataAccessInterface,
+        LoadMilestonesDataAccessInterface,
+        AddReflectionDataAccessInterface,
+        TrackPlanDataAccessinterface,
+        AddPlanDataAccessInterface {
     private User user;
+
+    private String currentUsername;
+
     @Override
     public ArrayList<String> getFocuses(String userUsername) {
         ArrayList<StudyPlan> allStudyPlans = this.getPlans(userUsername);
@@ -175,6 +185,14 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
         return null;
     }
 
+    @Override
+    public String getCurrentUsername() {
+        return this.currentUsername;
+    }
 
+    @Override
+    public void addPlan(String username, StudyPlan plan) {
+        System.out.println("add plan not implemented yet");
+    }
 }
 

@@ -22,12 +22,6 @@ public class MilestoneTasksDataAccessObject implements MilestoneTasksDataAccessI
     }
 
     @Override
-    public ArrayList<StudyPlan> getPlans(String user) {
-        studyPlans.add(new StudyPlan("Title", null, "Game Design"));
-        return (ArrayList<StudyPlan>) studyPlans;
-    }
-
-    @Override
     public User getUser(String username) {
         User user;
         try {
