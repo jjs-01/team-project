@@ -134,7 +134,8 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public void savePlan(StudyPlan plan) {
+    public void savePlan(StudyPlan plan){
+
     }
 
     public static DatabaseAccess getInstance() {

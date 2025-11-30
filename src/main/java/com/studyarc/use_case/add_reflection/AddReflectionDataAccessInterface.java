@@ -16,9 +16,9 @@ public interface AddReflectionDataAccessInterface {
 
     /**
      * Saves the updated study plan.
-     * @param plan the updated study plan containing the new reflection
      */
-    void savePlan(StudyPlan plan);
+
+    void save();
 }
 
 
