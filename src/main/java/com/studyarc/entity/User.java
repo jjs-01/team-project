@@ -26,6 +26,7 @@ public class User implements Serializable {
         md.update(password.getBytes(StandardCharsets.UTF_8));
         md.update(this.salt);
         this.passwordHash = md.digest();
+        this.studyPlans = new ArrayList<StudyPlan>();
     }
 
     public User(String username, String password, byte[] salt) throws NoSuchAlgorithmException {

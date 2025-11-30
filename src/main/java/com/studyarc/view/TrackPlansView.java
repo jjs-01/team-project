@@ -136,6 +136,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
         // get the current plans in the TrackPlanState and show them in the view accordingly.
         if (!(evt.getNewValue() instanceof TrackPlanState)) {
             return;
