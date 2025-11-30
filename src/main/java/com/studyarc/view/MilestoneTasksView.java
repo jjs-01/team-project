@@ -424,7 +424,8 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
             JOptionPane.showMessageDialog(this, state.getMilestoneSaveError());
             state.setMilestoneSaveError("");
         } else if (evt.getPropertyName().equals("saved plan")){
-            JOptionPane.showMessageDialog(this, "Saved!");
+            JOptionPane.showMessageDialog(this, state.getMilestoneSaveMessage());
+            state.setMilestoneSaveMessage("");
         } else {
             planTitle.setText(state.getStudyPlanName());
         }

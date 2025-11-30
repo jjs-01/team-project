@@ -12,6 +12,7 @@ public class MilestoneTasksState {
     private List<String> milestoneDates = new ArrayList<>();
     private List<List<String[]>> milestoneIndexToTasks = new ArrayList<>();
     private String saveChangesError = "";
+    private String saveMessage = "";
     private String studyPlanName;
     private String focus = "Game Design";
 
@@ -79,6 +80,8 @@ public class MilestoneTasksState {
         saveChangesError = error;
     }
 
+    public void setMilestoneSaveMessage(String msg) { saveMessage = msg; }
+
     public void setFocus(String focus) {
         this.focus = focus;
     }
@@ -113,6 +116,8 @@ public class MilestoneTasksState {
     public String getMilestoneSaveError() {
         return saveChangesError;
     }
+
+    public String getMilestoneSaveMessage() { return saveMessage; }
 
     public String getStudyPlanName() {
         return studyPlanName;
