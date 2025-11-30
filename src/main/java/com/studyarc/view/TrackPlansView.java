@@ -265,13 +265,17 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
             // Check if all subtasks are completed
             JLabel milestoneCompleted = new JLabel(" ✅ ");
-            milestoneCompleted.setVisible(true);
-            for (Task subtask : m.getSubtasks()) {
-                if (subtask.getStatus().equals("Not Started") || subtask.getStatus().equals("In Progress")) {
-                    milestoneCompleted.setVisible(false);
+            List<Task> subtasks = m.getSubtasks();
+            boolean allCompleted = !subtasks.isEmpty();
+
+            for (Task subtask : subtasks) {
+                String status = subtask.getStatus();
+                if (!"Done".equals(status)) {
+                    allCompleted = false;
                     break;
                 }
             }
+            milestoneCompleted.setVisible(allCompleted);
 
 
             milestoneHeader.add(upButton);

@@ -126,14 +126,10 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         // OR throw new IllegalArgumentException("Plan does not exist");
     }
 
-    @Override
-    public String getCurrentUsername() {
-        return this.user.getUsername();
-    }
 
     @Override
     public void addPlan(StudyPlan plan) {
-//        user.getStudyPlans().add(plan);
+        user.getStudyPlans().add(plan);
         System.out.println("add plan not implemented yet");
     }
 
