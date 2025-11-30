@@ -191,7 +191,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public void savePlan(String username, StudyPlan plan){
+    public void savePlan(StudyPlan plan){
     }
 }
 

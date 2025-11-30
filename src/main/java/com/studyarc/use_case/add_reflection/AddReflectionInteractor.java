@@ -33,7 +33,7 @@ public class AddReflectionInteractor implements AddReflectionInputBoundary {
             else {
                 final Reflection newReflection = reflectionFactory.create(contents);
                 plan.getReflections().add(newReflection);
-                addReflectionDataAccess.savePlan(username, plan);
+                addReflectionDataAccess.savePlan(plan);
                 final AddReflectionOutputData output = new AddReflectionOutputData(planTitle, newReflection);
                 addReflectionPresenter.prepareSuccessView(output);
             }

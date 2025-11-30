@@ -37,9 +37,9 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
 
             StudyPlan plan = milestoneDataAccessObject.getPlan(milestoneInputData.getStudyPlanName());
             plan.setMilestones(milestones);
-            milestoneDataAccessObject.savePlan(username, plan);
+            milestoneDataAccessObject.savePlan(plan);
             plan.setFocus(milestoneInputData.getFocus());
-            milestoneDataAccessObject.savePlan(username, plan);
+            milestoneDataAccessObject.savePlan(plan);
 
             // hardcoded for now (output data should be with the studyplan name)
             final MilestoneTasksOutputData outputData;
