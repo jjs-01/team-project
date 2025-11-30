@@ -168,8 +168,8 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public StudyPlan getPlan(String username, String planName) {
-        ArrayList<StudyPlan> userStudyPlans = getPlans(username);
+    public StudyPlan getPlan(String planName) {
+        ArrayList<StudyPlan> userStudyPlans = getPlans(this.user.getUsername());
         for (StudyPlan plan : userStudyPlans) {
             if (plan.getTitle().equals(planName)) {
                 return plan;

@@ -3,7 +3,6 @@ package com.studyarc.use_case.add_reflection;
 import com.studyarc.entity.Reflection;
 import com.studyarc.entity.ReflectionFactory;
 import com.studyarc.entity.StudyPlan;
-import com.studyarc.entity.User;
 
 public class AddReflectionInteractor implements AddReflectionInputBoundary {
     private final AddReflectionOutputBoundary addReflectionPresenter;
@@ -27,7 +26,7 @@ public class AddReflectionInteractor implements AddReflectionInputBoundary {
             addReflectionPresenter.prepareFailView("Reflection cannot be empty.");
         }
         else {
-            final StudyPlan plan = addReflectionDataAccess.getPlan(username, planTitle);
+            final StudyPlan plan = addReflectionDataAccess.getPlan(planTitle);
             if (plan == null) {
                 addReflectionPresenter.prepareFailView("Plan not found");
             }

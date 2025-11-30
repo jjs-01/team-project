@@ -1,7 +1,6 @@
 package com.studyarc.use_case.add_reflection;
 
 import com.studyarc.entity.StudyPlan;
-import com.studyarc.entity.User;
 
 /**
  * The DAO interface for the AddReflection Use Case.
@@ -10,11 +9,10 @@ public interface AddReflectionDataAccessInterface {
 
     /**
      * Return the specific plan that wants to add reflection.
-     * @param username the current user.
      * @param planName the plan title of this plan.
      * @return the plan that wants to add reflection
      */
-    StudyPlan getPlan(String username, String planName);
+    StudyPlan getPlan(String planName);
 
     /**
      * Saves the updated study plan.
