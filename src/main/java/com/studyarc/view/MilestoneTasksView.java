@@ -19,8 +19,8 @@ import java.util.*;
 import java.util.List;
 
 /**
- * TODO: connect with backend
  * TODO: Write test cases for use case and entity
+ * TODO: Make presentation
  * TODO (later): fix checkstyle issues
  * TODO (later): make the UI look nice
  */
