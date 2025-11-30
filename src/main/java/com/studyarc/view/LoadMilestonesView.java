@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * TODO: like... maybe make this all one class with MilestoneTasksView... would that be simpler
+ */
 public class LoadMilestonesView extends MilestoneTasksView implements ActionListener, PropertyChangeListener {
     private final LoadMilestonesViewModel loadViewModel;
     private LoadMilestonesController loadController;
