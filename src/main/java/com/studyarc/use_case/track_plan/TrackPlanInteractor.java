@@ -26,7 +26,7 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
         String username = inputData.getUsername();
 
         //use generateTestPlans for testing the usecase, switch to getplans later;
-        ArrayList<StudyPlan> listofplans = this.getPlanTool.getPlans(username);
+        ArrayList<StudyPlan> listofplans = this.getPlanTool.getPlans();
 
         TrackPlanOutputData trackPlanOutputData = new TrackPlanOutputData(username, listofplans);
         presenter.prepareShowPlans(trackPlanOutputData);

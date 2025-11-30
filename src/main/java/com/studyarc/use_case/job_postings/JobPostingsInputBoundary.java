@@ -11,7 +11,7 @@ public interface JobPostingsInputBoundary {
      */
     void execute(JobPostingsInputData jobPostingsInputData);
 
-   void retrieveAvailableFocuses(String userUsername);
+   void retrieveAvailableFocuses();
 
 
 }

@@ -23,17 +23,15 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         AddPlanDataAccessInterface {
     private User user;
 
-    private String currentUsername;
-
     private ArrayList<String> focuses = new ArrayList<>();
 
     @Override
-    public ArrayList<String> getFocuses(String userUsername) {
+    public ArrayList<String> getFocuses() {
 //        System.out.println("Checking user:" + user);
 //        System.out.println("Checking user:" + user.getUsername());
 //        System.out.println("Checking user:" + user.getStudyPlans());
 
-        ArrayList<StudyPlan> allStudyPlans = this.getPlans(userUsername);
+        ArrayList<StudyPlan> allStudyPlans = this.getPlans();
 
         for (StudyPlan studyPlan : allStudyPlans) {
             if (!focuses.contains(studyPlan.getFocus())) {
@@ -49,7 +47,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public ArrayList<StudyPlan> getPlans(String username) { return this.generateTestPlans(); }
+    public ArrayList<StudyPlan> getPlans() { return this.generateTestPlans(); }
 
     public ArrayList<StudyPlan> generateTestPlans() {
         ArrayList<StudyPlan> plans = new ArrayList<>();
@@ -170,8 +168,8 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public StudyPlan getPlan(String username, String planName) {
-        ArrayList<StudyPlan> userStudyPlans = getPlans(username);
+    public StudyPlan getPlan(String planName) {
+        ArrayList<StudyPlan> userStudyPlans = getPlans();
         for (StudyPlan plan : userStudyPlans) {
             if (plan.getTitle().equals(planName)) {
                 return plan;
@@ -183,17 +181,17 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
 
     @Override
     public String getCurrentUsername() {
-        return this.currentUsername;
+        return this.user.getUsername();
     }
 
     @Override
-    public void addPlan(String username, StudyPlan plan) {
+    public void addPlan(StudyPlan plan) {
         // user.getStudyPlans().add(plan);
         System.out.println("add plan not implemented yet");
     }
 
     @Override
-    public void savePlan(String username, StudyPlan plan){
+    public void savePlan(StudyPlan plan){
     }
 }
 
