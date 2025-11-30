@@ -124,10 +124,9 @@ public class AppBuilder {
         TrackPlanDataAccessinterface dataaccess = new DatabaseAccess();
 
         // Add LoadMileStone Controller to TrackPlanView
-        LoadMilestonesDataAccessInterface loadMileStoneData = new MilestoneTasksDataAccessObject();
         LoadMilestonesOutputBoundary loadpresenter = new LoadMilestonesPresenter(viewManagerModel,
                 loadMilestonesViewModel);
-        LoadMilestonesInputBoundary loadmilesIneractor = new LoadMilestonesInteractor(loadMileStoneData, loadpresenter);
+        LoadMilestonesInputBoundary loadmilesIneractor = new LoadMilestonesInteractor(this.databaseAccess, loadpresenter);
         LoadMilestonesController loadMilestonesController = new LoadMilestonesController(loadmilesIneractor);
         this.trackPlansView.setLoadMilestonesController(loadMilestonesController);
 
