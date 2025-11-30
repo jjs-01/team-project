@@ -47,7 +47,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public ArrayList<StudyPlan> getPlans(String username) { return this.generateTestPlans(); }
+    public ArrayList<StudyPlan> getPlans() { return this.generateTestPlans(); }
 
     public ArrayList<StudyPlan> generateTestPlans() {
         ArrayList<StudyPlan> plans = new ArrayList<>();
@@ -169,7 +169,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
 
     @Override
     public StudyPlan getPlan(String planName) {
-        ArrayList<StudyPlan> userStudyPlans = getPlans(this.user.getUsername());
+        ArrayList<StudyPlan> userStudyPlans = getPlans();
         for (StudyPlan plan : userStudyPlans) {
             if (plan.getTitle().equals(planName)) {
                 return plan;
