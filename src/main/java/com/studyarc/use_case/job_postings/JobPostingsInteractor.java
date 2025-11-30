@@ -70,8 +70,8 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
     }
 
     @Override
-    public void retrieveAvailableFocuses(String userUsername) {
-        ArrayList<String> usersFocuses = userDataAccessObject.getFocuses(userUsername);
+    public void retrieveAvailableFocuses() {
+        ArrayList<String> usersFocuses = userDataAccessObject.getFocuses();
         jobPostingsPresenter.showUsersFocuses(usersFocuses);
     }
 

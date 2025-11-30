@@ -12,7 +12,7 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface{
 //the actual tool that use to get plans from the database.
 
     @Override
-    public ArrayList<StudyPlan> getPlans(String username) {
+    public ArrayList<StudyPlan> getPlans() {
 
         ArrayList<StudyPlan> result = new ArrayList<>();
         return result;

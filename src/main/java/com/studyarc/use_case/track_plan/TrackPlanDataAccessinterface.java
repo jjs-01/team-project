@@ -6,6 +6,6 @@ import java.util.ArrayList;
 
 public interface TrackPlanDataAccessinterface {
 
-    ArrayList<StudyPlan> getPlans(String username);
+    ArrayList<StudyPlan> getPlans();
     ArrayList<StudyPlan> generateTestPlans();
 }

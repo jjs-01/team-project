@@ -42,7 +42,7 @@ public class LoginInteractor implements LoginInputBoundary{
     }
     public void register(RegisterInputData registerInputData){
         if(registerInputData.isGoToLogin()){
-            loginPresenter.prepareView(new RegisterOutputData(false, true));
+            loginPresenter.prepareView(new RegisterOutputData(false, true, ""));
             return;
         }
         String username = registerInputData.getUsername();
@@ -50,12 +50,13 @@ public class LoginInteractor implements LoginInputBoundary{
         User u = dao.getUser(username);
         if(u!=null){
             System.out.println("User already exists!");
+            loginPresenter.prepareView(new RegisterOutputData(false, false, "User already exists!"));
             return;
             // go back
         }
         try {
-                this.dao.setUser(new User(username, password, registerInputData.getFocus()));
-                loginPresenter.prepareView(new RegisterOutputData(true, false));
+                this.dao.setUser(new User(username, password));
+                loginPresenter.prepareView(new RegisterOutputData(true, false, ""));
             } catch (NoSuchAlgorithmException e) {
                 throw new RuntimeException(e);
             }

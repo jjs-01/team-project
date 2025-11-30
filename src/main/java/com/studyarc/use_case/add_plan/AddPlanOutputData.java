@@ -2,6 +2,10 @@ package com.studyarc.use_case.add_plan;
 
 import com.studyarc.entity.StudyPlan;
 
+/**
+ * Output Data class for the Add Plan use case
+ *
+ */
 public class AddPlanOutputData {
     private final StudyPlan plan;
 

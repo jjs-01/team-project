@@ -21,7 +21,7 @@ public class JobPostingsController {
 
     }
 
-    public void retrieveAvailableFocuses(String userUsername) {
-        jobPostingsUseCaseInteractor.retrieveAvailableFocuses(userUsername);
+    public void retrieveAvailableFocuses() {
+        jobPostingsUseCaseInteractor.retrieveAvailableFocuses();
     }
 }

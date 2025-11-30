@@ -4,13 +4,11 @@ public class RegisterState {
     private String username;
     private String password;
     private String errorCode;
-    private String focus;
 
     public RegisterState(){
         this.username = "";
         this.password = "";
         this.errorCode = "";
-        this.focus = null;
     }
 
     public String getUsername() {
@@ -35,14 +33,6 @@ public class RegisterState {
 
     public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
-    }
-
-    public String getFocus() {
-        return focus;
-    }
-
-    public void setFocus(String focus) {
-        this.focus = focus;
     }
 }
 

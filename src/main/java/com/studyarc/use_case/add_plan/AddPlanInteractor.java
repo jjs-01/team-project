@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Interactor for the Add Plan use case
+ */
 public class AddPlanInteractor implements AddPlanInputBoundary {
     private final AddPlanDataAccessInterface addPlanDataAccessObject;
     private final AddPlanOutputBoundary addPlanPresenter;
@@ -25,7 +28,7 @@ public class AddPlanInteractor implements AddPlanInputBoundary {
                 new ArrayList<>(),
                 "Artificial Intelligence");
 
-        addPlanDataAccessObject.addPlan(addPlanDataAccessObject.getCurrentUsername(), newStudyPlan);
+        addPlanDataAccessObject.addPlan(newStudyPlan);
 
         AddPlanOutputData outputData = new AddPlanOutputData(newStudyPlan);
         addPlanPresenter.prepareSuccessView(outputData);

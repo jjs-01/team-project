@@ -12,6 +12,7 @@ import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.add_reflection.AddReflectionDataAccessInterface;
 import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
 
+import java.io.*;
 import java.util.*;
 
 public class DatabaseAccess implements JobPostingsDataAccessInterface,
@@ -21,29 +22,36 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         AddReflectionDataAccessInterface,
         TrackPlanDataAccessinterface,
         AddPlanDataAccessInterface {
+    private static DatabaseAccess instance;
     private User user;
+    private List<User> allUsers;
     private ArrayList<String> focuses = new ArrayList<>();
 
 
-    private String currentUsername;
-
+    @SuppressWarnings("unchecked")
+    private DatabaseAccess(){
+        try {
+            FileInputStream fileInputStream = new FileInputStream("studyarc-users.ser");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            this.allUsers = (List<User>) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+            e.printStackTrace();
+        }
+        this.user = null;
+    }
     @Override
-    public ArrayList<String> getFocuses(String userUsername) {
+    public ArrayList<String> getFocuses() {
 //        System.out.println("Checking user:" + user);
 //        System.out.println("Checking user:" + user.getUsername());
 //        System.out.println("Checking user:" + user.getStudyPlans());
 
-        ArrayList<StudyPlan> allStudyPlans = new ArrayList<>();
-        if (this.getPlans(userUsername) != null) {
-            allStudyPlans = this.getPlans(userUsername);
-        }
+        ArrayList<StudyPlan> allStudyPlans = this.getPlans();
 
-            for (StudyPlan studyPlan : allStudyPlans) {
-                if (!focuses.contains(studyPlan.getFocus())) {
-                    focuses.add(studyPlan.getFocus());
-                }
+        for (StudyPlan studyPlan : allStudyPlans) {
+            if (!focuses.contains(studyPlan.getFocus())) {
+                focuses.add(studyPlan.getFocus());
             }
-
+        }
 
         // removes duplicates
         Set<String> set = new HashSet<>(focuses);
@@ -53,11 +61,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public ArrayList<StudyPlan> getPlans(String username) {
-//        return this.getUser(username).getStudyPlans();
-
-        return this.generateTestPlans();
-    }
+    public ArrayList<StudyPlan> getPlans() { return this.generateTestPlans(); }
 
     public ArrayList<StudyPlan> generateTestPlans() {
         ArrayList<StudyPlan> plans = new ArrayList<>();
@@ -178,8 +182,8 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public StudyPlan getPlan(User user, String planName) {
-        ArrayList<StudyPlan> userStudyPlans = getPlans(user.getUsername());
+    public StudyPlan getPlan(String planName) {
+        ArrayList<StudyPlan> userStudyPlans = getPlans();
         for (StudyPlan plan : userStudyPlans) {
             if (plan.getTitle().equals(planName)) {
                 return plan;
@@ -190,23 +194,34 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public void savePlan(User user, StudyPlan plan) {
-        user.getStudyPlans().add(plan);
-    }
-
-    @Override
-    public User getCurrentUser() {
-        return null;
-    }
-
-    @Override
     public String getCurrentUsername() {
-        return this.currentUsername;
+        return this.user.getUsername();
     }
 
     @Override
-    public void addPlan(String username, StudyPlan plan) {
+    public void addPlan(StudyPlan plan) {
+        // user.getStudyPlans().add(plan);
         System.out.println("add plan not implemented yet");
+    }
+
+    @Override
+    public void savePlan(StudyPlan plan){
+    }
+
+    public static DatabaseAccess getInstance(){
+        return DatabaseAccess.instance == null ? (DatabaseAccess.instance = new DatabaseAccess()) : DatabaseAccess.instance;
+    }
+
+    public void save() {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream("studyarc-users.ser");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(this.allUsers);
+            objectOutputStream.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

@@ -3,6 +3,9 @@ package com.studyarc.interface_adapter.milestone_tasks;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * State of the saving milestones use case
+ */
 public class MilestoneTasksState {
     private String username;
     private List<String> milestoneNames = new ArrayList<>();

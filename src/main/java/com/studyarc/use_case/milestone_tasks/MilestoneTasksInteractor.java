@@ -1,20 +1,20 @@
 package com.studyarc.use_case.milestone_tasks;
 
-import com.studyarc.data_access.DatabaseAccess;
 import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.Task;
-import com.studyarc.entity.User;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 
+/**
+ * Interactor for the saving milestones use case
+ */
 public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
     private final MilestoneTasksDataAccessInterface milestoneDataAccessObject;
     private final MilestoneTasksOutputBoundary milestonePresenter;
-    private final DatabaseAccess userData = new DatabaseAccess();
 
     public MilestoneTasksInteractor (MilestoneTasksDataAccessInterface milestoneDataAccessObject,
                                      MilestoneTasksOutputBoundary milestonePresenter) {
@@ -31,15 +31,13 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
             milestonePresenter.prepareFailView("Can't save a study plan with an empty title");
         }
         else {
-            User user = userData.getUser("");
-
             ArrayList<Milestone> milestones = getMilestones(milestoneInputData);
 
-            StudyPlan plan = milestoneDataAccessObject.getPlan(user, milestoneInputData.getStudyPlanName());
+            StudyPlan plan = milestoneDataAccessObject.getPlan(milestoneInputData.getStudyPlanName());
             plan.setMilestones(milestones);
-            milestoneDataAccessObject.savePlan(userData.getUser(""), plan);
+            milestoneDataAccessObject.savePlan(plan);
             plan.setFocus(milestoneInputData.getFocus());
-            milestoneDataAccessObject.savePlan(user, plan);
+            milestoneDataAccessObject.savePlan(plan);
 
             // hardcoded for now (output data should be with the studyplan name)
             final MilestoneTasksOutputData outputData;

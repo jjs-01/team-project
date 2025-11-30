@@ -1,6 +1,12 @@
 package com.studyarc.entity;
 
-public class Task {
+
+import java.io.Serializable;
+
+/**
+ * Task entity class, storing all the information associated with a task
+ */
+public class Task implements Serializable {
     private String name;
     private String dueDate;
     private String completionStatus;

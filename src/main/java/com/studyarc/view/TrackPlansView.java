@@ -329,6 +329,8 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         reflectionPanel.add(reflectionHeader, BorderLayout.NORTH);
 
+        TrackPlanState tpState = trackPlanViewModel.getState();
+        String username = tpState.getUsername();
         addReflectionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -336,7 +338,8 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
                         SwingUtilities.getWindowAncestor(TrackPlansView.this),
                         addReflectionViewModel,
                         addReflectionController,
-                        plan.getTitle()
+                        plan.getTitle(),
+                        username
                 );
 
                 dialog.setVisible(true);

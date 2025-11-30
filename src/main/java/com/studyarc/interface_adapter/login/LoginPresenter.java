@@ -59,6 +59,9 @@ public class LoginPresenter implements LoginOutputBoundary {
             viewManagerModel.setState(milestoneTasksViewModel.getViewName());
             sidebarViewModel.firePropertyChange();
             viewManagerModel.firePropertyChange();
+        } else {
+            registerViewModel.getState().setErrorCode(registerOutputData.getErrorMessage());
+            registerViewModel.getState().setPassword("");
         }
 
     }

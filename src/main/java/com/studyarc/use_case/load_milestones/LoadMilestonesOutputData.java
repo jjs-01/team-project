@@ -6,6 +6,9 @@ import com.studyarc.entity.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Output Data class for the load milestones use case
+ */
 public class LoadMilestonesOutputData {
     private final String studyPlanName;
     private final String focus;
