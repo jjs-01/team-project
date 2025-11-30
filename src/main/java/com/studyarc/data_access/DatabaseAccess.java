@@ -26,12 +26,12 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     private ArrayList<String> focuses = new ArrayList<>();
 
     @Override
-    public ArrayList<String> getFocuses(String userUsername) {
+    public ArrayList<String> getFocuses() {
 //        System.out.println("Checking user:" + user);
 //        System.out.println("Checking user:" + user.getUsername());
 //        System.out.println("Checking user:" + user.getStudyPlans());
 
-        ArrayList<StudyPlan> allStudyPlans = this.getPlans(userUsername);
+        ArrayList<StudyPlan> allStudyPlans = this.getPlans();
 
         for (StudyPlan studyPlan : allStudyPlans) {
             if (!focuses.contains(studyPlan.getFocus())) {
