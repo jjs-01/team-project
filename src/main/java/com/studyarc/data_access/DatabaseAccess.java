@@ -33,13 +33,17 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
 //        System.out.println("Checking user:" + user.getUsername());
 //        System.out.println("Checking user:" + user.getStudyPlans());
 
-        ArrayList<StudyPlan> allStudyPlans = this.getPlans(userUsername);
-
-        for (StudyPlan studyPlan : allStudyPlans) {
-            if (!focuses.contains(studyPlan.getFocus())) {
-                focuses.add(studyPlan.getFocus());
-            }
+        ArrayList<StudyPlan> allStudyPlans = new ArrayList<>();
+        if (this.getPlans(userUsername) != null) {
+            allStudyPlans = this.getPlans(userUsername);
         }
+
+            for (StudyPlan studyPlan : allStudyPlans) {
+                if (!focuses.contains(studyPlan.getFocus())) {
+                    focuses.add(studyPlan.getFocus());
+                }
+            }
+
 
         // removes duplicates
         Set<String> set = new HashSet<>(focuses);
@@ -49,7 +53,11 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public ArrayList<StudyPlan> getPlans(String username) { return this.generateTestPlans(); }
+    public ArrayList<StudyPlan> getPlans(String username) {
+//        return this.getUser(username).getStudyPlans();
+
+        return this.generateTestPlans();
+    }
 
     public ArrayList<StudyPlan> generateTestPlans() {
         ArrayList<StudyPlan> plans = new ArrayList<>();
