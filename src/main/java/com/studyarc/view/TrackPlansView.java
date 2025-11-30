@@ -153,17 +153,10 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             return;
         }
 
-        if (evt.getPropertyName().equals("added plan")) {
-            StudyPlan lastAddedPlan = currentState.getStudyPlans().get(currentState.getStudyPlans().size() - 1);
-            trackPlansPanel.add(createPlanPanel(lastAddedPlan));
-            trackPlansPanel.add(Box.createVerticalStrut(15));
-            trackPlansPanel.revalidate();
-        }
-
-        if ( currentPlans == null || currentPlans.isEmpty()) {
-            this.showRedirectButton();
-        } else {
+        if (!currentPlans.isEmpty() || evt.getPropertyName().equals("added plan")) {
             this.showPlansInView(currentPlans);
+        } else {
+            this.showRedirectButton();
         }
     }
 

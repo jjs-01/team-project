@@ -50,7 +50,12 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
         // first remove all current milestones:
         for (JPanel individualMilestone : milestones) {
             milestonePanel.remove(individualMilestone);
+            milestonePanel.revalidate();
+            milestonePanel.repaint();
         }
+        milestones.clear();
+        milestoneToTaskComponents.clear();
+
 
         super.getFocusSelector().setSelectedItem(focus);
         // then add all the milestones that are saved
@@ -171,14 +176,13 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
                 JOptionPane.showMessageDialog(this, state.getLoadError());
 
                 state.setLoadError("");
-            } else if (!state.getLoaded()) {
+            } else if (evt.getPropertyName().equals("load plan")) {
                 loadStudyPlan(state.getFocus(),
                         state.getMilestoneNames(),
                         state.getMilestoneDates(),
                         state.getMilestoneIndexToTasks());
 
                 milestoneViewModel.setState(state);
-                state.setLoaded(true);
             }
         }
     }

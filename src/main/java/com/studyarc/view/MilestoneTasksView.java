@@ -424,7 +424,8 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
             JOptionPane.showMessageDialog(this, state.getMilestoneSaveError());
             state.setMilestoneSaveError("");
         } else if (evt.getPropertyName().equals("saved plan")){
-            JOptionPane.showMessageDialog(this, "Saved!");
+            JOptionPane.showMessageDialog(this, state.getMilestoneSaveMessage());
+            state.setMilestoneSaveMessage("");
         } else {
             planTitle.setText(state.getStudyPlanName());
         }
@@ -435,7 +436,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         final MilestoneTasksState currentState = milestoneViewModel.getState();
 
         if (e.getSource() == save) {
-            milestoneTasksController.execute(MilestoneTasksViewModel.TITLE_LABEL,
+            milestoneTasksController.execute(currentState.getStudyPlanName(),
                     currentState.getMilestoneIndexToTasks(),
                     currentState.getMilestoneNames(),
                     currentState.getMilestoneDates(),

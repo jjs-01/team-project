@@ -6,19 +6,10 @@ import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksState;
  * State for the loading milestones use case
  */
 public class LoadMilestonesState extends MilestoneTasksState {
-    private boolean isLoaded = false;
     private String loadError = "";
 
     public String getLoadError() {
         return loadError;
-    }
-
-    public boolean getLoaded() {
-        return isLoaded;
-    }
-
-    public void setLoaded(boolean isLoaded) {
-        this.isLoaded = isLoaded;
     }
 
     public void setLoadError(String loadError) {

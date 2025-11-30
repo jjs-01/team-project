@@ -6,6 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public class User implements Serializable {
     private final byte[] salt;
     private final byte[] passwordHash;
     private final String username;
+    private final ArrayList<StudyPlan> studyPlans = new ArrayList<>();
 
     private String focus;
 
@@ -36,8 +38,6 @@ public class User implements Serializable {
         md.update(this.salt);
         this.passwordHash = md.digest();
     }
-
-    private ArrayList<StudyPlan> studyPlans;
 
     public boolean validateHash(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
