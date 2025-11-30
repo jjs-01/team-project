@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f7c9c41c-69a4-4c7f-8a04-53a383fcfacf" name="Changes" comment="Basic testing for the app, need to pull the ViewManagerModel from main to continue progress.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/job_postings/JobPostingsInteractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/job_postings/JobPostingsInteractorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +68,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "Application.run.executor": "Run",
     "JUnit.JobPostingsInteractorTest.executor": "Run",
     "JUnit.JobPostingsInteractorTest.testFailAdzunaJobGeneratorException.executor": "Run",
     "JUnit.JobPostingsInteractorTest.testFailEmptyFocus.executor": "Run",
@@ -89,7 +89,14 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.JobPostingsInteractorTest">
+  <component name="RunManager" selected="Application.run">
+    <configuration name="run" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.studyarc.app.Main" />
+      <module name="TeamProject" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="JobPostingsInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TeamProject" />
       <extension name="coverage">
@@ -175,6 +182,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.run" />
+      <item itemvalue="JUnit.JobPostingsInteractorTest" />
+      <item itemvalue="JUnit.JobPostingsInteractorTest.testFailAdzunaJobGeneratorException" />
+      <item itemvalue="JUnit.JobPostingsInteractorTest.testFailEmptyFocus" />
+      <item itemvalue="JUnit.JobPostingsInteractorTest.testFailKeywordException" />
+      <item itemvalue="JUnit.JobPostingsInteractorTest.testFailNoJobs" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.JobPostingsInteractorTest" />
@@ -207,7 +222,7 @@
       <workItem from="1764219985704" duration="3326000" />
       <workItem from="1764435728018" duration="2598000" />
       <workItem from="1764439626074" duration="6351000" />
-      <workItem from="1764447375994" duration="7392000" />
+      <workItem from="1764447375994" duration="8305000" />
     </task>
     <task id="LOCAL-00001" summary="Create dummy implementation of getUser.">
       <option name="closed" value="true" />

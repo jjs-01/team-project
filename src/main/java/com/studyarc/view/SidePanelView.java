@@ -88,6 +88,7 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         seeJobs.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
+                        // TODO: use the username that is logged in
                         jobPostingsController.retrieveAvailableFocuses("");
                         sidebarController.switchToJobBoard();
 
@@ -152,5 +153,10 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         state.setUserName(username);
 
 //        this.userLoggedIn.setText(username);
+    }
+
+    public String getLoggedInUserName() {
+        SidebarState state = sidebarViewModel.getState();
+        return state.getUserName();
     }
 }
