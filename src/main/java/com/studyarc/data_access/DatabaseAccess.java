@@ -170,8 +170,8 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public StudyPlan getPlan(User user, String planName) {
-        ArrayList<StudyPlan> userStudyPlans = getPlans(user.getUsername());
+    public StudyPlan getPlan(String username, String planName) {
+        ArrayList<StudyPlan> userStudyPlans = getPlans(username);
         for (StudyPlan plan : userStudyPlans) {
             if (plan.getTitle().equals(planName)) {
                 return plan;
@@ -182,20 +182,13 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public void savePlan(User user, StudyPlan plan) {
-        user.getStudyPlans().add(plan);
-    }
-
-    @Override
-    public StudyPlan getPlan(String username, String planName) {return null;}
-
-    @Override
     public String getCurrentUsername() {
         return this.currentUsername;
     }
 
     @Override
     public void addPlan(String username, StudyPlan plan) {
+        user.getStudyPlans().add(plan);
         System.out.println("add plan not implemented yet");
     }
     @Override

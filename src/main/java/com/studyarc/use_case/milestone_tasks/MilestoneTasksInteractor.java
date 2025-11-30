@@ -14,7 +14,6 @@ import java.util.List;
 public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
     private final MilestoneTasksDataAccessInterface milestoneDataAccessObject;
     private final MilestoneTasksOutputBoundary milestonePresenter;
-    private final DatabaseAccess userData = new DatabaseAccess();
 
     public MilestoneTasksInteractor (MilestoneTasksDataAccessInterface milestoneDataAccessObject,
                                      MilestoneTasksOutputBoundary milestonePresenter) {
@@ -31,15 +30,15 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
             milestonePresenter.prepareFailView("Can't save a study plan with an empty title");
         }
         else {
-            User user = userData.getUser("");
+            String username = milestoneDataAccessObject.getCurrentUsername();
 
             ArrayList<Milestone> milestones = getMilestones(milestoneInputData);
 
-            StudyPlan plan = milestoneDataAccessObject.getPlan(user, milestoneInputData.getStudyPlanName());
+            StudyPlan plan = milestoneDataAccessObject.getPlan(username, milestoneInputData.getStudyPlanName());
             plan.setMilestones(milestones);
-            milestoneDataAccessObject.savePlan(userData.getUser(""), plan);
+            milestoneDataAccessObject.savePlan(username, plan);
             plan.setFocus(milestoneInputData.getFocus());
-            milestoneDataAccessObject.savePlan(user, plan);
+            milestoneDataAccessObject.savePlan(username, plan);
 
             // hardcoded for now (output data should be with the studyplan name)
             final MilestoneTasksOutputData outputData;

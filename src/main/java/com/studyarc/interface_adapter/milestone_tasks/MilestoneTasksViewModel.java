@@ -25,9 +25,4 @@ public class MilestoneTasksViewModel extends ViewModel<MilestoneTasksState> {
         super("milestones and tasks");
         setState(new MilestoneTasksState());
     }
-
-    public void prepareNewPlan() {
-        // setState(new MilestoneTasksState());
-        System.out.println("Need to figure out how to remove everything when loading this view.");
-    }
 }
