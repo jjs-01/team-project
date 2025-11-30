@@ -16,7 +16,7 @@ public class User implements Serializable {
 
     private String focus;
 
-    public User(String username, String password, String focus) throws NoSuchAlgorithmException {
+    public User(String username, String password) throws NoSuchAlgorithmException {
         Random rand = new SecureRandom();
         byte[] salt = new byte[16];
         rand.nextBytes(salt);
@@ -26,17 +26,15 @@ public class User implements Serializable {
         md.update(password.getBytes(StandardCharsets.UTF_8));
         md.update(this.salt);
         this.passwordHash = md.digest();
-        this.focus = focus;
     }
 
-    public User(String username, String password, byte[] salt, String focus) throws NoSuchAlgorithmException {
+    public User(String username, String password, byte[] salt) throws NoSuchAlgorithmException {
         this.username = username;
         this.salt = salt;
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(password.getBytes(StandardCharsets.UTF_8));
         md.update(this.salt);
         this.passwordHash = md.digest();
-        this.focus = focus;
     }
 
     private ArrayList<StudyPlan> studyPlans;
@@ -56,4 +54,11 @@ public class User implements Serializable {
         return studyPlans;
     }
 
+    public String getFocus() {
+        return focus;
+    }
+
+    public void setFocus(String focus) {
+        this.focus = focus;
+    }
 }

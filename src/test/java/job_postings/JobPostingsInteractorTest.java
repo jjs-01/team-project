@@ -43,7 +43,7 @@ public class JobPostingsInteractorTest {
 
         // creates a successful data input for the test case
         JobPostingsInputData jobPostingsInputData = new JobPostingsInputData("Software Developer", "", "", "");
-        JobPostingsDataAccessInterface userDataAccessObj = new DatabaseAccess();
+        JobPostingsDataAccessInterface userDataAccessObj = DatabaseAccess.getInstance();
 
         // creates a successPresenter that tests whether the test case is as we expect
         JobPostingsOutputBoundary successPresenter =  new JobPostingsOutputBoundary() {
@@ -94,7 +94,7 @@ public class JobPostingsInteractorTest {
 
         // creates a faulty input data with an empty focus input
         JobPostingsInputData jobPostingsInputData = new JobPostingsInputData("", "", "", "");
-        JobPostingsDataAccessInterface userDataAccessObj = new DatabaseAccess();
+        JobPostingsDataAccessInterface userDataAccessObj = DatabaseAccess.getInstance();
 
         JobPostingsOutputBoundary successPresenter =  new JobPostingsOutputBoundary() {
 
@@ -142,7 +142,7 @@ public class JobPostingsInteractorTest {
         };
 
         JobPostingsInputData jobPostingsInputData = new JobPostingsInputData("Software Developer", "", "", "");
-        JobPostingsDataAccessInterface userDataAccessObj = new DatabaseAccess();
+        JobPostingsDataAccessInterface userDataAccessObj = DatabaseAccess.getInstance();
 
         JobPostingsOutputBoundary successPresenter =  new JobPostingsOutputBoundary() {
 
@@ -190,7 +190,7 @@ public class JobPostingsInteractorTest {
         };
 
         JobPostingsInputData jobPostingsInputData = new JobPostingsInputData("Software Developer", "", "", "");
-        JobPostingsDataAccessInterface userDataAccessObj = new DatabaseAccess();
+        JobPostingsDataAccessInterface userDataAccessObj = DatabaseAccess.getInstance();
 
         JobPostingsOutputBoundary successPresenter =  new JobPostingsOutputBoundary() {
 
@@ -236,7 +236,7 @@ public class JobPostingsInteractorTest {
         };
 
         JobPostingsInputData jobPostingsInputData = new JobPostingsInputData("Software Developer", "", "", "");
-        JobPostingsDataAccessInterface userDataAccessObj = new DatabaseAccess();
+        JobPostingsDataAccessInterface userDataAccessObj = DatabaseAccess.getInstance();
 
         JobPostingsOutputBoundary successPresenter =  new JobPostingsOutputBoundary() {
 
