@@ -31,8 +31,6 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
             milestonePresenter.prepareFailView("Can't save a study plan with an empty title");
         }
         else {
-            String username = milestoneDataAccessObject.getCurrentUsername();
-
             ArrayList<Milestone> milestones = getMilestones(milestoneInputData);
 
             StudyPlan plan = milestoneDataAccessObject.getPlan(milestoneInputData.getStudyPlanName());

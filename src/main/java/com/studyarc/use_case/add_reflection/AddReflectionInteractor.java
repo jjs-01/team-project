@@ -19,7 +19,6 @@ public class AddReflectionInteractor implements AddReflectionInputBoundary {
 
     @Override
     public void execute(AddReflectionInputData inputData) {
-        final String username = inputData.getUsername();
         final String planTitle = inputData.getPlanTitle();
         final String contents = inputData.getContents();
         if (contents.isEmpty()) {
