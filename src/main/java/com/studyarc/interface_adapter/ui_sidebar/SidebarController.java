@@ -17,5 +17,12 @@ public class SidebarController {
         sidebarUseCaseInteractor.switchToMilestone();
     }
 
+    public void switchToLogin(){
+        sidebarUseCaseInteractor.switchToLogin();
+    }
     public void switchToTrackPlan(){sidebarUseCaseInteractor.switchToTrackPlan();}
+
+    public void setUser(String username) {
+        sidebarUseCaseInteractor.setUser(username);
+    }
 }

@@ -1,6 +1,8 @@
 package com.studyarc.view;
 
+import com.studyarc.interface_adapter.job_postings.JobPostingsController;
 import com.studyarc.interface_adapter.login.*;
+import com.studyarc.interface_adapter.ui_sidebar.SidebarController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +26,9 @@ public class RegisterView extends JPanel implements ActionListener, PropertyChan
     private final JComboBox<String> focuses;
     private final RegisterViewModel registerViewModel;
     private RegisterController registerController = null;
+
+    // controller for job postings controller
+    private SidebarController sideBarController;
 
     public RegisterView(RegisterViewModel registerViewModel){
         this.registerViewModel = registerViewModel;
@@ -65,6 +70,10 @@ public class RegisterView extends JPanel implements ActionListener, PropertyChan
             state.setPassword(this.passwordInput.getText());
             state.setErrorCode("");
             state.setFocus((String) this.focuses.getSelectedItem());
+
+            sideBarController.setUser(state.getUsername());
+//            registerController.showSidebar();
+
             this.registerController.execute(state);
         } else if(e.getSource() == loginButton){
             this.registerController.goToLogin();
@@ -82,6 +91,10 @@ public class RegisterView extends JPanel implements ActionListener, PropertyChan
 
     public void setRegisterController(RegisterController registerController){
         this.registerController = registerController;
+    }
+
+    public void setSideBarController(SidebarController sideBarController) {
+        this.sideBarController = sideBarController;
     }
 
     public String getViewName() {

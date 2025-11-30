@@ -78,6 +78,7 @@ public class AppBuilder {
     private SidePanelView sidePanelView;
     private JobPostingsViewModel jobPostingsViewModel;
     private JobPostingsView jobPostingsView;
+    private RegisterView registerView;
 
     private final MilestoneTasksViewModel milestoneTasksViewModel = new MilestoneTasksViewModel();
     private MilestoneTasksView milestoneTaskView;
@@ -95,7 +96,6 @@ public class AppBuilder {
 
     private LoginView loginView;
     private LoginViewModel loginViewModel;
-    private RegisterView registerView;
     private RegisterViewModel registerViewModel;
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
@@ -138,7 +138,8 @@ public class AppBuilder {
                 sidebarViewModel,
                 jobPostingsViewModel,
                 milestoneTasksViewModel,
-                trackPlanViewModel);
+                trackPlanViewModel,
+                loginViewModel);
         final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarDataAccess, sidebarOutputBoundary);
         final SidebarController sidebarController = new SidebarController(sidebarInteractor);
         this.trackPlansView.setSidebarController(sidebarController);
@@ -199,11 +200,13 @@ public class AppBuilder {
                 sidebarViewModel,
                 jobPostingsViewModel,
                 milestoneTasksViewModel,
-                trackPlanViewModel);
+                trackPlanViewModel,
+                loginViewModel);
         final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarDataAccess, sidebarOutputBoundary);
 
         SidebarController sidebarController = new SidebarController(sidebarInteractor);
         sidePanelView.setSidebarController(sidebarController);
+        registerView.setSideBarController(sidebarController);
         return this;
     }
 
@@ -262,11 +265,12 @@ public class AppBuilder {
 }
   
     public AppBuilder addLoginUseCase() {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, registerViewModel, viewManagerModel, trackPlanViewModel, milestoneTasksViewModel);
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, registerViewModel, viewManagerModel, trackPlanViewModel, milestoneTasksViewModel, sidebarViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(databaseAccess, loginOutputBoundary);
 
         loginView.setLoginController(new LoginController(loginInteractor));
         registerView.setRegisterController(new RegisterController(loginInteractor));
+//        registerView.setSideBarController(new SidebarController());
 
         return this;
     }
@@ -287,8 +291,9 @@ public class AppBuilder {
         application.add(overallPanel);
         application.setMinimumSize(new Dimension(1000, 800));
 
-        viewManagerModel.setState(loadMilestonesView.getViewName());
-        System.out.println(loadMilestonesView.getViewName());
+//        viewManagerModel.setState(loadMilestonesView.getViewName());
+//        System.out.println(loadMilestonesView.getViewName());
+        viewManagerModel.setState(loginViewModel.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;
