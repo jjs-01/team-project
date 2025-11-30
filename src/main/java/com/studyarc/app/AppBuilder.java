@@ -7,6 +7,8 @@ import com.studyarc.data_access.DatabaseAccess;
 import com.studyarc.data_access.MilestoneTasksDataAccessObject;
 import com.studyarc.entity.ReflectionFactory;
 import com.studyarc.interface_adapter.ViewManagerModel;
+import com.studyarc.interface_adapter.add_plan.AddPlanController;
+import com.studyarc.interface_adapter.add_plan.AddPlanPresenter;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanController;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanPresenter;
 import com.studyarc.interface_adapter.job_postings.JobPostingsController;
@@ -28,6 +30,9 @@ import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarController;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarPresenter;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarViewModel;
+import com.studyarc.use_case.add_plan.AddPlanInputBoundary;
+import com.studyarc.use_case.add_plan.AddPlanInteractor;
+import com.studyarc.use_case.add_plan.AddPlanOutputBoundary;
 import com.studyarc.use_case.add_reflection.AddReflectionInputBoundary;
 import com.studyarc.use_case.add_reflection.AddReflectionInteractor;
 import com.studyarc.use_case.add_reflection.AddReflectionOutputBoundary;
@@ -266,6 +271,15 @@ public class AppBuilder {
         loginView.setLoginController(new LoginController(loginInteractor));
         registerView.setRegisterController(new RegisterController(loginInteractor));
 //        registerView.setSideBarController(new SidebarController());
+
+        return this;
+    }
+
+    public AppBuilder addAddPlanUseCase() {
+        final AddPlanOutputBoundary addPlanPresenter = new AddPlanPresenter(viewManagerModel, trackPlanViewModel);
+        final AddPlanInputBoundary addPlanInteractor = new AddPlanInteractor(databaseAccess, addPlanPresenter);
+
+        trackPlansView.setAddPlanController(new AddPlanController(addPlanInteractor));
 
         return this;
     }

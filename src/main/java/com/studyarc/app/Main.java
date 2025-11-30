@@ -13,6 +13,7 @@ public class Main {
                 .addTrackPlanView()
                 .addJobPostingsView()
                 .addLoadMilestonesUseCase()
+                .addAddPlanUseCase()
                 .addTrackPlanUsecase()
                 .addDeletePlanUsecase()
                 .addSidebarUseCase()
