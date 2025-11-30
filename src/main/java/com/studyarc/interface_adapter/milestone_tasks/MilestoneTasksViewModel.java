@@ -2,6 +2,10 @@ package com.studyarc.interface_adapter.milestone_tasks;
 
 import com.studyarc.interface_adapter.ViewModel;
 
+
+/**
+ * View model for the saving milestones use case
+ */
 public class MilestoneTasksViewModel extends ViewModel<MilestoneTasksState> {
 
     public static final String TITLE_LABEL = "Study Plan View";
@@ -24,10 +28,5 @@ public class MilestoneTasksViewModel extends ViewModel<MilestoneTasksState> {
     public MilestoneTasksViewModel() {
         super("milestones and tasks");
         setState(new MilestoneTasksState());
-    }
-
-    public void prepareNewPlan() {
-        // setState(new MilestoneTasksState());
-        System.out.println("Need to figure out how to remove everything when loading this view.");
     }
 }

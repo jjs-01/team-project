@@ -2,6 +2,9 @@ package com.studyarc.use_case.milestone_tasks;
 
 import java.util.List;
 
+/**
+ * Input data class for the saving milestones use case
+ */
 public class MilestoneTasksInputData {
     private final String studyPlanName;
     private final List<String> milestoneNames;

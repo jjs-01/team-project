@@ -10,4 +10,8 @@ public interface SidebarOutputBoundary {
     void switchToMilestone();
 
     void switchToTrackPlan();
+
+    void switchToLogin();
+
+    void setUser(String username);
 }

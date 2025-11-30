@@ -6,7 +6,7 @@ import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputData;
 import java.util.List;
 
 /**
- * Controller for the MilestoneTasks Use Case
+ * Controller for the saving milestones Use Case
  */
 public class MilestoneTasksController {
     private final MilestoneTasksInputBoundary milestoneUseCaseInteractor;

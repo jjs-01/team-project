@@ -3,6 +3,9 @@ package com.studyarc.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Milestone entity class
+ */
 public class Milestone {
     private String dueDate;
     private String name;

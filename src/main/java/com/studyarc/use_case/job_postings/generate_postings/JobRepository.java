@@ -8,6 +8,7 @@ import java.util.List;
 public interface JobRepository {
 
     List<JobListing> getJobListings(String foucus, String countryCode, KeywordList jobKeywords, String sort, String salaryMin) throws JobRepositoryException;
+
     int numberResults(List<JobListing> listings);
 
     class JobRepositoryException extends Exception {

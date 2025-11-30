@@ -1,5 +1,8 @@
 package com.studyarc.use_case.load_milestones;
 
+/**
+ * Output boundary interaface for the load milestones use case
+ */
 public interface LoadMilestonesOutputBoundary {
     /**
      * Prepares the success view for the Signup Use Case.

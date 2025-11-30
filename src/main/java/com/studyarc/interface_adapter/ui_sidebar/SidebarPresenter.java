@@ -2,6 +2,8 @@ package com.studyarc.interface_adapter.ui_sidebar;
 
 import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.interface_adapter.job_postings.JobPostingsViewModel;
+import com.studyarc.interface_adapter.login.LoginState;
+import com.studyarc.interface_adapter.login.LoginViewModel;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksState;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
@@ -13,15 +15,18 @@ public class SidebarPresenter implements SidebarOutputBoundary {
     private final MilestoneTasksViewModel milestoneTasksViewModel;
     private final ViewManagerModel viewManagerModel;
     private final TrackPlanViewModel trackPlanViewModel;
+    private final LoginViewModel loginViewModel;
 
     public SidebarPresenter(ViewManagerModel viewManagerModel, SidebarViewModel sidebarViewModel,
                             JobPostingsViewModel jobPostingsViewModel, MilestoneTasksViewModel milestoneTasksViewModel,
-                            TrackPlanViewModel trackPlanViewModel) {
+                            TrackPlanViewModel trackPlanViewModel,
+                            LoginViewModel loginViewModel) {
         this.sidebarViewModel = sidebarViewModel;
         this.jobPostingsViewModel = jobPostingsViewModel;
         this.viewManagerModel = viewManagerModel;
         this.milestoneTasksViewModel = milestoneTasksViewModel;
         this.trackPlanViewModel = trackPlanViewModel;
+        this.loginViewModel = loginViewModel;
     }
 
     @Override
@@ -46,6 +51,28 @@ public class SidebarPresenter implements SidebarOutputBoundary {
     public void switchToTrackPlan() {
         viewManagerModel.setState(trackPlanViewModel.getViewName());
         viewManagerModel.firePropertyChange();
+    }
+
+    @Override
+    public void switchToLogin() {
+        // reset the loginstate
+        loginViewModel.setState(new LoginState());
+        //reset the sidebar username
+        sidebarViewModel.getState().setUserName("");
+
+        loginViewModel.firePropertyChange();
+        viewManagerModel.setState(loginViewModel.getViewName());
+        sidebarViewModel.firePropertyChange();
+        viewManagerModel.firePropertyChange();
+
+    }
+
+    @Override
+    public void setUser(String username) {
+        final SidebarState sidebarState = sidebarViewModel.getState();
+        sidebarState.setUserName(username);
+
+        sidebarViewModel.firePropertyChange();
     }
 
 

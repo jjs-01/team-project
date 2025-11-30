@@ -55,7 +55,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Performed action");
 
         if(e.getSource()==logInButton){
             LoginState state = this.loginViewModel.getState();

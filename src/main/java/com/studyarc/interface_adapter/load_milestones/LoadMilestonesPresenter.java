@@ -6,6 +6,9 @@ import com.studyarc.use_case.load_milestones.LoadMilestonesOutputData;
 
 import java.util.List;
 
+/**
+ * Presenter for the loading milestones use case
+ */
 public class LoadMilestonesPresenter implements LoadMilestonesOutputBoundary {
     private final LoadMilestonesViewModel loadMilestonesViewModel;
     private final ViewManagerModel viewManagerModel;

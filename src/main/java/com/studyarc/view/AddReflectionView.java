@@ -1,19 +1,22 @@
 package com.studyarc.view;
 
+import java.awt.*;
+
+import javax.swing.*;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+
 import com.studyarc.interface_adapter.add_reflection.AddReflectionController;
 import com.studyarc.interface_adapter.add_reflection.AddReflectionState;
 import com.studyarc.interface_adapter.add_reflection.AddReflectionViewModel;
-
-import javax.swing.*;
-import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 public class AddReflectionView extends JDialog implements PropertyChangeListener {
 
     private final AddReflectionViewModel viewModel;
     private final AddReflectionController controller;
-    private final String planName;
+    private final String planTitle;
+    private final String username;
 
     private final JTextArea content = new JTextArea(6, 20);
     private final JButton saveButton = new JButton("Save");
@@ -21,20 +24,22 @@ public class AddReflectionView extends JDialog implements PropertyChangeListener
     public AddReflectionView(Window owner,
                              AddReflectionViewModel viewModel,
                              AddReflectionController controller,
-                             String planName) {
+                             String planTitle,
+                             String username) {
 
         super(owner, "Add Reflection", ModalityType.APPLICATION_MODAL);
 
         this.viewModel = viewModel;
         this.controller = controller;
-        this.planName = planName;
+        this.planTitle = planTitle;
+        this.username = username;
 
         this.viewModel.addPropertyChangeListener(this);
 
-        JPanel panel = new JPanel(new BorderLayout());
+        final JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JLabel("Reflection:"), BorderLayout.NORTH);
 
-        JScrollPane scrollPane = new JScrollPane(content);
+        final JScrollPane scrollPane = new JScrollPane(content);
         panel.add(scrollPane, BorderLayout.CENTER);
 
         panel.add(saveButton, BorderLayout.SOUTH);
@@ -47,7 +52,7 @@ public class AddReflectionView extends JDialog implements PropertyChangeListener
     }
 
     private void save() {
-        String contents = content.getText().trim();
+        final String contents = content.getText().trim();
 
         if (contents.isEmpty()) {
             JOptionPane.showMessageDialog(
@@ -59,12 +64,12 @@ public class AddReflectionView extends JDialog implements PropertyChangeListener
             return;
         }
 
-        controller.execute(planName, contents);
+        controller.execute(username, planTitle, contents);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        AddReflectionState state = viewModel.getState();
+        final AddReflectionState state = viewModel.getState();
 
         if (state.getErrorMessage() != null && !state.getErrorMessage().isEmpty()) {
             JOptionPane.showMessageDialog(

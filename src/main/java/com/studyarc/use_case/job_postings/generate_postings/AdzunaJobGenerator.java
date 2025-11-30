@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class AdzunaJobGenerator implements JobRepository {
 
@@ -33,7 +34,11 @@ public class AdzunaJobGenerator implements JobRepository {
     private String countryCode;
     private int salaryMin;
 
-    private static final OkHttpClient client = new OkHttpClient();
+    private static final OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(7, TimeUnit.SECONDS)
+            .writeTimeout(5, TimeUnit.SECONDS)
+            .build();
 
     @Override
     public List<JobListing> getJobListings(String focus, String countryCode, KeywordList keywords, String sort, String salaryMin) throws JobRepositoryException{
@@ -97,12 +102,15 @@ public class AdzunaJobGenerator implements JobRepository {
                 throw new JobRepositoryException(e.getMessage());
             }
 
+        } catch (java.net.SocketTimeoutException e) {
+            throw new JobRepositoryException("The job listings API took too long to respond (timeout).");
         } catch (IOException e) {
             throw new JobRepositoryException(e.getMessage());
         }
         return List.of();
     }
 
+    @Override
     public int numberResults(List<JobListing> listings) {
         return listings.size();
     }
