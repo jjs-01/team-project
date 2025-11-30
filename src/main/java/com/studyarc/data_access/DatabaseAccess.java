@@ -13,6 +13,7 @@ import com.studyarc.use_case.add_reflection.AddReflectionDataAccessInterface;
 import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
 
 import java.io.*;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class DatabaseAccess implements JobPostingsDataAccessInterface,
@@ -51,7 +52,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
                 this.allUsers = new ArrayList<>();
             }
         } else {
-            // first run: no file yet
+            // first runs: no file yet
             this.allUsers = new ArrayList<>();
         }
         this.user = null;
@@ -193,8 +194,16 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }//Generate TestPlans for testing TrackPlanusecase and Deletplan.
 
     @Override
-    public boolean registerUser(User u) {
-        return false;
+    public boolean registerUser(String username, String password) {
+        try {
+            User newUser = new User(username, password);
+            this.user = newUser;
+            this.allUsers.add(newUser);
+            this.save();
+        } catch (NoSuchAlgorithmException e){
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -207,14 +216,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
             }
         }
         return u;
-    }
-    @Override
-    public List<User> getAllUsers() {
-        return allUsers;
-    }
-
-    public void setAllUsers(List<User> allUsers) {
-        this.allUsers = allUsers;
     }
 
     public void setUser(User u){

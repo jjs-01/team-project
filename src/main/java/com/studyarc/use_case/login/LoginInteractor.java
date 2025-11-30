@@ -64,16 +64,8 @@ public class LoginInteractor implements LoginInputBoundary{
             return;
             // go back
         }
-        try {
-            List<User> alluser = this.dao.getAllUsers();
-            User newuser = new User(username, password);
-                this.dao.setUser(newuser);
-                alluser.add(newuser);
-                this.dao.save();
-                loginPresenter.prepareView(new RegisterOutputData(true, false, "", username));
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
+        this.dao.registerUser(username, password);
+        loginPresenter.prepareView(new RegisterOutputData(true, false, "", username));
 
     }
 
