@@ -399,7 +399,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             state.getStudyPlans().add(addedPlan);
             trackPlansPanel.revalidate();
             this.trackPlanController.execute(state.getStudyPlans(), state.getUsername());
-            // this.sidebarController.switchToMilestone();
 
         } else if (this.editButtonToPlanMap.containsKey(button)) {
             System.out.println("EditPlan: " + this.editButtonToPlanMap.get(button).getTitle());
