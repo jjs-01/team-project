@@ -44,6 +44,5 @@ public class AddReflectionPresenter implements AddReflectionOutputBoundary {
         state.setError(error);
         state.setSuccess(null);
         reflectionViewModel.firePropertyChange("add reflection");
-
     }
 }

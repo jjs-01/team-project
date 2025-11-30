@@ -177,11 +177,5 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
     public void savePlan(User user, StudyPlan plan) {
     }
 
-    @Override
-    public User getCurrentUser() {
-        return null;
-    }
-
-
 }
 

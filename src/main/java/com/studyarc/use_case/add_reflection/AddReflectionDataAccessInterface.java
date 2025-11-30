@@ -12,7 +12,7 @@ public interface AddReflectionDataAccessInterface {
      * Returns the user of the current user of the application.
      * @return the username of the current user
      */
-    User getCurrentUser();
+    User getUser(String username);
 
     /**
      * Return the specific plan that wants to add reflection.
