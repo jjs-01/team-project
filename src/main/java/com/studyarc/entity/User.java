@@ -14,7 +14,7 @@ public class User implements Serializable {
     private final byte[] salt;
     private final byte[] passwordHash;
     private final String username;
-    private final ArrayList<StudyPlan> studyPlans = new ArrayList<>();
+    private ArrayList<StudyPlan> studyPlans = new ArrayList<>();
 
     private String focus;
 

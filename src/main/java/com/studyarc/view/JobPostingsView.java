@@ -214,8 +214,9 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
         if (!jobPostingsState.getFocuses().isEmpty()) {
             ArrayList<String> usersFocuses = jobPostingsState.getFocuses();
-
-            // Adds the focuses if they aren't in  planOptions already
+            planOptions.clear();
+            planOptions.add("Select Focus");
+            // Adds the focuses
             for (String focus :  usersFocuses) {
                 if (!planOptions.contains(focus)) {
                     planOptions.add(focus);
