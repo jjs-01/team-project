@@ -39,9 +39,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface, LoginData
     }
 
     @Override
-    public ArrayList<StudyPlan> getPlans(String username) {
-        return this.generateTestPlans();
-    }
+    public ArrayList<StudyPlan> getPlans(String username) { return this.generateTestPlans(); }
 
     public ArrayList<StudyPlan> generateTestPlans() {
         ArrayList<StudyPlan> plans = new ArrayList<>();
