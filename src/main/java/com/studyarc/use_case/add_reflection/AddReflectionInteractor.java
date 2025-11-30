@@ -20,22 +20,22 @@ public class AddReflectionInteractor implements AddReflectionInputBoundary {
 
     @Override
     public void execute(AddReflectionInputData inputData) {
+        final String username = inputData.getUsername();
         final String planTitle = inputData.getPlanTitle();
         final String contents = inputData.getContents();
         if (contents.isEmpty()) {
             addReflectionPresenter.prepareFailView("Reflection cannot be empty.");
         }
         else {
-            User user = addReflectionDataAccess.getCurrentUser();
-            StudyPlan plan = addReflectionDataAccess.getPlan(user, planTitle);
+            final StudyPlan plan = addReflectionDataAccess.getPlan(username, planTitle);
             if (plan == null) {
                 addReflectionPresenter.prepareFailView("Plan not found");
             }
             else {
                 final Reflection newReflection = reflectionFactory.create(contents);
                 plan.getReflections().add(newReflection);
-                addReflectionDataAccess.savePlan(user, plan);
-                AddReflectionOutputData output = new AddReflectionOutputData(planTitle, newReflection);
+                addReflectionDataAccess.savePlan(username, plan);
+                final AddReflectionOutputData output = new AddReflectionOutputData(planTitle, newReflection);
                 addReflectionPresenter.prepareSuccessView(output);
             }
         }

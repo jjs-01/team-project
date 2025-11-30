@@ -187,9 +187,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public User getCurrentUser() {
-        return null;
-    }
+    public StudyPlan getPlan(String username, String planName) {return null;}
 
     @Override
     public String getCurrentUsername() {
@@ -199,6 +197,9 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     @Override
     public void addPlan(String username, StudyPlan plan) {
         System.out.println("add plan not implemented yet");
+    }
+    @Override
+    public void savePlan(String username, StudyPlan plan){
     }
 }
 
