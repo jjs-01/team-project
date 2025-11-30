@@ -160,7 +160,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             trackPlansPanel.revalidate();
         }
 
-        if (currentPlans.isEmpty()) {
+        if ( currentPlans == null || currentPlans.isEmpty()) {
             this.showRedirectButton();
         } else {
             this.showPlansInView(currentPlans);

@@ -132,7 +132,6 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
 
         userName = state.getUserName();
         this.userLoggedIn.setText("Welcome, " + userName);
-        this.setVisible(true);
 
     }
 

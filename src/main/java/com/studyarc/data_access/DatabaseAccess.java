@@ -27,14 +27,32 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     private List<User> allUsers;
     private ArrayList<String> focuses = new ArrayList<>();
 
-    @SuppressWarnings("unchecked")
-    private DatabaseAccess(){
-        try {
-            FileInputStream fileInputStream = new FileInputStream("studyarc-users.ser");
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            this.allUsers = (List<User>) objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException | ClassCastException e) {
-            e.printStackTrace();
+//    @SuppressWarnings("unchecked")
+//    private DatabaseAccess(){
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream("studyarc-users.ser");
+//            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+//            this.allUsers = (List<User>) objectInputStream.readObject();
+//        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+//            e.printStackTrace();
+//        }
+//        this.user = null;
+//    }
+
+    private DatabaseAccess() {
+        File f = new File("studyarc-users.ser");
+        if (f.exists()) {
+            try (ObjectInputStream ois =
+                         new ObjectInputStream(new FileInputStream(f))) {
+                //noinspection unchecked
+                this.allUsers = (List<User>) ois.readObject();
+            } catch (IOException | ClassNotFoundException | ClassCastException e) {
+                e.printStackTrace();
+                this.allUsers = new ArrayList<>();
+            }
+        } else {
+            // first run: no file yet
+            this.allUsers = new ArrayList<>();
         }
         this.user = null;
     }
@@ -60,7 +78,14 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public ArrayList<StudyPlan> getPlans() { return this.generateTestPlans(); }
+    public ArrayList<StudyPlan> getPlans() {
+        ArrayList<StudyPlan> plans = this.user.getStudyPlans();
+        if(plans == null){
+            return new ArrayList<StudyPlan>();
+        }
+        return plans;
+    }
+
 
     public ArrayList<StudyPlan> generateTestPlans() {
         ArrayList<StudyPlan> plans = new ArrayList<>();
@@ -173,7 +198,22 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
 
     @Override
     public User getUser(String username) {
-        return this.user;
+        User u = null;
+        for (User allUser : this.allUsers) {
+            if(allUser.getUsername().equals(username)){
+                u = allUser;
+                return u;
+            }
+        }
+        return u;
+    }
+    @Override
+    public List<User> getAllUsers() {
+        return allUsers;
+    }
+
+    public void setAllUsers(List<User> allUsers) {
+        this.allUsers = allUsers;
     }
 
     public void setUser(User u){
@@ -221,6 +261,12 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
+        this.user.setStudyPlans(plans);
     }
 }
 

@@ -3,6 +3,8 @@ package com.studyarc.use_case.login;
 import com.studyarc.entity.User;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginInteractor implements LoginInputBoundary{
     private final LoginDataAccessInterface dao;
@@ -53,9 +55,16 @@ public class LoginInteractor implements LoginInputBoundary{
             loginPresenter.prepareView(new RegisterOutputData(false, false, "User already exists!"));
             return;
             // go back
+        } else if (username.isEmpty()) {
+            loginPresenter.prepareView(new RegisterOutputData(false, false, "emptyUsername"));
+            return;
         }
         try {
-                this.dao.setUser(new User(username, password));
+            List<User> alluser = this.dao.getAllUsers();
+            User newuser = new User(username, password);
+                this.dao.setUser(newuser);
+                alluser.add(newuser);
+                this.dao.save();
                 loginPresenter.prepareView(new RegisterOutputData(true, false, ""));
             } catch (NoSuchAlgorithmException e) {
                 throw new RuntimeException(e);

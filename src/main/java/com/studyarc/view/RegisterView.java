@@ -3,6 +3,7 @@ package com.studyarc.view;
 import com.studyarc.interface_adapter.job_postings.JobPostingsController;
 import com.studyarc.interface_adapter.login.*;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarController;
+import com.studyarc.interface_adapter.ui_sidebar.SidebarViewModel;
 
 import javax.swing.*;
 import java.awt.*;
