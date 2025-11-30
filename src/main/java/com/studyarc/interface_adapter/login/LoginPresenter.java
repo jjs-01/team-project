@@ -3,6 +3,7 @@ package com.studyarc.interface_adapter.login;
 import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
+import com.studyarc.interface_adapter.ui_sidebar.SidebarViewModel;
 import com.studyarc.use_case.login.LoginOutputBoundary;
 import com.studyarc.use_case.login.LoginOutputData;
 import com.studyarc.use_case.login.RegisterOutputData;
@@ -15,13 +16,21 @@ public class LoginPresenter implements LoginOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final TrackPlanViewModel trackPlanViewModel;
     private final MilestoneTasksViewModel milestoneTasksViewModel;
+    private final SidebarViewModel sidebarViewModel;
 
-    public LoginPresenter(LoginViewModel loginViewModel, RegisterViewModel registerViewModel, ViewManagerModel viewManagerModel, TrackPlanViewModel trackPlanViewModel, MilestoneTasksViewModel milestoneTasksViewModel){
+    public LoginPresenter(LoginViewModel loginViewModel,
+                          RegisterViewModel registerViewModel,
+                          ViewManagerModel viewManagerModel,
+                          TrackPlanViewModel trackPlanViewModel,
+                          MilestoneTasksViewModel milestoneTasksViewModel,
+                          SidebarViewModel sidebarViewModel
+    ){
         this.loginViewModel = loginViewModel;
         this.registerViewModel = registerViewModel;
         this.viewManagerModel = viewManagerModel;
         this.trackPlanViewModel = trackPlanViewModel;
         this.milestoneTasksViewModel = milestoneTasksViewModel;
+        this.sidebarViewModel = sidebarViewModel;
     }
     @Override
     public void prepareView(LoginOutputData loginOutputData) {
@@ -43,10 +52,14 @@ public class LoginPresenter implements LoginOutputBoundary {
         if(registerOutputData.isGoToLogin()){
             registerViewModel.setState(new RegisterState());
             viewManagerModel.setState(loginViewModel.getViewName());
+            viewManagerModel.firePropertyChange();
+
         } else if(registerOutputData.isSuccess()){
             registerViewModel.setState(new RegisterState());
             viewManagerModel.setState(milestoneTasksViewModel.getViewName());
+            sidebarViewModel.firePropertyChange();
+            viewManagerModel.firePropertyChange();
         }
-        viewManagerModel.firePropertyChange();
+
     }
 }
