@@ -24,6 +24,7 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
     public void execute(TrackPlanInputData inputData) {
 
         String username = inputData.getUsername();
+//        this.getPlanTool.reloadFromStorage();
 
         //use generateTestPlans for testing the usecase, switch to getplans later;
         ArrayList<StudyPlan> listofplans = this.getPlanTool.getPlans();
@@ -51,7 +52,6 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
         }
         if (planTitles.size() == plans.size()) {
             this.getPlanTool.saveAllPlansForUser(plans);
-            this.getPlanTool.save();
             presenter.prepareShowSavingResult("Saving complete!");
         } else {
             presenter.prepareShowSavingResult("Oops!!Can not have same title for different plans!");

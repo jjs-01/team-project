@@ -16,16 +16,18 @@ public class LoginInteractor implements LoginInputBoundary{
     }
     @Override
     public void login(LoginInputData loginInputData) {
-        if(loginInputData.isGoToRegister()){
-            loginPresenter.prepareView(new LoginOutputData(false, true));
-            return;
-        }
         String username = loginInputData.getUsername();
         String password = loginInputData.getPassword();
+        if(loginInputData.isGoToRegister()){
+            loginPresenter.prepareView(new LoginOutputData(false, true, username));
+            return;
+        }
+
         User u = dao.getUser(username);
+
         if(u==null){
             System.out.println("Got a null user");
-            loginPresenter.prepareView(new LoginOutputData(false, false));
+            loginPresenter.prepareView(new LoginOutputData(false, false, username));
             return;
         }
         System.out.println("Got a real user");
@@ -34,30 +36,33 @@ public class LoginInteractor implements LoginInputBoundary{
             System.out.println(result);
             if (result){
                 this.dao.setUser(u);
-                loginPresenter.prepareView(new LoginOutputData(true, false));
+                loginPresenter.prepareView(new LoginOutputData(true, false, username));
                 return;
             }
-            loginPresenter.prepareView(new LoginOutputData(false, false));
+            loginPresenter.prepareView(new LoginOutputData(false, false, username));
         } catch (NoSuchAlgorithmException e) {
-            loginPresenter.prepareView(new LoginOutputData(false, false));
+            loginPresenter.prepareView(new LoginOutputData(false, false, username));
         }
     }
     public void register(RegisterInputData registerInputData){
-        if(registerInputData.isGoToLogin()){
-            loginPresenter.prepareView(new RegisterOutputData(false, true, ""));
-            return;
-        }
         String username = registerInputData.getUsername();
         String password = registerInputData.getPassword();
+        if(registerInputData.isGoToLogin()){
+            loginPresenter.prepareView(new RegisterOutputData(false, true, "", username));
+            return;
+        }
+
         User u = dao.getUser(username);
-        if(u!=null){
+        if(username.isEmpty()){
+            System.out.println("empty username for register");
+            loginPresenter.prepareView(new RegisterOutputData(false, false, "emptyUsername", username));
+            return;
+        }
+        else if(u!=null){
             System.out.println("User already exists!");
-            loginPresenter.prepareView(new RegisterOutputData(false, false, "User already exists!"));
+            loginPresenter.prepareView(new RegisterOutputData(false, false, "User already exists!", username));
             return;
             // go back
-        } else if (username.isEmpty()) {
-            loginPresenter.prepareView(new RegisterOutputData(false, false, "emptyUsername"));
-            return;
         }
         try {
             List<User> alluser = this.dao.getAllUsers();
@@ -65,7 +70,7 @@ public class LoginInteractor implements LoginInputBoundary{
                 this.dao.setUser(newuser);
                 alluser.add(newuser);
                 this.dao.save();
-                loginPresenter.prepareView(new RegisterOutputData(true, false, ""));
+                loginPresenter.prepareView(new RegisterOutputData(true, false, "", username));
             } catch (NoSuchAlgorithmException e) {
                 throw new RuntimeException(e);
             }

@@ -10,5 +10,7 @@ public interface TrackPlanDataAccessinterface {
     ArrayList<StudyPlan> generateTestPlans();
     void save();
     void saveAllPlansForUser(ArrayList<StudyPlan> plans);
+//    void reloadFromStorage();
+
 
 }

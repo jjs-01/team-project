@@ -68,7 +68,6 @@ public class RegisterView extends JPanel implements ActionListener, PropertyChan
             state.setPassword(this.passwordInput.getText());
             state.setErrorCode("");
 
-            sideBarController.setUser(state.getUsername());
 //            registerController.showSidebar();
 
             this.registerController.execute(state);

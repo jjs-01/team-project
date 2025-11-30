@@ -56,6 +56,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         }
         this.user = null;
     }
+
     @Override
     public ArrayList<String> getFocuses() {
 //        System.out.println("Checking user:" + user);
@@ -267,6 +268,40 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     @Override
     public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
         this.user.setStudyPlans(plans);
+        this.save();
     }
+
+//    @Override
+//    public void reloadFromStorage() {
+//        // Remember who is currently logged in (if anyone)
+//        String currentUsername = null;
+//        if (this.user != null) {
+//            currentUsername = this.user.getUsername();
+//        }
+//
+//        File f = new File("studyarc-users.ser");
+//        if (!f.exists()) {
+//            // No file yet, just reset to empty
+//            this.allUsers = new ArrayList<>();
+//            this.user = null;
+//            return;
+//        }
+//
+//        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
+//            @SuppressWarnings("unchecked")
+//            List<User> loadedUsers = (List<User>) ois.readObject();
+//            this.allUsers = loadedUsers;
+//        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+//            e.printStackTrace();
+//            this.allUsers = new ArrayList<>();
+//        }
+//
+//        // Restore current user object reference from the new allUsers list
+//        if (currentUsername != null) {
+//            this.user = getUser(currentUsername); // uses the updated allUsers
+//        } else {
+//            this.user = null;
+//        }
+//    }
 }
 

@@ -9,6 +9,8 @@ import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
 import com.studyarc.use_case.ui_sidebar.SidebarOutputBoundary;
 
+import java.util.ArrayList;
+
 public class SidebarPresenter implements SidebarOutputBoundary {
     private final SidebarViewModel sidebarViewModel;
     private final JobPostingsViewModel jobPostingsViewModel;
@@ -58,8 +60,7 @@ public class SidebarPresenter implements SidebarOutputBoundary {
         // reset the loginstate
         loginViewModel.setState(new LoginState());
         //reset the sidebar username
-        sidebarViewModel.getState().setUserName("");
-
+        sidebarViewModel.getState().setUserName(null);
         loginViewModel.firePropertyChange();
         viewManagerModel.setState(loginViewModel.getViewName());
         sidebarViewModel.firePropertyChange();

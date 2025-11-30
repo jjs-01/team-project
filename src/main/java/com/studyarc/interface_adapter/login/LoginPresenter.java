@@ -34,6 +34,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     }
     @Override
     public void prepareView(LoginOutputData loginOutputData) {
+        String username = loginOutputData.getUsername();
         if(!loginOutputData.isSuccess() && !loginOutputData.isGoToRegister()){
             System.out.println(loginViewModel);
             loginViewModel.getState().setPassword("");
@@ -43,10 +44,13 @@ public class LoginPresenter implements LoginOutputBoundary {
             viewManagerModel.setState(registerViewModel.getViewName());
         } else if(loginOutputData.isSuccess()){
             loginViewModel.setState(new LoginState());
+            sidebarViewModel.getState().setUserName(username);
             sidebarViewModel.firePropertyChange();
             viewManagerModel.setState(trackPlanViewModel.getViewName());
         }
+        loginViewModel.firePropertyChange();
         viewManagerModel.firePropertyChange();
+
     }
 
     public void prepareView(RegisterOutputData registerOutputData){
@@ -58,12 +62,15 @@ public class LoginPresenter implements LoginOutputBoundary {
         } else if(registerOutputData.isSuccess()){
             registerViewModel.setState(new RegisterState());
             viewManagerModel.setState(trackPlanViewModel.getViewName());
+            sidebarViewModel.getState().setUserName(registerOutputData.getUsername());
             sidebarViewModel.firePropertyChange();
             viewManagerModel.firePropertyChange();
         } else {
             System.out.println("presernter : user exists!");
             registerViewModel.getState().setErrorCode(registerOutputData.getErrorMessage());
             registerViewModel.getState().setPassword("");
+            registerViewModel.firePropertyChange();
+            sidebarViewModel.firePropertyChange();
         }
 
     }
