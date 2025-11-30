@@ -13,5 +13,5 @@ public interface MilestoneTasksDataAccessInterface {
 
     StudyPlan getPlan(String planName);
 
-    String getCurrentUsername();
+    void save();
 }

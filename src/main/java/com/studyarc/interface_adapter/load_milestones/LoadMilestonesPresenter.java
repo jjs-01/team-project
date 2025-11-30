@@ -4,6 +4,7 @@ import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.use_case.load_milestones.LoadMilestonesOutputBoundary;
 import com.studyarc.use_case.load_milestones.LoadMilestonesOutputData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +23,9 @@ public class LoadMilestonesPresenter implements LoadMilestonesOutputBoundary {
     @Override
     public void prepareSuccessView(LoadMilestonesOutputData response) {
         final LoadMilestonesState loadMilestonesState = loadMilestonesViewModel.getState();
+        loadMilestonesState.setMilestoneNameList(new ArrayList<>());
+        loadMilestonesState.setMilestoneDateList(new ArrayList<>());
+        loadMilestonesState.setMilestoneIndexToTasks(new ArrayList<>());
 
         loadMilestonesState.setFocus(response.getFocus());
 
