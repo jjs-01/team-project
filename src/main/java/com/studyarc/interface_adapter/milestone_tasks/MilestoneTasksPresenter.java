@@ -4,6 +4,9 @@ import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputData;
 
+/**
+ * Presenter for the saving milestones use case
+ */
 public class MilestoneTasksPresenter implements MilestoneTasksOutputBoundary {
 
     private final MilestoneTasksViewModel milestoneTasksViewModel;

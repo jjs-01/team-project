@@ -3,6 +3,9 @@ package com.studyarc.interface_adapter.load_milestones;
 import com.studyarc.use_case.load_milestones.LoadMilestonesInputBoundary;
 import com.studyarc.use_case.load_milestones.LoadMilestonesInputData;
 
+/**
+ * Controller for the loading milestones use case
+ */
 public class LoadMilestonesController {
     private final LoadMilestonesInputBoundary loadMilestonesInteractor;
 

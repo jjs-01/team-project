@@ -3,6 +3,9 @@ package com.studyarc.use_case.load_milestones;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.User;
 
+/**
+ * Interactor for the load milestones use case
+ */
 public class LoadMilestonesInteractor implements LoadMilestonesInputBoundary {
     private final LoadMilestonesDataAccessInterface loadMilestonesDataAccessObject;
     private final LoadMilestonesOutputBoundary loadPresenter;

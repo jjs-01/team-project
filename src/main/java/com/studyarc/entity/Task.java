@@ -1,5 +1,9 @@
 package com.studyarc.entity;
 
+
+/**
+ * Task entity class, storing all the information associated with a task
+ */
 public class Task {
     private String name;
     private String dueDate;

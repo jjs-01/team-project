@@ -5,6 +5,9 @@ import com.studyarc.use_case.add_plan.AddPlanInputData;
 
 import java.util.List;
 
+/**
+ * Controller for the AddPlan use case
+ */
 public class AddPlanController {
     private final AddPlanInputBoundary addPlanInteractor;
 

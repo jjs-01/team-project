@@ -191,6 +191,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         user.getStudyPlans().add(plan);
         System.out.println("add plan not implemented yet");
     }
+
     @Override
     public void savePlan(String username, StudyPlan plan){
     }

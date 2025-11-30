@@ -2,6 +2,10 @@ package com.studyarc.interface_adapter.milestone_tasks;
 
 import com.studyarc.interface_adapter.ViewModel;
 
+
+/**
+ * View model for the saving milestones use case
+ */
 public class MilestoneTasksViewModel extends ViewModel<MilestoneTasksState> {
 
     public static final String TITLE_LABEL = "Study Plan View";

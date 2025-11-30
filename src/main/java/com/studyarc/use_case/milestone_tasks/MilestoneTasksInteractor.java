@@ -11,6 +11,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 
+/**
+ * Interactor for the saving milestones use case
+ */
 public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
     private final MilestoneTasksDataAccessInterface milestoneDataAccessObject;
     private final MilestoneTasksOutputBoundary milestonePresenter;

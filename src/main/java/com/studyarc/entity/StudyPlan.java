@@ -3,6 +3,9 @@ package com.studyarc.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * StudyPlan entity class, storing all the information associated with each study plan
+ */
 public class StudyPlan {
     private String title;
     private List<Milestone> milestones;

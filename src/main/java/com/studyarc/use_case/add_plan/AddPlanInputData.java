@@ -2,6 +2,9 @@ package com.studyarc.use_case.add_plan;
 
 import java.util.List;
 
+/**
+ * Input Data class for the Add Plan use case
+ */
 public class AddPlanInputData {
     private final List<String> studyPlanTitles;
 
