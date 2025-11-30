@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.*;
 
 /***
- * TrackPlan view for Trackplan usecase, can only have one instance throughout the application.
+ * TrackPlan view for Track plan usecase, can only have one instance throughout the application.
  *
  */
 
@@ -37,7 +37,7 @@ import java.util.*;
 public class TrackPlansView extends JPanel implements PropertyChangeListener, ActionListener, DocumentListener {
     private static TrackPlansView instance;
 
-    final String viewname = "track plan";
+    static final String VIEW_NAME = "track plan";
     final BorderLayout borderLayout = new BorderLayout();
 
     final JPanel trackPlansPanel;
@@ -80,7 +80,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         this.setLayout(borderLayout);
         this.setBackground(Color.DARK_GRAY);
 
-        titlePanel = SetTitlePanel();
+        titlePanel = setTitlePanel();
         titlePanel.setBorder(
                 BorderFactory.createEmptyBorder(25, 25, 5, 25));
 
@@ -104,7 +104,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     }
 
     @NotNull
-    private JPanel SetTitlePanel() {
+    private JPanel setTitlePanel() {
         GridBagConstraints topInfo = new GridBagConstraints();
         topInfo.gridx = 2;
 
@@ -114,10 +114,20 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         titlePanel.setLayout(new BorderLayout());
         titlePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
+        JPanel buttonPanel = new JPanel();
+
+        newPlan.addActionListener(this);
+        buttonPanel.add(newPlan);
+
         saveButton.addActionListener(this);
         saveButton.setFont(Styling.getSubFont().deriveFont(12f));
+        buttonPanel.add(saveButton);
+
+        buttonPanel.setBackground(Styling.getYellow());
+
         titlePanel.add(title, BorderLayout.CENTER);
-        titlePanel.add(saveButton, BorderLayout.EAST);
+        titlePanel.add(buttonPanel, BorderLayout.EAST);
         return titlePanel;
     }
 
@@ -133,33 +143,31 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             updateReflectionsUI();
         }
 
-        TrackPlanState currentstate = (TrackPlanState) evt.getNewValue();
-        ArrayList<StudyPlan> current_Plans = currentstate.getStudyPlans();
+        TrackPlanState currentState = (TrackPlanState) evt.getNewValue();
+        ArrayList<StudyPlan> currentPlans = currentState.getStudyPlans();
 
-        if (!currentstate.getSavingMessage().isEmpty()) {
-            JOptionPane.showMessageDialog(this, currentstate.getSavingMessage());
+        if (!currentState.getSavingMessage().isEmpty()) {
+            JOptionPane.showMessageDialog(this, currentState.getSavingMessage());
             return;
         }
-        if (current_Plans.isEmpty()) {
+        if (currentPlans.isEmpty()) {
             this.showRedirectButton();
         } else {
-            this.showPlansinView(current_Plans);
+            this.showPlansInView(currentPlans);
         }
     }
 
     private void showRedirectButton() {
         trackPlansPanel.removeAll();
-        JLabel message = new JLabel("You have no Plans! Go Create New Plans!Go Create New Plans!Go Create New Plans!");
+        JLabel message = new JLabel("You have no Plans! Go Create New Plans!");
         message.setFont(Styling.getSubFont());
-        newPlan.addActionListener(this);
         trackPlansPanel.add(message);
-        trackPlansPanel.add(newPlan);
         trackPlansPanel.repaint();
         trackPlansPanel.revalidate();
     }
 
 
-    private void showPlansinView(ArrayList<StudyPlan> plans) {
+    private void showPlansInView(ArrayList<StudyPlan> plans) {
         this.buttonToPlanMap = new HashMap<>();
         this.titleToPlanMap = new HashMap<>();
         this.editButtonToPlanMap = new HashMap<>();
@@ -248,7 +256,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             JLabel milestoneCompleted = new JLabel(" ✅ ");
             milestoneCompleted.setVisible(true);
             for (Task subtask : m.getSubtasks()) {
-                if (subtask.getStatus().equals("Not Started") | subtask.getStatus().equals("In Progress")) {
+                if (subtask.getStatus().equals("Not Started") || subtask.getStatus().equals("In Progress")) {
                     milestoneCompleted.setVisible(false);
                     break;
                 }
@@ -267,41 +275,22 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             //If the milestone is completed, hide it. Show it if it's not
             tasksPanel.setVisible(!milestoneCompleted.isVisible());
 
-            upButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    tasksPanel.setVisible(false);              // hide tasks
-                    milestonePanel.revalidate();
-                    milestonePanel.repaint();
-                }
+            upButton.addActionListener(e -> {
+                tasksPanel.setVisible(false);              // hide tasks
+                milestonePanel.revalidate();
+                milestonePanel.repaint();
             });
 
-            downButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    //show the task panel
-                    tasksPanel.setVisible(true);
-                    milestonePanel.revalidate();
-                    milestonePanel.repaint();
-                }
+            downButton.addActionListener(e -> {
+                //show the task panel
+                tasksPanel.setVisible(true);
+                milestonePanel.revalidate();
+                milestonePanel.repaint();
             });
 
             List<Task> tasks = m.getSubtasks();
             for (int j = 0; j < tasks.size(); j++) {
-                Task t = tasks.get(j);
-
-                JPanel taskRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                taskRow.setBackground(Styling.getGray());
-                JLabel taskLabel = new JLabel("Task " + (j + 1) + ": " + t.getName() + "    ");
-                String d = t.getDueDate();
-                JLabel dueLabel = new JLabel("Due: " + d + "   ");
-
-                //Later on could change String color based on the status.
-                JLabel statusLabel = new JLabel("Status: " + t.getStatus());
-
-                taskRow.add(taskLabel);
-                taskRow.add(dueLabel);
-                taskRow.add(statusLabel);
+                JPanel taskRow = getJPanel(tasks, j);
                 tasksPanel.add(taskRow);
             }
 
@@ -365,8 +354,27 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         return planPanel;
     }
 
-    public String getViewname() {
-        return viewname;
+    @NotNull
+    private static JPanel getJPanel(List<Task> tasks, int j) {
+        Task t = tasks.get(j);
+
+        JPanel taskRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        taskRow.setBackground(Styling.getGray());
+        JLabel taskLabel = new JLabel("Task " + (j + 1) + ": " + t.getName() + "    ");
+        String d = t.getDueDate();
+        JLabel dueLabel = new JLabel("Due: " + d + "   ");
+
+        //Later on could change String color based on the status.
+        JLabel statusLabel = new JLabel("Status: " + t.getStatus());
+
+        taskRow.add(taskLabel);
+        taskRow.add(dueLabel);
+        taskRow.add(statusLabel);
+        return taskRow;
+    }
+
+    public String getViewName() {
+        return VIEW_NAME;
     }
 
 
@@ -377,19 +385,24 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     // Button Actions
     @Override
     public void actionPerformed(ActionEvent e) {
+        TrackPlanState state = this.trackPlanViewModel.getState();
         JButton button = (JButton) e.getSource();
+
         if (this.buttonToPlanMap.containsKey(button)) {
             this.deletePlanController.execute(this.buttonToPlanMap.get(button));
-
         } else if (e.getSource() == newPlan) {
-            this.sidebarController.switchToMilestone();
+            StudyPlan addedPlan = new StudyPlan(state.getNextDefaultTitle(), new ArrayList<>(), "Artificial Intelligence");
+            trackPlansPanel.add(createPlanPanel(addedPlan));
+            trackPlansPanel.add(Box.createVerticalStrut(15));
+            state.getStudyPlans().add(addedPlan);
+            trackPlansPanel.revalidate();
+            this.trackPlanController.execute(state.getStudyPlans(), state.getUsername());
 
         } else if (this.editButtonToPlanMap.containsKey(button)) {
             System.out.println("EditPlan: " + this.editButtonToPlanMap.get(button).getTitle());
             this.loadMilestonesController.execute(this.editButtonToPlanMap.get(button).getTitle());
 
         } else if (e.getSource() == saveButton) {
-            TrackPlanState state = this.trackPlanViewModel.getState();
             this.trackPlanController.execute(state.getStudyPlans(), state.getUsername());
         }
     }

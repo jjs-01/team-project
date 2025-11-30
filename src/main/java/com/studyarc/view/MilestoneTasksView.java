@@ -1,6 +1,5 @@
 package com.studyarc.view;
 
-import com.studyarc.interface_adapter.job_postings.JobPostingsState;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksState;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
@@ -24,24 +23,19 @@ import java.util.List;
  * TODO: Write test cases for use case and entity
  * TODO (later): fix checkstyle issues
  * TODO (later): make the UI look nice
- *
  */
 public class MilestoneTasksView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "milestones and tasks";
+    private static final String VIEW_NAME = "milestones and tasks";
     private MilestoneTasksController milestoneTasksController;
     private final MilestoneTasksViewModel milestoneViewModel;
-    private final String studyPlanName = "studyPlanTitle";
 
     private final JPanel milestonePanel = new JPanel();
     private final GridBagConstraints milestonePanelConstraints;
     private final JLabel planTitle;
-    private final JLabel focuses;
     private final JButton addMilestone;
     private final JButton save;
 
-    private JPanel focusesPanel;
-    private JComboBox<String> focusesComboBox;
-    private String[] focusesOptions =  {"Artificial Intelligence", "Game Design", "Human Computer Interaction", "Web and Internet Technologies", "Data Science"};
+    private final JComboBox<String> focusesComboBox;
 
     private final List<JPanel> milestones = new ArrayList<>();
     private final Map<JPanel, List<JComponent[]>> milestoneToTaskComponents = new HashMap<>();
@@ -51,14 +45,16 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         this.milestoneViewModel.addPropertyChangeListener(this);
 
         final JPanel topDetails = new JPanel();
-        planTitle = new JLabel(MilestoneTasksViewModel.TITLE_LABEL);
+        planTitle = new JLabel();
         planTitle.setFont(Styling.getMainFont());
         planTitle.setFont(new Font(MilestoneTasksViewModel.FONT, Font.BOLD, 24));
         topDetails.add(planTitle);
 
-        focusesPanel = new JPanel();
-        focuses = new JLabel("Focus: ");
+        JPanel focusesPanel = new JPanel();
+        JLabel focuses = new JLabel("Focus: ");
         focusesPanel.add(focuses);
+        String[] focusesOptions = {"Artificial Intelligence", "Game Design",
+                "Human Computer Interaction", "Web and Internet Technologies", "Data Science"};
         focusesComboBox = new JComboBox<>(focusesOptions);
         focusesComboBox.addActionListener(this);
         focusesPanel.add(focusesComboBox);
@@ -69,23 +65,6 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
         topDetails.setBorder(BorderFactory.createEmptyBorder(25, 0, 25, 0));
 
-        save.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(save)) {
-                            final MilestoneTasksState currentState = milestoneViewModel.getState();
-
-                            milestoneTasksController.execute(studyPlanName,
-                                currentState.getMilestoneIndexToTasks(),
-                                currentState.getMilestoneNames(),
-                                currentState.getMilestoneDates(),
-                                currentState.getFocus()
-                            );
-                        }
-                    }
-                }
-        );
         save.addActionListener(this);
 
         milestonePanel.setLayout(new GridBagLayout());
@@ -122,8 +101,6 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                     }
 
                     public void actionPerformed(ActionEvent evt) {
-//                        final MilestoneTasksState currentState = jobPostingsViewModel.getState();
-
                         if (evt.getSource().equals(addMilestone)) {
                             JPanel individualMilestone = new JPanel();
                             individualMilestone.setLayout(new GridBagLayout());
@@ -141,9 +118,6 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                             individualMilestone.add(milestoneNameField, constraints2);
                             addMilestoneNameListener(milestoneNameField, individualMilestone);
 
-                            // Add completed check mark
-                            constraints2.gridx = 1;
-                            individualMilestone.add(new JCheckBox(), constraints2);
 
                             // Add dueDate textfield
                             constraints2.gridx = 2;
@@ -446,11 +420,13 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final MilestoneTasksState state = (MilestoneTasksState) evt.getNewValue();
-        if (!state.getMilestoneSaveError().isEmpty()) {
+        if (evt.getPropertyName().equals("failed to save")) {
             JOptionPane.showMessageDialog(this, state.getMilestoneSaveError());
             state.setMilestoneSaveError("");
-        } else {
+        } else if (evt.getPropertyName().equals("saved plan")){
             JOptionPane.showMessageDialog(this, "Saved!");
+        } else {
+            planTitle.setText(state.getStudyPlanName());
         }
     }
 
@@ -459,7 +435,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         final MilestoneTasksState currentState = milestoneViewModel.getState();
 
         if (e.getSource() == save) {
-            milestoneTasksController.execute(studyPlanName,
+            milestoneTasksController.execute(MilestoneTasksViewModel.TITLE_LABEL,
                     currentState.getMilestoneIndexToTasks(),
                     currentState.getMilestoneNames(),
                     currentState.getMilestoneDates(),
@@ -470,11 +446,9 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         if (e.getSource().equals(focusesComboBox)) {
             currentState.setFocus(focusesComboBox.getSelectedItem().toString());
         }
-
-        System.out.println(currentState.getFocus());
     }
 
-    public String getViewName() { return viewName; }
+    public String getViewName() { return VIEW_NAME; }
 
     public void setMilestoneTasksController(MilestoneTasksController controller) {
         this.milestoneTasksController = controller;
@@ -482,6 +456,10 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
     protected List<JPanel> getMilestones() {
         return milestones;
+    }
+
+    protected JComboBox<String> getFocusSelector() {
+        return focusesComboBox;
     }
 
     protected Map<JPanel, List<JComponent[]>> getMilestoneToTaskComponents() {

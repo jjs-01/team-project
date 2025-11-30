@@ -110,7 +110,7 @@ public class AppBuilder {
         this.trackPlanViewModel = new TrackPlanViewModel();
         this.addReflectionViewModel = new AddReflectionViewModel();
         this.trackPlansView = TrackPlansView.getInstance(trackPlanViewModel, addReflectionViewModel);
-        cardPanel.add(trackPlansView, trackPlansView.getViewname());
+        cardPanel.add(trackPlansView, trackPlansView.getViewName());
 
         return this;
 
