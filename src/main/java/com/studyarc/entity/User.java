@@ -1,5 +1,6 @@
 package com.studyarc.entity;
 
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -8,10 +9,10 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.ArrayList;
 
-public class User {
-    private byte[] salt;
-    private byte[] passwordHash;
-    private String username;
+public class User implements Serializable {
+    private final byte[] salt;
+    private final byte[] passwordHash;
+    private final String username;
 
     private String focus;
 

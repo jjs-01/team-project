@@ -61,7 +61,7 @@ import com.studyarc.view.MilestoneTasksView;
 import com.studyarc.view.*;
 
 public class AppBuilder {
-    private final DatabaseAccess databaseAccess = new DatabaseAccess();
+    private final DatabaseAccess databaseAccess = DatabaseAccess.getInstance();
     private final SidebarDataAccessInterface sidebarDataAccess = new SidebarDataAccessObject();
 
     private final JPanel overallPanel = new JPanel(new BorderLayout());
@@ -120,7 +120,7 @@ public class AppBuilder {
 
     public AppBuilder addTrackPlanUsecase() {
         TrackPlanOutputBoundary presenter = new TrackPlanPresenter(trackPlanViewModel, viewManagerModel);
-        TrackPlanDataAccessinterface dataaccess = new DatabaseAccess();
+        TrackPlanDataAccessinterface dataaccess = this.databaseAccess;
 
         // Add LoadMileStone Controller to TrackPlanView
         LoadMilestonesOutputBoundary loadpresenter = new LoadMilestonesPresenter(viewManagerModel,
@@ -150,7 +150,7 @@ public class AppBuilder {
 
     public AppBuilder addDeletePlanUsecase() {
         DeletePlanOutputBoundary presenter = new DeletePlanPresenter(this.trackPlanViewModel);
-        DeletePlanInputBoundary interactor = new DeletePlanInteractor(presenter, new DatabaseAccess());
+        DeletePlanInputBoundary interactor = new DeletePlanInteractor(presenter, this.databaseAccess);
         trackPlansView.setDeletePlanController(new DeletePlanController(interactor));
         return this;
     }
