@@ -24,13 +24,14 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
     public void execute(TrackPlanInputData inputData) {
 
         String username = inputData.getUsername();
+//        this.getPlanTool.reloadFromStorage();
 
         //use generateTestPlans for testing the usecase, switch to getplans later;
         ArrayList<StudyPlan> listofplans = this.getPlanTool.getPlans();
 
         TrackPlanOutputData trackPlanOutputData = new TrackPlanOutputData(username, listofplans);
         presenter.prepareShowPlans(trackPlanOutputData);
-        if (listofplans.isEmpty()) {
+        if (listofplans == null || listofplans.isEmpty()) {
             System.out.println("interactor executes for emptyplans");
             presenter.prepareShowRedirect();
         } else {
@@ -41,7 +42,6 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
 
     public void execute(TrackPlanSavingInputData savingInputData){
         ArrayList<StudyPlan> plans = savingInputData.getPlans();
-        String username = savingInputData.getUsername();
         Set<String> planTitles = new HashSet<>();
         for (StudyPlan plan : plans) {
             if (plan.getTitle().strip().isEmpty()) {
@@ -51,8 +51,8 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
             planTitles.add(plan.getTitle());
         }
         if (planTitles.size() == plans.size()) {
+            this.getPlanTool.saveAllPlansForUser(plans);
             presenter.prepareShowSavingResult("Saving complete!");
-
         } else {
             presenter.prepareShowSavingResult("Oops!!Can not have same title for different plans!");
         }

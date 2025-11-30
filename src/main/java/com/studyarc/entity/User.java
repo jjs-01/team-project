@@ -50,6 +50,10 @@ public class User implements Serializable {
         return username;
     }
 
+    public void setStudyPlans(ArrayList<StudyPlan> studyPlans) {
+        this.studyPlans = studyPlans;
+    }
+
     public ArrayList<StudyPlan> getStudyPlans() {
         return studyPlans;
     }

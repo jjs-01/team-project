@@ -13,6 +13,7 @@ import com.studyarc.use_case.add_reflection.AddReflectionDataAccessInterface;
 import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
 
 import java.io.*;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class DatabaseAccess implements JobPostingsDataAccessInterface,
@@ -27,18 +28,36 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     private List<User> allUsers;
     private ArrayList<String> focuses = new ArrayList<>();
 
+//    @SuppressWarnings("unchecked")
+//    private DatabaseAccess(){
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream("studyarc-users.ser");
+//            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+//            this.allUsers = (List<User>) objectInputStream.readObject();
+//        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+//            e.printStackTrace();
+//        }
+//        this.user = null;
+//    }
 
-    @SuppressWarnings("unchecked")
-    private DatabaseAccess(){
-        try {
-            FileInputStream fileInputStream = new FileInputStream("studyarc-users.ser");
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            this.allUsers = (List<User>) objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException | ClassCastException e) {
-            e.printStackTrace();
+    private DatabaseAccess() {
+        File f = new File("studyarc-users.ser");
+        if (f.exists()) {
+            try (ObjectInputStream ois =
+                         new ObjectInputStream(new FileInputStream(f))) {
+                //noinspection unchecked
+                this.allUsers = (List<User>) ois.readObject();
+            } catch (IOException | ClassNotFoundException | ClassCastException e) {
+                e.printStackTrace();
+                this.allUsers = new ArrayList<>();
+            }
+        } else {
+            // first runs: no file yet
+            this.allUsers = new ArrayList<>();
         }
         this.user = null;
     }
+
     @Override
     public ArrayList<String> getFocuses() {
 //        System.out.println("Checking user:" + user);
@@ -61,7 +80,14 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public ArrayList<StudyPlan> getPlans() { return this.generateTestPlans(); }
+    public ArrayList<StudyPlan> getPlans() {
+        ArrayList<StudyPlan> plans = this.user.getStudyPlans();
+        if(plans == null){
+            return new ArrayList<StudyPlan>();
+        }
+        return plans;
+    }
+
 
     public ArrayList<StudyPlan> generateTestPlans() {
         ArrayList<StudyPlan> plans = new ArrayList<>();
@@ -168,13 +194,28 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }//Generate TestPlans for testing TrackPlanusecase and Deletplan.
 
     @Override
-    public boolean registerUser(User u) {
-        return false;
+    public boolean registerUser(String username, String password) {
+        try {
+            User newUser = new User(username, password);
+            this.user = newUser;
+            this.allUsers.add(newUser);
+            this.save();
+        } catch (NoSuchAlgorithmException e){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public User getUser(String username) {
-        return this.user;
+        User u = null;
+        for (User allUser : this.allUsers) {
+            if(allUser.getUsername().equals(username)){
+                u = allUser;
+                return u;
+            }
+        }
+        return u;
     }
 
     public void setUser(User u){
@@ -223,5 +264,45 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
             e.printStackTrace();
         }
     }
+
+
+    @Override
+    public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
+        this.user.setStudyPlans(plans);
+        this.save();
+    }
+
+//    @Override
+//    public void reloadFromStorage() {
+//        // Remember who is currently logged in (if anyone)
+//        String currentUsername = null;
+//        if (this.user != null) {
+//            currentUsername = this.user.getUsername();
+//        }
+//
+//        File f = new File("studyarc-users.ser");
+//        if (!f.exists()) {
+//            // No file yet, just reset to empty
+//            this.allUsers = new ArrayList<>();
+//            this.user = null;
+//            return;
+//        }
+//
+//        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
+//            @SuppressWarnings("unchecked")
+//            List<User> loadedUsers = (List<User>) ois.readObject();
+//            this.allUsers = loadedUsers;
+//        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+//            e.printStackTrace();
+//            this.allUsers = new ArrayList<>();
+//        }
+//
+//        // Restore current user object reference from the new allUsers list
+//        if (currentUsername != null) {
+//            this.user = getUser(currentUsername); // uses the updated allUsers
+//        } else {
+//            this.user = null;
+//        }
+//    }
 }
 

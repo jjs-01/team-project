@@ -8,4 +8,9 @@ public interface TrackPlanDataAccessinterface {
 
     ArrayList<StudyPlan> getPlans();
     ArrayList<StudyPlan> generateTestPlans();
+    void save();
+    void saveAllPlansForUser(ArrayList<StudyPlan> plans);
+//    void reloadFromStorage();
+
+
 }
