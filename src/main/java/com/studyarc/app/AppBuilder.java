@@ -64,7 +64,6 @@ import com.studyarc.view.*;
 public class AppBuilder {
     private final DatabaseAccess databaseAccess = new DatabaseAccess();
     private final SidebarDataAccessInterface sidebarDataAccess = new SidebarDataAccessObject();
-    private final MilestoneTasksDataAccessInterface milestoneDataAccessObject = new MilestoneTasksDataAccessObject();
 
     private final JPanel overallPanel = new JPanel(new BorderLayout());
     private final JPanel cardPanel = new JPanel(new CardLayout());
@@ -87,7 +86,6 @@ public class AppBuilder {
     private LoadMilestonesViewModel loadMilestonesViewModel;
     private LoadMilestonesView loadMilestonesView;
 
-    final MilestoneTasksDataAccessObject singleUseCaseDAO = new MilestoneTasksDataAccessObject();
     final ReflectionFactory reflectionFactory = new ReflectionFactory();
 
     private TrackPlansView trackPlansView;
@@ -235,7 +233,7 @@ public class AppBuilder {
     public AppBuilder addMilestoneTasksUseCase() {
         final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(viewManagerModel,
                 milestoneTasksViewModel);
-        final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(singleUseCaseDAO,
+        final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(this.databaseAccess,
                 milestonesOutputBoundary);
 
         MilestoneTasksController controller = new MilestoneTasksController(milestoneSaveInteractor);
@@ -246,14 +244,14 @@ public class AppBuilder {
     public AppBuilder addLoadMilestonesUseCase() {
         final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(viewManagerModel,
                 milestoneTasksViewModel);
-        final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(singleUseCaseDAO,
+        final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(this.databaseAccess,
                 milestonesOutputBoundary);
         MilestoneTasksController saveController = new MilestoneTasksController(milestoneSaveInteractor);
 
         final LoadMilestonesOutputBoundary loadMilestonesOutputBoundary = new LoadMilestonesPresenter(viewManagerModel,
                 loadMilestonesViewModel) {
         };
-        final LoadMilestonesInputBoundary loadMilestonesInteractor = new LoadMilestonesInteractor(singleUseCaseDAO,
+        final LoadMilestonesInputBoundary loadMilestonesInteractor = new LoadMilestonesInteractor(this.databaseAccess,
                 loadMilestonesOutputBoundary);
 
         LoadMilestonesController loadController = new LoadMilestonesController(loadMilestonesInteractor);
@@ -263,7 +261,7 @@ public class AppBuilder {
         loadMilestonesView.loadView();
         return this;
 }
-  
+
     public AppBuilder addLoginUseCase() {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, registerViewModel, viewManagerModel, trackPlanViewModel, milestoneTasksViewModel, sidebarViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(databaseAccess, loginOutputBoundary);
