@@ -9,12 +9,6 @@ import com.studyarc.entity.User;
 public interface AddReflectionDataAccessInterface {
 
     /**
-     * Returns the user of the current user of the application.
-     * @return the username of the current user
-     */
-    User getUser(String username);
-
-    /**
      * Return the specific plan that wants to add reflection.
      * @param username the current user.
      * @param planName the plan title of this plan.
