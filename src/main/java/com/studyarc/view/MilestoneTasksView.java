@@ -435,7 +435,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         final MilestoneTasksState currentState = milestoneViewModel.getState();
 
         if (e.getSource() == save) {
-            milestoneTasksController.execute(MilestoneTasksViewModel.TITLE_LABEL,
+            milestoneTasksController.execute(currentState.getStudyPlanName(),
                     currentState.getMilestoneIndexToTasks(),
                     currentState.getMilestoneNames(),
                     currentState.getMilestoneDates(),

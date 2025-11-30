@@ -29,6 +29,7 @@ public class AddPlanInteractor implements AddPlanInputBoundary {
                 "Artificial Intelligence");
 
         addPlanDataAccessObject.addPlan(newStudyPlan);
+        addPlanDataAccessObject.save();
 
         AddPlanOutputData outputData = new AddPlanOutputData(newStudyPlan);
         addPlanPresenter.prepareSuccessView(outputData);
