@@ -20,7 +20,9 @@ public class MilestoneTasksPresenter implements MilestoneTasksOutputBoundary {
 
     @Override
     public void prepareSuccessView(MilestoneTasksOutputData response) {
-        System.out.println(response.getFirstMilestone());
+        final MilestoneTasksState saveState = milestoneTasksViewModel.getState();
+        saveState.setMilestoneSaveMessage("Saved " + response.milestonesSaved()
+                + " milestones for " + response.getPlanName() + "!");
         milestoneTasksViewModel.firePropertyChange("saved plan");
         viewManagerModel.firePropertyChange();
     }

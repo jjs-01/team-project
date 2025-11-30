@@ -8,5 +8,5 @@ import com.studyarc.entity.StudyPlan;
 public interface LoadMilestonesDataAccessInterface {
     StudyPlan getPlan(String planName);
 
-    String getCurrentUsername();
+    void save();
 }
