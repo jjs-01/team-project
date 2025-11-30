@@ -159,11 +159,9 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
     private void showRedirectButton() {
         trackPlansPanel.removeAll();
-        JLabel message = new JLabel("You have no Plans! Go Create New Plans!Go Create New Plans!Go Create New Plans!");
+        JLabel message = new JLabel("You have no Plans! Go Create New Plans!");
         message.setFont(Styling.getSubFont());
-        newPlan.addActionListener(this);
         trackPlansPanel.add(message);
-        trackPlansPanel.add(newPlan);
         trackPlansPanel.repaint();
         trackPlansPanel.revalidate();
     }
