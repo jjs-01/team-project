@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7c9c41c-69a4-4c7f-8a04-53a383fcfacf" name="Changes" comment="Basic testing for the app, need to pull the ViewManagerModel from main to continue progress.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/JobPostingsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/JobPostingsView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +89,7 @@
       <workItem from="1764471482267" duration="1038000" />
       <workItem from="1764472532753" duration="3798000" />
       <workItem from="1764525570420" duration="1856000" />
-      <workItem from="1764535127252" duration="3284000" />
+      <workItem from="1764535127252" duration="4204000" />
     </task>
     <servers />
   </component>
