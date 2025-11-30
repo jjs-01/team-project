@@ -16,14 +16,12 @@ public class AddReflectionController {
 
     /**
      * Executes the Login Use Case.
-     * @param username the name of the user.
      * @param planTitle the title of the specific plan.
      * @param contents the contents of the reflection.
      */
 
     public void execute(String username, String planTitle, String contents) {
-        final AddReflectionInputData inputData = new AddReflectionInputData(username,
-                planTitle, contents);
+        final AddReflectionInputData inputData = new AddReflectionInputData(username, planTitle, contents);
         addReflectionUseCaseInteractor.execute(inputData);
     }
 

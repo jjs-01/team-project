@@ -16,18 +16,18 @@ public interface AddReflectionDataAccessInterface {
 
     /**
      * Return the specific plan that wants to add reflection.
-     * @param user the current user.
+     * @param username the current user.
      * @param planName the plan title of this plan.
      * @return the plan that wants to add reflection
      */
-    StudyPlan getPlan(User user, String planName);
+    StudyPlan getPlan(String username, String planName);
 
     /**
      * Saves the updated study plan.
-     * @param user the current user
+     * @param username the current user
      * @param plan the updated study plan containing the new reflection
      */
-    void savePlan(User user, StudyPlan plan);
+    void savePlan(String username, StudyPlan plan);
 }
 
 

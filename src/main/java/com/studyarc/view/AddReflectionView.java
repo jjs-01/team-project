@@ -15,7 +15,8 @@ public class AddReflectionView extends JDialog implements PropertyChangeListener
 
     private final AddReflectionViewModel viewModel;
     private final AddReflectionController controller;
-    private final String planName;
+    private final String planTitle;
+    private final String username;
 
     private final JTextArea content = new JTextArea(6, 20);
     private final JButton saveButton = new JButton("Save");
@@ -23,13 +24,15 @@ public class AddReflectionView extends JDialog implements PropertyChangeListener
     public AddReflectionView(Window owner,
                              AddReflectionViewModel viewModel,
                              AddReflectionController controller,
-                             String planName) {
+                             String planTitle,
+                             String username) {
 
         super(owner, "Add Reflection", ModalityType.APPLICATION_MODAL);
 
         this.viewModel = viewModel;
         this.controller = controller;
-        this.planName = planName;
+        this.planTitle = planTitle;
+        this.username = username;
 
         this.viewModel.addPropertyChangeListener(this);
 
@@ -61,7 +64,7 @@ public class AddReflectionView extends JDialog implements PropertyChangeListener
             return;
         }
 
-        controller.execute(planName, contents);
+        controller.execute(username, planTitle, contents);
     }
 
     @Override
