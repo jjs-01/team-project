@@ -9,7 +9,7 @@ public class MilestoneTasksState {
     private List<List<String[]>> milestoneIndexToTasks = new ArrayList<>();
     private String saveChangesError = "";
     private String studyPlanName;
-    private String focus = "";
+    private String focus = "Game Design";
 
     public void addMilestone(int milestoneIndex, String name, String date) {
         milestoneNames.add(milestoneIndex, name);
