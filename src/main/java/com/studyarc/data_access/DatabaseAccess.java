@@ -23,8 +23,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         AddPlanDataAccessInterface {
     private User user;
 
-    private String currentUsername;
-
     private ArrayList<String> focuses = new ArrayList<>();
 
     @Override
@@ -183,7 +181,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
 
     @Override
     public String getCurrentUsername() {
-        return this.currentUsername;
+        return this.user.getUsername();
     }
 
     @Override
