@@ -112,12 +112,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     @Override
     public void addPlan(StudyPlan plan) {
         user.getStudyPlans().add(plan);
-        System.out.println("add plan not implemented yet");
-    }
-
-    @Override
-    public void savePlan(StudyPlan plan){
-
     }
 
     public static DatabaseAccess getInstance() {
