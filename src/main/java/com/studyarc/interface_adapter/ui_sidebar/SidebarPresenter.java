@@ -15,19 +15,18 @@ import java.util.ArrayList;
 public class SidebarPresenter implements SidebarOutputBoundary {
     private final SidebarViewModel sidebarViewModel;
     private final JobPostingsViewModel jobPostingsViewModel;
-    private final MilestoneTasksViewModel milestoneTasksViewModel;
     private final ViewManagerModel viewManagerModel;
     private final TrackPlanViewModel trackPlanViewModel;
     private final LoginViewModel loginViewModel;
 
-    public SidebarPresenter(ViewManagerModel viewManagerModel, SidebarViewModel sidebarViewModel,
-                            JobPostingsViewModel jobPostingsViewModel, MilestoneTasksViewModel milestoneTasksViewModel,
+    public SidebarPresenter(ViewManagerModel viewManagerModel,
+                            SidebarViewModel sidebarViewModel,
+                            JobPostingsViewModel jobPostingsViewModel,
                             TrackPlanViewModel trackPlanViewModel,
                             LoginViewModel loginViewModel) {
         this.sidebarViewModel = sidebarViewModel;
         this.jobPostingsViewModel = jobPostingsViewModel;
         this.viewManagerModel = viewManagerModel;
-        this.milestoneTasksViewModel = milestoneTasksViewModel;
         this.trackPlanViewModel = trackPlanViewModel;
         this.loginViewModel = loginViewModel;
     }
@@ -37,17 +36,6 @@ public class SidebarPresenter implements SidebarOutputBoundary {
         viewManagerModel.setState(jobPostingsViewModel.getViewName());
         viewManagerModel.firePropertyChange();
 
-    }
-
-    @Override
-    public void switchToMilestone() {
-        viewManagerModel.setState(milestoneTasksViewModel.getViewName());
-
-        MilestoneTasksState milestoneState = milestoneTasksViewModel.getState();
-        milestoneState.setStudyPlanName("New study plan");
-
-        milestoneTasksViewModel.firePropertyChange();
-        viewManagerModel.firePropertyChange();
     }
 
     @Override
