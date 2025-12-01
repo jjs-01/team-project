@@ -18,6 +18,7 @@ import java.awt.Color;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The View for when the user is on the job postings page.
@@ -29,44 +30,19 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     private final JobPostingsViewModel jobPostingsViewModel;
     private JobPostingsController jobPostingsController = null;
 
-    private final JPanel jobPostingsPanel = new JPanel();
-    private JPanel allJobPostingsPanel = new JPanel();
+    private final JPanel allJobPostingsPanel = new JPanel();
 
-    private JPanel locationSelectionPanel = new JPanel();
-    private JPanel planSelectionPanel = new JPanel();
-    private JPanel salarySelectionPanel = new JPanel();
-    private JPanel sortSelectionPanel = new JPanel();
-    private JPanel listingNumberPanel = new JPanel();
+    private final JComboBox<String> locationComboBox;
+    private final JComboBox<String> salaryComboBox;
+    private final JComboBox<String> sortComboBox;
+    private final JComboBox<String> planComboBox;
 
-    private JComboBox<String> locationComboBox;
-    private JComboBox<String> salaryComboBox;
-    private JComboBox<String> sortComboBox;
-    private JComboBox<String> planComboBox;
-
-    private JLabel pageTitle;
-    private JLabel location;
-    private JLabel plan;
-    private JLabel salary;
-    private JLabel sort;
-    private JLabel listingNumberLabel;
+    private final JLabel listingNumberLabel;
     private String listingNumber = "0";
 
-    private JLabel jobTitle;
-    private JLabel jobCompany;
-    private JLabel jobLocation;
-    private JLabel jobSalaryRange;
-    private JLabel jobDesc;
+    private final JButton search;
 
-    private JButton search;
-
-    private String[] locationOptions = {"Select Country", "gb", "us", "ca"};
     List<String> planOptions = new ArrayList<>();
-    private String[] salaryOptions = {"Select Option", "$40,000", "$50,000", "$60,000", "$70,000", "$80,000", "$90,000", "$100,000"};
-    private String[] sortOptions = {"Select Sort", "date", "salary", "relevance"};
-
-    private final int indJobCard = 750;
-    private final Color jobInfoColor = new Color(255, 225, 143);
-    private final Color jobDescColor = new Color(232, 231, 230);
 
     public JobPostingsView(JobPostingsViewModel jobPostingsViewModel) {
         JPanel jobPostingsPanel = new JPanel();
@@ -82,7 +58,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         final JPanel titleAndSelections = new JPanel(new GridBagLayout());
 
         final JPanel selections = new JPanel(new GridLayout(2, 3, 10, 10));
-        selections.setPreferredSize(new Dimension(800, 100));
+        selections.setPreferredSize(new Dimension(800, 128));
         selections.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // adds the title of the page
@@ -94,7 +70,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         // creates the dropdown selection with label for selecting the focus/plan
         JLabel plan = new JLabel(JobPostingsViewModel.FOCUS);
         plan.setFont(Styling.getSubFont().deriveFont(14f));
-        planOptions = new ArrayList<>(List.of("Select Plan"));
+        planOptions = new ArrayList<>(List.of("Select Focus"));
         planComboBox = new JComboBox<>(planOptions.toArray(new String[0]));
         planComboBox.setFont(Styling.getSubFont().deriveFont(12f));
         planComboBox.addActionListener(this);
@@ -125,14 +101,17 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         salarySelectionPanel.add(salary);
 
         // creates the dropdown selection with label for selecting the sorting
-        sort = new JLabel(jobPostingsViewModel.SORT_LABEL);
+        JLabel sort = new JLabel(JobPostingsViewModel.SORT_LABEL);
+        String[] sortOptions = {"Select Sort", "date", "salary", "relevance"};
         sortComboBox = new JComboBox<>(sortOptions);
         sortComboBox.addActionListener(this);
+        JPanel sortSelectionPanel = new JPanel();
         sortSelectionPanel.add(sort);
         sortSelectionPanel.add(sortComboBox);
 
         listingNumberLabel = new JLabel("Showing Results: " + listingNumber);
         listingNumberLabel.setFont(Styling.getSubFont().deriveFont(12f));
+        JPanel listingNumberPanel = new JPanel();
         listingNumberPanel.add(listingNumberLabel);
 
         search = new JButton("Search");
@@ -189,19 +168,19 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
         // sets the user selected info in the state that will be eventually sent to the controller
         if (e.getSource().equals(planComboBox)) {
-            currentState.setFocus(planComboBox.getSelectedItem().toString());
+            currentState.setFocus(Objects.requireNonNull(planComboBox.getSelectedItem()).toString());
             jobPostingsViewModel.setState(currentState);
         }
         if (e.getSource().equals(locationComboBox)) {
-            currentState.setLocation(locationComboBox.getSelectedItem().toString());
+            currentState.setLocation(Objects.requireNonNull(locationComboBox.getSelectedItem()).toString());
             jobPostingsViewModel.setState(currentState);
         }
         if (e.getSource().equals(salaryComboBox)) {
-            currentState.setMinSalary(salaryComboBox.getSelectedItem().toString());
+            currentState.setMinSalary(Objects.requireNonNull(salaryComboBox.getSelectedItem()).toString());
             jobPostingsViewModel.setState(currentState);
         }
         if (e.getSource().equals(sortComboBox)) {
-            currentState.setSort(sortComboBox.getSelectedItem().toString());
+            currentState.setSort(Objects.requireNonNull(sortComboBox.getSelectedItem()).toString());
         }
     }
 
@@ -209,49 +188,22 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     public void propertyChange(PropertyChangeEvent evt) {
         final JobPostingsState jobPostingsState = jobPostingsViewModel.getState();
         List<JobListing> resetJobs = new ArrayList<>();
-        // saves previous selection
-        String previousSelection = (String) planComboBox.getSelectedItem();
 
-        if (!jobPostingsState.getFocuses().isEmpty()) {
-            ArrayList<String> usersFocuses = jobPostingsState.getFocuses();
-
-            // Adds the focuses if they aren't in  planOptions already
-            for (String focus :  usersFocuses) {
-                if (!planOptions.contains(focus)) {
-                    planOptions.add(focus);
-                }
-            }
-             // resets the combo box with the updated selections
-            planComboBox.setModel(new DefaultComboBoxModel<>(planOptions.toArray(new String[0])));
-
-            // sets the previous selection
-            if (previousSelection != null && planOptions.contains(previousSelection)) {
-                planComboBox.setSelectedItem(previousSelection);
-            }
-
-        }
+        // updates the focus selection combobox
+        updateFocusSelection(jobPostingsState);
 
         // if an error appears, clear the panel and show the error
-        if (!jobPostingsState.getListingError().equals("")) {
-            if (jobPostingsState.getListingError().contains("error")
-                    || jobPostingsState.getListingError().contains("Error")) {
-                JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(),
+        if (!jobPostingsState.getListingError().isEmpty()) {
+            JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(),
                         "Error", JOptionPane.ERROR_MESSAGE);
-                allJobPostingsPanel.removeAll();
-                allJobPostingsPanel.revalidate();
-                allJobPostingsPanel.repaint();
+            allJobPostingsPanel.removeAll();
+            allJobPostingsPanel.revalidate();
+            allJobPostingsPanel.repaint();
 
-                jobPostingsState.setListingError("");
-                jobPostingsState.setJobListings(resetJobs);
-                jobPostingsState.setNumberOfResults("0");
-                showListingTotal(jobPostingsState);
-
-            } else {
-                JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(),
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                jobPostingsState.setListingError("");
-                showListingTotal(jobPostingsState);
-            }
+            jobPostingsState.setListingError("");
+            jobPostingsState.setJobListings(resetJobs);
+            jobPostingsState.setNumberOfResults("0");
+            showListingTotal(jobPostingsState);
 
         }
 
@@ -271,6 +223,33 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
     }
 
+    private void updateFocusSelection(JobPostingsState jobPostingsState) {
+        // saves previous selection
+        String previousSelection = (String) planComboBox.getSelectedItem();
+
+        ArrayList<String> usersFocuses = jobPostingsState.getFocuses();
+        planOptions.clear();
+        planOptions.add("Select Focus");
+        // Adds the focuses
+        for (String focus :  usersFocuses) {
+            if (!planOptions.contains(focus)) {
+                planOptions.add(focus);
+            }
+        }
+        // resets the combo box with the updated selections
+        planComboBox.setModel(new DefaultComboBoxModel<>(planOptions.toArray(new String[0])));
+
+        // sets the previous selection
+        if (previousSelection != null && planOptions.contains(previousSelection)) {
+            planComboBox.setSelectedItem(previousSelection);
+        }
+
+        // if its empty
+        if (usersFocuses.isEmpty()) {
+            planComboBox.setSelectedItem("Select Focus");
+        }
+    }
+
     private void showListingTotal(JobPostingsState jobPostingsState) {
         listingNumber = jobPostingsState.getNumberOfResults();
         listingNumberLabel.setText("Showing Results: " + listingNumber);
@@ -285,7 +264,6 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         for (JobListing jobListing : jobPostingsState.getJobListings()) {
             JPanel individualJobPostingsPanel = new JPanel();
             individualJobPostingsPanel.setLayout(new BoxLayout(individualJobPostingsPanel, BoxLayout.X_AXIS));
-
 
             int indJobCard = 750;
             individualJobPostingsPanel.setPreferredSize(new Dimension(indJobCard, 300));

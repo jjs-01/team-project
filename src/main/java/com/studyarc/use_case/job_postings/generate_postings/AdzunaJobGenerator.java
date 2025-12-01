@@ -84,6 +84,8 @@ public class AdzunaJobGenerator implements JobRepository {
                     // creates the list that will be returned containing the JobListing entities
                     List<JobListing> listings = new ArrayList<>();
 
+                    // creating a list containing the hashmap of each item
+
                     for (int i = 0; i < jobResults.length(); i++) {
                         JSONObject job = jobResults.getJSONObject(i);
                         JSONObject jobCompany = job.getJSONObject("company");

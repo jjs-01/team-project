@@ -6,7 +6,7 @@ public interface KeywordGenerator {
 
     /**
      * Returns the keywords for user's selected focus
-     * @return
+     * @return KeywordList
      */
     KeywordList generate(String focus) throws KeywordGeneratorException;
 
