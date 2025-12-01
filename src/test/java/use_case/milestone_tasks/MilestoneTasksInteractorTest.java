@@ -1,4 +1,4 @@
-package milestone_tasks;
+package use_case.milestone_tasks;
 
 import com.studyarc.data_access.InMemoryDataUserDataAccessObject;
 import com.studyarc.entity.StudyPlan;

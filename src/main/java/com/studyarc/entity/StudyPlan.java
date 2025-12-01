@@ -11,12 +11,18 @@ public class StudyPlan implements Serializable {
     private String title;
     private List<Milestone> milestones;
     private final List<Reflection> reflections = new ArrayList<>();
+    private final List<ResearchPaper> researchPapers = new ArrayList<>();
     private String focus;
 
     public StudyPlan(String title, List<Milestone> milestones, String focus) {
         this.title = title;
         this.milestones = milestones;
         this.focus = focus;
+    }
+
+    // Convenience constructor for backward compatibility (without focus)
+    public StudyPlan(String title, List<Milestone> milestones) {
+        this(title, milestones, null);
     }
 
     public String getTitle() {
@@ -43,7 +49,19 @@ public class StudyPlan implements Serializable {
         this.reflections.add(reflection);
     }
 
-    public String getFocus() { return focus; }
+    public List<ResearchPaper> getResearchPapers() {
+        return researchPapers;
+    }
 
-    public void setFocus(String focus) { this.focus = focus; }
+    public void addResearchPaper(ResearchPaper paper) {
+        this.researchPapers.add(paper);
+    }
+
+    public String getFocus() {
+        return focus;
+    }
+
+    public void setFocus(String focus) {
+        this.focus = focus;
+    }
 }

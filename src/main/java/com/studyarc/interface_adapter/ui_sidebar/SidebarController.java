@@ -13,10 +13,17 @@ public class SidebarController {
         sidebarUseCaseInteractor.switchToJobBoard();
     }
 
-    public void switchToLogin(){
+    public void switchToLogin() {
         sidebarUseCaseInteractor.switchToLogin();
     }
-    public void switchToTrackPlan(){sidebarUseCaseInteractor.switchToTrackPlan();}
+
+    public void switchToTrackPlan() {
+        sidebarUseCaseInteractor.switchToTrackPlan();
+    }
+
+    public void switchToPapers() {
+        sidebarUseCaseInteractor.switchToPapers();
+    }
 
     public void setUser(String username) {
         sidebarUseCaseInteractor.setUser(username);

@@ -11,6 +11,7 @@ public class Main {
                 .addMilestonesPanel()
                 .addTrackPlanView()
                 .addJobPostingsView()
+                .addViewingResearchPapersView()
                 .addLoadMilestonesUseCase()
                 .addAddPlanUseCase()
                 .addTrackPlanUsecase()
@@ -19,6 +20,7 @@ public class Main {
                 .addJobPostingsUseCase()
                 .addMilestoneTasksUseCase()
                 .addAddReflectionUseCase()
+                .addViewingResearchPapersUseCase()
                 .addLoginUseCase()
                 .build();
 

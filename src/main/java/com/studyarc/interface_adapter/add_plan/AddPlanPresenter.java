@@ -1,7 +1,6 @@
 package com.studyarc.interface_adapter.add_plan;
 
 import com.studyarc.interface_adapter.ViewManagerModel;
-import com.studyarc.interface_adapter.track_plan.TrackPlanState;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
 import com.studyarc.use_case.add_plan.AddPlanOutputBoundary;
 import com.studyarc.use_case.add_plan.AddPlanOutputData;

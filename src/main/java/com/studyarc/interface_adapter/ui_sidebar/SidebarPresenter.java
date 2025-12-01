@@ -8,26 +8,31 @@ import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksState;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 import com.studyarc.interface_adapter.track_plan.TrackPlanState;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
+import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersViewModel;
 import com.studyarc.use_case.ui_sidebar.SidebarOutputBoundary;
-
-import java.util.ArrayList;
 
 public class SidebarPresenter implements SidebarOutputBoundary {
     private final SidebarViewModel sidebarViewModel;
     private final JobPostingsViewModel jobPostingsViewModel;
+    private final MilestoneTasksViewModel milestoneTasksViewModel;
     private final ViewManagerModel viewManagerModel;
     private final TrackPlanViewModel trackPlanViewModel;
+    private final ViewingResearchPapersViewModel viewingResearchPapersViewModel;
     private final LoginViewModel loginViewModel;
 
     public SidebarPresenter(ViewManagerModel viewManagerModel,
                             SidebarViewModel sidebarViewModel,
                             JobPostingsViewModel jobPostingsViewModel,
+                            MilestoneTasksViewModel milestoneTasksViewModel,
                             TrackPlanViewModel trackPlanViewModel,
+                            ViewingResearchPapersViewModel viewingResearchPapersViewModel,
                             LoginViewModel loginViewModel) {
         this.sidebarViewModel = sidebarViewModel;
         this.jobPostingsViewModel = jobPostingsViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.milestoneTasksViewModel = milestoneTasksViewModel;
         this.trackPlanViewModel = trackPlanViewModel;
+        this.viewingResearchPapersViewModel = viewingResearchPapersViewModel;
         this.loginViewModel = loginViewModel;
     }
 
@@ -35,7 +40,6 @@ public class SidebarPresenter implements SidebarOutputBoundary {
     public void switchToJobBoard() {
         viewManagerModel.setState(jobPostingsViewModel.getViewName());
         viewManagerModel.firePropertyChange();
-
     }
 
     @Override
@@ -45,27 +49,30 @@ public class SidebarPresenter implements SidebarOutputBoundary {
     }
 
     @Override
+    public void switchToPapers() {
+        viewManagerModel.setState(viewingResearchPapersViewModel.getViewName());
+        viewManagerModel.firePropertyChange();
+    }
+
+    @Override
     public void switchToLogin() {
-        // reset the loginstate
+        // Reset the login state
         loginViewModel.setState(new LoginState());
-        //reset the sidebar username
-        sidebarViewModel.getState().setUserName(null);
+        // Reset the sidebar username
+        sidebarViewModel.getState().setUserName("");
+        // Reset track plan state
         trackPlanViewModel.setState(new TrackPlanState());
         loginViewModel.firePropertyChange();
         viewManagerModel.setState(loginViewModel.getViewName());
         sidebarViewModel.firePropertyChange();
         trackPlanViewModel.firePropertyChange();
         viewManagerModel.firePropertyChange();
-
     }
 
     @Override
     public void setUser(String username) {
         final SidebarState sidebarState = sidebarViewModel.getState();
         sidebarState.setUserName(username);
-
         sidebarViewModel.firePropertyChange();
     }
-
-
 }
