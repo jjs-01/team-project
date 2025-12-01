@@ -73,5 +73,4 @@ public class JobPostingsState {
     public void setNumberOfResults(String numberOfResults) { this.numberOfResults = numberOfResults; }
 
     public void setFocuses(ArrayList<String> focuses) { this.focuses = focuses; }
-
 }

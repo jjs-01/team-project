@@ -3,6 +3,7 @@ package com.studyarc.view;
 import com.studyarc.interface_adapter.job_postings.JobPostingsController;
 import com.studyarc.interface_adapter.login.*;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarController;
+import com.studyarc.interface_adapter.ui_sidebar.SidebarViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,7 +68,6 @@ public class RegisterView extends JPanel implements ActionListener, PropertyChan
             state.setPassword(this.passwordInput.getText());
             state.setErrorCode("");
 
-            sideBarController.setUser(state.getUsername());
 //            registerController.showSidebar();
 
             this.registerController.execute(state);

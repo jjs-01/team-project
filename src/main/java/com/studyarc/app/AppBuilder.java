@@ -67,11 +67,8 @@ import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInputB
 import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInteractor;
 import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersOutputBoundary;
 import com.studyarc.view.*;
-import com.studyarc.interface_adapter.add_papers_to_plan.AddPapersToPlanController;
 import com.studyarc.interface_adapter.add_papers_to_plan.AddPapersToPlanPresenter;
-import com.studyarc.use_case.add_papers_to_plan.AddPapersToPlanInputBoundary;
 import com.studyarc.use_case.add_papers_to_plan.AddPapersToPlanInteractor;
-import com.studyarc.use_case.add_papers_to_plan.AddPapersToPlanOutputBoundary;
 
 public class AppBuilder {
     // Data Access Objects
@@ -87,6 +84,7 @@ public class AppBuilder {
     // ViewModels
     private SidebarViewModel sidebarViewModel;
     private JobPostingsViewModel jobPostingsViewModel;
+    private TrackPlanController trackPlanController;
     private final MilestoneTasksViewModel milestoneTasksViewModel = new MilestoneTasksViewModel();
     private TrackPlanViewModel trackPlanViewModel;
     private AddReflectionViewModel addReflectionViewModel;
@@ -166,13 +164,15 @@ public class AppBuilder {
     }
 
     public AppBuilder addLoginUseCase() {
+        // Note: trackPlanController may be null at this point if addTrackPlanUsecase() hasn't been called yet
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(
                 loginViewModel,
                 registerViewModel,
                 viewManagerModel,
                 trackPlanViewModel,
                 milestoneTasksViewModel,
-                sidebarViewModel);
+                sidebarViewModel,
+                trackPlanController);
         final LoginInputBoundary loginInteractor = new LoginInteractor(databaseAccess, loginOutputBoundary);
 
         loginView.setLoginController(new LoginController(loginInteractor));
@@ -206,6 +206,7 @@ public class AppBuilder {
         // Add TrackPlan Controller to TrackPlanView
         TrackPlanInputBoundary interactor = new TrackPlanInteractor(presenter, dataaccess);
         TrackPlanController trackPlanController = new TrackPlanController(interactor);
+        this.trackPlanController = trackPlanController;
         this.trackPlansView.setTrackPlanController(trackPlanController);
         sidePanelView.setTrackPlanController(trackPlanController);
         return this;

@@ -20,7 +20,6 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
     private final JPanel mainButtonPanel = new JPanel();
     private final JLabel logo = new JLabel("Study Arc");
     private final JLabel userLoggedIn = new JLabel("Logged In User");
-    private final JButton seePlans;
     private final JButton seePapers;
     private final JButton seeJobs;
     private final JButton myPlans;
@@ -43,13 +42,12 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         userLoggedIn.setFont(Styling.getSubFont());
         userLoggedIn.setHorizontalAlignment(SwingConstants.CENTER);
 
-        seePlans = new JButton("New Plans");
         seePapers = new JButton("Papers");
         seeJobs = new JButton("Jobs");
         myPlans = new JButton("My Plans");
         logout = new JButton("Logout");
 
-        final JButton[] buttons = {seePlans, seePapers, seeJobs, myPlans, logout};
+        final JButton[] buttons = {seePapers, seeJobs, myPlans, logout};
 
         this.setLayout(new BorderLayout());
         mainButtonPanel.setLayout(new GridBagLayout());
@@ -89,13 +87,6 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
             }
         });
 
-        seePlans.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                System.out.println("clicked Plans");
-                sidebarController.switchToMilestone();
-            }
-        });
-
         seePapers.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 sidebarController.switchToPapers();
@@ -105,8 +96,7 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         myPlans.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: Use actual logged-in username instead of hardcoded value
-                trackPlanController.execute("qyz");
+                trackPlanController.execute(sidebarViewModel.getState().getUserName());
                 sidebarController.switchToTrackPlan();
             }
         });
@@ -124,13 +114,17 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        this.setVisible(true);
+        System.out.println("property changed");
         SidebarState state = sidebarViewModel.getState();
-        System.out.println("state= " + state);
+        String username = state.getUserName();
+        boolean loggedIn = username != null && !username.trim().isEmpty();
 
-        userName = state.getUserName();
-        this.userLoggedIn.setText("Welcome, " + userName);
-        this.setVisible(true);
+        this.setVisible(loggedIn);
+        if (loggedIn) {
+            userLoggedIn.setText("Welcome, " + username);
+        } else {
+            userLoggedIn.setText("");
+        }
     }
 
     public void setSidebarController(SidebarController sidebarController) {

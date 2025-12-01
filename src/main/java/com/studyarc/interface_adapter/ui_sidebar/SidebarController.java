@@ -13,10 +13,6 @@ public class SidebarController {
         sidebarUseCaseInteractor.switchToJobBoard();
     }
 
-    public void switchToMilestone() {
-        sidebarUseCaseInteractor.switchToMilestone();
-    }
-
     public void switchToLogin() {
         sidebarUseCaseInteractor.switchToLogin();
     }

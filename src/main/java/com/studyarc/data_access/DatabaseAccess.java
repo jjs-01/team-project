@@ -16,6 +16,7 @@ import com.studyarc.data_access.core.COREAPIClient;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.io.*;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class DatabaseAccess implements JobPostingsDataAccessInterface,
@@ -32,21 +33,21 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     private static DatabaseAccess instance;
     private User user;
     private List<User> allUsers;
-    private ArrayList<String> focuses = new ArrayList<>();
     private CoreResearchAdapter researchAdapter;
 
-    @SuppressWarnings("unchecked")
     private DatabaseAccess() {
-        try {
-            FileInputStream fileInputStream = new FileInputStream("studyarc-users.ser");
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            this.allUsers = (List<User>) objectInputStream.readObject();
-            objectInputStream.close();
-            fileInputStream.close();
-        } catch (IOException | ClassNotFoundException | ClassCastException e) {
-            // If file doesn't exist or can't be read, initialize with empty list
+        File f = new File("studyarc-users.ser");
+        if (f.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
+                //noinspection unchecked
+                this.allUsers = (List<User>) ois.readObject();
+            } catch (IOException | ClassNotFoundException | ClassCastException e) {
+                System.out.println("Could not load users file, starting with empty user list: " + e.getMessage());
+                this.allUsers = new ArrayList<>();
+            }
+        } else {
+            // first runs: no file yet
             this.allUsers = new ArrayList<>();
-            System.out.println("Could not load users file, starting with empty user list: " + e.getMessage());
         }
         this.user = null;
 
@@ -70,6 +71,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
 
     @Override
     public ArrayList<String> getFocuses() {
+        ArrayList<String> focuses = new ArrayList<>();
         ArrayList<StudyPlan> allStudyPlans = this.getPlans();
 
         for (StudyPlan studyPlan : allStudyPlans) {
@@ -402,6 +404,18 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
+    public boolean registerUser(String username, String password) {
+        try {
+            User newUser = new User(username, password);
+            this.user = newUser;
+            this.allUsers.add(newUser);
+            this.save();
+            return true;
+        } catch (NoSuchAlgorithmException e) {
+            return false;
+        }
+    }
+
     public boolean registerUser(User u) {
         if (u != null && !allUsers.contains(u)) {
             allUsers.add(u);
@@ -420,7 +434,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
                 }
             }
         }
-        return this.user;
+        return null;
     }
 
     public void setUser(User u) {
@@ -508,6 +522,14 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         } catch (IOException e) {
             System.err.println("Error saving users to file: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
+        if (user != null) {
+            this.user.setStudyPlans(plans);
+            this.save();
         }
     }
 }

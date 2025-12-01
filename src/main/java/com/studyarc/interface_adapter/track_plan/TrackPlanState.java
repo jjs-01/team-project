@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrackPlanState {
-    private ArrayList<StudyPlan> studyPlans;
+    private ArrayList<StudyPlan> studyPlans = new ArrayList<StudyPlan>();
     private String Username = "";
     private String savingMessage = "";
 

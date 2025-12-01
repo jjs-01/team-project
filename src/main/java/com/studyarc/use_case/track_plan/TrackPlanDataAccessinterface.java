@@ -7,5 +7,9 @@ import java.util.ArrayList;
 public interface TrackPlanDataAccessinterface {
 
     ArrayList<StudyPlan> getPlans();
-    ArrayList<StudyPlan> generateTestPlans();
+    void save();
+    void saveAllPlansForUser(ArrayList<StudyPlan> plans);
+
+
+
 }

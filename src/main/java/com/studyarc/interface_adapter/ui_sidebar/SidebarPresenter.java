@@ -6,6 +6,7 @@ import com.studyarc.interface_adapter.login.LoginState;
 import com.studyarc.interface_adapter.login.LoginViewModel;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksState;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
+import com.studyarc.interface_adapter.track_plan.TrackPlanState;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersViewModel;
 import com.studyarc.use_case.ui_sidebar.SidebarOutputBoundary;
@@ -42,15 +43,6 @@ public class SidebarPresenter implements SidebarOutputBoundary {
     }
 
     @Override
-    public void switchToMilestone() {
-        viewManagerModel.setState(milestoneTasksViewModel.getViewName());
-        MilestoneTasksState milestoneState = milestoneTasksViewModel.getState();
-        milestoneState.setStudyPlanName("New study plan");
-        milestoneTasksViewModel.firePropertyChange();
-        viewManagerModel.firePropertyChange();
-    }
-
-    @Override
     public void switchToTrackPlan() {
         viewManagerModel.setState(trackPlanViewModel.getViewName());
         viewManagerModel.firePropertyChange();
@@ -68,9 +60,12 @@ public class SidebarPresenter implements SidebarOutputBoundary {
         loginViewModel.setState(new LoginState());
         // Reset the sidebar username
         sidebarViewModel.getState().setUserName("");
+        // Reset track plan state
+        trackPlanViewModel.setState(new TrackPlanState());
         loginViewModel.firePropertyChange();
         viewManagerModel.setState(loginViewModel.getViewName());
         sidebarViewModel.firePropertyChange();
+        trackPlanViewModel.firePropertyChange();
         viewManagerModel.firePropertyChange();
     }
 

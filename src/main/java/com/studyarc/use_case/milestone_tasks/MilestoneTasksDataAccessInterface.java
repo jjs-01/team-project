@@ -9,7 +9,6 @@ public interface MilestoneTasksDataAccessInterface {
     /**
      * Saves the milestones and tasks to the User's StudyPlan
      */
-    void savePlan(StudyPlan plan);
 
     StudyPlan getPlan(String planName);
 
