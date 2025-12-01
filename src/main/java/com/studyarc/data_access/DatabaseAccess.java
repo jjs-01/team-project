@@ -63,12 +63,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         }
     }
 
-    public static DatabaseAccess getInstance() {
-        return DatabaseAccess.instance == null ?
-                (DatabaseAccess.instance = new DatabaseAccess()) :
-                DatabaseAccess.instance;
-    }
-
     @Override
     public ArrayList<String> getFocuses() {
         ArrayList<String> focuses = new ArrayList<>();
@@ -86,20 +80,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         focuses = new ArrayList<>(set);
 
         return focuses;
-    }
-
-    public ArrayList<Task> getTasksForMilestone(User user, StudyPlan plan, Milestone milestone) {
-        if (milestone != null && milestone.getSubtasks() != null) {
-            return new ArrayList<>(milestone.getSubtasks());
-        }
-        return new ArrayList<>();
-    }
-
-    public ArrayList<Milestone> getMilestones(User user, StudyPlan plan) {
-        if (plan != null && plan.getMilestones() != null) {
-            return new ArrayList<>(plan.getMilestones());
-        }
-        return new ArrayList<>();
     }
 
     public ArrayList<StudyPlan> getPlans(String username) {
@@ -134,15 +114,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         }
     }
 
-    public boolean registerUser(User u) {
-        if (u != null && !allUsers.contains(u)) {
-            allUsers.add(u);
-            save();
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public User getUser(String username) {
         if (username != null) {
@@ -157,18 +128,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
 
     public void setUser(User u) {
         this.user = u;
-    }
-
-    public StudyPlan getPlan(User user, String planName) {
-        if (user != null && planName != null) {
-            ArrayList<StudyPlan> userStudyPlans = user.getStudyPlans();
-            for (StudyPlan plan : userStudyPlans) {
-                if (plan.getTitle().equals(planName)) {
-                    return plan;
-                }
-            }
-        }
-        return null;
     }
 
     @Override
@@ -220,6 +179,10 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
             return researchAdapter.getPaperById(paperId);
         }
         throw new IllegalStateException("CORE API not configured. Please add CORE_API_KEY to .env file");
+    }
+
+    public static DatabaseAccess getInstance() {
+        return DatabaseAccess.instance == null ? (DatabaseAccess.instance = new DatabaseAccess()) : DatabaseAccess.instance;
     }
 
     public void save() {

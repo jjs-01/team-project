@@ -56,13 +56,11 @@ import com.studyarc.use_case.load_milestones.LoadMilestonesOutputBoundary;
 import com.studyarc.use_case.login.LoginInputBoundary;
 import com.studyarc.use_case.login.LoginInteractor;
 import com.studyarc.use_case.login.LoginOutputBoundary;
-import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksInteractor;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputBoundary;
 import com.studyarc.use_case.track_plan.*;
 import com.studyarc.use_case.ui_sidebar.*;
-import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersDataAccessInterface;
 import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInputBoundary;
 import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInteractor;
 import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersOutputBoundary;
@@ -79,7 +77,7 @@ public class AppBuilder {
     // Layout Components
     private final JPanel overallPanel = new JPanel(new BorderLayout());
     private final JPanel cardPanel = new JPanel(new CardLayout());
-    private CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+    private final CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
 
     // ViewModels
     private SidebarViewModel sidebarViewModel;
@@ -106,24 +104,10 @@ public class AppBuilder {
 
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    public AppBuilder() {
-    }
-
     public AppBuilder addSidePanel() {
         sidebarViewModel = new SidebarViewModel();
         sidePanelView = new SidePanelView(sidebarViewModel);
         overallPanel.add(sidePanelView, BorderLayout.WEST);
-        return this;
-    }
-
-    public AppBuilder addLoginView() {
-        loginViewModel = new LoginViewModel();
-        loginView = new LoginView(loginViewModel);
-        cardPanel.add(loginView, loginView.getViewName());
-
-        registerViewModel = new RegisterViewModel();
-        registerView = new RegisterView(registerViewModel);
-        cardPanel.add(registerView, registerView.getViewName());
         return this;
     }
 
@@ -132,27 +116,6 @@ public class AppBuilder {
         this.addReflectionViewModel = new AddReflectionViewModel();
         this.trackPlansView = TrackPlansView.getInstance(trackPlanViewModel, addReflectionViewModel);
         cardPanel.add(trackPlansView, trackPlansView.getViewName());
-        return this;
-    }
-
-    public AppBuilder addJobPostingsView() {
-        jobPostingsViewModel = new JobPostingsViewModel();
-        jobPostingsView = new JobPostingsView(jobPostingsViewModel);
-        cardPanel.add(jobPostingsView, jobPostingsView.getViewName());
-        return this;
-    }
-
-    public AppBuilder addMilestoneTasksPanel() {
-        milestoneTaskView = new MilestoneTasksView(milestoneTasksViewModel);
-        cardPanel.add(milestoneTaskView, milestoneTaskView.getViewName());
-        return this;
-    }
-
-    public AppBuilder addLoadMilestonesPanel() {
-        loadMilestonesViewModel = new LoadMilestonesViewModel();
-        loadMilestonesView = new LoadMilestonesView(milestoneTasksViewModel, loadMilestonesViewModel);
-        cardPanel.add(loadMilestonesView, loadMilestonesView.getViewName());
-        overallPanel.add(cardPanel, BorderLayout.CENTER);
         return this;
     }
 
@@ -182,12 +145,11 @@ public class AppBuilder {
 
     public AppBuilder addTrackPlanUsecase() {
         TrackPlanOutputBoundary presenter = new TrackPlanPresenter(trackPlanViewModel, viewManagerModel);
-        TrackPlanDataAccessinterface dataaccess = this.databaseAccess;
-
         // Add LoadMilestone Controller to TrackPlanView
-        LoadMilestonesOutputBoundary loadpresenter = new LoadMilestonesPresenter(viewManagerModel, loadMilestonesViewModel);
-        LoadMilestonesInputBoundary loadmilesInteractor = new LoadMilestonesInteractor(this.databaseAccess, loadpresenter);
-        LoadMilestonesController loadMilestonesController = new LoadMilestonesController(loadmilesInteractor);
+
+        LoadMilestonesOutputBoundary loadMilestonesPresenter = new LoadMilestonesPresenter(viewManagerModel, loadMilestonesViewModel);
+        LoadMilestonesInputBoundary loadMilestonesInteractor = new LoadMilestonesInteractor(this.databaseAccess, loadMilestonesPresenter);
+        LoadMilestonesController loadMilestonesController = new LoadMilestonesController(loadMilestonesInteractor);
         this.trackPlansView.setLoadMilestonesController(loadMilestonesController);
 
         // Add Sidebar Controller to TrackPlanView
@@ -204,9 +166,8 @@ public class AppBuilder {
         this.trackPlansView.setSidebarController(sidebarController);
 
         // Add TrackPlan Controller to TrackPlanView
-        TrackPlanInputBoundary interactor = new TrackPlanInteractor(presenter, dataaccess);
-        TrackPlanController trackPlanController = new TrackPlanController(interactor);
-        this.trackPlanController = trackPlanController;
+        TrackPlanInputBoundary interactor = new TrackPlanInteractor(presenter, this.databaseAccess);
+        trackPlanController = new TrackPlanController(interactor);
         this.trackPlansView.setTrackPlanController(trackPlanController);
         sidePanelView.setTrackPlanController(trackPlanController);
         return this;
@@ -216,6 +177,35 @@ public class AppBuilder {
         DeletePlanOutputBoundary presenter = new DeletePlanPresenter(this.trackPlanViewModel);
         DeletePlanInputBoundary interactor = new DeletePlanInteractor(presenter, this.databaseAccess);
         trackPlansView.setDeletePlanController(new DeletePlanController(interactor));
+        return this;
+    }
+
+    public AppBuilder addJobPostingsView() {
+        jobPostingsViewModel = new JobPostingsViewModel();
+        jobPostingsView = new JobPostingsView(jobPostingsViewModel);
+
+        cardPanel.add(jobPostingsView, jobPostingsView.getViewName());
+
+        return this;
+    }
+    public AppBuilder addLoginView(){
+        loginViewModel = new LoginViewModel();
+        loginView = new LoginView(loginViewModel);
+        cardPanel.add(loginView, loginView.getViewName());
+        registerViewModel = new RegisterViewModel();
+        registerView = new RegisterView(registerViewModel);
+        cardPanel.add(registerView, registerView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addMilestonesPanel() {
+        loadMilestonesViewModel = new LoadMilestonesViewModel();
+
+        milestoneTaskView = new MilestoneTasksView(milestoneTasksViewModel);
+        loadMilestonesView = new LoadMilestonesView(milestoneTasksViewModel, loadMilestonesViewModel);
+
+        cardPanel.add(loadMilestonesView, loadMilestonesView.getViewName());
+        overallPanel.add(cardPanel, BorderLayout.CENTER);
         return this;
     }
 
@@ -291,15 +281,6 @@ public class AppBuilder {
                 milestonesOutputBoundary);
         MilestoneTasksController saveController = new MilestoneTasksController(milestoneSaveInteractor);
 
-        final LoadMilestonesOutputBoundary loadMilestonesOutputBoundary = new LoadMilestonesPresenter(
-                viewManagerModel,
-                loadMilestonesViewModel);
-        final LoadMilestonesInputBoundary loadMilestonesInteractor = new LoadMilestonesInteractor(
-                this.databaseAccess,
-                loadMilestonesOutputBoundary);
-
-        LoadMilestonesController loadController = new LoadMilestonesController(loadMilestonesInteractor);
-        loadMilestonesView.setLoadMilestonesController(loadController);
         loadMilestonesView.setMilestoneTasksController(saveController);
 
         return this;

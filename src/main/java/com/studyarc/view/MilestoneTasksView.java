@@ -19,10 +19,9 @@ import java.util.*;
 import java.util.List;
 
 /**
- * TODO: connect with backend
+ * View class for the creating and saving milestone tasks use case.
  * TODO: Write test cases for use case and entity
- * TODO (later): fix checkstyle issues
- * TODO (later): make the UI look nice
+ * TODO: Make presentation
  */
 public class MilestoneTasksView extends JPanel implements ActionListener, PropertyChangeListener {
     private static final String VIEW_NAME = "milestones and tasks";
@@ -249,7 +248,6 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                         MilestoneTasksViewModel.BASE_TASK_DATE,
                         MilestoneTasksViewModel.BASE_TASK_STATUS_1);
                 milestoneViewModel.setState(currentState);
-                System.out.println(currentState);
             }
 
             @Override
@@ -446,7 +444,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         }
 
         if (e.getSource().equals(focusesComboBox)) {
-            currentState.setFocus(focusesComboBox.getSelectedItem().toString());
+            currentState.setFocus((String) focusesComboBox.getSelectedItem());
         }
     }
 

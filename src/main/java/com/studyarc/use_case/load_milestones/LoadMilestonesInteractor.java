@@ -19,6 +19,11 @@ public class LoadMilestonesInteractor implements LoadMilestonesInputBoundary {
     public void execute(LoadMilestonesInputData loadMilestonesInputData) {
         StudyPlan studyPlan = loadMilestonesDataAccessObject.getPlan(loadMilestonesInputData.getStudyPlanName());
 
+        if (studyPlan == null) {
+            loadPresenter.prepareFailView("Can't retrieve study plan");
+            return;
+        }
+
         final LoadMilestonesOutputData loadMilestonesOutputData =
                 new LoadMilestonesOutputData(loadMilestonesInputData.getStudyPlanName(), studyPlan.getFocus(),
                 studyPlan.getMilestones());

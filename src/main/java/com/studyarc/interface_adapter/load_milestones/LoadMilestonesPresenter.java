@@ -51,6 +51,6 @@ public class LoadMilestonesPresenter implements LoadMilestonesOutputBoundary {
     public void prepareFailView(String error) {
         final LoadMilestonesState loadMilestonesState = loadMilestonesViewModel.getState();
         loadMilestonesState.setLoadError(error);
-        loadMilestonesViewModel.firePropertyChange();
+        loadMilestonesViewModel.firePropertyChange("load plan");
     }
 }
