@@ -19,10 +19,9 @@ import java.util.*;
 import java.util.List;
 
 /**
+ * View class for the creating and saving milestone tasks use case.
  * TODO: Write test cases for use case and entity
  * TODO: Make presentation
- * TODO (later): make the UI look nice
- * TODO (later): fix checkstyle issues
  */
 public class MilestoneTasksView extends JPanel implements ActionListener, PropertyChangeListener {
     private static final String VIEW_NAME = "milestones and tasks";
