@@ -2,7 +2,6 @@ package com.studyarc.view;
 
 import com.studyarc.interface_adapter.load_milestones.LoadMilestonesController;
 import com.studyarc.interface_adapter.load_milestones.LoadMilestonesState;
-import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksState;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 import com.studyarc.interface_adapter.load_milestones.LoadMilestonesViewModel;
 
@@ -15,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ */
 public class LoadMilestonesView extends MilestoneTasksView implements ActionListener, PropertyChangeListener {
     private final LoadMilestonesViewModel loadViewModel;
     private LoadMilestonesController loadController;
