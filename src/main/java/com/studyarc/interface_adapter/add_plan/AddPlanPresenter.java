@@ -26,8 +26,6 @@ public class AddPlanPresenter implements AddPlanOutputBoundary {
 //        System.out.println(currentState.getStudyPlans().size());
 //        currentState.getStudyPlans().add(response.getPlan());
         System.out.println(currentState.getStudyPlans().size());
-
-
         trackPlanViewModel.firePropertyChange("added plan");
     }
 }

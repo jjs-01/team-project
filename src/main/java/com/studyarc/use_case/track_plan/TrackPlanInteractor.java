@@ -26,16 +26,16 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
         String username = inputData.getUsername();
 
         //return the studyplans of the current user
-        ArrayList<StudyPlan> listofplans = this.getPlanTool.getPlans();
+        ArrayList<StudyPlan> listOfPlans = this.getPlanTool.getPlans();
 
-        TrackPlanOutputData trackPlanOutputData = new TrackPlanOutputData(username, listofplans);
-        presenter.prepareShowPlans(trackPlanOutputData);
-        if (listofplans == null || listofplans.isEmpty()) {
+        TrackPlanOutputData outputData = new TrackPlanOutputData(username, listOfPlans);
+        presenter.prepareShowPlans(outputData);
+        if (listOfPlans.isEmpty()) {
             System.out.println("interactor executes for emptyplans");
             presenter.prepareShowRedirect();
         } else {
             System.out.println("interactor executes");
-            presenter.prepareShowPlans(trackPlanOutputData);
+            presenter.prepareShowPlans(outputData);
         }
     }
 
@@ -51,9 +51,9 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
         }
         if (planTitles.size() == plans.size()) {
             this.getPlanTool.saveAllPlansForUser(plans);
-            presenter.prepareShowSavingResult("Saving complete!");
+            presenter.prepareShowSavingResult(" Save complete! ");
         } else {
-            presenter.prepareShowSavingResult("Oops!!Can not have same title for different plans!");
+            presenter.prepareShowSavingResult(" Oops!!Can not have repetitive plans! ");
         }
     }
 }
