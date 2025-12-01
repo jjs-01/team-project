@@ -1,12 +1,18 @@
-package com.studyarc.use_case.viewing_research_papers;
+package Viewing_Research_Papers;
 
 import com.studyarc.entity.ResearchPaper;
 import com.studyarc.entity.StudyPlan;
+import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInteractor;
+import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersDataAccessInterface;
+import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersOutputBoundary;
+import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInputData;
+import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersOutputData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,29 +36,38 @@ class ViewingResearchPapersInteractorTest {
         ViewingResearchPapersInputData inputData = new ViewingResearchPapersInputData();
 
         ArrayList<StudyPlan> testPlans = new ArrayList<>();
-        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>());
+        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>(), "Machine Learning");
         plan1.addResearchPaper(new ResearchPaper(
                 "1",
                 "Deep Learning for Computer Vision",
-                "Smith, J.",
+                Arrays.asList("Smith, J."),
                 "Abstract text",
-                "http://example.com/paper1"
+                "http://example.com/paper1",
+                "10.1234/test.001",
+                2023,
+                "http://example.com/paper1.pdf"
         ));
         plan1.addResearchPaper(new ResearchPaper(
                 "2",
                 "Neural Networks",
-                "Johnson, A.",
+                Arrays.asList("Johnson, A."),
                 "Abstract text",
-                "http://example.com/paper2"
+                "http://example.com/paper2",
+                "10.1234/test.002",
+                2023,
+                "http://example.com/paper2.pdf"
         ));
 
-        StudyPlan plan2 = new StudyPlan("Plan 2", new ArrayList<>());
+        StudyPlan plan2 = new StudyPlan("Plan 2", new ArrayList<>(), "NLP");
         plan2.addResearchPaper(new ResearchPaper(
                 "3",
                 "NLP with Transformers",
-                "Williams, B.",
+                Arrays.asList("Williams, B."),
                 "Abstract text",
-                "http://example.com/paper3"
+                "http://example.com/paper3",
+                "10.1234/test.003",
+                2023,
+                "http://example.com/paper3.pdf"
         ));
 
         testPlans.add(plan1);
@@ -106,7 +121,7 @@ class ViewingResearchPapersInteractorTest {
         ViewingResearchPapersInputData inputData = new ViewingResearchPapersInputData();
 
         ArrayList<StudyPlan> testPlans = new ArrayList<>();
-        StudyPlan planWithoutPapers = new StudyPlan("Empty Plan", new ArrayList<>());
+        StudyPlan planWithoutPapers = new StudyPlan("Empty Plan", new ArrayList<>(), "AI");
         testPlans.add(planWithoutPapers);
         testDataAccess.setPlansToReturn(testPlans);
 
@@ -197,15 +212,51 @@ class ViewingResearchPapersInteractorTest {
 
         ArrayList<StudyPlan> testPlans = new ArrayList<>();
 
-        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>());
-        plan1.addResearchPaper(new ResearchPaper("1", "Paper 1", "Author 1", "Abstract", "http://url1"));
+        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>(), "Focus 1");
+        plan1.addResearchPaper(new ResearchPaper(
+                "1",
+                "Paper 1",
+                Arrays.asList("Author 1"),
+                "Abstract",
+                "http://url1",
+                "10.1234/test.001",
+                2023,
+                "http://url1.pdf"
+        ));
 
-        StudyPlan plan2 = new StudyPlan("Plan 2", new ArrayList<>());
+        StudyPlan plan2 = new StudyPlan("Plan 2", new ArrayList<>(), "Focus 2");
 
-        StudyPlan plan3 = new StudyPlan("Plan 3", new ArrayList<>());
-        plan3.addResearchPaper(new ResearchPaper("2", "Paper 2", "Author 2", "Abstract", "http://url2"));
-        plan3.addResearchPaper(new ResearchPaper("3", "Paper 3", "Author 3", "Abstract", "http://url3"));
-        plan3.addResearchPaper(new ResearchPaper("4", "Paper 4", "Author 4", "Abstract", "http://url4"));
+        StudyPlan plan3 = new StudyPlan("Plan 3", new ArrayList<>(), "Focus 3");
+        plan3.addResearchPaper(new ResearchPaper(
+                "2",
+                "Paper 2",
+                Arrays.asList("Author 2"),
+                "Abstract",
+                "http://url2",
+                "10.1234/test.002",
+                2023,
+                "http://url2.pdf"
+        ));
+        plan3.addResearchPaper(new ResearchPaper(
+                "3",
+                "Paper 3",
+                Arrays.asList("Author 3"),
+                "Abstract",
+                "http://url3",
+                "10.1234/test.003",
+                2023,
+                "http://url3.pdf"
+        ));
+        plan3.addResearchPaper(new ResearchPaper(
+                "4",
+                "Paper 4",
+                Arrays.asList("Author 4"),
+                "Abstract",
+                "http://url4",
+                "10.1234/test.004",
+                2023,
+                "http://url4.pdf"
+        ));
 
         testPlans.add(plan1);
         testPlans.add(plan2);
@@ -232,13 +283,16 @@ class ViewingResearchPapersInteractorTest {
         ViewingResearchPapersInputData inputData = new ViewingResearchPapersInputData();
 
         ArrayList<StudyPlan> testPlans = new ArrayList<>();
-        StudyPlan plan = new StudyPlan("Test Plan", new ArrayList<>());
+        StudyPlan plan = new StudyPlan("Test Plan", new ArrayList<>(), "Test Focus");
         ResearchPaper paper = new ResearchPaper(
                 "123",
                 "Test Paper Title",
-                "Test Author",
+                Arrays.asList("Test Author"),
                 "Test Abstract",
-                "http://test.com"
+                "http://test.com",
+                "10.1234/test.123",
+                2023,
+                "http://test.com/paper.pdf"
         );
         plan.addResearchPaper(paper);
         testPlans.add(plan);
@@ -255,7 +309,7 @@ class ViewingResearchPapersInteractorTest {
         assertEquals("Test Plan", outputPlan.getTitle());
         assertEquals("123", outputPaper.getId());
         assertEquals("Test Paper Title", outputPaper.getTitle());
-        assertEquals("Test Author", outputPaper.getAuthors());
+        assertEquals("Test Author", outputPaper.getAuthorsAsString());
         assertEquals("Test Abstract", outputPaper.getAbstractText());
         assertEquals("http://test.com", outputPaper.getUrl());
     }
@@ -267,7 +321,7 @@ class ViewingResearchPapersInteractorTest {
         private Exception exceptionToThrow = null;
 
         @Override
-        public ArrayList<StudyPlan> getPlans(String username) {
+        public ArrayList<StudyPlan> getPlans() {  // CHANGED: No parameter
             callCount++;
             if (exceptionToThrow != null) {
                 if (exceptionToThrow instanceof RuntimeException) {
@@ -276,11 +330,6 @@ class ViewingResearchPapersInteractorTest {
                     throw new RuntimeException(exceptionToThrow);
                 }
             }
-            return plansToReturn;
-        }
-
-        @Override
-        public ArrayList<StudyPlan> generateTestPlans() {
             return plansToReturn;
         }
 

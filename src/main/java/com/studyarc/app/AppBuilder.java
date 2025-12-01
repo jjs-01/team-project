@@ -6,6 +6,7 @@ import java.awt.*;
 import com.studyarc.data_access.DatabaseAccess;
 import com.studyarc.entity.ReflectionFactory;
 import com.studyarc.interface_adapter.ViewManagerModel;
+import com.studyarc.interface_adapter.add_papers_to_plan.AddPapersToPlanController;
 import com.studyarc.interface_adapter.add_plan.AddPlanController;
 import com.studyarc.interface_adapter.add_plan.AddPlanPresenter;
 import com.studyarc.interface_adapter.delete_plan.DeletePlanController;
@@ -32,6 +33,8 @@ import com.studyarc.interface_adapter.ui_sidebar.SidebarViewModel;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersController;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersPresenter;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersViewModel;
+import com.studyarc.use_case.add_papers_to_plan.AddPapersToPlanInputBoundary;
+import com.studyarc.use_case.add_papers_to_plan.AddPapersToPlanOutputBoundary;
 import com.studyarc.use_case.add_plan.AddPlanInputBoundary;
 import com.studyarc.use_case.add_plan.AddPlanInteractor;
 import com.studyarc.use_case.add_plan.AddPlanOutputBoundary;
@@ -64,6 +67,11 @@ import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInputB
 import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInteractor;
 import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersOutputBoundary;
 import com.studyarc.view.*;
+import com.studyarc.interface_adapter.add_papers_to_plan.AddPapersToPlanController;
+import com.studyarc.interface_adapter.add_papers_to_plan.AddPapersToPlanPresenter;
+import com.studyarc.use_case.add_papers_to_plan.AddPapersToPlanInputBoundary;
+import com.studyarc.use_case.add_papers_to_plan.AddPapersToPlanInteractor;
+import com.studyarc.use_case.add_papers_to_plan.AddPapersToPlanOutputBoundary;
 
 public class AppBuilder {
     // Data Access Objects
@@ -300,13 +308,21 @@ public class AppBuilder {
         final ViewingResearchPapersOutputBoundary presenter =
                 new ViewingResearchPapersPresenter(viewingResearchPapersViewModel);
 
-        final ViewingResearchPapersDataAccessInterface dataAccess = new TrackPlanDataAccessTool();
-
         final ViewingResearchPapersInputBoundary interactor =
-                new ViewingResearchPapersInteractor(dataAccess, presenter);
+                new ViewingResearchPapersInteractor(databaseAccess, presenter);
 
         ViewingResearchPapersController controller = new ViewingResearchPapersController(interactor);
         viewingResearchPapersView.setViewingResearchPapersController(controller);
+
+
+        final AddPapersToPlanOutputBoundary addPapersPresenter =
+                new AddPapersToPlanPresenter(viewingResearchPapersViewModel);
+
+        final AddPapersToPlanInputBoundary addPapersInteractor =
+                new AddPapersToPlanInteractor(databaseAccess, addPapersPresenter);
+
+        AddPapersToPlanController addPapersController = new AddPapersToPlanController(addPapersInteractor);
+        viewingResearchPapersView.setAddPapersController(addPapersController);
 
         return this;
     }

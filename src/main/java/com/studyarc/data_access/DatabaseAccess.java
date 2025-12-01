@@ -8,6 +8,12 @@ import com.studyarc.use_case.login.LoginDataAccessInterface;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.add_reflection.AddReflectionDataAccessInterface;
 import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
+import com.studyarc.use_case.search_research_papers.SearchResearchPapersDataAccessInterface;
+import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersDataAccessInterface;
+import com.studyarc.use_case.add_papers_to_plan.AddPapersToPlanDataAccessInterface;
+import com.studyarc.interface_adapter.search_research_papers.CoreResearchAdapter;
+import com.studyarc.data_access.core.COREAPIClient;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.io.*;
 import java.util.*;
@@ -18,12 +24,16 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         LoadMilestonesDataAccessInterface,
         AddReflectionDataAccessInterface,
         TrackPlanDataAccessinterface,
-        AddPlanDataAccessInterface {
+        AddPlanDataAccessInterface,
+        SearchResearchPapersDataAccessInterface,
+        ViewingResearchPapersDataAccessInterface,
+        AddPapersToPlanDataAccessInterface {
 
     private static DatabaseAccess instance;
     private User user;
     private List<User> allUsers;
     private ArrayList<String> focuses = new ArrayList<>();
+    private CoreResearchAdapter researchAdapter;
 
     @SuppressWarnings("unchecked")
     private DatabaseAccess() {
@@ -39,6 +49,18 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
             System.out.println("Could not load users file, starting with empty user list: " + e.getMessage());
         }
         this.user = null;
+
+        // Initialize CORE API adapter
+        try {
+            Dotenv dotenv = Dotenv.load();
+            String apiKey = dotenv.get("CORE_API_KEY");
+            if (apiKey != null && !apiKey.isEmpty()) {
+                COREAPIClient apiClient = new COREAPIClient(apiKey);
+                this.researchAdapter = new CoreResearchAdapter(apiClient);
+            }
+        } catch (Exception e) {
+            System.out.println("CORE API not configured: " + e.getMessage());
+        }
     }
 
     public static DatabaseAccess getInstance() {
@@ -106,23 +128,32 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         plan1.addResearchPaper(new ResearchPaper(
                 "1",
                 "Deep Learning for Computer Vision",
-                "Smith, J., Johnson, A.",
+                Arrays.asList("Smith, J.", "Johnson, A."),
                 "Abstract text here...",
-                "http://example.com/paper1"
+                "http://example.com/paper1",
+                "10.1234/ml.2023.001",
+                2023,
+                "http://example.com/paper1.pdf"
         ));
         plan1.addResearchPaper(new ResearchPaper(
                 "2",
                 "Neural Networks Introduction",
-                "Williams, B.",
+                Arrays.asList("Williams, B."),
                 "Abstract text here...",
-                "http://example.com/paper2"
+                "http://example.com/paper2",
+                "10.1234/ml.2023.002",
+                2023,
+                "http://example.com/paper2.pdf"
         ));
         plan1.addResearchPaper(new ResearchPaper(
                 "3",
                 "Advanced CNN Architectures",
-                "Brown, C.",
+                Arrays.asList("Brown, C."),
                 "Abstract text here...",
-                "http://example.com/paper3"
+                "http://example.com/paper3",
+                "10.1234/ml.2023.003",
+                2022,
+                "http://example.com/paper3.pdf"
         ));
 
         Milestone p1m1 = new Milestone("Milestone 1");
@@ -145,23 +176,32 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         plan2.addResearchPaper(new ResearchPaper(
                 "4",
                 "Transformer Models",
-                "Davis, M.",
+                Arrays.asList("Davis, M."),
                 "Abstract text here...",
-                "http://example.com/paper4"
+                "http://example.com/paper4",
+                "10.1234/ai.2023.001",
+                2023,
+                "http://example.com/paper4.pdf"
         ));
         plan2.addResearchPaper(new ResearchPaper(
                 "5",
                 "Attention Mechanisms",
-                "Garcia, R.",
+                Arrays.asList("Garcia, R."),
                 "Abstract text here...",
-                "http://example.com/paper5"
+                "http://example.com/paper5",
+                "10.1234/ai.2023.002",
+                2022,
+                "http://example.com/paper5.pdf"
         ));
         plan2.addResearchPaper(new ResearchPaper(
                 "6",
                 "BERT and GPT Models",
-                "Martinez, L.",
+                Arrays.asList("Martinez, L."),
                 "Abstract text here...",
-                "http://example.com/paper6"
+                "http://example.com/paper6",
+                "10.1234/ai.2023.003",
+                2023,
+                "http://example.com/paper6.pdf"
         ));
 
         Milestone p2m1 = new Milestone("Milestone 1");
@@ -180,23 +220,32 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         plan3.addResearchPaper(new ResearchPaper(
                 "7",
                 "Reinforcement Learning Foundations",
-                "Nguyen, T.",
+                Arrays.asList("Nguyen, T."),
                 "Abstract text here...",
-                "http://example.com/plan3-paper1"
+                "http://example.com/plan3-paper1",
+                "10.1234/rl.2023.001",
+                2023,
+                "http://example.com/plan3-paper1.pdf"
         ));
         plan3.addResearchPaper(new ResearchPaper(
                 "8",
                 "Policy Gradient Methods",
-                "Harrison, E.",
+                Arrays.asList("Harrison, E."),
                 "Abstract text here...",
-                "http://example.com/plan3-paper2"
+                "http://example.com/plan3-paper2",
+                "10.1234/rl.2023.002",
+                2022,
+                "http://example.com/plan3-paper2.pdf"
         ));
         plan3.addResearchPaper(new ResearchPaper(
                 "9",
                 "Deep Q-Network Advances",
-                "Foster, J.",
+                Arrays.asList("Foster, J."),
                 "Abstract text here...",
-                "http://example.com/plan3-paper3"
+                "http://example.com/plan3-paper3",
+                "10.1234/rl.2023.003",
+                2023,
+                "http://example.com/plan3-paper3.pdf"
         ));
 
         Milestone p3m1 = new Milestone("Milestone 1");
@@ -215,23 +264,32 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         plan4.addResearchPaper(new ResearchPaper(
                 "10",
                 "Computer Vision with CNNs",
-                "Zhang, W.",
+                Arrays.asList("Zhang, W."),
                 "Abstract text here...",
-                "http://example.com/plan4-paper1"
+                "http://example.com/plan4-paper1",
+                "10.1234/cv.2023.001",
+                2023,
+                "http://example.com/plan4-paper1.pdf"
         ));
         plan4.addResearchPaper(new ResearchPaper(
                 "11",
                 "Image Segmentation Techniques",
-                "Lopez, D.",
+                Arrays.asList("Lopez, D."),
                 "Abstract text here...",
-                "http://example.com/plan4-paper2"
+                "http://example.com/plan4-paper2",
+                "10.1234/cv.2023.002",
+                2022,
+                "http://example.com/plan4-paper2.pdf"
         ));
         plan4.addResearchPaper(new ResearchPaper(
                 "12",
                 "Vision Transformers Explained",
-                "Khan, R.",
+                Arrays.asList("Khan, R."),
                 "Abstract text here...",
-                "http://example.com/plan4-paper3"
+                "http://example.com/plan4-paper3",
+                "10.1234/cv.2023.003",
+                2023,
+                "http://example.com/plan4-paper3.pdf"
         ));
 
         Milestone p4m1 = new Milestone("Milestone 1");
@@ -250,23 +308,32 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         plan5.addResearchPaper(new ResearchPaper(
                 "13",
                 "Data Mining Algorithms",
-                "Singh, P.",
+                Arrays.asList("Singh, P."),
                 "Abstract text here...",
-                "http://example.com/plan5-paper1"
+                "http://example.com/plan5-paper1",
+                "10.1234/dm.2023.001",
+                2023,
+                "http://example.com/plan5-paper1.pdf"
         ));
         plan5.addResearchPaper(new ResearchPaper(
                 "14",
                 "Clustering Techniques in Big Data",
-                "Adams, L.",
+                Arrays.asList("Adams, L."),
                 "Abstract text here...",
-                "http://example.com/plan5-paper2"
+                "http://example.com/plan5-paper2",
+                "10.1234/dm.2023.002",
+                2022,
+                "http://example.com/plan5-paper2.pdf"
         ));
         plan5.addResearchPaper(new ResearchPaper(
                 "15",
                 "Dimensionality Reduction Methods",
-                "Brown, C.",
+                Arrays.asList("Brown, C."),
                 "Abstract text here...",
-                "http://example.com/plan5-paper3"
+                "http://example.com/plan5-paper3",
+                "10.1234/dm.2023.003",
+                2023,
+                "http://example.com/plan5-paper3.pdf"
         ));
 
         Milestone p5m1 = new Milestone("Milestone 1");
@@ -285,23 +352,32 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         plan6.addResearchPaper(new ResearchPaper(
                 "16",
                 "Robotics Motion Planning",
-                "Ivanov, M.",
+                Arrays.asList("Ivanov, M."),
                 "Abstract text here...",
-                "http://example.com/plan6-paper1"
+                "http://example.com/plan6-paper1",
+                "10.1234/rb.2023.001",
+                2023,
+                "http://example.com/plan6-paper1.pdf"
         ));
         plan6.addResearchPaper(new ResearchPaper(
                 "17",
                 "SLAM Techniques Review",
-                "Wilson, G.",
+                Arrays.asList("Wilson, G."),
                 "Abstract text here...",
-                "http://example.com/plan6-paper2"
+                "http://example.com/plan6-paper2",
+                "10.1234/rb.2023.002",
+                2022,
+                "http://example.com/plan6-paper2.pdf"
         ));
         plan6.addResearchPaper(new ResearchPaper(
                 "18",
                 "Human–Robot Interaction Models",
-                "Chan, S.",
+                Arrays.asList("Chan, S."),
                 "Abstract text here...",
-                "http://example.com/plan6-paper3"
+                "http://example.com/plan6-paper3",
+                "10.1234/rb.2023.003",
+                2023,
+                "http://example.com/plan6-paper3.pdf"
         ));
 
         Milestone p6m1 = new Milestone("Milestone 1");
@@ -392,6 +468,31 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     @Override
     public void savePlan(StudyPlan plan) {
         save();
+    }
+
+    // SearchResearchPapersDataAccessInterface methods
+    @Override
+    public SearchResearchPapersDataAccessInterface.SearchResult searchPapers(String query, int limit, int offset) {
+        if (researchAdapter != null) {
+            return researchAdapter.searchPapers(query, limit, offset);
+        }
+        throw new IllegalStateException("CORE API not configured. Please add CORE_API_KEY to .env file");
+    }
+
+    @Override
+    public SearchResearchPapersDataAccessInterface.SearchResult searchPapersByYear(String query, int yearFrom, int yearTo, int limit) {
+        if (researchAdapter != null) {
+            return researchAdapter.searchPapersByYear(query, yearFrom, yearTo, limit);
+        }
+        throw new IllegalStateException("CORE API not configured. Please add CORE_API_KEY to .env file");
+    }
+
+    @Override
+    public ResearchPaper getPaperById(String paperId) {
+        if (researchAdapter != null) {
+            return researchAdapter.getPaperById(paperId);
+        }
+        throw new IllegalStateException("CORE API not configured. Please add CORE_API_KEY to .env file");
     }
 
     public User getCurrentUser() {

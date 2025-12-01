@@ -4,17 +4,12 @@ import com.studyarc.entity.Milestone;
 import com.studyarc.entity.ResearchPaper;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.Task;
-import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersDataAccessInterface;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
-public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface, ViewingResearchPapersDataAccessInterface {
-
-    @Override
-    public ArrayList<StudyPlan> getPlans(String username) {
-        return generateTestPlans();
-    }
+public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface {
 
     @Override
     public ArrayList<StudyPlan> getPlans() {
@@ -31,54 +26,54 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface, Vi
         // Plan 1 - Deep Learning & Computer Vision
         StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>(), "Deep Learning");
         addResearchPapers(plan1, new String[][]{
-                {"1", "Deep Learning for Computer Vision", "Smith, J., Johnson, A.", "http://example.com/paper1"},
-                {"2", "Neural Networks Introduction", "Williams, B.", "http://example.com/paper2"},
-                {"3", "Advanced CNN Architectures", "Brown, C.", "http://example.com/paper3"}
+                {"1", "Deep Learning for Computer Vision", "Smith, J.|Johnson, A.", "http://example.com/paper1", "10.1234/dl.2023.001", "2023", "http://example.com/paper1.pdf"},
+                {"2", "Neural Networks Introduction", "Williams, B.", "http://example.com/paper2", "10.1234/dl.2023.002", "2023", "http://example.com/paper2.pdf"},
+                {"3", "Advanced CNN Architectures", "Brown, C.", "http://example.com/paper3", "10.1234/dl.2023.003", "2022", "http://example.com/paper3.pdf"}
         });
         addMilestones(plan1, date, taskStatus, random);
 
         // Plan 2 - Natural Language Processing
         StudyPlan plan2 = new StudyPlan("Plan 2", new ArrayList<>(), "Natural Language Processing");
         addResearchPapers(plan2, new String[][]{
-                {"4", "Natural Language Processing with Transformers", "Davis, M., Garcia, R.", "http://example.com/paper4"},
-                {"5", "Attention Mechanisms", "Martinez, L.", "http://example.com/paper5"},
-                {"6", "BERT and GPT Models", "Anderson, K.", "http://example.com/paper6"}
+                {"4", "Natural Language Processing with Transformers", "Davis, M.|Garcia, R.", "http://example.com/paper4", "10.1234/nlp.2023.001", "2023", "http://example.com/paper4.pdf"},
+                {"5", "Attention Mechanisms", "Martinez, L.", "http://example.com/paper5", "10.1234/nlp.2023.002", "2022", "http://example.com/paper5.pdf"},
+                {"6", "BERT and GPT Models", "Anderson, K.", "http://example.com/paper6", "10.1234/nlp.2023.003", "2023", "http://example.com/paper6.pdf"}
         });
         addMilestones(plan2, date, taskStatus, random);
 
         // Plan 3 - Reinforcement Learning
         StudyPlan plan3 = new StudyPlan("Plan 3", new ArrayList<>(), "Reinforcement Learning");
         addResearchPapers(plan3, new String[][]{
-                {"7", "Introduction to Reinforcement Learning", "Taylor, P.", "http://example.com/paper7"},
-                {"8", "Q-Learning and Deep Q-Networks", "Wilson, S.", "http://example.com/paper8"},
-                {"9", "Policy Gradient Methods", "Moore, T.", "http://example.com/paper9"}
+                {"7", "Introduction to Reinforcement Learning", "Taylor, P.", "http://example.com/paper7", "10.1234/rl.2023.001", "2023", "http://example.com/paper7.pdf"},
+                {"8", "Q-Learning and Deep Q-Networks", "Wilson, S.", "http://example.com/paper8", "10.1234/rl.2023.002", "2022", "http://example.com/paper8.pdf"},
+                {"9", "Policy Gradient Methods", "Moore, T.", "http://example.com/paper9", "10.1234/rl.2023.003", "2023", "http://example.com/paper9.pdf"}
         });
         addMilestones(plan3, date, taskStatus, random);
 
         // Plan 4 - Computer Vision
         StudyPlan plan4 = new StudyPlan("Plan 4", new ArrayList<>(), "Computer Vision");
         addResearchPapers(plan4, new String[][]{
-                {"10", "Object Detection with YOLO", "Harris, M.", "http://example.com/paper10"},
-                {"11", "Image Segmentation Techniques", "Clark, L.", "http://example.com/paper11"},
-                {"12", "Vision Transformers", "Lewis, R.", "http://example.com/paper12"}
+                {"10", "Object Detection with YOLO", "Harris, M.", "http://example.com/paper10", "10.1234/cv.2023.001", "2023", "http://example.com/paper10.pdf"},
+                {"11", "Image Segmentation Techniques", "Clark, L.", "http://example.com/paper11", "10.1234/cv.2023.002", "2022", "http://example.com/paper11.pdf"},
+                {"12", "Vision Transformers", "Lewis, R.", "http://example.com/paper12", "10.1234/cv.2023.003", "2023", "http://example.com/paper12.pdf"}
         });
         addMilestones(plan4, date, taskStatus, random);
 
         // Plan 5 - Graph Neural Networks
         StudyPlan plan5 = new StudyPlan("Plan 5", new ArrayList<>(), "Graph Neural Networks");
         addResearchPapers(plan5, new String[][]{
-                {"13", "Graph Neural Networks Overview", "Walker, J.", "http://example.com/paper13"},
-                {"14", "Message Passing Networks", "Hall, A.", "http://example.com/paper14"},
-                {"15", "Graph Attention Networks", "Young, C.", "http://example.com/paper15"}
+                {"13", "Graph Neural Networks Overview", "Walker, J.", "http://example.com/paper13", "10.1234/gnn.2023.001", "2023", "http://example.com/paper13.pdf"},
+                {"14", "Message Passing Networks", "Hall, A.", "http://example.com/paper14", "10.1234/gnn.2023.002", "2022", "http://example.com/paper14.pdf"},
+                {"15", "Graph Attention Networks", "Young, C.", "http://example.com/paper15", "10.1234/gnn.2023.003", "2023", "http://example.com/paper15.pdf"}
         });
         addMilestones(plan5, date, taskStatus, random);
 
         // Plan 6 - Generative Models
         StudyPlan plan6 = new StudyPlan("Plan 6", new ArrayList<>(), "Generative Models");
         addResearchPapers(plan6, new String[][]{
-                {"16", "Generative Adversarial Networks", "King, D.", "http://example.com/paper16"},
-                {"17", "Variational Autoencoders", "Wright, N.", "http://example.com/paper17"},
-                {"18", "Diffusion Models", "Lopez, E.", "http://example.com/paper18"}
+                {"16", "Generative Adversarial Networks", "King, D.", "http://example.com/paper16", "10.1234/gen.2023.001", "2023", "http://example.com/paper16.pdf"},
+                {"17", "Variational Autoencoders", "Wright, N.", "http://example.com/paper17", "10.1234/gen.2023.002", "2022", "http://example.com/paper17.pdf"},
+                {"18", "Diffusion Models", "Lopez, E.", "http://example.com/paper18", "10.1234/gen.2023.003", "2023", "http://example.com/paper18.pdf"}
         });
         addMilestones(plan6, date, taskStatus, random);
 
@@ -94,12 +89,18 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface, Vi
 
     private void addResearchPapers(StudyPlan plan, String[][] paperData) {
         for (String[] data : paperData) {
+            // Split authors by | to create a list
+            String[] authorArray = data[2].split("\\|");
+
             plan.addResearchPaper(new ResearchPaper(
-                    data[0],  // id
-                    data[1],  // title
-                    data[2],  // authors
-                    "Abstract text here...",  // abstract
-                    data[3]   // url
+                    data[0],                           // id
+                    data[1],                           // title
+                    Arrays.asList(authorArray),        // authors as List<String>
+                    "Abstract text here...",           // abstract
+                    data[3],                           // url
+                    data[4],                           // doi
+                    Integer.parseInt(data[5]),         // year
+                    data[6]                            // downloadUrl
             ));
         }
     }

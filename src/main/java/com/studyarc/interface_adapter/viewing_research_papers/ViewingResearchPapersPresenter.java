@@ -16,16 +16,26 @@ public class ViewingResearchPapersPresenter implements ViewingResearchPapersOutp
 
     @Override
     public void prepareSuccessView(ViewingResearchPapersOutputData outputData) {
+        System.out.println("ViewingResearchPapersPresenter.prepareSuccessView() called");
+
         // Pass the StudyPlan entities directly to the ViewModel
         List<StudyPlan> plans = outputData.getPlans();
 
+        System.out.println("Setting " + plans.size() + " plans in ViewModel");
+        for (StudyPlan plan : plans) {
+            System.out.println("  - Plan: " + plan.getTitle() + " with " +
+                    plan.getResearchPapers().size() + " papers");
+        }
+
         viewModel.setStudyPlans(plans);
         viewModel.setHasPlans(outputData.hasPlans());
+
+        System.out.println("ViewModel updated successfully");
     }
 
     @Override
     public void prepareFailView(String errorMessage) {
-        System.err.println("Error loading papers: " + errorMessage);
+        System.err.println("ViewingResearchPapersPresenter.prepareFailView: " + errorMessage);
         viewModel.setErrorMessage("Unable to load research papers. Please try again later.");
         viewModel.setStudyPlans(new ArrayList<>());
         viewModel.setHasPlans(false);
