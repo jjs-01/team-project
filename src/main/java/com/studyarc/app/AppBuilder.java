@@ -174,17 +174,11 @@ public class AppBuilder {
         cardPanel.add(registerView, registerView.getViewName());
         return this;
     }
-    public AppBuilder addMilestoneTasksPanel() {
-        milestoneTaskView = new MilestoneTasksView(milestoneTasksViewModel);
 
-        cardPanel.add(milestoneTaskView, milestoneTaskView.getViewName());
-
-
-        return this;
-    }
-
-    public AppBuilder addLoadMilestonesPanel() {
+    public AppBuilder addMilestonesPanel() {
         loadMilestonesViewModel = new LoadMilestonesViewModel();
+
+        milestoneTaskView = new MilestoneTasksView(milestoneTasksViewModel);
         loadMilestonesView = new LoadMilestonesView(milestoneTasksViewModel, loadMilestonesViewModel);
 
         cardPanel.add(loadMilestonesView, loadMilestonesView.getViewName());
