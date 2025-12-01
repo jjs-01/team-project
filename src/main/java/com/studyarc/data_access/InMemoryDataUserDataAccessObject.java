@@ -10,9 +10,14 @@ import com.studyarc.use_case.login.LoginDataAccessInterface;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * DataAccessObject for test cases
+ */
 public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessInterface,
         LoginDataAccessInterface,
         MilestoneTasksDataAccessInterface,
@@ -22,12 +27,12 @@ public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessIn
         AddPlanDataAccessInterface {
 
     private User user;
-    private List<User> allUsers;
+    private final List<User> allUsers = new ArrayList<>();
     private final ArrayList<String> focuses = new ArrayList<>();
 
     @Override
     public void addPlan(StudyPlan plan) {
-
+        user.getStudyPlans().add(plan);
     }
 
     @Override
@@ -37,12 +42,25 @@ public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessIn
 
     @Override
     public boolean registerUser(String username, String password) {
-        return false;
+        for (User currUser : allUsers) {
+            if (currUser.getUsername().equals(username)) {
+                return false;
+            }
+        }
+
+        try {
+            User newUser = new User(username, password);
+            allUsers.add(newUser);
+            setUser(newUser);
+            return true;
+        } catch (NoSuchAlgorithmException e) {
+            return false;
+        }
     }
 
     @Override
     public User getUser(String username) {
-        return null;
+        return this.user;
     }
 
     @Override
@@ -52,16 +70,25 @@ public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessIn
 
     @Override
     public StudyPlan getPlan(String planName) {
+        if (user != null && planName != null) {
+            ArrayList<StudyPlan> userStudyPlans = user.getStudyPlans();
+            for (StudyPlan plan : userStudyPlans) {
+                if (plan.getTitle().equals(planName)) {
+                    return plan;
+                }
+            }
+        }
         return null;
     }
 
     @Override
     public void save() {
+        // does not need to serialize since this is for in memory
     }
 
     @Override
     public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
-
+        this.user.setStudyPlans(plans);
     }
 
     @Override

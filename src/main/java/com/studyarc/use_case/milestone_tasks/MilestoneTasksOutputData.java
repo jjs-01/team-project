@@ -15,5 +15,5 @@ public class MilestoneTasksOutputData {
 
     public String getPlanName() { return planName; }
 
-    public int milestonesSaved() { return milestonesSaved; }
+    public int getMilestonesSaved() { return milestonesSaved; }
 }

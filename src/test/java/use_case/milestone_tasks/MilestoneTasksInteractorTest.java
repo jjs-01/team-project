@@ -1,11 +1,11 @@
 package use_case.milestone_tasks;
 
 import com.studyarc.data_access.InMemoryDataUserDataAccessObject;
-import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.Milestone;
+import com.studyarc.entity.StudyPlan;
 import com.studyarc.use_case.milestone_tasks.*;
-import com.studyarc.data_access.DatabaseAccess;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,39 +15,117 @@ import java.util.List;
 public class MilestoneTasksInteractorTest {
     @Test
     public void successTest() {
-        // MilestoneTasksInputData inputData = new MilestoneTasksInputData("Study Plan 1");
+        MilestoneTasksDataAccessInterface dataAccessObject = new InMemoryDataUserDataAccessObject();
 
+        // need to register a user first (not a part of the MilestoneTasksDataAccess Interface
+        InMemoryDataUserDataAccessObject userRepository = (InMemoryDataUserDataAccessObject) dataAccessObject;
+        userRepository.registerUser("Julia", "password");
+
+        // creates a test studyPlan to save to
+        StudyPlan studyPlan = new StudyPlan("Test plan", new ArrayList<>());
+        userRepository.getPlans().add(studyPlan);
+
+        MilestoneTasksInputData inputData = getInputObject("milestone 3", "milestone 1", "milestone 2");
+
+        MilestoneTasksOutputBoundary successPresenter = new MilestoneTasksOutputBoundary() {
+            @Override
+            public void prepareSuccessView(MilestoneTasksOutputData outputData) {
+                assertEquals("Test plan", outputData.getPlanName());
+                assertEquals(3, outputData.getMilestonesSaved());
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                fail("Use case success is unexpected");
+            }
+        };
+
+        MilestoneTasksInputBoundary interactor = new MilestoneTasksInteractor(dataAccessObject, successPresenter);
+        interactor.execute(inputData);
     }
 
     @Test
     public void failureSameNameTest() {
+        MilestoneTasksDataAccessInterface dataAccessObject = new InMemoryDataUserDataAccessObject();
 
+        // need to register a user first (not a part of the MilestoneTasksDataAccess Interface
+        InMemoryDataUserDataAccessObject userRepository = (InMemoryDataUserDataAccessObject) dataAccessObject;
+        userRepository.registerUser("Julia", "password");
+
+        // creates a test studyPlan to save to
+        StudyPlan studyPlan = new StudyPlan("Test plan", new ArrayList<>());
+        userRepository.getPlans().add(studyPlan);
+
+        MilestoneTasksInputData inputData = getInputObject("milestone 3", "duplicate milestone", "duplicate milestone");
+
+        MilestoneTasksOutputBoundary failurePresenter = new MilestoneTasksOutputBoundary() {
+            @Override
+            public void prepareSuccessView(MilestoneTasksOutputData outputData) {
+                fail("Use case success is unexpected");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Can't have more than one milestone with the same name", error);
+            }
+        };
+
+        MilestoneTasksInputBoundary interactor = new MilestoneTasksInteractor(dataAccessObject, failurePresenter);
+        interactor.execute(inputData);
     }
 
     @Test
     public void failureEmptyNameTest() {
+        MilestoneTasksDataAccessInterface dataAccessObject = new InMemoryDataUserDataAccessObject();
 
+        // need to register a user first (not a part of the MilestoneTasksDataAccess Interface
+        InMemoryDataUserDataAccessObject userRepository = (InMemoryDataUserDataAccessObject) dataAccessObject;
+        userRepository.registerUser("Julia", "password");
+
+        // creates a test studyPlan to save to
+        StudyPlan studyPlan = new StudyPlan("Test plan", new ArrayList<>());
+        userRepository.getPlans().add(studyPlan);
+
+        MilestoneTasksInputData inputData = getInputObject("Test milestone", "", "milestone 2");
+
+        MilestoneTasksOutputBoundary failurePresenter = new MilestoneTasksOutputBoundary() {
+            @Override
+            public void prepareSuccessView(MilestoneTasksOutputData outputData) {
+                fail("Use case success is unexpected");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Can't save a study plan with an empty title", error);
+            }
+        };
+
+        MilestoneTasksInputBoundary interactor = new MilestoneTasksInteractor(dataAccessObject, failurePresenter);
+        interactor.execute(inputData);
     }
 
-//    @Test
-//    public void failureNoAvailablePlanTest() {
-//        MilestoneTasksInputData inputData = new MilestoneTasksInputData("", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "");
-//        MilestoneTasksDataAccessInterface dataAccessObject = new InMemoryDataUserDataAccessObject();
-//
-//
-//        MilestoneTasksOutputBoundary failurePresenter = new MilestoneTasksOutputBoundary() {
-//            @Override
-//            public void prepareSuccessView(MilestoneTasksOutputData outputData) {
-//                    fail("Use case success is unexpected");
-//            }
-//
-//            @Override
-//            public void prepareFailView(String error) {
-//                assertEquals("Failed to find plan. Couldn't save", error);
-//            }
-//        };
-//
-//        MilestoneTasksInputBoundary interactor = new MilestoneTasksInteractor(dataAccessObject, failurePresenter);
-//        interactor.execute(inputData);
-//    }
+    @NotNull
+    private static MilestoneTasksInputData getInputObject(String name1, String name2, String name3) {
+        List<String> milestoneNames = new ArrayList<>();
+        milestoneNames.add(name1);
+        milestoneNames.add(name2);
+        milestoneNames.add(name3);
+
+        List<String> milestoneDates = new ArrayList<>();
+        milestoneDates.add("03/25/2025");
+        milestoneDates.add("03/28/2025");
+        milestoneDates.add("03/24/2025");
+
+        List<List<String[]>> listsOfTasksPerMilestone = new ArrayList<>();
+        listsOfTasksPerMilestone.add(new ArrayList<>());
+        listsOfTasksPerMilestone.add(new ArrayList<>());
+        listsOfTasksPerMilestone.add(new ArrayList<>());
+
+        // now return the input data
+        return new MilestoneTasksInputData("Test plan",
+                milestoneNames,
+                milestoneDates,
+                listsOfTasksPerMilestone,
+                "Artificial Intelligence");
+    }
 }
