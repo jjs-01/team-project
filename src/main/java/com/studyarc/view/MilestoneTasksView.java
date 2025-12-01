@@ -23,7 +23,6 @@ import java.util.List;
  * TODO: Make presentation
  * TODO (later): make the UI look nice
  * TODO (later): fix checkstyle issues
- * TODO: add comments
  */
 public class MilestoneTasksView extends JPanel implements ActionListener, PropertyChangeListener {
     private static final String VIEW_NAME = "milestones and tasks";
@@ -250,7 +249,6 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                         MilestoneTasksViewModel.BASE_TASK_DATE,
                         MilestoneTasksViewModel.BASE_TASK_STATUS_1);
                 milestoneViewModel.setState(currentState);
-                System.out.println(currentState);
             }
 
             @Override
@@ -447,7 +445,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         }
 
         if (e.getSource().equals(focusesComboBox)) {
-            currentState.setFocus(focusesComboBox.getSelectedItem().toString());
+            currentState.setFocus((String) focusesComboBox.getSelectedItem());
         }
     }
 

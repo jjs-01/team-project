@@ -11,9 +11,7 @@ import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessInterface,
         LoginDataAccessInterface,
@@ -25,7 +23,7 @@ public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessIn
 
     private User user;
     private List<User> allUsers;
-    private ArrayList<String> focuses = new ArrayList<>();
+    private final ArrayList<String> focuses = new ArrayList<>();
 
     @Override
     public void addPlan(StudyPlan plan) {
@@ -34,7 +32,7 @@ public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessIn
 
     @Override
     public ArrayList<String> getFocuses() {
-        return null;
+        return focuses;
     }
 
     @Override
@@ -50,11 +48,6 @@ public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessIn
     @Override
     public void setUser(User u) {
         this.user = u;
-    }
-
-    @Override
-    public void savePlan(StudyPlan plan) {
-
     }
 
     @Override

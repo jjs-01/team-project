@@ -19,7 +19,6 @@ import java.util.Map;
  */
 public class LoadMilestonesView extends MilestoneTasksView implements ActionListener, PropertyChangeListener {
     private final LoadMilestonesViewModel loadViewModel;
-    private LoadMilestonesController loadController;
     private final MilestoneTasksViewModel milestoneViewModel;
     private static final String VIEW_NAME = "loaded milestones";
 
@@ -34,11 +33,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
         milestonePanel = (JPanel) ((JScrollPane) this.getComponents()[LoadMilestonesViewModel.SCROLL_PANE_INDEX])
                 .getViewport()
                 .getView();
-    }
-
-    public void loadView() {
-        final LoadMilestonesState currentState = loadViewModel.getState();
-        loadController.execute(currentState.getStudyPlanName());
     }
 
     private void loadStudyPlan(String focus,
@@ -187,10 +181,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
                 milestoneViewModel.setState(state);
             }
         }
-    }
-
-    public void setLoadMilestonesController(LoadMilestonesController controller) {
-        loadController = controller;
     }
 
     @Override

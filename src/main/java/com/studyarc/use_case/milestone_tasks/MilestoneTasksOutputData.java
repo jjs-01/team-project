@@ -1,9 +1,5 @@
 package com.studyarc.use_case.milestone_tasks;
 
-import com.studyarc.entity.Milestone;
-
-import java.util.List;
-
 /**
  * Output data class for the saving milestones use case
  */
