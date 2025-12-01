@@ -9,8 +9,6 @@ import com.cohere.api.requests.ChatRequest;
 import com.cohere.api.types.NonStreamedChatResponse;
 import org.json.JSONObject;
 
-import java.util.List;
-
 /***
  * Generates the keywords via an LLM prompt
  */

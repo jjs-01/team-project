@@ -1,7 +1,5 @@
 package com.studyarc.entity.job_postings;
 
-import java.util.List;
-
 public class KeywordList {
     private final String keywords;
 

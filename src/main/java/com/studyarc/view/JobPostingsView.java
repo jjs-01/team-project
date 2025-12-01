@@ -70,7 +70,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         // creates the dropdown selection with label for selecting the focus/plan
         JLabel plan = new JLabel(JobPostingsViewModel.FOCUS);
         plan.setFont(Styling.getSubFont().deriveFont(14f));
-        planOptions = new ArrayList<>(List.of("Select Plan"));
+        planOptions = new ArrayList<>(List.of("Select Focus"));
         planComboBox = new JComboBox<>(planOptions.toArray(new String[0]));
         planComboBox.setFont(Styling.getSubFont().deriveFont(12f));
         planComboBox.addActionListener(this);
@@ -189,30 +189,21 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         final JobPostingsState jobPostingsState = jobPostingsViewModel.getState();
         List<JobListing> resetJobs = new ArrayList<>();
 
-        // updates the focus selection
+        // updates the focus selection combobox
         updateFocusSelection(jobPostingsState);
 
         // if an error appears, clear the panel and show the error
         if (!jobPostingsState.getListingError().isEmpty()) {
-            if (jobPostingsState.getListingError().contains("error")
-                    || jobPostingsState.getListingError().contains("Error")) {
-                JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(),
+            JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(),
                         "Error", JOptionPane.ERROR_MESSAGE);
-                allJobPostingsPanel.removeAll();
-                allJobPostingsPanel.revalidate();
-                allJobPostingsPanel.repaint();
+            allJobPostingsPanel.removeAll();
+            allJobPostingsPanel.revalidate();
+            allJobPostingsPanel.repaint();
 
-                jobPostingsState.setListingError("");
-                jobPostingsState.setJobListings(resetJobs);
-                jobPostingsState.setNumberOfResults("0");
-                showListingTotal(jobPostingsState);
-
-            } else {
-                JOptionPane.showMessageDialog(this, jobPostingsState.getListingError(),
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                jobPostingsState.setListingError("");
-                showListingTotal(jobPostingsState);
-            }
+            jobPostingsState.setListingError("");
+            jobPostingsState.setJobListings(resetJobs);
+            jobPostingsState.setNumberOfResults("0");
+            showListingTotal(jobPostingsState);
 
         }
 
@@ -251,6 +242,11 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         // sets the previous selection
         if (previousSelection != null && planOptions.contains(previousSelection)) {
             planComboBox.setSelectedItem(previousSelection);
+        }
+
+        // if its empty
+        if (usersFocuses.isEmpty()) {
+            planComboBox.setSelectedItem("Select Focus");
         }
     }
 

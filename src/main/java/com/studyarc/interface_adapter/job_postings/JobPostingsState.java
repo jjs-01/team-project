@@ -73,33 +73,4 @@ public class JobPostingsState {
     public void setNumberOfResults(String numberOfResults) { this.numberOfResults = numberOfResults; }
 
     public void setFocuses(ArrayList<String> focuses) { this.focuses = focuses; }
-
-//    public String getJobName(JobListing jobListing) {
-//        return jobListing.getTitle();
-//    }
-//
-//    public String getJobCompany(JobListing jobListing) {
-//        return jobListing.getCompanyName();
-//    }
-//
-//    public String getJobFormattedMin(JobListing jobListing) {
-//        return jobListing.getFormattedMin();
-//    }
-//
-//    public String getJobFormattedMax(JobListing jobListing) {
-//        return jobListing.getFormattedMax();
-//    }
-//
-//    public String getJobDesc(JobListing jobListing) {
-//        return jobListing.getJobDesc();
-//    }
-//
-//    public String getJobLoc(JobListing jobListing) {
-//        return jobListing.getJobLoc();
-//    }
-//
-//    public String getJobLink(JobListing jobListing) {
-//        return jobListing.getRedirectUrl();
-//    }
-
 }
