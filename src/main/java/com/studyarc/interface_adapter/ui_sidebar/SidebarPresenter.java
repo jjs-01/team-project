@@ -6,8 +6,11 @@ import com.studyarc.interface_adapter.login.LoginState;
 import com.studyarc.interface_adapter.login.LoginViewModel;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksState;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
+import com.studyarc.interface_adapter.track_plan.TrackPlanState;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
 import com.studyarc.use_case.ui_sidebar.SidebarOutputBoundary;
+
+import java.util.ArrayList;
 
 public class SidebarPresenter implements SidebarOutputBoundary {
     private final SidebarViewModel sidebarViewModel;
@@ -58,11 +61,12 @@ public class SidebarPresenter implements SidebarOutputBoundary {
         // reset the loginstate
         loginViewModel.setState(new LoginState());
         //reset the sidebar username
-        sidebarViewModel.getState().setUserName("");
-
+        sidebarViewModel.getState().setUserName(null);
+        trackPlanViewModel.setState(new TrackPlanState());
         loginViewModel.firePropertyChange();
         viewManagerModel.setState(loginViewModel.getViewName());
         sidebarViewModel.firePropertyChange();
+        trackPlanViewModel.firePropertyChange();
         viewManagerModel.firePropertyChange();
 
     }

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 public class TrackPlanState {
-    private ArrayList<StudyPlan> studyPlans;
+    private ArrayList<StudyPlan> studyPlans = new ArrayList<StudyPlan>();
     private String Username = "";
     private String savingMessage = "";
 

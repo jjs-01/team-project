@@ -25,23 +25,22 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
 
         String username = inputData.getUsername();
 
-        //use generateTestPlans for testing the usecase, switch to getplans later;
-        ArrayList<StudyPlan> listofplans = this.getPlanTool.getPlans();
+        //return the studyplans of the current user
+        ArrayList<StudyPlan> listOfPlans = this.getPlanTool.getPlans();
 
-        TrackPlanOutputData trackPlanOutputData = new TrackPlanOutputData(username, listofplans);
-        presenter.prepareShowPlans(trackPlanOutputData);
-        if (listofplans.isEmpty()) {
+        TrackPlanOutputData outputData = new TrackPlanOutputData(username, listOfPlans);
+        presenter.prepareShowPlans(outputData);
+        if (listOfPlans.isEmpty()) {
             System.out.println("interactor executes for emptyplans");
             presenter.prepareShowRedirect();
         } else {
             System.out.println("interactor executes");
-            presenter.prepareShowPlans(trackPlanOutputData);
+            presenter.prepareShowPlans(outputData);
         }
     }
 
     public void execute(TrackPlanSavingInputData savingInputData){
         ArrayList<StudyPlan> plans = savingInputData.getPlans();
-        String username = savingInputData.getUsername();
         Set<String> planTitles = new HashSet<>();
         for (StudyPlan plan : plans) {
             if (plan.getTitle().strip().isEmpty()) {
@@ -51,10 +50,10 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
             planTitles.add(plan.getTitle());
         }
         if (planTitles.size() == plans.size()) {
-            presenter.prepareShowSavingResult("Saving complete!");
-
+            this.getPlanTool.saveAllPlansForUser(plans);
+            presenter.prepareShowSavingResult(" Save complete! ");
         } else {
-            presenter.prepareShowSavingResult("Oops!!Can not have same title for different plans!");
+            presenter.prepareShowSavingResult(" Oops!!Can not have repetitive plans! ");
         }
     }
 }
