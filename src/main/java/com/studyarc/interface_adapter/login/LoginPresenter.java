@@ -66,6 +66,7 @@ public class LoginPresenter implements LoginOutputBoundary {
 
         } else if(registerOutputData.isSuccess()){
             registerViewModel.setState(new RegisterState());
+            registerViewModel.firePropertyChange();
             viewManagerModel.setState(trackPlanViewModel.getViewName());
             sidebarViewModel.getState().setUserName(registerOutputData.getUsername());
             sidebarViewModel.firePropertyChange();
