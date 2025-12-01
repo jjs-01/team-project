@@ -27,17 +27,17 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     private List<User> allUsers;
     private ArrayList<String> focuses = new ArrayList<>();
 
-    @SuppressWarnings("unchecked")
-    private DatabaseAccess(){
-        try {
-            FileInputStream fileInputStream = new FileInputStream("studyarc-users.ser");
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            this.allUsers = (List<User>) objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException | ClassCastException e) {
-            e.printStackTrace();
-        }
-        this.user = null;
-    }
+//    @SuppressWarnings("unchecked")
+//    private DatabaseAccess(){
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream("studyarc-users.ser");
+//            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+//            this.allUsers = (List<User>) objectInputStream.readObject();
+//        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+//            e.printStackTrace();
+//        }
+//        this.user = null;
+//    }
     @Override
     public ArrayList<String> getFocuses() {
 //        System.out.println("Checking user:" + user);

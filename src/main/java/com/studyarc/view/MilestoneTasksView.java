@@ -21,8 +21,9 @@ import java.util.List;
 /**
  * TODO: Write test cases for use case and entity
  * TODO: Make presentation
- * TODO (later): fix checkstyle issues
  * TODO (later): make the UI look nice
+ * TODO (later): fix checkstyle issues
+ * TODO: add comments
  */
 public class MilestoneTasksView extends JPanel implements ActionListener, PropertyChangeListener {
     private static final String VIEW_NAME = "milestones and tasks";
