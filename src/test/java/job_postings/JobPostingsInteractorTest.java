@@ -1,4 +1,4 @@
-package job_postings;
+package use_case.job_postings;
 
 import com.studyarc.data_access.DatabaseAccess;
 import com.studyarc.entity.job_postings.JobListing;
@@ -7,7 +7,7 @@ import com.studyarc.use_case.job_postings.*;
 import com.studyarc.use_case.job_postings.generate_keywords.KeywordGenerator;
 import com.studyarc.use_case.job_postings.generate_postings.AdzunaJobGenerator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -256,6 +256,70 @@ public class JobPostingsInteractorTest {
 
         JobPostingsInputBoundary interactor = new JobPostingsInteractor(userDataAccessObj, successPresenter, mockKeywords, mockAdzunaJobGenerator);
         interactor.execute(jobPostingsInputData);
+
+    }
+
+    @Test
+    public void testRetrieveFocus() {
+
+        KeywordGenerator mockKeywords = new KeywordGenerator() {
+            @Override
+            public KeywordList generate(String focus) {
+                return new KeywordList(String.valueOf(new ArrayList<>()));
+            }
+        };
+
+        // throws an exception to test the failure
+        AdzunaJobGenerator mockAdzunaJobGenerator = new AdzunaJobGenerator() {
+            @Override
+            public List<JobListing> getJobListings(String focus, String countryCode, KeywordList keywords, String sort,
+                                                   String salaryMin) {
+                return new ArrayList<>();
+            }
+
+            public int numberResults(List<JobListing> listings) {
+                return 0;
+            }
+        };
+
+        DatabaseAccess mockDatabase = new DatabaseAccess() {
+            @Override
+            public ArrayList<String> getFocuses() {
+                ArrayList<String> list = new ArrayList<>();
+                list.add("AI");
+                list.add("Security");
+                return list;
+            }
+        };
+
+        class MockPresenter implements JobPostingsOutputBoundary {
+            public ArrayList<String> mockList;
+
+            @Override
+            public void prepareSuccessView(JobPostingsOutputData outputData) {}
+
+            @Override
+            public void prepareFailView(String errorMessage) {}
+
+            @Override
+            public void showUsersFocuses(ArrayList<String> usersFocuses) {
+                this.mockList = usersFocuses;
+            }
+        }
+
+
+        MockPresenter mockPresenter = new MockPresenter();
+
+        JobPostingsInputBoundary interactor = new JobPostingsInteractor(mockDatabase, mockPresenter, mockKeywords,
+                mockAdzunaJobGenerator);
+
+        interactor.retrieveAvailableFocuses();
+
+        assertNotNull(mockPresenter.mockList);
+        assertEquals(2, mockPresenter.mockList.size());
+        assertEquals("AI", mockPresenter.mockList.get(0));
+
+
 
     }
 }
