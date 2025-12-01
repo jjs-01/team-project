@@ -24,6 +24,5 @@ public class DeletePlanPresenter implements DeletePlanOutputBoundary {
         ArrayList<StudyPlan> plans = trackPlanViewModel.getState().getStudyPlans();
         plans.remove(deletedPlan);
         trackPlanViewModel.firePropertyChange();
-
     }
 }
