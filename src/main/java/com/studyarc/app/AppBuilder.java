@@ -134,7 +134,6 @@ public class AppBuilder {
         final SidebarOutputBoundary sidebarOutputBoundary = new SidebarPresenter(viewManagerModel,
                 sidebarViewModel,
                 jobPostingsViewModel,
-                milestoneTasksViewModel,
                 trackPlanViewModel,
                 loginViewModel);
         final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarDataAccess, sidebarOutputBoundary);
@@ -197,7 +196,6 @@ public class AppBuilder {
         final SidebarOutputBoundary sidebarOutputBoundary = new SidebarPresenter(viewManagerModel,
                 sidebarViewModel,
                 jobPostingsViewModel,
-                milestoneTasksViewModel,
                 trackPlanViewModel,
                 loginViewModel);
         final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarDataAccess, sidebarOutputBoundary);
@@ -258,7 +256,6 @@ public class AppBuilder {
         loadMilestonesView.setLoadMilestonesController(loadController);
         loadMilestonesView.setMilestoneTasksController(saveController);
 
-//        loadMilestonesView.loadView();
         return this;
 }
 
