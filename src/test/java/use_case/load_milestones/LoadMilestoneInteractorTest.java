@@ -1,4 +1,4 @@
-package load_milestones;
+package use_case.load_milestones;
 
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.Milestone;

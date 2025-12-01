@@ -11,10 +11,6 @@ public class AddReflectionInputData {
         this.contents = contents;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     public String getPlanTitle() {
         return planTitle;
     }
