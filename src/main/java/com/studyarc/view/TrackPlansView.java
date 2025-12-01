@@ -132,8 +132,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         titlePanel.add(buttonPanel, BorderLayout.EAST);
         return titlePanel;
     }
-
-
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         // get the current plans in the TrackPlanState and show them in the view accordingly.
@@ -152,20 +150,48 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             JOptionPane.showMessageDialog(this, currentState.getSavingMessage());
             return;
         }
-
-        if (evt.getPropertyName().equals("added plan")) {
-            StudyPlan lastAddedPlan = currentState.getStudyPlans().get(currentState.getStudyPlans().size() - 1);
-            trackPlansPanel.add(createPlanPanel(lastAddedPlan));
-            trackPlansPanel.add(Box.createVerticalStrut(15));
-            trackPlansPanel.revalidate();
-        }
-
-        if (currentPlans.isEmpty()) {
-            this.showRedirectButton();
-        } else {
+        if (!currentPlans.isEmpty() || evt.getPropertyName().equals("added plan")) {
             this.showPlansInView(currentPlans);
+        } else {
+            this.showRedirectButton();
         }
     }
+
+
+//    @Override
+//    public void propertyChange(PropertyChangeEvent evt) {
+//
+//        // get the current plans in the TrackPlanState and show them in the view accordingly.
+//        if (!(evt.getNewValue() instanceof TrackPlanState)) {
+//            return;
+//        }
+//
+//        if (evt.getPropertyName().equals("reflection_added")) {
+//            updateReflectionsUI();
+//        }
+//
+//        TrackPlanState currentState = (TrackPlanState) evt.getNewValue();
+//        ArrayList<StudyPlan> currentPlans = currentState.getStudyPlans();
+//
+//        if (!currentState.getSavingMessage().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, currentState.getSavingMessage());
+//            return;
+//        }
+//
+//        if (evt.getPropertyName().equals("added plan")) {
+//            ArrayList<StudyPlan> plans = currentState.getStudyPlans();
+//            StudyPlan lastAddedPlan = currentState.getStudyPlans().get(currentState.getStudyPlans().size() - 1);
+//            trackPlansPanel.add(createPlanPanel(lastAddedPlan));
+//            trackPlansPanel.add(Box.createVerticalStrut(15));
+//            trackPlansPanel.revalidate();
+//        }
+//
+//        if ( currentPlans == null || currentPlans.isEmpty()) {
+//            this.showRedirectButton();
+//        } else {
+//            this.showPlansInView(currentPlans);
+//        }
+//    }
 
     private void showRedirectButton() {
         trackPlansPanel.removeAll();
@@ -264,13 +290,17 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
             // Check if all subtasks are completed
             JLabel milestoneCompleted = new JLabel(" ✅ ");
-            milestoneCompleted.setVisible(true);
-            for (Task subtask : m.getSubtasks()) {
-                if (subtask.getStatus().equals("Not Started") || subtask.getStatus().equals("In Progress")) {
-                    milestoneCompleted.setVisible(false);
+            List<Task> subtasks = m.getSubtasks();
+            boolean allCompleted = !subtasks.isEmpty();
+
+            for (Task subtask : subtasks) {
+                String status = subtask.getStatus();
+                if (!"Done".equals(status)) {
+                    allCompleted = false;
                     break;
                 }
             }
+            milestoneCompleted.setVisible(allCompleted);
 
 
             milestoneHeader.add(upButton);

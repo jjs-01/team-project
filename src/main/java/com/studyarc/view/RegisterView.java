@@ -3,6 +3,7 @@ package com.studyarc.view;
 import com.studyarc.interface_adapter.job_postings.JobPostingsController;
 import com.studyarc.interface_adapter.login.*;
 import com.studyarc.interface_adapter.ui_sidebar.SidebarController;
+import com.studyarc.interface_adapter.ui_sidebar.SidebarViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,6 @@ import java.util.Arrays;
 
 public class RegisterView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName;
-    private static final String[] FOCUS_LIST = new String[]{"Artificial Intelligence", "Data Science", "Game Design", "Human Computer Interaction", "Web and Internet Technologies"};
 
     private final JTextField usernameInput = new JTextField(18);
     private final JTextField passwordInput = new JPasswordField(18);
@@ -23,7 +23,7 @@ public class RegisterView extends JPanel implements ActionListener, PropertyChan
     private final JLabel errorField;
     private final JButton registerButton;
     private final JButton loginButton;
-    private final JComboBox<String> focuses;
+
     private final RegisterViewModel registerViewModel;
     private RegisterController registerController = null;
 
@@ -48,8 +48,6 @@ public class RegisterView extends JPanel implements ActionListener, PropertyChan
         this.errorField.setForeground(new Color(255, 0, 0));
         this.errorField.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(errorField);
-        this.focuses = new JComboBox<>(FOCUS_LIST);
-        this.add(focuses);
         final JPanel button = new JPanel();
         this.add(button);
         this.registerButton = new JButton("Register");
@@ -69,9 +67,7 @@ public class RegisterView extends JPanel implements ActionListener, PropertyChan
             state.setUsername(this.usernameInput.getText());
             state.setPassword(this.passwordInput.getText());
             state.setErrorCode("");
-            state.setFocus((String) this.focuses.getSelectedItem());
 
-            sideBarController.setUser(state.getUsername());
 //            registerController.showSidebar();
 
             this.registerController.execute(state);
@@ -86,7 +82,6 @@ public class RegisterView extends JPanel implements ActionListener, PropertyChan
         this.usernameInput.setText(newState.getUsername());
         this.passwordInput.setText(newState.getPassword());
         this.errorField.setText(newState.getErrorCode());
-        this.focuses.setSelectedIndex(Arrays.binarySearch(FOCUS_LIST, newState.getFocus()));
     }
 
     public void setRegisterController(RegisterController registerController){

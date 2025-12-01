@@ -19,6 +19,9 @@ public class DeletePlanInteractor implements DeletePlanInputBoundary{
     @Override
     public void execute(DeletePlanInputData input) {
         StudyPlan plan = input.getPlan();
+        ArrayList<StudyPlan> plans = dataAccessTool.getPlans();
+        plans.remove(plan);
+        dataAccessTool.save();
         System.out.println("DeletePlan interactor executes with plan:" + plan.getTitle());
         presenter.ShowPlans(new DeletePlanOutputData(plan));
     }

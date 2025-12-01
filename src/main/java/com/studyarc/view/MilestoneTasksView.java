@@ -54,7 +54,8 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         JLabel focuses = new JLabel("Focus: ");
         focusesPanel.add(focuses);
         String[] focusesOptions = {"Artificial Intelligence", "Game Design",
-                "Human Computer Interaction", "Web and Internet Technologies", "Data Science"};
+                "Human Computer Interaction", "Web and Internet Technologies", "Data Science", "Web Development",
+                "Cybersecurity", "Cloud Computing"};
         focusesComboBox = new JComboBox<>(focusesOptions);
         focusesComboBox.addActionListener(this);
         focusesPanel.add(focusesComboBox);
@@ -424,7 +425,8 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
             JOptionPane.showMessageDialog(this, state.getMilestoneSaveError());
             state.setMilestoneSaveError("");
         } else if (evt.getPropertyName().equals("saved plan")){
-            JOptionPane.showMessageDialog(this, "Saved!");
+            JOptionPane.showMessageDialog(this, state.getMilestoneSaveMessage());
+            state.setMilestoneSaveMessage("");
         } else {
             planTitle.setText(state.getStudyPlanName());
         }
@@ -435,7 +437,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         final MilestoneTasksState currentState = milestoneViewModel.getState();
 
         if (e.getSource() == save) {
-            milestoneTasksController.execute(MilestoneTasksViewModel.TITLE_LABEL,
+            milestoneTasksController.execute(currentState.getStudyPlanName(),
                     currentState.getMilestoneIndexToTasks(),
                     currentState.getMilestoneNames(),
                     currentState.getMilestoneDates(),

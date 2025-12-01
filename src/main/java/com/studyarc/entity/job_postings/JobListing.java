@@ -12,7 +12,8 @@ public class JobListing {
     private final String jobLoc;
     private final String redirectUrl;
 
-    public JobListing(String title, long jobId, String companyName, double salaryMin, double salaryMax, String jobDesc, String jobLoc, String redirectUrl) {
+    public JobListing(String title, long jobId, String companyName, double salaryMin, double salaryMax, String jobDesc,
+                      String jobLoc, String redirectUrl) {
         this.title = title;
         this.jobId = jobId;
         this.companyName = companyName;

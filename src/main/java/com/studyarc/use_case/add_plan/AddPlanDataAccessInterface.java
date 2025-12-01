@@ -6,7 +6,7 @@ import com.studyarc.entity.StudyPlan;
  * Data access interface for the Add Plan use case
  */
 public interface AddPlanDataAccessInterface {
-    String getCurrentUsername();
+    void save();
 
-    void addPlan(String username, StudyPlan plan);
+    void addPlan(StudyPlan plan);
 }

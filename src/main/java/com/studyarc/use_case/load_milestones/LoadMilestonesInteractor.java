@@ -1,7 +1,6 @@
 package com.studyarc.use_case.load_milestones;
 
 import com.studyarc.entity.StudyPlan;
-import com.studyarc.entity.User;
 
 /**
  * Interactor for the load milestones use case
@@ -18,8 +17,7 @@ public class LoadMilestonesInteractor implements LoadMilestonesInputBoundary {
 
     @Override
     public void execute(LoadMilestonesInputData loadMilestonesInputData) {
-        String username = loadMilestonesDataAccessObject.getCurrentUsername();
-        StudyPlan studyPlan = loadMilestonesDataAccessObject.getPlan(username, loadMilestonesInputData.getStudyPlanName());
+        StudyPlan studyPlan = loadMilestonesDataAccessObject.getPlan(loadMilestonesInputData.getStudyPlanName());
 
         final LoadMilestonesOutputData loadMilestonesOutputData =
                 new LoadMilestonesOutputData(loadMilestonesInputData.getStudyPlanName(), studyPlan.getFocus(),

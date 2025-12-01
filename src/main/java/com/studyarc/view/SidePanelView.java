@@ -89,7 +89,7 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         // TODO: use the username that is logged in
-                        jobPostingsController.retrieveAvailableFocuses(getLoggedInUserName());
+                        jobPostingsController.retrieveAvailableFocuses();
                         sidebarController.switchToJobBoard();
 
                     }
@@ -107,7 +107,7 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
             @Override
             public void actionPerformed(ActionEvent e) {
                 //entered for a randomusername for test, need to change later
-                trackPlanController.execute("qyz");
+                trackPlanController.execute(sidebarViewModel.getState().getUserName());
                 sidebarController.switchToTrackPlan();
 
             }
@@ -124,16 +124,29 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         }
     }
 
+//    @Override
+//    public void propertyChange(PropertyChangeEvent evt) {
+//        this.setVisible(true);
+//        SidebarState state = sidebarViewModel.getState();
+//        System.out.println("state= " + state);
+//
+//        userName = state.getUserName();
+//        this.userLoggedIn.setText("Welcome, " + userName);
+//
+//    }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        this.setVisible(true);
+        System.out.println("property changed");
         SidebarState state = sidebarViewModel.getState();
-        System.out.println("state= " + state);
+        String username = state.getUserName();
+        boolean loggedIn = username != null && !username.trim().isEmpty();
 
-        userName = state.getUserName();
-        this.userLoggedIn.setText("Welcome, " + userName);
-        this.setVisible(true);
-
+        this.setVisible(loggedIn);
+        if (loggedIn) {
+            userLoggedIn.setText("Welcome, " + username);
+        } else {
+            userLoggedIn.setText("");
+        }
     }
 
     public void setSidebarController(SidebarController sidebarController) {

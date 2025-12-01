@@ -1,7 +1,5 @@
 package com.studyarc.use_case.job_postings;
 
-import com.studyarc.entity.StudyPlan;
-
 import java.util.ArrayList;
 
 /**
@@ -11,7 +9,7 @@ public interface JobPostingsDataAccessInterface {
 
     /**
      * Returns the user's focuses from all the plans they created
-     * @return
+     * @return ArrayList<String>
      */
-    ArrayList<String> getFocuses(String userUsername);
+    ArrayList<String> getFocuses();
 }

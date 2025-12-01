@@ -1,10 +1,8 @@
 package com.studyarc.use_case.milestone_tasks;
 
-import com.studyarc.data_access.DatabaseAccess;
 import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.Task;
-import com.studyarc.entity.User;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,24 +31,21 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
             milestonePresenter.prepareFailView("Can't save a study plan with an empty title");
         }
         else {
-            String username = milestoneDataAccessObject.getCurrentUsername();
-
             ArrayList<Milestone> milestones = getMilestones(milestoneInputData);
 
-            StudyPlan plan = milestoneDataAccessObject.getPlan(username, milestoneInputData.getStudyPlanName());
-            plan.setMilestones(milestones);
-            milestoneDataAccessObject.savePlan(username, plan);
-            plan.setFocus(milestoneInputData.getFocus());
-            milestoneDataAccessObject.savePlan(username, plan);
+            StudyPlan plan = milestoneDataAccessObject.getPlan(milestoneInputData.getStudyPlanName());
 
-            // hardcoded for now (output data should be with the studyplan name)
-            final MilestoneTasksOutputData outputData;
-            System.out.println(milestones.size());
-            if (milestones.isEmpty()) {
-                outputData = new MilestoneTasksOutputData("empty milestones" + " focus: " + plan.getFocus());
-            } else {
-                outputData = new MilestoneTasksOutputData(milestones.get(0).getTitle() + " focus: " + plan.getFocus());
+            if (plan == null) {
+                milestonePresenter.prepareFailView("Failed to find plan. Couldn't save");
+                return;
             }
+
+            plan.setMilestones(milestones);
+            plan.setFocus(milestoneInputData.getFocus());
+            milestoneDataAccessObject.save();
+
+            final MilestoneTasksOutputData outputData = new MilestoneTasksOutputData(milestones.size(),
+                    milestoneInputData.getStudyPlanName());
             milestonePresenter.prepareSuccessView(outputData);
         }
     }
