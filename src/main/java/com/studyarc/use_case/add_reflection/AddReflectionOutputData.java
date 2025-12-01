@@ -14,6 +14,7 @@ public class AddReflectionOutputData {
     public String getPlanTitle() {
         return planTitle;
     }
+
     public Reflection getReflection() {
         return reflection;
     }

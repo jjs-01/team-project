@@ -1,5 +1,7 @@
 package com.studyarc.use_case.job_postings;
 
+import com.studyarc.entity.StudyPlan;
+
 import java.util.ArrayList;
 
 /**

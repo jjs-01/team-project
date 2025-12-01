@@ -51,6 +51,8 @@ cmake-build-*/
 
 # IntelliJ
 out/
+*.iml
+*.ipr
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -82,5 +84,54 @@ http-client.private.env.json
 .idea/.cache/.Apifox_Helper
 .idea/ApifoxUploaderProjectSetting.xml
 
-# Github Copilot persisted session migrations, see: https://github.com/microsoft/copilot-intellij-feedback/issues/712#issuecomment-3322062215
+# Github Copilot persisted session migrations
 .idea/**/copilot.data.migration.*.xml
+
+### Maven ###
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IntelliJ IDEA (additional) ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+.idea/checkstyle-idea.xml
+.idea/workspace.xml
+
+# Keep these IDEA files
+!.idea/misc.xml
+!.idea/vcs.xml
+
+# Ignore everything else in .idea
+.idea/*
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+### Environment Variables ###
+.env

@@ -7,10 +7,14 @@ public class Main {
         AppBuilder appBuilder = new AppBuilder();
         JFrame application = appBuilder
                 .addSidePanel()
+                .addLoginView()
+                .addLoadMilestonesPanel()
                 .addMilestoneTasksPanel()
                 .addTrackPlanView()
                 .addJobPostingsView()
                 .addViewingResearchPapersView()
+                .addLoadMilestonesUseCase()
+                .addAddPlanUseCase()
                 .addTrackPlanUsecase()
                 .addDeletePlanUsecase()
                 .addSidebarUseCase()
@@ -18,7 +22,9 @@ public class Main {
                 .addMilestoneTasksUseCase()
                 .addAddReflectionUseCase()
                 .addViewingResearchPapersUseCase()
+                .addLoginUseCase()
                 .build();
+
         application.pack();
         application.setLocationRelativeTo(null);
         application.setSize(800, 400);

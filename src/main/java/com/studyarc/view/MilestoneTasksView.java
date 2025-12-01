@@ -1,10 +1,8 @@
 package com.studyarc.view;
 
-import com.studyarc.interface_adapter.*;
-import com.studyarc.interface_adapter.job_postings.JobPostingsController;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksController;
-import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksState;
+import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -21,20 +19,23 @@ import java.util.*;
 import java.util.List;
 
 /**
- * View for managing milestones and tasks
+ * TODO: connect with backend
+ * TODO: Write test cases for use case and entity
+ * TODO (later): fix checkstyle issues
+ * TODO (later): make the UI look nice
  */
 public class MilestoneTasksView extends JPanel implements ActionListener, PropertyChangeListener {
-
-    private final String viewName = "milestone tasks";
+    private static final String VIEW_NAME = "milestones and tasks";
+    private MilestoneTasksController milestoneTasksController;
     private final MilestoneTasksViewModel milestoneViewModel;
-    private MilestoneTasksController milestoneTasksController = null;
-    private final String studyPlanName = "studyPlanTitle";
 
     private final JPanel milestonePanel = new JPanel();
+    private final GridBagConstraints milestonePanelConstraints;
     private final JLabel planTitle;
-    private final JLabel focuses;
     private final JButton addMilestone;
     private final JButton save;
+
+    private final JComboBox<String> focusesComboBox;
 
     private final List<JPanel> milestones = new ArrayList<>();
     private final Map<JPanel, List<JComponent[]>> milestoneToTaskComponents = new HashMap<>();
@@ -44,43 +45,38 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         this.milestoneViewModel.addPropertyChangeListener(this);
 
         final JPanel topDetails = new JPanel();
-        planTitle = new JLabel(MilestoneTasksViewModel.TITLE_LABEL);
-        planTitle.setFont(new Font("SansSerif", Font.BOLD, 24));
+        planTitle = new JLabel();
+        planTitle.setFont(Styling.getMainFont());
+        planTitle.setFont(new Font(MilestoneTasksViewModel.FONT, Font.BOLD, 24));
         topDetails.add(planTitle);
 
-        focuses = new JLabel("Focus: ");
-        topDetails.add(focuses);
+        JPanel focusesPanel = new JPanel();
+        JLabel focuses = new JLabel("Focus: ");
+        focusesPanel.add(focuses);
+        String[] focusesOptions = {"Artificial Intelligence", "Game Design",
+                "Human Computer Interaction", "Web and Internet Technologies", "Data Science"};
+        focusesComboBox = new JComboBox<>(focusesOptions);
+        focusesComboBox.addActionListener(this);
+        focusesPanel.add(focusesComboBox);
+        topDetails.add(focusesPanel);
 
         save = new JButton("Save Changes");
         topDetails.add(save);
 
-        save.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(save)) {
-                            final MilestoneTasksState currentState = milestoneViewModel.getState();
+        topDetails.setBorder(BorderFactory.createEmptyBorder(25, 0, 25, 0));
 
-                            milestoneTasksController.execute(studyPlanName,
-                                    currentState.getMilestoneIndexToTasks(),
-                                    currentState.getMilestoneNames(),
-                                    currentState.getMilestoneDates()
-                            );
-                        }
-                    }
-                }
-        );
+        save.addActionListener(this);
 
         milestonePanel.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
+        milestonePanelConstraints = new GridBagConstraints();
 
         addMilestone = new JButton("+   add a milestone");
-        addMilestone.setFont(new Font("SansSerif", Font.BOLD, 12));
+        addMilestone.setFont(new Font(MilestoneTasksViewModel.FONT, Font.BOLD, 12));
         addMilestone.setForeground(new Color(75, 75, 95));
         addMilestone.setContentAreaFilled(false);
 
         milestonePanel.add(addMilestone);
-        addMilestoneActionListener(c);
+        addMilestoneActionListener(milestonePanelConstraints);
 
         JScrollPane milestoneScrollPane = new JScrollPane(milestonePanel);
         milestoneScrollPane.getHorizontalScrollBar().setUnitIncrement(20);
@@ -99,8 +95,8 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                     private void addMilestoneListenerHelper(JPanel milestone) {
                         final MilestoneTasksState currentState = milestoneViewModel.getState();
                         currentState.addMilestone(milestones.indexOf(milestone),
-                                MilestoneTasksViewModel.BASE_MILESTONE_FIELDS[0],
-                                MilestoneTasksViewModel.BASE_MILESTONE_FIELDS[1]);
+                                MilestoneTasksViewModel.BASE_MILESTONE_NAME,
+                                MilestoneTasksViewModel.BASE_MILESTONE_DATE);
                         milestoneViewModel.setState(currentState);
                     }
 
@@ -118,17 +114,14 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                             // Add milestone name textfield
                             constraints2.gridx = 0; constraints2.gridy = 0;
                             JTextField milestoneNameField = new JTextField(
-                                    MilestoneTasksViewModel.BASE_MILESTONE_FIELDS[0], 20);
+                                    MilestoneTasksViewModel.BASE_MILESTONE_NAME, 20);
                             individualMilestone.add(milestoneNameField, constraints2);
                             addMilestoneNameListener(milestoneNameField, individualMilestone);
 
-                            // Add completed check mark
-                            constraints2.gridx = 1;
-                            individualMilestone.add(new JCheckBox(), constraints2);
 
                             // Add dueDate textfield
                             constraints2.gridx = 2;
-                            JTextField milestoneDateField = new JTextField(MilestoneTasksViewModel.BASE_MILESTONE_FIELDS[1], 10);
+                            JTextField milestoneDateField = new JTextField(MilestoneTasksViewModel.BASE_MILESTONE_DATE, 10);
                             individualMilestone.add(milestoneDateField, constraints2);
                             addMilestoneDateListener(milestoneDateField, individualMilestone);
 
@@ -165,7 +158,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         );
     }
 
-    private void addMilestoneNameListener(JTextField milestoneNameField, JPanel individualMilestone) {
+    protected void addMilestoneNameListener(JTextField milestoneNameField, JPanel individualMilestone) {
         milestoneNameField.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
@@ -191,7 +184,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         });
     }
 
-    private void addMilestoneDateListener(JTextField dueDateField, JPanel individualMilestone) {
+    protected void addMilestoneDateListener(JTextField dueDateField, JPanel individualMilestone) {
         dueDateField.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
@@ -217,7 +210,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         });
     }
 
-    private void addDeleteMilestoneListener(JButton deleteMilestone, JPanel individualMilestone) {
+    protected void addDeleteMilestoneListener(JButton deleteMilestone, JPanel individualMilestone) {
         deleteMilestone.addActionListener(new ActionListener() {
 
             private void deleteMilestoneListenerHelper(int milestoneIndex) {
@@ -237,10 +230,12 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                 milestonePanel.repaint();
             }
         });
+
+
     }
 
-    private void addTaskListener(JButton addTask, GridBagConstraints constraints2, JPanel individualMilestone) {
-        addTask.setFont(new Font("SansSerif", Font.BOLD, 10));
+    protected void addTaskListener(JButton addTask, GridBagConstraints constraints2, JPanel individualMilestone) {
+        addTask.setFont(new Font(MilestoneTasksViewModel.FONT, Font.BOLD, 10));
         addTask.setForeground(new Color(95, 95, 105));
         addTask.setContentAreaFilled(false);
 
@@ -249,9 +244,9 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
             private void addTaskListenerHelper() {
                 final MilestoneTasksState currentState = milestoneViewModel.getState();
                 currentState.addTask(milestones.indexOf(individualMilestone),
-                        MilestoneTasksViewModel.BASE_TASK_FIELDS[0],
-                        MilestoneTasksViewModel.BASE_TASK_FIELDS[1],
-                        MilestoneTasksViewModel.BASE_TASK_FIELDS[2]);
+                        MilestoneTasksViewModel.BASE_TASK_NAME,
+                        MilestoneTasksViewModel.BASE_TASK_DATE,
+                        MilestoneTasksViewModel.BASE_TASK_STATUS_1);
                 milestoneViewModel.setState(currentState);
                 System.out.println(currentState);
             }
@@ -264,14 +259,14 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
                     // Creates the task name textfield
                     constraints2.gridx = 0; constraints2.gridy = GridBagConstraints.RELATIVE;
-                    JTextField taskNameTextField = new JTextField(MilestoneTasksViewModel.BASE_TASK_FIELDS[0], 10);
+                    JTextField taskNameTextField = new JTextField(MilestoneTasksViewModel.BASE_TASK_NAME, 10);
                     individualMilestone.add(taskNameTextField, constraints2);
                     addTaskNameListener(taskNameTextField, individualMilestone, taskComponents);
                     taskComponents[0] = taskNameTextField;
 
                     // Creates the due date task textfield
                     constraints2.gridx = 1;
-                    JTextField taskDueDateField = new JTextField(MilestoneTasksViewModel.BASE_TASK_FIELDS[1], 7);
+                    JTextField taskDueDateField = new JTextField(MilestoneTasksViewModel.BASE_TASK_DATE, 7);
                     individualMilestone.add(taskDueDateField, constraints2);
                     addTaskDateListener(taskDueDateField, individualMilestone, taskComponents);
                     taskComponents[1] = taskDueDateField;
@@ -279,7 +274,9 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
                     // Creates status selection combobox
                     constraints2.gridx = 2;
                     JComboBox<String> statusOptionComboBox =
-                            new JComboBox<>(MilestoneTasksViewModel.BASE_TASK_STATUS_OPTIONS);
+                            new JComboBox<>(new String[]{MilestoneTasksViewModel.BASE_TASK_STATUS_1,
+                                    MilestoneTasksViewModel.BASE_TASK_STATUS_2,
+                                    MilestoneTasksViewModel.BASE_TASK_STATUS_3});
                     individualMilestone.add(statusOptionComboBox, constraints2);
                     addTaskStatusListener(statusOptionComboBox, individualMilestone, taskComponents);
                     taskComponents[2] = statusOptionComboBox;
@@ -309,7 +306,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         return itemToIndex;
     }
 
-    private void addTaskNameListener(JTextField taskNameField, JPanel individualMilestone, JComponent[] taskComponents) {
+    protected void addTaskNameListener(JTextField taskNameField, JPanel individualMilestone, JComponent[] taskComponents) {
         taskNameField.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
@@ -339,7 +336,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         });
     }
 
-    private void addTaskDateListener(JTextField taskDateField, JPanel individualMilestone, JComponent[] taskComponents) {
+    protected void addTaskDateListener(JTextField taskDateField, JPanel individualMilestone, JComponent[] taskComponents) {
         taskDateField.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
@@ -369,7 +366,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         });
     }
 
-    private void addTaskStatusListener(JComboBox<String> statusBox, JPanel individualMilestone, JComponent[] taskComponents) {
+    protected void addTaskStatusListener(JComboBox<String> statusBox, JPanel individualMilestone, JComponent[] taskComponents) {
         statusBox.addItemListener(new ItemListener() {
 
             private void itemListenerHelper() {
@@ -391,7 +388,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         });
     }
 
-    private void addDeleteTaskButtonListener(JButton deleteButton, JPanel individualMilestone, JComponent[] taskComponents) {
+    protected void addDeleteTaskButtonListener(JButton deleteButton, JPanel individualMilestone, JComponent[] taskComponents) {
         deleteButton.addActionListener(new ActionListener() {
 
             private void deleteTaskButtonListenerHelper() {
@@ -415,6 +412,7 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
 
                 List<JComponent[]> taskComponentsForMilestone = milestoneToTaskComponents.get(individualMilestone);
                 taskComponentsForMilestone.remove(taskComponents);
+
             }
         });
     }
@@ -422,18 +420,54 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final MilestoneTasksState state = (MilestoneTasksState) evt.getNewValue();
+        if (evt.getPropertyName().equals("failed to save")) {
+            JOptionPane.showMessageDialog(this, state.getMilestoneSaveError());
+            state.setMilestoneSaveError("");
+        } else if (evt.getPropertyName().equals("saved plan")){
+            JOptionPane.showMessageDialog(this, state.getMilestoneSaveMessage());
+            state.setMilestoneSaveMessage("");
+        } else {
+            planTitle.setText(state.getStudyPlanName());
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(this, "Not implemented");
+        final MilestoneTasksState currentState = milestoneViewModel.getState();
+
+        if (e.getSource() == save) {
+            milestoneTasksController.execute(currentState.getStudyPlanName(),
+                    currentState.getMilestoneIndexToTasks(),
+                    currentState.getMilestoneNames(),
+                    currentState.getMilestoneDates(),
+                    currentState.getFocus()
+            );
+        }
+
+        if (e.getSource().equals(focusesComboBox)) {
+            currentState.setFocus(focusesComboBox.getSelectedItem().toString());
+        }
     }
 
-    public String getViewName() {
-        return viewName;
+    public String getViewName() { return VIEW_NAME; }
+
+    public void setMilestoneTasksController(MilestoneTasksController controller) {
+        this.milestoneTasksController = controller;
     }
 
-    public void setMilestoneTasksController(MilestoneTasksController milestoneTasksController) {
-        this.milestoneTasksController = milestoneTasksController;
+    protected List<JPanel> getMilestones() {
+        return milestones;
+    }
+
+    protected JComboBox<String> getFocusSelector() {
+        return focusesComboBox;
+    }
+
+    protected Map<JPanel, List<JComponent[]>> getMilestoneToTaskComponents() {
+        return milestoneToTaskComponents;
+    }
+
+    protected GridBagConstraints getMilestonePanelConstraints() {
+        return milestonePanelConstraints;
     }
 }

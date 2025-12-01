@@ -1,17 +1,20 @@
 package com.studyarc.use_case.add_reflection;
 
 import com.studyarc.entity.Reflection;
+import com.studyarc.entity.ReflectionFactory;
 import com.studyarc.entity.StudyPlan;
-import com.studyarc.entity.User;
 
 public class AddReflectionInteractor implements AddReflectionInputBoundary {
     private final AddReflectionOutputBoundary addReflectionPresenter;
     private final AddReflectionDataAccessInterface addReflectionDataAccess;
+    private final ReflectionFactory reflectionFactory;
 
     public AddReflectionInteractor(AddReflectionOutputBoundary addReflectionPresenter,
-                                   AddReflectionDataAccessInterface addReflectionDataAccess) {
+                                   AddReflectionDataAccessInterface addReflectionDataAccess,
+                                   ReflectionFactory reflectionFactory) {
         this.addReflectionPresenter = addReflectionPresenter;
         this.addReflectionDataAccess = addReflectionDataAccess;
+        this.reflectionFactory = reflectionFactory;
     }
 
     @Override
@@ -19,19 +22,18 @@ public class AddReflectionInteractor implements AddReflectionInputBoundary {
         final String planTitle = inputData.getPlanTitle();
         final String contents = inputData.getContents();
         if (contents.isEmpty()) {
-            addReflectionPresenter.prepareFailView("Please enter a valid contents");
+            addReflectionPresenter.prepareFailView("Reflection cannot be empty.");
         }
         else {
-            User user = addReflectionDataAccess.getCurrentUser();
-            StudyPlan plan = addReflectionDataAccess.getPlan(user, planTitle);
+            final StudyPlan plan = addReflectionDataAccess.getPlan(planTitle);
             if (plan == null) {
                 addReflectionPresenter.prepareFailView("Plan not found");
             }
             else {
-                Reflection newReflection = new Reflection(contents);
+                final Reflection newReflection = reflectionFactory.create(contents);
                 plan.getReflections().add(newReflection);
-                addReflectionDataAccess.savePlan(user, plan);
-                AddReflectionOutputData output = new AddReflectionOutputData(planTitle, newReflection);
+                addReflectionDataAccess.savePlan(plan);
+                final AddReflectionOutputData output = new AddReflectionOutputData(planTitle, newReflection);
                 addReflectionPresenter.prepareSuccessView(output);
             }
         }

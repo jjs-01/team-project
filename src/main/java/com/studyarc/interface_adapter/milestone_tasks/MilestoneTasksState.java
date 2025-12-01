@@ -3,10 +3,26 @@ package com.studyarc.interface_adapter.milestone_tasks;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * State of the saving milestones use case
+ */
 public class MilestoneTasksState {
-    private final List<String> milestoneNames = new ArrayList<>();
-    private final List<String> milestoneDates = new ArrayList<>();
-    private final List<List<String[]>> milestoneIndexToTasks = new ArrayList<>();
+    private String username;
+    private List<String> milestoneNames = new ArrayList<>();
+    private List<String> milestoneDates = new ArrayList<>();
+    private List<List<String[]>> milestoneIndexToTasks = new ArrayList<>();
+    private String saveChangesError = "";
+    private String saveMessage = "";
+    private String studyPlanName;
+    private String focus = "Game Design";
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
 
     public void addMilestone(int milestoneIndex, String name, String date) {
         milestoneNames.add(milestoneIndex, name);
@@ -21,8 +37,24 @@ public class MilestoneTasksState {
         }
     }
 
+    public void setStudyPlanName(String name) {
+        this.studyPlanName = name;
+    }
+
     public void setMilestoneName(int index, String newName) {
         milestoneNames.set(index, newName);
+    }
+
+    public void setMilestoneNameList(List<String> nameList) {
+        milestoneNames = nameList;
+    }
+
+    public void setMilestoneDateList(List<String> dateList) {
+        milestoneDates = dateList;
+    }
+
+    public void setMilestoneIndexToTasks(List<List<String[]>> newMap) {
+        milestoneIndexToTasks = newMap;
     }
 
     public void setMilestoneDate(int index, String newDate) {
@@ -42,6 +74,16 @@ public class MilestoneTasksState {
     public void setTaskStatus(int milestoneIndex, int taskIndex, String newStatus) {
         String[] taskInfo = milestoneIndexToTasks.get(milestoneIndex).get(taskIndex);
         taskInfo[2] = newStatus;
+    }
+
+    public void setMilestoneSaveError(String error) {
+        saveChangesError = error;
+    }
+
+    public void setMilestoneSaveMessage(String msg) { saveMessage = msg; }
+
+    public void setFocus(String focus) {
+        this.focus = focus;
     }
 
     public void removeMilestone(int index) {
@@ -70,6 +112,18 @@ public class MilestoneTasksState {
     public List<String> getMilestoneDates() {
         return milestoneDates;
     }
+
+    public String getMilestoneSaveError() {
+        return saveChangesError;
+    }
+
+    public String getMilestoneSaveMessage() { return saveMessage; }
+
+    public String getStudyPlanName() {
+        return studyPlanName;
+    }
+
+    public String getFocus() { return focus; }
 
     @Override
     public String toString() {

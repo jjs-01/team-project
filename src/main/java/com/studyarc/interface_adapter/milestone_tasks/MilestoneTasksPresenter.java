@@ -4,6 +4,9 @@ import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputData;
 
+/**
+ * Presenter for the saving milestones use case
+ */
 public class MilestoneTasksPresenter implements MilestoneTasksOutputBoundary {
 
     private final MilestoneTasksViewModel milestoneTasksViewModel;
@@ -17,12 +20,17 @@ public class MilestoneTasksPresenter implements MilestoneTasksOutputBoundary {
 
     @Override
     public void prepareSuccessView(MilestoneTasksOutputData response) {
-        // idk what to do here tbh
-        System.out.println("Saved for " + response.getUsername());
+        final MilestoneTasksState saveState = milestoneTasksViewModel.getState();
+        saveState.setMilestoneSaveMessage("Saved " + response.milestonesSaved()
+                + " milestones for " + response.getPlanName() + "!");
+        milestoneTasksViewModel.firePropertyChange("saved plan");
+        viewManagerModel.firePropertyChange();
     }
 
     @Override
     public void prepareFailView(String error) {
-        System.out.println(error + "Couldn't save");
+        final MilestoneTasksState saveState = milestoneTasksViewModel.getState();
+        saveState.setMilestoneSaveError(error);
+        milestoneTasksViewModel.firePropertyChange("failed to save");
     }
 }

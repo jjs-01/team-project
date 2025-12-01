@@ -1,17 +1,28 @@
 package com.studyarc.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudyPlan {
+/**
+ * StudyPlan entity class, storing all the information associated with each study plan
+ */
+public class StudyPlan implements Serializable {
     private String title;
-    private ArrayList<Milestone> milestones;
+    private List<Milestone> milestones;
     private final List<Reflection> reflections = new ArrayList<>();
     private final List<ResearchPaper> researchPapers = new ArrayList<>();
+    private String focus;
 
-    public StudyPlan(String title, ArrayList<Milestone> milestones) {
+    public StudyPlan(String title, List<Milestone> milestones, String focus) {
         this.title = title;
         this.milestones = milestones;
+        this.focus = focus;
+    }
+
+    // Convenience constructor for backward compatibility (without focus)
+    public StudyPlan(String title, List<Milestone> milestones) {
+        this(title, milestones, null);
     }
 
     public String getTitle() {
@@ -22,11 +33,11 @@ public class StudyPlan {
         this.title = title;
     }
 
-    public ArrayList<Milestone> getMilestones() {
+    public List<Milestone> getMilestones() {
         return milestones;
     }
 
-    public void setMilestones(ArrayList<Milestone> milestones) {
+    public void setMilestones(List<Milestone> milestones) {
         this.milestones = milestones;
     }
 
@@ -46,4 +57,11 @@ public class StudyPlan {
         this.researchPapers.add(paper);
     }
 
+    public String getFocus() {
+        return focus;
+    }
+
+    public void setFocus(String focus) {
+        this.focus = focus;
+    }
 }

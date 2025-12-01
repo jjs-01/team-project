@@ -3,13 +3,13 @@ package com.studyarc.use_case.track_plan;
 //use case Interactor for tracking a plan
 // To do next:
 // 1. Finish Implementing show plans on the view ✅
-// 2. implement dataaccesstool to get plans from a user.(Later after Saturday)
 
 
 import com.studyarc.entity.StudyPlan;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TrackPlanInteractor implements TrackPlanInputBoundary {
     final TrackPlanOutputBoundary presenter;
@@ -23,22 +23,38 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
     @Override
     public void execute(TrackPlanInputData inputData) {
 
-
         String username = inputData.getUsername();
 
         //use generateTestPlans for testing the usecase, switch to getplans later;
-        ArrayList<StudyPlan> listofplans = this.getPlanTool.getPlans(username);
+        ArrayList<StudyPlan> listofplans = this.getPlanTool.getPlans();
 
         TrackPlanOutputData trackPlanOutputData = new TrackPlanOutputData(username, listofplans);
         presenter.prepareShowPlans(trackPlanOutputData);
         if (listofplans.isEmpty()) {
             System.out.println("interactor executes for emptyplans");
-            presenter.parepareShowRedirect();
+            presenter.prepareShowRedirect();
         } else {
             System.out.println("interactor executes");
             presenter.prepareShowPlans(trackPlanOutputData);
         }
+    }
 
+    public void execute(TrackPlanSavingInputData savingInputData){
+        ArrayList<StudyPlan> plans = savingInputData.getPlans();
+        String username = savingInputData.getUsername();
+        Set<String> planTitles = new HashSet<>();
+        for (StudyPlan plan : plans) {
+            if (plan.getTitle().strip().isEmpty()) {
+                presenter.prepareShowSavingResult(" Empty Plan Title! Not allowed!😡😡 ");
+                return;
+            }
+            planTitles.add(plan.getTitle());
+        }
+        if (planTitles.size() == plans.size()) {
+            presenter.prepareShowSavingResult("Saving complete!");
 
+        } else {
+            presenter.prepareShowSavingResult("Oops!!Can not have same title for different plans!");
+        }
     }
 }

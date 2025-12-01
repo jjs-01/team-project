@@ -17,13 +17,19 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface, Vi
     }
 
     @Override
+    public ArrayList<StudyPlan> getPlans() {
+        return generateTestPlans();
+    }
+
+    @Override
     public ArrayList<StudyPlan> generateTestPlans() {
         ArrayList<StudyPlan> plans = new ArrayList<>();
         Random random = new Random();
         String date = "MM/DD/YYYY";
         String[] taskStatus = {"Not Started", "In Progress", "Completed"};
 
-        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>());
+        // Plan 1 - Deep Learning & Computer Vision
+        StudyPlan plan1 = new StudyPlan("Plan 1", new ArrayList<>(), "Deep Learning");
         addResearchPapers(plan1, new String[][]{
                 {"1", "Deep Learning for Computer Vision", "Smith, J., Johnson, A.", "http://example.com/paper1"},
                 {"2", "Neural Networks Introduction", "Williams, B.", "http://example.com/paper2"},
@@ -31,8 +37,8 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface, Vi
         });
         addMilestones(plan1, date, taskStatus, random);
 
-
-        StudyPlan plan2 = new StudyPlan("Plan 2", new ArrayList<>());
+        // Plan 2 - Natural Language Processing
+        StudyPlan plan2 = new StudyPlan("Plan 2", new ArrayList<>(), "Natural Language Processing");
         addResearchPapers(plan2, new String[][]{
                 {"4", "Natural Language Processing with Transformers", "Davis, M., Garcia, R.", "http://example.com/paper4"},
                 {"5", "Attention Mechanisms", "Martinez, L.", "http://example.com/paper5"},
@@ -40,7 +46,8 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface, Vi
         });
         addMilestones(plan2, date, taskStatus, random);
 
-        StudyPlan plan3 = new StudyPlan("Plan 3", new ArrayList<>());
+        // Plan 3 - Reinforcement Learning
+        StudyPlan plan3 = new StudyPlan("Plan 3", new ArrayList<>(), "Reinforcement Learning");
         addResearchPapers(plan3, new String[][]{
                 {"7", "Introduction to Reinforcement Learning", "Taylor, P.", "http://example.com/paper7"},
                 {"8", "Q-Learning and Deep Q-Networks", "Wilson, S.", "http://example.com/paper8"},
@@ -48,7 +55,8 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface, Vi
         });
         addMilestones(plan3, date, taskStatus, random);
 
-        StudyPlan plan4 = new StudyPlan("Plan 4", new ArrayList<>());
+        // Plan 4 - Computer Vision
+        StudyPlan plan4 = new StudyPlan("Plan 4", new ArrayList<>(), "Computer Vision");
         addResearchPapers(plan4, new String[][]{
                 {"10", "Object Detection with YOLO", "Harris, M.", "http://example.com/paper10"},
                 {"11", "Image Segmentation Techniques", "Clark, L.", "http://example.com/paper11"},
@@ -56,7 +64,8 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface, Vi
         });
         addMilestones(plan4, date, taskStatus, random);
 
-        StudyPlan plan5 = new StudyPlan("Plan 5", new ArrayList<>());
+        // Plan 5 - Graph Neural Networks
+        StudyPlan plan5 = new StudyPlan("Plan 5", new ArrayList<>(), "Graph Neural Networks");
         addResearchPapers(plan5, new String[][]{
                 {"13", "Graph Neural Networks Overview", "Walker, J.", "http://example.com/paper13"},
                 {"14", "Message Passing Networks", "Hall, A.", "http://example.com/paper14"},
@@ -65,7 +74,7 @@ public class TrackPlanDataAccessTool implements TrackPlanDataAccessinterface, Vi
         addMilestones(plan5, date, taskStatus, random);
 
         // Plan 6 - Generative Models
-        StudyPlan plan6 = new StudyPlan("Plan 6", new ArrayList<>());
+        StudyPlan plan6 = new StudyPlan("Plan 6", new ArrayList<>(), "Generative Models");
         addResearchPapers(plan6, new String[][]{
                 {"16", "Generative Adversarial Networks", "King, D.", "http://example.com/paper16"},
                 {"17", "Variational Autoencoders", "Wright, N.", "http://example.com/paper17"},
