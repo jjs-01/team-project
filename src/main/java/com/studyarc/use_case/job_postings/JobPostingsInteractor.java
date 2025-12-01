@@ -3,7 +3,6 @@ package com.studyarc.use_case.job_postings;
 import com.studyarc.entity.job_postings.JobListing;
 import com.studyarc.entity.job_postings.KeywordList;
 import com.studyarc.use_case.job_postings.generate_keywords.KeywordGenerator;
-import com.studyarc.use_case.job_postings.generate_postings.AdzunaJobGenerator;
 import com.studyarc.use_case.job_postings.generate_postings.JobRepository;
 
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
         String countryCode = jobPostingsInputData.getPreferredLoc();
         String salaryMin = jobPostingsInputData.getMinSalary();
 
-        if (selectedFocus.isEmpty() || selectedFocus.equals("Select Plan")) {
+        if (selectedFocus.isEmpty() || selectedFocus.equals("Select Focus")) {
             jobPostingsPresenter.prepareFailView("You must select a focus.");
 
         } else {

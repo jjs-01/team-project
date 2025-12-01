@@ -26,8 +26,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     private static DatabaseAccess instance;
     private User user;
     private List<User> allUsers;
-    private ArrayList<String> focuses = new ArrayList<>();
-
 //    @SuppressWarnings("unchecked")
 //    private DatabaseAccess(){
 //        try {
@@ -60,16 +58,11 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
 
     @Override
     public ArrayList<String> getFocuses() {
-//        System.out.println("Checking user:" + user);
-//        System.out.println("Checking user:" + user.getUsername());
-//        System.out.println("Checking user:" + user.getStudyPlans());
-
+        ArrayList<String> focuses = new ArrayList<>();
         ArrayList<StudyPlan> allStudyPlans = this.getPlans();
 
         for (StudyPlan studyPlan : allStudyPlans) {
-            if (!focuses.contains(studyPlan.getFocus())) {
-                focuses.add(studyPlan.getFocus());
-            }
+            focuses.add(studyPlan.getFocus());
         }
 
         // removes duplicates
@@ -116,7 +109,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
 
     @Override
     public StudyPlan getPlan(String planName) {
-        ArrayList<StudyPlan> userStudyPlans = getPlans();
+        ArrayList<StudyPlan> userStudyPlans = user.getStudyPlans();
         for (StudyPlan plan : userStudyPlans) {
             if (plan.getTitle().equals(planName)) {
                 return plan;
