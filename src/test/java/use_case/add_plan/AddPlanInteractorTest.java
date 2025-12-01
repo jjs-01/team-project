@@ -1,4 +1,4 @@
-package add_plan;
+package use_case.add_plan;
 
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.entity.Milestone;
