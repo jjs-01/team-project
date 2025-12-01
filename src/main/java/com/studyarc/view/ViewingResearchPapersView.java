@@ -24,8 +24,6 @@ public class ViewingResearchPapersView extends JPanel {
 
     public ViewingResearchPapersView(ViewingResearchPapersViewModel viewModel) {
         this.viewModel = viewModel;
-
-        // Listen for changes in the ViewModel
         viewModel.addPropertyChangeListener(evt -> {
             System.out.println("Property change detected: " + evt.getPropertyName());
 
@@ -92,12 +90,8 @@ public class ViewingResearchPapersView extends JPanel {
     }
 
     private void refreshPlansView() {
-        System.out.println("refreshPlansView called");
         plansContainer.removeAll();
-
         List<StudyPlan> plans = viewModel.getStudyPlans();
-        System.out.println("Number of plans: " + (plans != null ? plans.size() : 0));
-
         if (plans == null || plans.isEmpty()) {
             JLabel emptyLabel = new JLabel("No plans available");
             emptyLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -109,8 +103,6 @@ public class ViewingResearchPapersView extends JPanel {
             errorLabel.setVisible(false);
         } else {
             for (StudyPlan plan : plans) {
-                System.out.println("Adding plan: " + plan.getTitle() + " with " +
-                        plan.getResearchPapers().size() + " papers");
                 JPanel planPanel = createPlanPanel(plan);
                 plansContainer.add(planPanel);
                 plansContainer.add(Box.createVerticalStrut(20));
@@ -232,7 +224,6 @@ public class ViewingResearchPapersView extends JPanel {
 
             // Call the controller
             if (addPapersController != null) {
-                System.out.println("Calling addPapersController.execute with query: " + query + ", limit: " + limit);
                 addPapersController.execute(plan.getTitle(), query, limit);
                 dialog.dispose();
             } else {
@@ -382,7 +373,6 @@ public class ViewingResearchPapersView extends JPanel {
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible && controller != null) {
-            System.out.println("View becoming visible - loading plans");
             controller.handleViewingResearchPapers();
         }
     }

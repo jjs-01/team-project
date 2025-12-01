@@ -50,7 +50,6 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         }
         this.user = null;
 
-        // Initialize CORE API adapter
         try {
             Dotenv dotenv = Dotenv.load();
             String apiKey = dotenv.get("CORE_API_KEY");

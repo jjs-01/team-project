@@ -16,12 +16,7 @@ public class AddPapersToPlanPresenter implements AddPapersToPlanOutputBoundary {
         String message = String.format("Added %d paper(s) to '%s'",
                 outputData.getPaperCount(),
                 outputData.getPlanName());
-
-        // Set success message
         viewModel.setSuccessMessage(message);
-
-        // CRITICAL: Trigger the view to reload the plans
-        // This fires the REFRESH_PROPERTY which the view listens for
         viewModel.firePropertyChange();
     }
 

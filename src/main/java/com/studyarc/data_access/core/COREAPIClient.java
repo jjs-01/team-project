@@ -203,9 +203,7 @@ public class COREAPIClient {
 
         return paper;
     }
-    // ============================================
-    // Inner classes for data transfer objects
-    // ============================================
+
 
     /**
      * Represents a research paper from CORE API

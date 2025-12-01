@@ -4,34 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/core/COREAPIClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/add_papers_to_plan/AddPapersToPlanController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/add_papers_to_plan/AddPapersToPlanPresenter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/search_research_papers/CoreResearchAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_papers_to_plan/AddPapersToPlanDataAccessInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_papers_to_plan/AddPapersToPlanInputBoundary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_papers_to_plan/AddPapersToPlanInputData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_papers_to_plan/AddPapersToPlanInteractor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_papers_to_plan/AddPapersToPlanOutputBoundary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/add_papers_to_plan/AddPapersToPlanOutputData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/search_research_papers/SearchResearchPapersDataAccessInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/TestCoreAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/Viewing_Research_Papers/ViewingResearchPapersInteractorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/app/AppBuilder.java" afterDir="false" />
+    <list default="true" id="e189892c-85bb-4806-a8ff-b8f939e8eaba" name="Changes" comment="Added CORE API">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/DatabaseAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/ResearchPaper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/entity/ResearchPaper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/core/COREAPIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/data_access/core/COREAPIClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/add_papers_to_plan/AddPapersToPlanPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/add_papers_to_plan/AddPapersToPlanPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/interface_adapter/viewing_research_papers/ViewingResearchPapersViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanDataAccessTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/track_plan/TrackPlanDataAccessTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersDataAccessInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersDataAccessInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersInputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersInputData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/studyarc/view/ViewingResearchPapersView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/studyarc/view/ViewingResearchPapersView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/studyarc/use_case/viewing_research_papers/ViewingResearchPapersInteractorTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -312,7 +291,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764029058050</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Added CORE API">
+      <option name="closed" value="true" />
+      <created>1764564446573</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1764564446573</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -348,7 +335,8 @@
     <MESSAGE value="Actually done?" />
     <MESSAGE value="Noticed the view plans button wasn't working, fixed it" />
     <MESSAGE value="Remodelled view research papers design" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remodelled view research papers design" />
+    <MESSAGE value="Added CORE API" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added CORE API" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

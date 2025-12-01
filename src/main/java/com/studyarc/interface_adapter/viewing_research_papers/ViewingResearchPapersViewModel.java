@@ -29,17 +29,9 @@ public class ViewingResearchPapersViewModel {
     }
 
     public void setStudyPlans(List<StudyPlan> studyPlans) {
-        System.out.println("setStudyPlans called with " + studyPlans.size() + " plans");
-
-        // CRITICAL: Always create a new list to ensure property change fires
         this.studyPlans = new ArrayList<>(studyPlans);
-
-        System.out.println("Firing property change for PLANS_PROPERTY");
-
-        // Fire property change with null old value to FORCE it to fire
         support.firePropertyChange(PLANS_PROPERTY, null, this.studyPlans);
 
-        System.out.println("Property change fired for PLANS_PROPERTY");
     }
 
     public boolean hasPlans() {
@@ -54,7 +46,6 @@ public class ViewingResearchPapersViewModel {
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
-        System.out.println("PropertyChangeListener added to ViewModel");
     }
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
@@ -92,9 +83,6 @@ public class ViewingResearchPapersViewModel {
      * This fires the REFRESH_PROPERTY change which tells the view to reload plans.
      */
     public void firePropertyChange() {
-        System.out.println("firePropertyChange() called - triggering REFRESH_PROPERTY");
-        // Fire with different objects to ensure it's always detected as a change
         support.firePropertyChange(REFRESH_PROPERTY, null, new Object());
-        System.out.println("REFRESH_PROPERTY fired");
     }
 }
