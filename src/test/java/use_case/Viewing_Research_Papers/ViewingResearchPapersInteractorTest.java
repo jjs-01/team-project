@@ -1,4 +1,4 @@
-package Viewing_Research_Papers;
+package use_case.Viewing_Research_Papers;
 
 import com.studyarc.entity.ResearchPaper;
 import com.studyarc.entity.StudyPlan;

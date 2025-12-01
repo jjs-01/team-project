@@ -1,13 +1,11 @@
 package com.studyarc.view;
 
-import com.studyarc.interface_adapter.load_milestones.LoadMilestonesController;
 import com.studyarc.interface_adapter.load_milestones.LoadMilestonesState;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 import com.studyarc.interface_adapter.load_milestones.LoadMilestonesViewModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -15,9 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * View for loading milestones usecase
  */
-public class LoadMilestonesView extends MilestoneTasksView implements ActionListener, PropertyChangeListener {
+public class LoadMilestonesView extends MilestoneTasksView implements PropertyChangeListener {
     private final LoadMilestonesViewModel loadViewModel;
     private final MilestoneTasksViewModel milestoneViewModel;
     private static final String VIEW_NAME = "loaded milestones";

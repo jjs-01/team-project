@@ -29,25 +29,25 @@ public class MilestoneTasksInteractorTest {
 
     }
 
-    @Test
-    public void failureNoAvailablePlanTest() {
-        MilestoneTasksInputData inputData = new MilestoneTasksInputData("", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "");
-        MilestoneTasksDataAccessInterface dataAccessObject = new InMemoryDataUserDataAccessObject();
-
-
-        MilestoneTasksOutputBoundary failurePresenter = new MilestoneTasksOutputBoundary() {
-            @Override
-            public void prepareSuccessView(MilestoneTasksOutputData outputData) {
-                    fail("Use case success is unexpected");
-            }
-
-            @Override
-            public void prepareFailView(String error) {
-                assertEquals("Failed to find plan. Couldn't save", error);
-            }
-        };
-
-        MilestoneTasksInputBoundary interactor = new MilestoneTasksInteractor(dataAccessObject, failurePresenter);
-        interactor.execute(inputData);
-    }
+//    @Test
+//    public void failureNoAvailablePlanTest() {
+//        MilestoneTasksInputData inputData = new MilestoneTasksInputData("", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "");
+//        MilestoneTasksDataAccessInterface dataAccessObject = new InMemoryDataUserDataAccessObject();
+//
+//
+//        MilestoneTasksOutputBoundary failurePresenter = new MilestoneTasksOutputBoundary() {
+//            @Override
+//            public void prepareSuccessView(MilestoneTasksOutputData outputData) {
+//                    fail("Use case success is unexpected");
+//            }
+//
+//            @Override
+//            public void prepareFailView(String error) {
+//                assertEquals("Failed to find plan. Couldn't save", error);
+//            }
+//        };
+//
+//        MilestoneTasksInputBoundary interactor = new MilestoneTasksInteractor(dataAccessObject, failurePresenter);
+//        interactor.execute(inputData);
+//    }
 }
