@@ -1,7 +1,6 @@
 package use_case.milestone_tasks;
 
 import com.studyarc.data_access.InMemoryDataUserDataAccessObject;
-import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.use_case.milestone_tasks.*;
 
@@ -15,10 +14,8 @@ import java.util.List;
 public class MilestoneTasksInteractorTest {
     @Test
     public void successTest() {
-        MilestoneTasksDataAccessInterface dataAccessObject = new InMemoryDataUserDataAccessObject();
-
         // need to register a user first (not a part of the MilestoneTasksDataAccess Interface
-        InMemoryDataUserDataAccessObject userRepository = (InMemoryDataUserDataAccessObject) dataAccessObject;
+        InMemoryDataUserDataAccessObject userRepository = new InMemoryDataUserDataAccessObject();
         userRepository.registerUser("Julia", "password");
 
         // creates a test studyPlan to save to
@@ -30,8 +27,14 @@ public class MilestoneTasksInteractorTest {
         MilestoneTasksOutputBoundary successPresenter = new MilestoneTasksOutputBoundary() {
             @Override
             public void prepareSuccessView(MilestoneTasksOutputData outputData) {
-                assertEquals("Test plan", outputData.getPlanName());
-                assertEquals(3, outputData.getMilestonesSaved());
+                // want to test that the getStudyPlan size is 3
+                assertEquals(3, userRepository.getPlan("Test plan").getMilestones().size());
+                assertEquals("milestone 3", userRepository.getPlan("Test plan").getMilestones()
+                        .get(0).getTitle());
+                assertEquals("milestone 1", userRepository.getPlan("Test plan").getMilestones()
+                        .get(1).getTitle());
+                assertEquals("milestone 2", userRepository.getPlan("Test plan").getMilestones()
+                        .get(2).getTitle());
             }
 
             @Override
@@ -40,17 +43,15 @@ public class MilestoneTasksInteractorTest {
             }
         };
 
-        MilestoneTasksInputBoundary interactor = new MilestoneTasksInteractor(dataAccessObject, successPresenter);
+        MilestoneTasksInputBoundary interactor = new MilestoneTasksInteractor(userRepository, successPresenter);
         interactor.execute(inputData);
     }
 
     @Test
     public void failureSameNameTest() {
-        MilestoneTasksDataAccessInterface dataAccessObject = new InMemoryDataUserDataAccessObject();
-
-        // need to register a user first (not a part of the MilestoneTasksDataAccess Interface
-        InMemoryDataUserDataAccessObject userRepository = (InMemoryDataUserDataAccessObject) dataAccessObject;
+        InMemoryDataUserDataAccessObject userRepository = new InMemoryDataUserDataAccessObject();
         userRepository.registerUser("Julia", "password");
+
 
         // creates a test studyPlan to save to
         StudyPlan studyPlan = new StudyPlan("Test plan", new ArrayList<>());
@@ -70,16 +71,13 @@ public class MilestoneTasksInteractorTest {
             }
         };
 
-        MilestoneTasksInputBoundary interactor = new MilestoneTasksInteractor(dataAccessObject, failurePresenter);
+        MilestoneTasksInputBoundary interactor = new MilestoneTasksInteractor(userRepository, failurePresenter);
         interactor.execute(inputData);
     }
 
     @Test
     public void failureEmptyNameTest() {
-        MilestoneTasksDataAccessInterface dataAccessObject = new InMemoryDataUserDataAccessObject();
-
-        // need to register a user first (not a part of the MilestoneTasksDataAccess Interface
-        InMemoryDataUserDataAccessObject userRepository = (InMemoryDataUserDataAccessObject) dataAccessObject;
+        InMemoryDataUserDataAccessObject userRepository = new InMemoryDataUserDataAccessObject();
         userRepository.registerUser("Julia", "password");
 
         // creates a test studyPlan to save to
@@ -100,7 +98,7 @@ public class MilestoneTasksInteractorTest {
             }
         };
 
-        MilestoneTasksInputBoundary interactor = new MilestoneTasksInteractor(dataAccessObject, failurePresenter);
+        MilestoneTasksInputBoundary interactor = new MilestoneTasksInteractor(userRepository, failurePresenter);
         interactor.execute(inputData);
     }
 
