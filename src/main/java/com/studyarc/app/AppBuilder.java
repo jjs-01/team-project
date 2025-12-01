@@ -77,6 +77,7 @@ public class AppBuilder {
     private JobPostingsViewModel jobPostingsViewModel;
     private JobPostingsView jobPostingsView;
     private RegisterView registerView;
+    private TrackPlanController trackPlanController;
 
     private final MilestoneTasksViewModel milestoneTasksViewModel = new MilestoneTasksViewModel();
     private MilestoneTasksView milestoneTaskView;
@@ -143,6 +144,7 @@ public class AppBuilder {
         // Add TrackPlan Controller to TrackPlanView
         TrackPlanInputBoundary interactor = new TrackPlanInteractor(presenter, dataaccess);
         TrackPlanController trackPlanController = new TrackPlanController(interactor);
+        this.trackPlanController = trackPlanController;
         this.trackPlansView.setTrackPlanController(trackPlanController);
         sidePanelView.setTrackPlanController(trackPlanController);
         return this;
@@ -256,11 +258,12 @@ public class AppBuilder {
         loadMilestonesView.setLoadMilestonesController(loadController);
         loadMilestonesView.setMilestoneTasksController(saveController);
 
+//        loadMilestonesView.loadView();
         return this;
 }
 
     public AppBuilder addLoginUseCase() {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, registerViewModel, viewManagerModel, trackPlanViewModel, milestoneTasksViewModel, sidebarViewModel);
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, registerViewModel, viewManagerModel, trackPlanViewModel, milestoneTasksViewModel, sidebarViewModel, trackPlanController);
         final LoginInputBoundary loginInteractor = new LoginInteractor(databaseAccess, loginOutputBoundary);
 
         loginView.setLoginController(new LoginController(loginInteractor));

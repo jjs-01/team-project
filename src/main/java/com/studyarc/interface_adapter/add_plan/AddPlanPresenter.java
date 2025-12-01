@@ -23,12 +23,9 @@ public class AddPlanPresenter implements AddPlanOutputBoundary {
     @Override
     public void prepareSuccessView(AddPlanOutputData response) {
         TrackPlanState currentState = trackPlanViewModel.getState();
-        System.out.println(currentState.getStudyPlans().size());
+//        System.out.println(currentState.getStudyPlans().size());
 //        currentState.getStudyPlans().add(response.getPlan());
         System.out.println(currentState.getStudyPlans().size());
-
-
         trackPlanViewModel.firePropertyChange("added plan");
-        viewManagerModel.firePropertyChange();
     }
 }
