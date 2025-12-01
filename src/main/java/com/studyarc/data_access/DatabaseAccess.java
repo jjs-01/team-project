@@ -26,30 +26,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     private static DatabaseAccess instance;
     private User user;
     private List<User> allUsers;
-//    @SuppressWarnings("unchecked")
-//    private DatabaseAccess(){
-//        try {
-//            FileInputStream fileInputStream = new FileInputStream("studyarc-users.ser");
-//            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-//            this.allUsers = (List<User>) objectInputStream.readObject();
-//        } catch (IOException | ClassNotFoundException | ClassCastException e) {
-//            e.printStackTrace();
-//        }
-//        this.user = null;
-//    }
 
-<<<<<<< HEAD
-//    @SuppressWarnings("unchecked")
-//    private DatabaseAccess(){
-//        try {
-//            FileInputStream fileInputStream = new FileInputStream("studyarc-users.ser");
-//            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-//            this.allUsers = (List<User>) objectInputStream.readObject();
-//        } catch (IOException | ClassNotFoundException | ClassCastException e) {
-//            e.printStackTrace();
-//        }
-//        this.user = null;
-//    }
     private DatabaseAccess() {
         File f = new File("studyarc-users.ser");
         if (f.exists()) {

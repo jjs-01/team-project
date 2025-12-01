@@ -38,7 +38,7 @@ public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessIn
     }
 
     @Override
-    public boolean registerUser(User u) {
+    public boolean registerUser(String username, String password) {
         return false;
     }
 
@@ -67,12 +67,13 @@ public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessIn
     }
 
     @Override
+    public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
+
+    }
+
+    @Override
     public ArrayList<StudyPlan> getPlans() {
         return user.getStudyPlans();
     }
 
-    @Override
-    public ArrayList<StudyPlan> generateTestPlans() {
-        return null;
-    }
 }
