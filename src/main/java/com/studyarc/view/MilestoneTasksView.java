@@ -54,7 +54,8 @@ public class MilestoneTasksView extends JPanel implements ActionListener, Proper
         JLabel focuses = new JLabel("Focus: ");
         focusesPanel.add(focuses);
         String[] focusesOptions = {"Artificial Intelligence", "Game Design",
-                "Human Computer Interaction", "Web and Internet Technologies", "Data Science"};
+                "Human Computer Interaction", "Web and Internet Technologies", "Data Science", "Web Development",
+                "Cybersecurity", "Cloud Computing"};
         focusesComboBox = new JComboBox<>(focusesOptions);
         focusesComboBox.addActionListener(this);
         focusesPanel.add(focusesComboBox);
