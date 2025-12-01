@@ -1,8 +1,9 @@
 package com.studyarc.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ResearchPaper {
+public class ResearchPaper implements Serializable {
     private final String id;
     private final String title;
     private final List<String> authors;
