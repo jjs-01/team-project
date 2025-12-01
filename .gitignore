@@ -134,4 +134,4 @@ build/
 .DS_Store
 
 ### Environment Variables ###
-.env
+.envstudyarc-users.ser
