@@ -60,11 +60,13 @@ public class LoginPresenter implements LoginOutputBoundary {
     public void prepareView(RegisterOutputData registerOutputData){
         if(registerOutputData.isGoToLogin()){
             registerViewModel.setState(new RegisterState());
+            registerViewModel.firePropertyChange();
             viewManagerModel.setState(loginViewModel.getViewName());
             viewManagerModel.firePropertyChange();
 
         } else if(registerOutputData.isSuccess()){
             registerViewModel.setState(new RegisterState());
+            registerViewModel.firePropertyChange();
             viewManagerModel.setState(trackPlanViewModel.getViewName());
             sidebarViewModel.getState().setUserName(registerOutputData.getUsername());
             sidebarViewModel.firePropertyChange();
@@ -73,7 +75,7 @@ public class LoginPresenter implements LoginOutputBoundary {
 
             viewManagerModel.firePropertyChange();
         } else {
-            System.out.println("presernter : user exists!");
+            System.out.println("presenter : user exists!");
             registerViewModel.getState().setErrorCode(registerOutputData.getErrorMessage());
             registerViewModel.getState().setPassword("");
             registerViewModel.firePropertyChange();
