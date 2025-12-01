@@ -170,7 +170,7 @@ public class LoadMilestonesView extends MilestoneTasksView implements PropertyCh
                 JOptionPane.showMessageDialog(this, state.getLoadError());
 
                 state.setLoadError("");
-            } else if (evt.getPropertyName().equals("load plan")) {
+            } else {
                 loadStudyPlan(state.getFocus(),
                         state.getMilestoneNames(),
                         state.getMilestoneDates(),

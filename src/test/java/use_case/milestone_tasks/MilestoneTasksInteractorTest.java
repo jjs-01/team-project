@@ -1,6 +1,7 @@
 package use_case.milestone_tasks;
 
 import com.studyarc.data_access.InMemoryDataUserDataAccessObject;
+import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.use_case.milestone_tasks.*;
 
@@ -28,18 +29,19 @@ public class MilestoneTasksInteractorTest {
             @Override
             public void prepareSuccessView(MilestoneTasksOutputData outputData) {
                 // want to test that the getStudyPlan size is 3
-                assertEquals(3, userRepository.getPlan("Test plan").getMilestones().size());
-                assertEquals("milestone 3", userRepository.getPlan("Test plan").getMilestones()
-                        .get(0).getTitle());
-                assertEquals("milestone 1", userRepository.getPlan("Test plan").getMilestones()
-                        .get(1).getTitle());
-                assertEquals("milestone 2", userRepository.getPlan("Test plan").getMilestones()
-                        .get(2).getTitle());
+                List<Milestone> testPlanMilestones = userRepository.getPlan("Test plan").getMilestones();
+                assertEquals(3, testPlanMilestones.size());
+                assertEquals("milestone 3", testPlanMilestones.get(0).getTitle());
+                assertEquals("03/25/2025", testPlanMilestones.get(0).getDueDate());
+                assertEquals("milestone 1", testPlanMilestones.get(1).getTitle());
+                assertEquals("03/28/2025", testPlanMilestones.get(1).getDueDate());
+                assertEquals("milestone 2", testPlanMilestones.get(2).getTitle());
+                assertEquals("03/24/2025", testPlanMilestones.get(2).getDueDate());
             }
 
             @Override
             public void prepareFailView(String error) {
-                fail("Use case success is unexpected");
+                fail("Use case failure is unexpected");
             }
         };
 
