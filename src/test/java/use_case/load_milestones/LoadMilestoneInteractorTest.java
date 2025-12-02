@@ -4,7 +4,10 @@ import com.studyarc.data_access.InMemoryDataUserDataAccessObject;
 import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
 import com.studyarc.use_case.load_milestones.LoadMilestonesInteractor;
-import com.studyarc.use_case.load_milestones.*;
+import com.studyarc.use_case.load_milestones.LoadMilestonesInputData;
+import com.studyarc.use_case.load_milestones.LoadMilestonesOutputBoundary;
+import com.studyarc.use_case.load_milestones.LoadMilestonesOutputData;
+import com.studyarc.use_case.load_milestones.LoadMilestonesInputBoundary;
 
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,15 +19,15 @@ public class LoadMilestoneInteractorTest {
 
     @Test
     public void testSuccess() {
-        InMemoryDataUserDataAccessObject userRepository = new InMemoryDataUserDataAccessObject();
-        userRepository.registerUser("Julia", "password");
+        InMemoryDataUserDataAccessObject dataAccess = new InMemoryDataUserDataAccessObject();
+        dataAccess.registerUser("Julia", "password");
         StudyPlan studyPlan = new StudyPlan("Test plan", new ArrayList<>());
 
         // Add test milestones to the studyPlan
         studyPlan.getMilestones().add(new Milestone("milestone 1", "XX/XX/XXXX"));
         studyPlan.getMilestones().add(new Milestone("milestone 2", "XX/XX/2025"));
 
-        userRepository.getPlans().add(studyPlan);
+        dataAccess.getPlans().add(studyPlan);
 
         LoadMilestonesInputData inputData = new LoadMilestonesInputData("Test plan");
 
@@ -45,12 +48,40 @@ public class LoadMilestoneInteractorTest {
             }
         };
 
-        LoadMilestonesInputBoundary interactor = new LoadMilestonesInteractor(userRepository, successPresenter);
+        LoadMilestonesInputBoundary interactor = new LoadMilestonesInteractor(dataAccess, successPresenter);
         interactor.execute(inputData);
     }
 
     @Test
     public void testFailure() {
+        InMemoryDataUserDataAccessObject dataAccess = new InMemoryDataUserDataAccessObject();
+        dataAccess.registerUser("Julia", "password");
 
+        // Create an initial test plan
+        StudyPlan studyPlan = new StudyPlan("Test plan", new ArrayList<>());
+
+        // Add test milestones to the studyPlan
+        studyPlan.getMilestones().add(new Milestone("milestone 1", "XX/XX/XXXX"));
+        studyPlan.getMilestones().add(new Milestone("milestone 2", "XX/XX/2025"));
+
+        dataAccess.getPlans().add(studyPlan);
+
+        // Example fail to load plan: title not included in current study plans
+        LoadMilestonesInputData inputData = new LoadMilestonesInputData("Different plan");
+
+        LoadMilestonesOutputBoundary failPresenter = new LoadMilestonesOutputBoundary() {
+            @Override
+            public void prepareSuccessView(LoadMilestonesOutputData outputData) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Can't retrieve study plan.", error);
+            }
+        };
+
+        LoadMilestonesInputBoundary interactor = new LoadMilestonesInteractor(dataAccess, failPresenter);
+        interactor.execute(inputData);
     }
 }
