@@ -1,16 +1,16 @@
 package com.studyarc.use_case.delete_plan;
 
 import com.studyarc.entity.StudyPlan;
-import com.studyarc.interface_adapter.track_plan.TrackPlanState;
 
-import java.util.ArrayList;
+
+/***
+ * Input Data class for the Delete Plan use case
+ */
 
 public class DeletePlanInputData {
     private StudyPlan plan;
-    private String userName;
 
-
-    public DeletePlanInputData(StudyPlan plan){
+    public DeletePlanInputData(StudyPlan plan) {
         this.plan = plan;
     }
 
@@ -18,15 +18,8 @@ public class DeletePlanInputData {
         return this.plan;
     }
 
-    public void setPlan(StudyPlan plan){
+    public void setPlan(StudyPlan plan) {
         this.plan = plan;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }

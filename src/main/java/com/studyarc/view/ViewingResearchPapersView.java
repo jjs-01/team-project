@@ -5,6 +5,7 @@ import com.studyarc.entity.StudyPlan;
 import com.studyarc.interface_adapter.add_papers_to_plan.AddPapersToPlanController;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersController;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersViewModel;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,18 +15,18 @@ import java.net.URI;
 import java.util.List;
 
 public class ViewingResearchPapersView extends JPanel {
-    private JLabel titleLabel;
-    private JLabel errorLabel;
-    private JLabel successLabel;
-    private JPanel plansContainer;
-    private ViewingResearchPapersViewModel viewModel;
-    private ViewingResearchPapersController controller;
-    private AddPapersToPlanController addPapersController;
+    private final JLabel errorLabel;
+    private final JLabel successLabel;
+    private final JPanel plansContainer;
+    private final transient ViewingResearchPapersViewModel viewModel;
+    private transient ViewingResearchPapersController controller;
+    private transient AddPapersToPlanController addPapersController;
+
+    private static final String VIEW_FONT = "SansSerif";
 
     public ViewingResearchPapersView(ViewingResearchPapersViewModel viewModel) {
         this.viewModel = viewModel;
         viewModel.addPropertyChangeListener(evt -> {
-            System.out.println("Property change detected: " + evt.getPropertyName());
 
             if (ViewingResearchPapersViewModel.PLANS_PROPERTY.equals(evt.getPropertyName())) {
                 refreshPlansView();
@@ -33,27 +34,20 @@ public class ViewingResearchPapersView extends JPanel {
                 updateErrorMessage();
             } else if ("successMessage".equals(evt.getPropertyName())) {
                 updateSuccessMessage();
-            } else if (ViewingResearchPapersViewModel.REFRESH_PROPERTY.equals(evt.getPropertyName())) {
-                // CRITICAL: Refresh the view when papers are added
-                System.out.println("Refresh triggered - reloading plans from database");
-                if (controller != null) {
+            } else if (ViewingResearchPapersViewModel.REFRESH_PROPERTY.equals(evt.getPropertyName())
+                    && controller != null) {
                     // Use SwingUtilities.invokeLater to ensure UI update happens on EDT
-                    SwingUtilities.invokeLater(() -> {
-                        System.out.println("Executing refresh on EDT");
-                        controller.handleViewingResearchPapers();
-                    });
-                } else {
-                    System.err.println("Controller is null - cannot refresh!");
+                    SwingUtilities.invokeLater(() -> controller.handleViewingResearchPapers());
                 }
-            }
+
         });
 
         this.setLayout(new BorderLayout());
 
         // Top panel with title and messages
         JPanel topPanel = new JPanel(new BorderLayout());
-        titleLabel = new JLabel("Research Papers");
-        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+        JLabel titleLabel = new JLabel("Research Papers");
+        titleLabel.setFont(new Font(VIEW_FONT, Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         topPanel.add(titleLabel, BorderLayout.NORTH);
 
@@ -63,7 +57,7 @@ public class ViewingResearchPapersView extends JPanel {
         // Error message label (initially hidden)
         errorLabel = new JLabel();
         errorLabel.setForeground(Color.RED);
-        errorLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        errorLabel.setFont(new Font(VIEW_FONT, Font.BOLD, 14));
         errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
         errorLabel.setVisible(false);
         messagePanel.add(errorLabel);
@@ -71,7 +65,7 @@ public class ViewingResearchPapersView extends JPanel {
         // Success message label (initially hidden)
         successLabel = new JLabel();
         successLabel.setForeground(new Color(0, 128, 0)); // Green
-        successLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        successLabel.setFont(new Font(VIEW_FONT, Font.BOLD, 14));
         successLabel.setHorizontalAlignment(SwingConstants.CENTER);
         successLabel.setVisible(false);
         messagePanel.add(successLabel);
@@ -86,6 +80,8 @@ public class ViewingResearchPapersView extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(plansContainer);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.getHorizontalScrollBar().setUnitIncrement(20);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(20);
         this.add(scrollPane, BorderLayout.CENTER);
     }
 
@@ -94,7 +90,7 @@ public class ViewingResearchPapersView extends JPanel {
         List<StudyPlan> plans = viewModel.getStudyPlans();
         if (plans == null || plans.isEmpty()) {
             JLabel emptyLabel = new JLabel("No plans available");
-            emptyLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+            emptyLabel.setFont(new Font(VIEW_FONT, Font.PLAIN, 16));
             emptyLabel.setForeground(Color.GRAY);
             emptyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             plansContainer.add(Box.createVerticalGlue());
@@ -122,17 +118,7 @@ public class ViewingResearchPapersView extends JPanel {
         planPanel.setBackground(Color.WHITE);
 
         // Top section: Title and "Add Papers" button
-        JPanel topSection = new JPanel(new BorderLayout());
-
-        JLabel planTitle = new JLabel(plan.getTitle());
-        planTitle.setFont(new Font("SansSerif", Font.BOLD, 18));
-        topSection.add(planTitle, BorderLayout.WEST);
-
-        // Add "Search Papers" button
-        JButton addPapersButton = new JButton("+ Search Papers");
-        addPapersButton.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        addPapersButton.addActionListener(e -> showSearchPapersDialog(plan));
-        topSection.add(addPapersButton, BorderLayout.EAST);
+        JPanel topSection = getTopSection(plan);
 
         planPanel.add(topSection, BorderLayout.NORTH);
 
@@ -157,6 +143,22 @@ public class ViewingResearchPapersView extends JPanel {
         return planPanel;
     }
 
+    @NotNull
+    private JPanel getTopSection(StudyPlan plan) {
+        JPanel topSection = new JPanel(new BorderLayout());
+
+        JLabel planTitle = new JLabel(plan.getTitle());
+        planTitle.setFont(new Font(VIEW_FONT, Font.BOLD, 18));
+        topSection.add(planTitle, BorderLayout.WEST);
+
+        // Add "Search Papers" button
+        JButton addPapersButton = new JButton("+ Search Papers");
+        addPapersButton.setFont(new Font(VIEW_FONT, Font.PLAIN, 12));
+        addPapersButton.addActionListener(e -> showSearchPapersDialog(plan));
+        topSection.add(addPapersButton, BorderLayout.EAST);
+        return topSection;
+    }
+
     private void showSearchPapersDialog(StudyPlan plan) {
         JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Search Research Papers", true);
         dialog.setLayout(new BorderLayout(10, 10));
@@ -174,7 +176,7 @@ public class ViewingResearchPapersView extends JPanel {
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         JLabel planLabel = new JLabel("Adding papers to: " + plan.getTitle());
-        planLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        planLabel.setFont(new Font(VIEW_FONT, Font.BOLD, 14));
         contentPanel.add(planLabel, gbc);
 
         // Search query label
@@ -212,10 +214,11 @@ public class ViewingResearchPapersView extends JPanel {
 
         searchButton.addActionListener(e -> {
             String query = queryField.getText().trim();
+            String error = "Error";
             if (query.isEmpty()) {
                 JOptionPane.showMessageDialog(dialog,
                         "Please enter a search query",
-                        "Error",
+                        error,
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -229,7 +232,7 @@ public class ViewingResearchPapersView extends JPanel {
             } else {
                 JOptionPane.showMessageDialog(dialog,
                         "Add Papers feature not configured",
-                        "Error",
+                        error,
                         JOptionPane.ERROR_MESSAGE);
             }
         });
@@ -259,10 +262,57 @@ public class ViewingResearchPapersView extends JPanel {
 
         // Paper name (title)
         JLabel nameLabel = new JLabel("<html><div style='width: 150px;'>" + paper.getTitle() + "</div></html>");
-        nameLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
+        nameLabel.setFont(new Font(VIEW_FONT, Font.BOLD, 12));
         topPanel.add(nameLabel, BorderLayout.CENTER);
 
         // Delete button (top-right) - small red circle with X
+        JButton deleteButton = getDeleteButton(paper, plan, card);
+
+        topPanel.add(deleteButton, BorderLayout.EAST);
+        card.add(topPanel, BorderLayout.NORTH);
+
+        // Link at bottom
+        JLabel linkLabel = getLinkLabel(paper, card);
+
+        card.add(linkLabel, BorderLayout.SOUTH);
+
+        return card;
+    }
+
+    @NotNull
+    private static JLabel getLinkLabel(ResearchPaper paper, JPanel card) {
+        JLabel linkLabel = new JLabel("<html><u style='color: blue;'>link</u></html>");
+        linkLabel.setFont(new Font(VIEW_FONT, Font.PLAIN, 11));
+        linkLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        linkLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    Desktop.getDesktop().browse(new URI(paper.getUrl()));
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(card,
+                            "Could not open link: " + paper.getUrl(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                linkLabel.setText("<html><u style='color: darkblue;'>link</u></html>");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                linkLabel.setText("<html><u style='color: blue;'>link</u></html>");
+            }
+        });
+        return linkLabel;
+    }
+
+    @NotNull
+    private JButton getDeleteButton(ResearchPaper paper, StudyPlan plan, JPanel card) {
         JButton deleteButton = new JButton("×");
         deleteButton.setFont(new Font("Dialog", Font.PLAIN, 12));
         deleteButton.setPreferredSize(new Dimension(16, 16));
@@ -304,42 +354,7 @@ public class ViewingResearchPapersView extends JPanel {
                 deleteButton.setForeground(new Color(200, 50, 50));
             }
         });
-
-        topPanel.add(deleteButton, BorderLayout.EAST);
-        card.add(topPanel, BorderLayout.NORTH);
-
-        // Link at bottom
-        JLabel linkLabel = new JLabel("<html><u style='color: blue;'>link</u></html>");
-        linkLabel.setFont(new Font("SansSerif", Font.PLAIN, 11));
-        linkLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        linkLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    Desktop.getDesktop().browse(new URI(paper.getUrl()));
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(card,
-                            "Could not open link: " + paper.getUrl(),
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                linkLabel.setText("<html><u style='color: darkblue;'>link</u></html>");
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                linkLabel.setText("<html><u style='color: blue;'>link</u></html>");
-            }
-        });
-
-        card.add(linkLabel, BorderLayout.SOUTH);
-
-        return card;
+        return deleteButton;
     }
 
     private void updateErrorMessage() {
@@ -383,11 +398,9 @@ public class ViewingResearchPapersView extends JPanel {
 
     public void setViewingResearchPapersController(ViewingResearchPapersController controller) {
         this.controller = controller;
-        System.out.println("Controller set: " + (controller != null));
     }
 
     public void setAddPapersController(AddPapersToPlanController controller) {
         this.addPapersController = controller;
-        System.out.println("AddPapersController set: " + (controller != null));
     }
 }

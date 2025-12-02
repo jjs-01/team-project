@@ -17,10 +17,6 @@ public class ViewingResearchPapersPresenter implements ViewingResearchPapersOutp
     @Override
     public void prepareSuccessView(ViewingResearchPapersOutputData outputData) {
         List<StudyPlan> plans = outputData.getPlans();
-        for (StudyPlan plan : plans) {
-            System.out.println("  - Plan: " + plan.getTitle() + " with " +
-                    plan.getResearchPapers().size() + " papers");
-        }
 
         viewModel.setStudyPlans(plans);
         viewModel.setHasPlans(outputData.hasPlans());

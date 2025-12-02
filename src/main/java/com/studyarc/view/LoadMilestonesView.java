@@ -16,8 +16,7 @@ import java.util.Map;
  * View for loading milestones usecase
  */
 public class LoadMilestonesView extends MilestoneTasksView implements PropertyChangeListener {
-    private final LoadMilestonesViewModel loadViewModel;
-    private final MilestoneTasksViewModel milestoneViewModel;
+    private final transient MilestoneTasksViewModel milestoneViewModel;
     private static final String VIEW_NAME = "loaded milestones";
 
     private final JPanel milestonePanel;
@@ -25,8 +24,7 @@ public class LoadMilestonesView extends MilestoneTasksView implements PropertyCh
     public LoadMilestonesView(MilestoneTasksViewModel milestoneViewModel, LoadMilestonesViewModel loadViewModel) {
         super(milestoneViewModel);
         this.milestoneViewModel = milestoneViewModel;
-        this.loadViewModel = loadViewModel;
-        this.loadViewModel.addPropertyChangeListener(this);
+        loadViewModel.addPropertyChangeListener(this);
 
         milestonePanel = (JPanel) ((JScrollPane) this.getComponents()[LoadMilestonesViewModel.SCROLL_PANE_INDEX])
                 .getViewport()
@@ -113,7 +111,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements PropertyCh
             milestonePanelConstraints.weightx = 0.5;
         }
         milestonePanel.revalidate();
-        System.out.println(milestones.size());
     }
 
     private void loadTasksForMilestone(JPanel individualMilestone,
@@ -183,6 +180,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements PropertyCh
 
     @Override
     public String getViewName() {
-        return this.VIEW_NAME;
+        return VIEW_NAME;
     }
 }

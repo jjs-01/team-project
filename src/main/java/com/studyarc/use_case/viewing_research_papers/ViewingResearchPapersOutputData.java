@@ -1,7 +1,6 @@
 package com.studyarc.use_case.viewing_research_papers;
 
 import com.studyarc.entity.StudyPlan;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewingResearchPapersOutputData {

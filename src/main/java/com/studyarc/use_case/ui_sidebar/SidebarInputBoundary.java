@@ -1,5 +1,8 @@
 package com.studyarc.use_case.ui_sidebar;
 
+/**
+ * Input boundary interface for the sidebar use case
+ */
 public interface SidebarInputBoundary {
 
     /**

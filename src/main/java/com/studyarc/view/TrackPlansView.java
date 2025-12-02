@@ -11,7 +11,6 @@ import com.studyarc.interface_adapter.load_milestones.LoadMilestonesController;
 import com.studyarc.interface_adapter.track_plan.TrackPlanController;
 import com.studyarc.interface_adapter.track_plan.TrackPlanState;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
-import com.studyarc.interface_adapter.ui_sidebar.SidebarController;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -23,7 +22,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.SwingUtilities;
 import java.util.List;
@@ -46,20 +44,20 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     final JLabel title = new JLabel("MY PLANS");
     private final JButton saveButton = new JButton("Save");
     private final JButton newPlan = new JButton("🌟Create A New Plan🌟");
-    private final TrackPlanViewModel trackPlanViewModel;
+    private final transient TrackPlanViewModel trackPlanViewModel;
 
-    private TrackPlanController trackPlanController = null;
-    private DeletePlanController deletePlanController = null;
-    private LoadMilestonesController loadMilestonesController = null;
-    private AddPlanController addPlanController;
-    private SidebarController sidebarController = null;
+    private transient TrackPlanController trackPlanController = null;
+    private transient DeletePlanController deletePlanController = null;
+    private transient LoadMilestonesController loadMilestonesController = null;
+    private transient AddPlanController addPlanController;
+
 
     private HashMap<JButton, StudyPlan> buttonToPlanMap;
     private HashMap<JTextField, StudyPlan> titleToPlanMap;
     private HashMap<JButton, StudyPlan> editButtonToPlanMap;
 
-    private final AddReflectionViewModel addReflectionViewModel;
-    private AddReflectionController addReflectionController = null;
+    private final transient AddReflectionViewModel addReflectionViewModel;
+    private transient AddReflectionController addReflectionController = null;
 
     private String currentSelectedPlanTitle;
     private ShowReflectionView showReflectionView;
@@ -72,7 +70,8 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         return instance;
     }
 
-    private TrackPlansView(TrackPlanViewModel trackPlanViewModel, AddReflectionViewModel addReflectionViewModel) {
+    private TrackPlansView(TrackPlanViewModel trackPlanViewModel,
+                           AddReflectionViewModel addReflectionViewModel) {
         this.buttonToPlanMap = new HashMap<>();
         this.titleToPlanMap = new HashMap<>();
         this.editButtonToPlanMap = new HashMap<>();
@@ -88,7 +87,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         titlePanel.setBackground(Styling.getYellow());
         trackPlansPanel = new JPanel();
-
         trackPlansPanel.setLayout(new BoxLayout(trackPlansPanel, BoxLayout.Y_AXIS));
         JScrollPane jScrollPane = new JScrollPane(this.trackPlansPanel);
         jScrollPane.getVerticalScrollBar().setUnitIncrement(Styling.getScrollPace());
@@ -110,14 +108,14 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         GridBagConstraints topInfo = new GridBagConstraints();
         topInfo.gridx = 2;
 
-        final JPanel titlePanel;
-        titlePanel = new JPanel();
+        JPanel titlePanelResult = new JPanel();
+        JPanel buttonPanel = new JPanel();
+
         title.setFont(Styling.getMainFont());
 
-        titlePanel.setLayout(new BorderLayout());
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        titlePanelResult.setLayout(new BorderLayout());
+        titlePanelResult.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
-        JPanel buttonPanel = new JPanel();
 
         newPlan.addActionListener(this);
         buttonPanel.add(newPlan);
@@ -128,10 +126,11 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
         buttonPanel.setBackground(Styling.getYellow());
 
-        titlePanel.add(title, BorderLayout.CENTER);
-        titlePanel.add(buttonPanel, BorderLayout.EAST);
-        return titlePanel;
+        titlePanelResult.add(title, BorderLayout.CENTER);
+        titlePanelResult.add(buttonPanel, BorderLayout.EAST);
+        return titlePanelResult;
     }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         // get the current plans in the TrackPlanState and show them in the view accordingly.
@@ -144,7 +143,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         }
 
         TrackPlanState currentState = (TrackPlanState) evt.getNewValue();
-        ArrayList<StudyPlan> currentPlans = currentState.getStudyPlans();
+        List<StudyPlan> currentPlans = currentState.getStudyPlans();
 
         if (!currentState.getSavingMessage().isEmpty()) {
             JOptionPane.showMessageDialog(this, currentState.getSavingMessage());
@@ -157,42 +156,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         }
     }
 
-
-//    @Override
-//    public void propertyChange(PropertyChangeEvent evt) {
-//
-//        // get the current plans in the TrackPlanState and show them in the view accordingly.
-//        if (!(evt.getNewValue() instanceof TrackPlanState)) {
-//            return;
-//        }
-//
-//        if (evt.getPropertyName().equals("reflection_added")) {
-//            updateReflectionsUI();
-//        }
-//
-//        TrackPlanState currentState = (TrackPlanState) evt.getNewValue();
-//        ArrayList<StudyPlan> currentPlans = currentState.getStudyPlans();
-//
-//        if (!currentState.getSavingMessage().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, currentState.getSavingMessage());
-//            return;
-//        }
-//
-//        if (evt.getPropertyName().equals("added plan")) {
-//            ArrayList<StudyPlan> plans = currentState.getStudyPlans();
-//            StudyPlan lastAddedPlan = currentState.getStudyPlans().get(currentState.getStudyPlans().size() - 1);
-//            trackPlansPanel.add(createPlanPanel(lastAddedPlan));
-//            trackPlansPanel.add(Box.createVerticalStrut(15));
-//            trackPlansPanel.revalidate();
-//        }
-//
-//        if ( currentPlans == null || currentPlans.isEmpty()) {
-//            this.showRedirectButton();
-//        } else {
-//            this.showPlansInView(currentPlans);
-//        }
-//    }
-
     private void showRedirectButton() {
         trackPlansPanel.removeAll();
         JLabel message = new JLabel("You have no Plans! Go Create New Plans!");
@@ -203,14 +166,14 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
     }
 
 
-    private void showPlansInView(ArrayList<StudyPlan> plans) {
+    private void showPlansInView(List<StudyPlan> plans) {
         this.buttonToPlanMap = new HashMap<>();
         this.titleToPlanMap = new HashMap<>();
         this.editButtonToPlanMap = new HashMap<>();
 
         this.trackPlansPanel.removeAll();
         for (StudyPlan plan : plans) {
-            JPanel planPanel = createPlanPanel(plan);
+            JPanel planPanel = buildPlanPanel(plan);
             trackPlansPanel.add(planPanel);
             trackPlansPanel.add(Box.createVerticalStrut(15));
         }
@@ -218,18 +181,9 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         trackPlansPanel.revalidate();
     }
 
-    private JPanel createPlanPanel(StudyPlan plan) {
-        JPanel planPanel = new JPanel() {
-            @Override
-            public Dimension getMaximumSize() {
-                Dimension size = getPreferredSize();
-                return new Dimension(750, size.height);
-            }
-        };
-        planPanel.setLayout(new BorderLayout());
-        planPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.DARK_GRAY));
-        planPanel.setBackground(Styling.getGray());
-
+    private JPanel buildPlanPanel(StudyPlan plan) {
+        //get the main panel for each plan
+        JPanel planPanel = creatPlanPanel();
 
         // Head Part of each plan
         JPanel headPanel = new JPanel();
@@ -244,32 +198,99 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         planTitleTextField.getDocument().addDocumentListener(this);
         planTitleTextField.setText(plan.getTitle());
         planLabel.setFont(planLabel.getFont().deriveFont(Font.BOLD, 16f));
-        this.titleToPlanMap.put(planTitleTextField, plan);//Add the title textfield in the map for each plan.
+        this.titleToPlanMap.put(planTitleTextField, plan);
 
-        // Delete Button for each plan
+        // Delete and Edit Buttons for each plan
+        setUpDeleteAndEditButton(plan, headPanel, planLabel, planTitleTextField);
+
+        // Milestones of each plan
+        JPanel milestonesPanel = new JPanel();
+        milestonesPanel.setLayout(new BoxLayout(milestonesPanel, BoxLayout.Y_AXIS));
+        milestonesPanel.setBackground(Styling.getGray());
+        milestonesPanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+        setMileStonePanel(plan, milestonesPanel);
+
+        // reflection log part.
+        JPanel reflectionPanel = new JPanel();
+        reflectionPanel.setLayout(new BorderLayout());
+        reflectionPanel.setBorder(BorderFactory.createTitledBorder("Reflection Log"));
+
+        JPanel reflectionHeader = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        JButton addReflectionButton = new JButton("Add");
+        addReflectionButton.setFont(Styling.getSubFont().deriveFont(12f));
+        JButton showAllReflectionsButton = new JButton("Show All");
+        showAllReflectionsButton.setFont(Styling.getSubFont().deriveFont(12f));
+
+        reflectionHeader.add(addReflectionButton);
+        reflectionHeader.add(showAllReflectionsButton);
+
+        reflectionPanel.add(reflectionHeader, BorderLayout.NORTH);
+
+        String username = trackPlanViewModel.getState().getUsername();
+        addReflectionButton.addActionListener(e -> {
+            AddReflectionView dialog = new AddReflectionView(
+                    SwingUtilities.getWindowAncestor(TrackPlansView.this),
+                    addReflectionViewModel,
+                    addReflectionController,
+                    plan.getTitle(),
+                    username
+            );
+            dialog.setVisible(true);
+        });
+
+        showAllReflectionsButton.addActionListener(e -> {
+            currentSelectedPlanTitle = plan.getTitle();
+            if (showReflectionView == null) {
+                showReflectionView = new ShowReflectionView(
+                        SwingUtilities.getWindowAncestor(TrackPlansView.this)
+                );
+            }
+
+            showReflectionView.refresh(plan.getReflections());
+            showReflectionView.setVisible(true);
+        });
+        planPanel.add(headPanel, BorderLayout.NORTH);
+        planPanel.add(milestonesPanel, BorderLayout.CENTER);
+        planPanel.add(reflectionPanel, BorderLayout.SOUTH);
+
+        return planPanel;
+    }
+
+    @NotNull
+    private JPanel creatPlanPanel() {
+        JPanel planPanel = new JPanel() {
+            @Override
+            public Dimension getMaximumSize() {
+                Dimension size = getPreferredSize();
+                return new Dimension(750, size.height);
+            }
+        };
+        planPanel.setLayout(new BorderLayout());
+        planPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.DARK_GRAY));
+        planPanel.setBackground(Styling.getGray());
+        return planPanel;
+    }
+
+    private void setUpDeleteAndEditButton(StudyPlan plan, JPanel headPanel, JLabel planLabel,
+                                          JTextField planTitleTextField) {
         JButton deleteButton = new JButton("Delete " + "❌");
         deleteButton.setFont(Styling.getSubFont().deriveFont(12f));
         JButton editButton = new JButton("Edit");
         deleteButton.addActionListener(this);
-        this.buttonToPlanMap.put(deleteButton, plan); //Add the delete button in the map for each plan.
+        this.buttonToPlanMap.put(deleteButton, plan);
         editButton.addActionListener(this);
 
-        this.buttonToPlanMap.put(deleteButton, plan);//Add the delete button in the map for each plan.
+        this.buttonToPlanMap.put(deleteButton, plan);
         this.editButtonToPlanMap.put(editButton, plan);
 
         headPanel.add(planLabel);
         headPanel.add(planTitleTextField);
         headPanel.add(editButton);
         headPanel.add(deleteButton);
+    }
 
-
-        // Milestones of each plan
-        JPanel milestonesPanel = new JPanel();
-        milestonesPanel.setLayout(new BoxLayout(milestonesPanel, BoxLayout.Y_AXIS));
-        milestonesPanel.setBackground(Styling.getGray());
-
-        milestonesPanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
-
+    private void setMileStonePanel(StudyPlan plan, JPanel milestonesPanel) {
         List<Milestone> milestones = plan.getMilestones();
 
         for (int i = 0; i < milestones.size(); i++) {
@@ -291,17 +312,7 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             // Check if all subtasks are completed
             JLabel milestoneCompleted = new JLabel(" ✅ ");
             List<Task> subtasks = m.getSubtasks();
-            boolean allCompleted = !subtasks.isEmpty();
-
-            for (Task subtask : subtasks) {
-                String status = subtask.getStatus();
-                if (!"Done".equals(status)) {
-                    allCompleted = false;
-                    break;
-                }
-            }
-            milestoneCompleted.setVisible(allCompleted);
-
+            milestoneCompleted.setVisible(taskAllDone(subtasks));
 
             milestoneHeader.add(upButton);
             milestoneHeader.add(downButton);
@@ -330,10 +341,9 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
             List<Task> tasks = m.getSubtasks();
             for (int j = 0; j < tasks.size(); j++) {
-                JPanel taskRow = getJPanel(tasks, j);
+                JPanel taskRow = getTaskRowPanel(tasks, j);
                 tasksPanel.add(taskRow);
             }
-
 
             milestonePanel.add(milestoneHeader);
             milestonePanel.add(tasksPanel);
@@ -341,64 +351,23 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             milestonesPanel.add(milestonePanel);
             milestonesPanel.add(Box.createVerticalStrut(10));
         }
+    }
 
-        // reflection log part.
-        JPanel reflectionPanel = new JPanel();
-        reflectionPanel.setLayout(new BorderLayout());
-        reflectionPanel.setBorder(BorderFactory.createTitledBorder("Reflection Log"));
+    private  boolean taskAllDone(List<Task> subtasks) {
+        boolean allCompleted = !subtasks.isEmpty();
 
-        JPanel reflectionHeader = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        JButton addReflectionButton = new JButton("Add");
-        addReflectionButton.setFont(Styling.getSubFont().deriveFont(12f));
-        JButton showAllReflectionsButton = new JButton("Show All");
-        showAllReflectionsButton.setFont(Styling.getSubFont().deriveFont(12f));
-
-        reflectionHeader.add(addReflectionButton);
-        reflectionHeader.add(showAllReflectionsButton);
-
-        reflectionPanel.add(reflectionHeader, BorderLayout.NORTH);
-
-        TrackPlanState tpState = trackPlanViewModel.getState();
-        String username = tpState.getUsername();
-        addReflectionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddReflectionView dialog = new AddReflectionView(
-                        SwingUtilities.getWindowAncestor(TrackPlansView.this),
-                        addReflectionViewModel,
-                        addReflectionController,
-                        plan.getTitle(),
-                        username
-                );
-
-                dialog.setVisible(true);
+        for (Task subtask : subtasks) {
+            String status = subtask.getStatus();
+            if (!"Done".equals(status)) {
+                allCompleted = false;
+                break;
             }
-        });
-
-        showAllReflectionsButton.addActionListener(e -> {
-            currentSelectedPlanTitle = plan.getTitle();
-
-            if (showReflectionView == null) {
-                showReflectionView = new ShowReflectionView(
-                        SwingUtilities.getWindowAncestor(TrackPlansView.this)
-                );
-            }
-
-            showReflectionView.refresh(plan.getReflections());
-            showReflectionView.setVisible(true);
-        });
-
-
-        planPanel.add(headPanel, BorderLayout.NORTH);
-        planPanel.add(milestonesPanel, BorderLayout.CENTER);
-        planPanel.add(reflectionPanel, BorderLayout.SOUTH);
-
-        return planPanel;
+        }
+        return allCompleted;
     }
 
     @NotNull
-    private static JPanel getJPanel(List<Task> tasks, int j) {
+    private JPanel getTaskRowPanel(List<Task> tasks, int j) {
         Task t = tasks.get(j);
 
         JPanel taskRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -436,7 +405,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         } else if (e.getSource() == newPlan) {
             addPlanController.execute(state.getStudyPlanTitles());
         } else if (this.editButtonToPlanMap.containsKey(button)) {
-            System.out.println("EditPlan: " + this.editButtonToPlanMap.get(button).getTitle());
             this.loadMilestonesController.execute(this.editButtonToPlanMap.get(button).getTitle());
 
         } else if (e.getSource() == saveButton) {
@@ -467,8 +435,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         for (JTextField textField : textFieldSet) {
             if (textField.getDocument() == doc) {
                 titleToPlanMap.get(textField).setTitle(textField.getText());
-                System.out.println("Find the field of the Plan: " + titleToPlanMap.get(textField).getTitle());
-                System.out.println(titleToPlanMap.get(textField).getTitle());
                 break;
             }
         }
@@ -476,10 +442,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
 
     public void setAddReflectionController(AddReflectionController controller) {
         this.addReflectionController = controller;
-    }
-
-    public void setAddPlanController(AddPlanController controller) {
-        this.addPlanController = controller;
     }
 
     private void updateReflectionsUI() {
@@ -498,7 +460,6 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
             }
         }
         if (current == null) {
-            System.out.println("No matching plan found for updateReflectionsUI()");
             return;
         }
 
@@ -511,11 +472,12 @@ public class TrackPlansView extends JPanel implements PropertyChangeListener, Ac
         this.loadMilestonesController = loadMilestonesController;
     }
 
-    public void setSidebarController(SidebarController controller) {
-        this.sidebarController = controller;
-    }
 
     public void setTrackPlanController(TrackPlanController trackPlanController) {
         this.trackPlanController = trackPlanController;
+    }
+
+    public void setAddPlanController(AddPlanController controller) {
+        this.addPlanController = controller;
     }
 }

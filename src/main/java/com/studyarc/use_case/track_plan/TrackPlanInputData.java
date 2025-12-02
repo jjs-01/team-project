@@ -1,6 +1,8 @@
 package com.studyarc.use_case.track_plan;
 
-
+/***
+ * Input Data for TrackPlan usecase
+ */
 public class TrackPlanInputData {
     final String username;
 

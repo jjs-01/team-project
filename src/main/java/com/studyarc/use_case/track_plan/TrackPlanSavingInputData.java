@@ -2,13 +2,17 @@ package com.studyarc.use_case.track_plan;
 
 import com.studyarc.entity.StudyPlan;
 
-import java.util.ArrayList;
+import java.util.List;
+
+/***
+ * Input Data class for the Track Plan Saving use case
+ */
 
 public class TrackPlanSavingInputData {
     private String username;
-    private ArrayList<StudyPlan> plans;
+    private List<StudyPlan> plans;
 
-    public TrackPlanSavingInputData(ArrayList<StudyPlan> plans, String username){
+    public TrackPlanSavingInputData(List<StudyPlan> plans, String username){
         this.username = username;
         this.plans = plans;
     }
@@ -21,11 +25,11 @@ public class TrackPlanSavingInputData {
         this.username = username;
     }
 
-    public ArrayList<StudyPlan> getPlans() {
+    public List<StudyPlan> getPlans() {
         return plans;
     }
 
-    public void setPlans(ArrayList<StudyPlan> plans) {
+    public void setPlans(List<StudyPlan> plans) {
         this.plans = plans;
     }
 }

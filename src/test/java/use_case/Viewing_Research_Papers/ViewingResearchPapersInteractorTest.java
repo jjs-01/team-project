@@ -16,7 +16,6 @@ class ViewingResearchPapersInteractorTest {
     private TestDataAccessInterface testRepository;
     private TestOutputBoundary testPresenter;
     private ViewingResearchPapersInteractor interactor;
-    private ViewingResearchPapersInputData inputData;
 
     // Test double for DataAccessInterface
     static class TestDataAccessInterface implements ViewingResearchPapersDataAccessInterface {
@@ -87,7 +86,6 @@ class ViewingResearchPapersInteractorTest {
         testRepository = new TestDataAccessInterface();
         testPresenter = new TestOutputBoundary();
         interactor = new ViewingResearchPapersInteractor(testRepository, testPresenter);
-        inputData = new ViewingResearchPapersInputData();
     }
 
     @Test
@@ -127,7 +125,7 @@ class ViewingResearchPapersInteractorTest {
         testRepository.setPlans(plans);
 
         // Act
-        interactor.execute(inputData);
+        interactor.execute();
 
         // Assert
         assertEquals(1, testRepository.getGetPlansCallCount());
@@ -149,7 +147,7 @@ class ViewingResearchPapersInteractorTest {
         testRepository.setPlans(emptyPlans);
 
         // Act
-        interactor.execute(inputData);
+        interactor.execute();
 
         // Assert
         assertEquals(1, testRepository.getGetPlansCallCount());
@@ -172,7 +170,7 @@ class ViewingResearchPapersInteractorTest {
         testRepository.setPlans(plans);
 
         // Act
-        interactor.execute(inputData);
+        interactor.execute();
 
         // Assert
         assertEquals(1, testRepository.getGetPlansCallCount());
@@ -190,7 +188,7 @@ class ViewingResearchPapersInteractorTest {
 
         // Act
         try {
-            interactor.execute(inputData);
+            interactor.execute();
         } catch (RuntimeException e) {
             // Expected exception - interactor doesn't handle it
         }
@@ -208,7 +206,7 @@ class ViewingResearchPapersInteractorTest {
 
         // Act
         try {
-            interactor.execute(inputData);
+            interactor.execute();
         } catch (NullPointerException e) {
             // Expected exception - interactor doesn't handle it
         }
@@ -246,7 +244,7 @@ class ViewingResearchPapersInteractorTest {
         testRepository.setPlans(plans);
 
         // Act
-        interactor.execute(inputData);
+        interactor.execute();
 
         // Assert
         assertEquals(1, testPresenter.getSuccessCallCount());
@@ -267,7 +265,7 @@ class ViewingResearchPapersInteractorTest {
         testRepository.setPlans(plans);
 
         // Act
-        interactor.execute(inputData);
+        interactor.execute();
 
         // Assert
         ViewingResearchPapersOutputData outputData = testPresenter.getSuccessData();
