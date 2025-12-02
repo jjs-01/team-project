@@ -1,4 +1,4 @@
-package job_postings;
+package use_case.job_postings;
 
 import com.studyarc.data_access.DatabaseAccess;
 import com.studyarc.entity.job_postings.JobListing;

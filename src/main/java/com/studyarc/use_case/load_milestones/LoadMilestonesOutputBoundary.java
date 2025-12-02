@@ -1,7 +1,7 @@
 package com.studyarc.use_case.load_milestones;
 
 /**
- * Output boundary interaface for the load milestones use case
+ * Output boundary interface for the load milestones use case
  */
 public interface LoadMilestonesOutputBoundary {
     /**

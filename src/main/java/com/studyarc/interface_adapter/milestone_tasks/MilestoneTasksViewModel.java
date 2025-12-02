@@ -8,7 +8,6 @@ import com.studyarc.interface_adapter.ViewModel;
  */
 public class MilestoneTasksViewModel extends ViewModel<MilestoneTasksState> {
 
-    public static final String TITLE_LABEL = "Study Plan View";
     public static final String FONT = "SansSerif";
 
     public static final String BASE_MILESTONE_NAME = "Milestone Name";
@@ -26,7 +25,7 @@ public class MilestoneTasksViewModel extends ViewModel<MilestoneTasksState> {
 
 
     public MilestoneTasksViewModel() {
-        super("milestones and tasks");
+        super("milestone tasks");
         setState(new MilestoneTasksState());
     }
 }

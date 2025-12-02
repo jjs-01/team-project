@@ -34,12 +34,6 @@ public class MilestoneTasksInteractor implements MilestoneTasksInputBoundary {
             ArrayList<Milestone> milestones = getMilestones(milestoneInputData);
 
             StudyPlan plan = milestoneDataAccessObject.getPlan(milestoneInputData.getStudyPlanName());
-
-            if (plan == null) {
-                milestonePresenter.prepareFailView("Failed to find plan. Couldn't save");
-                return;
-            }
-
             plan.setMilestones(milestones);
             plan.setFocus(milestoneInputData.getFocus());
             milestoneDataAccessObject.save();

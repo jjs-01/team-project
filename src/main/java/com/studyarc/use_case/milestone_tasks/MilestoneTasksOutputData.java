@@ -1,9 +1,5 @@
 package com.studyarc.use_case.milestone_tasks;
 
-import com.studyarc.entity.Milestone;
-
-import java.util.List;
-
 /**
  * Output data class for the saving milestones use case
  */
@@ -19,5 +15,5 @@ public class MilestoneTasksOutputData {
 
     public String getPlanName() { return planName; }
 
-    public int milestonesSaved() { return milestonesSaved; }
+    public int getMilestonesSaved() { return milestonesSaved; }
 }

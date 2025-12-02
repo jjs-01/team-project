@@ -47,3 +47,5 @@ build/
 !.idea/vcs.xml
 .idea/workspace.xml
 .idea/checkstyle-idea.xml
+
+studyarc-users.ser

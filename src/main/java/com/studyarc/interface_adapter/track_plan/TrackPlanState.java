@@ -21,8 +21,10 @@ public class TrackPlanState {
 
     public List<String> getStudyPlanTitles() {
         List<String> planTitles = new ArrayList<>();
-        for (StudyPlan plan : studyPlans) {
-            planTitles.add(plan.getTitle());
+        if (studyPlans != null) {
+            for (StudyPlan plan : studyPlans) {
+                planTitles.add(plan.getTitle());
+            }
         }
         return planTitles;
     }
@@ -43,8 +45,7 @@ public class TrackPlanState {
         this.savingMessage = savingMessage;
     }
 
-    public String getSavingMessage(){
+    public String getSavingMessage() {
         return this.savingMessage;
     }
 }
-
