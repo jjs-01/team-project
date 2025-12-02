@@ -34,10 +34,6 @@ public class ViewingResearchPapersViewModel {
 
     }
 
-    public boolean hasPlans() {
-        return hasPlans;
-    }
-
     public void setHasPlans(boolean hasPlans) {
         boolean oldValue = this.hasPlans;
         this.hasPlans = hasPlans;
@@ -46,10 +42,6 @@ public class ViewingResearchPapersViewModel {
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
     }
 
     public String getViewName() {

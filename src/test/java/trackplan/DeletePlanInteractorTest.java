@@ -6,11 +6,12 @@ import com.studyarc.use_case.delete_plan.DeletePlanInputData;
 import com.studyarc.use_case.delete_plan.DeletePlanInteractor;
 import com.studyarc.use_case.delete_plan.DeletePlanOutputBoundary;
 import com.studyarc.use_case.delete_plan.DeletePlanOutputData;
-import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
+import com.studyarc.use_case.track_plan.TrackPlanDataAccessInterface;
 import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,9 +26,9 @@ public class DeletePlanInteractorTest {
         plans.add(testplan1);
         plans.add(testPlan2);
         u.setStudyPlans(plans);
-        TrackPlanDataAccessinterface Dao = new TrackPlanDataAccessinterface() {
+        TrackPlanDataAccessInterface Dao = new TrackPlanDataAccessInterface() {
             @Override
-            public ArrayList<StudyPlan> getPlans() {
+            public List<StudyPlan> getPlans() {
                 return plans;
             }
 
@@ -36,13 +37,13 @@ public class DeletePlanInteractorTest {
             }
 
             @Override
-            public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
+            public void saveAllPlansForUser(List<StudyPlan> plans) {
             }
         };
         DeletePlanInputData input = new DeletePlanInputData(testplan1);
         DeletePlanOutputBoundary presenter = new DeletePlanOutputBoundary() {
             @Override
-            public void ShowPlans(DeletePlanOutputData outputData) {
+            public void showPlans(DeletePlanOutputData outputData) {
                 assertEquals(testplan1 ,outputData.getPlan());
             }
         };

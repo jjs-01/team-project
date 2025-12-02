@@ -7,7 +7,7 @@ import com.studyarc.use_case.load_milestones.LoadMilestonesDataAccessInterface;
 import com.studyarc.use_case.login.LoginDataAccessInterface;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
 import com.studyarc.use_case.add_reflection.AddReflectionDataAccessInterface;
-import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
+import com.studyarc.use_case.track_plan.TrackPlanDataAccessInterface;
 import com.studyarc.use_case.search_research_papers.SearchResearchPapersDataAccessInterface;
 import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersDataAccessInterface;
 import com.studyarc.use_case.add_papers_to_plan.AddPapersToPlanDataAccessInterface;
@@ -24,7 +24,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         MilestoneTasksDataAccessInterface,
         LoadMilestonesDataAccessInterface,
         AddReflectionDataAccessInterface,
-        TrackPlanDataAccessinterface,
+        TrackPlanDataAccessInterface,
         AddPlanDataAccessInterface,
         SearchResearchPapersDataAccessInterface,
         ViewingResearchPapersDataAccessInterface,
@@ -66,7 +66,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     @Override
     public ArrayList<String> getFocuses() {
         ArrayList<String> focuses = new ArrayList<>();
-        ArrayList<StudyPlan> allStudyPlans = this.getPlans();
+        List<StudyPlan> allStudyPlans = this.getPlans();
 
         for (StudyPlan studyPlan : allStudyPlans) {
             String focus = studyPlan.getFocus();
@@ -82,7 +82,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
         return focuses;
     }
 
-    public ArrayList<StudyPlan> getPlans(String username) {
+    public List<StudyPlan> getPlans(String username) {
         if (username != null) {
             for (User u : allUsers) {
                 if (u.getUsername().equals(username)) {
@@ -94,7 +94,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public ArrayList<StudyPlan> getPlans() {
+    public List<StudyPlan> getPlans() {
         if (user != null) {
             return user.getStudyPlans();
         }
@@ -133,7 +133,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     @Override
     public StudyPlan getPlan(String planName) {
         if (user != null && planName != null) {
-            ArrayList<StudyPlan> userStudyPlans = user.getStudyPlans();
+            List<StudyPlan> userStudyPlans = user.getStudyPlans();
             for (StudyPlan plan : userStudyPlans) {
                 if (plan.getTitle().equals(planName)) {
                     return plan;
@@ -199,7 +199,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     }
 
     @Override
-    public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
+    public void saveAllPlansForUser(List<StudyPlan> plans) {
         if (user != null) {
             this.user.setStudyPlans(plans);
             this.save();

@@ -1,11 +1,9 @@
 package com.studyarc.view;
 
 import com.studyarc.entity.Reflection;
-import com.studyarc.entity.StudyPlan;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShowReflectionView extends JDialog {
@@ -20,7 +18,7 @@ public class ShowReflectionView extends JDialog {
         reflectionArea.setWrapStyleWord(true);
 
         JScrollPane scrollPane = new JScrollPane(reflectionArea);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         add(scrollPane);
 

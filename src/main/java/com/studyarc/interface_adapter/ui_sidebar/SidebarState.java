@@ -1,5 +1,8 @@
 package com.studyarc.interface_adapter.ui_sidebar;
 
+/**
+ * State for the sidebar use case
+ */
 public class SidebarState {
 
     private String userName;

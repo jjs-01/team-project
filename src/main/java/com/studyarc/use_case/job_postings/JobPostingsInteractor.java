@@ -43,12 +43,14 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
                 KeywordList keywords = keywordGenerator.generate(selectedFocus);
 
                 // generates the job listings for the given keywords
-                List<JobListing> jobListings = jobGenerator.getJobListings(selectedFocus, countryCode, keywords, sort, salaryMin);
+                List<JobListing> jobListings = jobGenerator.getJobListings(selectedFocus, countryCode, keywords,
+                        sort, salaryMin);
 
                 // gets the number of results
                 int numberOfResults = jobGenerator.numberResults(jobListings);
                 // creates the output data object
-                final JobPostingsOutputData jobPostingsOutputData = new JobPostingsOutputData(jobListings, numberOfResults);
+                final JobPostingsOutputData jobPostingsOutputData = new JobPostingsOutputData(jobListings,
+                        numberOfResults);
 
                 if (numberOfResults == 0) {
                     jobPostingsPresenter.prepareFailView("No jobs found.");
@@ -59,7 +61,6 @@ public class JobPostingsInteractor implements JobPostingsInputBoundary {
 
             } catch (KeywordGenerator.KeywordGeneratorException | JobRepository.JobRepositoryException e ){
                 System.out.println(e.getMessage() + " " + e.getCause() + " " + Arrays.toString(e.getStackTrace()));
-                // sends the failed view with NEED A MESSAGE
                 jobPostingsPresenter.prepareFailView("An error has occurred, please try again later.");
 
             }

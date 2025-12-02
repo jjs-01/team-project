@@ -1,6 +1,5 @@
 package com.studyarc.interface_adapter.milestone_tasks;
 
-import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputBoundary;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputData;
 
@@ -10,11 +9,8 @@ import com.studyarc.use_case.milestone_tasks.MilestoneTasksOutputData;
 public class MilestoneTasksPresenter implements MilestoneTasksOutputBoundary {
 
     private final MilestoneTasksViewModel milestoneTasksViewModel;
-    private final ViewManagerModel viewManagerModel;
 
-    public MilestoneTasksPresenter(ViewManagerModel viewManagerModel,
-                                   MilestoneTasksViewModel milestoneTasksViewModel) {
-        this.viewManagerModel = viewManagerModel;
+    public MilestoneTasksPresenter(MilestoneTasksViewModel milestoneTasksViewModel) {
         this.milestoneTasksViewModel = milestoneTasksViewModel;
     }
 
@@ -24,7 +20,6 @@ public class MilestoneTasksPresenter implements MilestoneTasksOutputBoundary {
         saveState.setMilestoneSaveMessage("Saved " + response.getMilestonesSaved()
                 + " milestones for " + response.getPlanName() + "!");
         milestoneTasksViewModel.firePropertyChange("saved plan");
-        viewManagerModel.firePropertyChange();
     }
 
     @Override

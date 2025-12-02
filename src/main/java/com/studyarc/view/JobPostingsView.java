@@ -25,10 +25,11 @@ import java.util.Objects;
  */
 public class JobPostingsView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private final String viewName = "job postings";
+    private static final String VIEW_NAME = "job postings";
 
-    private final JobPostingsViewModel jobPostingsViewModel;
-    private JobPostingsController jobPostingsController = null;
+    private final transient JobPostingsViewModel jobPostingsViewModel;
+    private static final String SELECT_FOCUS_TEXT = "Select Focus";
+    private transient JobPostingsController jobPostingsController = null;
 
     private final JPanel allJobPostingsPanel = new JPanel();
 
@@ -42,7 +43,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
     private final JButton search;
 
-    List<String> planOptions = new ArrayList<>();
+    transient List<String> planOptions = new ArrayList<>();
 
     public JobPostingsView(JobPostingsViewModel jobPostingsViewModel) {
         JPanel jobPostingsPanel = new JPanel();
@@ -70,7 +71,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         // creates the dropdown selection with label for selecting the focus/plan
         JLabel plan = new JLabel(JobPostingsViewModel.FOCUS);
         plan.setFont(Styling.getSubFont().deriveFont(14f));
-        planOptions = new ArrayList<>(List.of("Select Focus"));
+        planOptions = new ArrayList<>(List.of(SELECT_FOCUS_TEXT));
         planComboBox = new JComboBox<>(planOptions.toArray(new String[0]));
         planComboBox.setFont(Styling.getSubFont().deriveFont(12f));
         planComboBox.addActionListener(this);
@@ -144,18 +145,16 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
         this.add(scroller, BorderLayout.CENTER);
 
         search.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(search)) {
-                            final JobPostingsState currentState = jobPostingsViewModel.getState();
+                e -> {
+                    if (e.getSource().equals(search)) {
+                        final JobPostingsState currentState = jobPostingsViewModel.getState();
 
-                            jobPostingsController.execute(
-                                    currentState.getFocus(),
-                                    currentState.getLocation(),
-                                    currentState.getMinSalary(),
-                                    currentState.getSort()
-                            );
-                        }
+                        jobPostingsController.execute(
+                                currentState.getFocus(),
+                                currentState.getLocation(),
+                                currentState.getMinSalary(),
+                                currentState.getSort()
+                        );
                     }
                 }
         );
@@ -229,7 +228,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
         ArrayList<String> usersFocuses = jobPostingsState.getFocuses();
         planOptions.clear();
-        planOptions.add("Select Focus");
+        planOptions.add(SELECT_FOCUS_TEXT);
         // Adds the focuses
         for (String focus :  usersFocuses) {
             if (!planOptions.contains(focus)) {
@@ -246,7 +245,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
 
         // if its empty
         if (usersFocuses.isEmpty()) {
-            planComboBox.setSelectedItem("Select Focus");
+            planComboBox.setSelectedItem(SELECT_FOCUS_TEXT);
         }
     }
 
@@ -334,7 +333,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
                         try {
                             Desktop.getDesktop().browse(new URI(url));
                         } catch (Exception ex) {
-                            System.out.println("Error opening the link " + url + ": " + ex.getMessage());
+                            // doesn't open link
                         }
                     }
                 });
@@ -346,7 +345,7 @@ public class JobPostingsView extends JPanel implements ActionListener, PropertyC
     }
 
     public String getViewName() {
-        return viewName;
+        return VIEW_NAME;
     }
 
     public void setJobPostingsController(JobPostingsController jobPostingsController) {

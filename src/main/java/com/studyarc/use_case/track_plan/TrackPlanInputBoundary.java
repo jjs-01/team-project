@@ -9,5 +9,5 @@ public interface TrackPlanInputBoundary {
     //execute the login usecase
     void execute(TrackPlanInputData trackPlanInputData);
 
-    void execute(TrackPlanSavingInputData savingdata);
+    void execute(TrackPlanSavingInputData savingData);
 }
