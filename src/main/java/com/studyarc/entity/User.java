@@ -30,17 +30,13 @@ public class User implements Serializable {
         this.passwordHash = md.digest();
     }
 
-    public User(String username, String password, byte[] salt) throws NoSuchAlgorithmException {
-        this.username = username;
-        this.salt = salt;
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update(password.getBytes(StandardCharsets.UTF_8));
-        md.update(this.salt);
-        this.passwordHash = md.digest();
-    }
-
-    public boolean validateHash(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
+    public boolean validateHash(String password){
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            return false;
+        }
         md.update(password.getBytes(StandardCharsets.UTF_8));
         md.update(this.salt);
         return Arrays.equals(md.digest(), this.passwordHash);

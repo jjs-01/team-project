@@ -31,18 +31,14 @@ public class LoginInteractor implements LoginInputBoundary{
             return;
         }
         System.out.println("Got a real user");
-        try {
-            boolean result = u.validateHash(password);
-            System.out.println(result);
-            if (result){
-                this.dao.setUser(u);
-                loginPresenter.prepareView(new LoginOutputData(true, false, username));
-                return;
-            }
-            loginPresenter.prepareView(new LoginOutputData(false, false, username));
-        } catch (NoSuchAlgorithmException e) {
-            loginPresenter.prepareView(new LoginOutputData(false, false, username));
+        boolean result = u.validateHash(password);
+        System.out.println(result);
+        if (result){
+            this.dao.setUser(u);
+            loginPresenter.prepareView(new LoginOutputData(true, false, username));
+            return;
         }
+        loginPresenter.prepareView(new LoginOutputData(false, false, username));
     }
     public void register(RegisterInputData registerInputData){
         String username = registerInputData.getUsername();
