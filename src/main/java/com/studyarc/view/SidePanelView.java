@@ -17,17 +17,8 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
     private final SidebarViewModel sidebarViewModel;
     private SidebarController sidebarController = null;
 
-    private final JPanel mainButtonPanel = new JPanel();
-    private final JLabel logo = new JLabel("Study Arc");
     private final JLabel userLoggedIn = new JLabel("Logged In User");
-    private final JButton seePapers;
-    private final JButton seeJobs;
-    private final JButton myPlans;
     private final JButton logout;
-
-    private String userName;
-
-    private final Color mainColor = new Color(232, 231, 230);
 
     // Controllers
     private TrackPlanController trackPlanController;
@@ -37,24 +28,27 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         this.sidebarViewModel = sidebarViewModel;
         this.sidebarViewModel.addPropertyChangeListener(this);
 
+        JLabel logo = new JLabel("Study Arc");
         logo.setFont(Styling.getMainFont().deriveFont(Font.BOLD));
         logo.setHorizontalAlignment(SwingConstants.CENTER);
         userLoggedIn.setFont(Styling.getSubFont());
         userLoggedIn.setHorizontalAlignment(SwingConstants.CENTER);
 
-        seePapers = new JButton("Papers");
-        seeJobs = new JButton("Jobs");
-        myPlans = new JButton("My Plans");
+        JButton seePapers = new JButton("Papers");
+        JButton seeJobs = new JButton("Jobs");
+        JButton myPlans = new JButton("My Plans");
         logout = new JButton("Logout");
 
         final JButton[] buttons = {seePapers, seeJobs, myPlans, logout};
 
         this.setLayout(new BorderLayout());
+        JPanel mainButtonPanel = new JPanel();
         mainButtonPanel.setLayout(new GridBagLayout());
 
         this.setPreferredSize(new Dimension(180, 800));
         this.setMaximumSize(new Dimension(180, 800));
         this.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 2, Color.DARK_GRAY));
+        Color mainColor = new Color(232, 231, 230);
         this.setBackground(mainColor);
 
         GridBagConstraints mainButtonLayout = new GridBagConstraints();
@@ -77,28 +71,18 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
         this.setVisible(false);
 
         // Button action listeners
-        seeJobs.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                System.out.println("clicked Jobs");
-                if (jobPostingsController != null) {
-                    jobPostingsController.retrieveAvailableFocuses();
-                }
-                sidebarController.switchToJobBoard();
+        seeJobs.addActionListener(evt -> {
+            if (jobPostingsController != null) {
+                jobPostingsController.retrieveAvailableFocuses();
             }
+            sidebarController.switchToJobBoard();
         });
 
-        seePapers.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                sidebarController.switchToPapers();
-            }
-        });
+        seePapers.addActionListener(evt -> sidebarController.switchToPapers());
 
-        myPlans.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                trackPlanController.execute(sidebarViewModel.getState().getUserName());
-                sidebarController.switchToTrackPlan();
-            }
+        myPlans.addActionListener(e -> {
+            trackPlanController.execute(sidebarViewModel.getState().getUserName());
+            sidebarController.switchToTrackPlan();
         });
 
         logout.addActionListener(this);
@@ -114,7 +98,6 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("property changed");
         SidebarState state = sidebarViewModel.getState();
         String username = state.getUserName();
         boolean loggedIn = username != null && !username.trim().isEmpty();
@@ -137,15 +120,5 @@ public class SidePanelView extends JPanel implements ActionListener, PropertyCha
 
     public void setJobPostingsController(JobPostingsController jobPostingsController) {
         this.jobPostingsController = jobPostingsController;
-    }
-
-    public void setLoggedInUser(String username) {
-        SidebarState state = sidebarViewModel.getState();
-        state.setUserName(username);
-    }
-
-    public String getLoggedInUserName() {
-        SidebarState state = sidebarViewModel.getState();
-        return state.getUserName();
     }
 }
