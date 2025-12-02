@@ -38,7 +38,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
 //        this.user = null;
 //    }
 
-    private DatabaseAccess() {
+    protected DatabaseAccess() {
         File f = new File("studyarc-users.ser");
         if (f.exists()) {
             try (ObjectInputStream ois =
