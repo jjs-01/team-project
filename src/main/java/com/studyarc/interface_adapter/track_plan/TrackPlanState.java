@@ -3,9 +3,7 @@ package com.studyarc.interface_adapter.track_plan;
 import com.studyarc.entity.StudyPlan;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class TrackPlanState {
     private ArrayList<StudyPlan> studyPlans = new ArrayList<StudyPlan>();
@@ -18,8 +16,10 @@ public class TrackPlanState {
 
     public List<String> getStudyPlanTitles() {
         List<String> planTitles = new ArrayList<>();
-        for (StudyPlan plan : studyPlans) {
-            planTitles.add(plan.getTitle());
+        if (studyPlans != null) {
+            for (StudyPlan plan : studyPlans) {
+                planTitles.add(plan.getTitle());
+            }
         }
         return planTitles;
     }
@@ -40,8 +40,7 @@ public class TrackPlanState {
         this.savingMessage = savingMessage;
     }
 
-    public String getSavingMessage(){
+    public String getSavingMessage() {
         return this.savingMessage;
     }
 }
-

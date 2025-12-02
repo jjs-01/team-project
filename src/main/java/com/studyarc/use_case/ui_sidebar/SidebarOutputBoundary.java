@@ -7,9 +7,9 @@ public interface SidebarOutputBoundary {
      */
     void switchToJobBoard();
 
-    void switchToMilestone();
-
     void switchToTrackPlan();
+
+    void switchToPapers();
 
     void switchToLogin();
 

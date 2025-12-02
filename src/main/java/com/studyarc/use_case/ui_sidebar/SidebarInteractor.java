@@ -1,13 +1,11 @@
 package com.studyarc.use_case.ui_sidebar;
 
-import com.studyarc.interface_adapter.ui_sidebar.SidebarPresenter;
-
 public class SidebarInteractor implements SidebarInputBoundary {
     private final SidebarDataAccessInterface userDataAccessObject;
     private final SidebarOutputBoundary userPresenter;
 
-    public SidebarInteractor(SidebarDataAccessInterface sidebarDataAcessInterface, SidebarOutputBoundary sidebarOutputBoundary) {
-
+    public SidebarInteractor(SidebarDataAccessInterface sidebarDataAcessInterface,
+                             SidebarOutputBoundary sidebarOutputBoundary) {
         this.userDataAccessObject = sidebarDataAcessInterface;
         this.userPresenter = sidebarOutputBoundary;
     }
@@ -18,20 +16,22 @@ public class SidebarInteractor implements SidebarInputBoundary {
     }
 
     @Override
-    public void switchToMilestone() {
-        userPresenter.switchToMilestone();
+    public void switchToTrackPlan() {
+        userPresenter.switchToTrackPlan();
     }
 
     @Override
-    public void switchToTrackPlan() { userPresenter.switchToTrackPlan();}
+    public void switchToLogin() {
+        userPresenter.switchToLogin();
+    }
 
     @Override
-    public void switchToLogin(){userPresenter.switchToLogin();}
+    public void switchToPapers() {
+        userPresenter.switchToPapers();
+    }
 
     @Override
     public void setUser(String username) {
         userPresenter.setUser(username);
     }
-
-
 }

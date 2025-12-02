@@ -8,10 +8,10 @@ public class Main {
         JFrame application = appBuilder
                 .addSidePanel()
                 .addLoginView()
-                .addLoadMilestonesPanel()
-                .addMilestoneTasksPanel()
+                .addMilestonesPanel()
                 .addTrackPlanView()
                 .addJobPostingsView()
+                .addViewingResearchPapersView()
                 .addLoadMilestonesUseCase()
                 .addAddPlanUseCase()
                 .addTrackPlanUsecase()
@@ -20,6 +20,7 @@ public class Main {
                 .addJobPostingsUseCase()
                 .addMilestoneTasksUseCase()
                 .addAddReflectionUseCase()
+                .addViewingResearchPapersUseCase()
                 .addLoginUseCase()
                 .build();
 

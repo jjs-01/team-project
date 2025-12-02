@@ -4,7 +4,6 @@ import com.openai.core.JsonObject;
 import com.studyarc.entity.job_postings.JobListing;
 import com.studyarc.entity.job_postings.KeywordList;
 import com.studyarc.use_case.job_postings.JobPostingsInputData;
-
 import com.studyarc.use_case.job_postings.generate_keywords.KeywordGenerator;
 import com.studyarc.use_case.job_postings.generate_keywords.LLMKeywordGenerator;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -20,7 +19,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -41,9 +39,9 @@ public class AdzunaJobGenerator implements JobRepository {
             .build();
 
     @Override
-    public List<JobListing> getJobListings(String focus, String countryCode, KeywordList keywords, String sort, String salaryMin) throws JobRepositoryException{
+    public List<JobListing> getJobListings(String focus, String countryCode, KeywordList keywords, String sort, String salaryMin) throws JobRepositoryException {
         // default arguments
-        this.sort =  "date";
+        this.sort = "date";
         this.countryCode = "ca";
         this.salaryMin = 40000;
         this.focus = URLEncoder.encode(focus, StandardCharsets.UTF_8); // format the focus to call the job listings api
@@ -58,11 +56,11 @@ public class AdzunaJobGenerator implements JobRepository {
         // set the preferred sort if selected
         if (!sort.isEmpty() && !sort.equals("Select Sort")) this.sort = sort;
 
-        String url = "https://api.adzuna.com/v1/api/jobs/" + this.countryCode +"/search/1?app_id=" + API_ID + "&app_key=" + API_KEY + "&results_per_page=20&what_or=";
+        String url = "https://api.adzuna.com/v1/api/jobs/" + this.countryCode + "/search/1?app_id=" + API_ID + "&app_key=" + API_KEY + "&results_per_page=20&what_or=";
         String jobKeywords = keywords.getKeywords();
 
         // adds the keywords
-        url += jobKeywords +"&title_only=" + this.focus + "&sort_by=" + this.sort + "&salary_min=" + this.salaryMin; // current issue, sort isnt working on the api? might need to sort myself?
+        url += jobKeywords + "&title_only=" + this.focus + "&sort_by=" + this.sort + "&salary_min=" + this.salaryMin;
 
         System.out.println(url);
 
@@ -91,7 +89,16 @@ public class AdzunaJobGenerator implements JobRepository {
                         JSONObject jobCompany = job.getJSONObject("company");
                         JSONObject jobLocation = job.getJSONObject("location");
 
-                        JobListing newJob = new JobListing(job.get("title").toString(), Long.parseLong(job.get("id").toString()), jobCompany.get("display_name").toString(), Double.parseDouble(job.get("salary_min").toString()), Double.parseDouble(job.get("salary_max").toString()), job.get("description").toString(), jobLocation.get("display_name").toString(), job.get("redirect_url").toString());
+                        JobListing newJob = new JobListing(
+                                job.get("title").toString(),
+                                Long.parseLong(job.get("id").toString()),
+                                jobCompany.get("display_name").toString(),
+                                Double.parseDouble(job.get("salary_min").toString()),
+                                Double.parseDouble(job.get("salary_max").toString()),
+                                job.get("description").toString(),
+                                jobLocation.get("display_name").toString(),
+                                job.get("redirect_url").toString()
+                        );
                         listings.add(newJob);
                     }
 
@@ -116,5 +123,4 @@ public class AdzunaJobGenerator implements JobRepository {
     public int numberResults(List<JobListing> listings) {
         return listings.size();
     }
-
 }

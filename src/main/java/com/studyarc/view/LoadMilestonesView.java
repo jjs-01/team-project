@@ -1,23 +1,22 @@
 package com.studyarc.view;
 
-import com.studyarc.interface_adapter.load_milestones.LoadMilestonesController;
 import com.studyarc.interface_adapter.load_milestones.LoadMilestonesState;
-import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksState;
 import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 import com.studyarc.interface_adapter.load_milestones.LoadMilestonesViewModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class LoadMilestonesView extends MilestoneTasksView implements ActionListener, PropertyChangeListener {
+/**
+ * View for loading milestones usecase
+ */
+public class LoadMilestonesView extends MilestoneTasksView implements PropertyChangeListener {
     private final LoadMilestonesViewModel loadViewModel;
-    private LoadMilestonesController loadController;
     private final MilestoneTasksViewModel milestoneViewModel;
     private static final String VIEW_NAME = "loaded milestones";
 
@@ -32,11 +31,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
         milestonePanel = (JPanel) ((JScrollPane) this.getComponents()[LoadMilestonesViewModel.SCROLL_PANE_INDEX])
                 .getViewport()
                 .getView();
-    }
-
-    public void loadView() {
-        final LoadMilestonesState currentState = loadViewModel.getState();
-        loadController.execute(currentState.getStudyPlanName());
     }
 
     private void loadStudyPlan(String focus,
@@ -176,7 +170,7 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
                 JOptionPane.showMessageDialog(this, state.getLoadError());
 
                 state.setLoadError("");
-            } else if (evt.getPropertyName().equals("load plan")) {
+            } else {
                 loadStudyPlan(state.getFocus(),
                         state.getMilestoneNames(),
                         state.getMilestoneDates(),
@@ -185,10 +179,6 @@ public class LoadMilestonesView extends MilestoneTasksView implements ActionList
                 milestoneViewModel.setState(state);
             }
         }
-    }
-
-    public void setLoadMilestonesController(LoadMilestonesController controller) {
-        loadController = controller;
     }
 
     @Override
