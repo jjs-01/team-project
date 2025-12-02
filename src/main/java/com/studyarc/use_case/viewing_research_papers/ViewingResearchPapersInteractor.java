@@ -5,8 +5,8 @@ import com.studyarc.entity.StudyPlan;
 import java.util.ArrayList;
 
 public class ViewingResearchPapersInteractor implements ViewingResearchPapersInputBoundary {
-    private ViewingResearchPapersDataAccessInterface repository;
-    private ViewingResearchPapersOutputBoundary presenter;
+    private final ViewingResearchPapersDataAccessInterface repository;
+    private final ViewingResearchPapersOutputBoundary presenter;
 
     public ViewingResearchPapersInteractor(ViewingResearchPapersDataAccessInterface repository,
                                            ViewingResearchPapersOutputBoundary presenter) {
@@ -15,7 +15,7 @@ public class ViewingResearchPapersInteractor implements ViewingResearchPapersInp
     }
 
     @Override
-    public void execute(ViewingResearchPapersInputData inputData) {
+    public void execute() {
         try {
             ArrayList<StudyPlan> plans = repository.getPlans();
             boolean hasPlans = !plans.isEmpty();
