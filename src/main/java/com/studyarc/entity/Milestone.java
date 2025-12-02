@@ -12,14 +12,6 @@ public class Milestone implements Serializable {
     private String name;
     private final List<Task> subtasks;
 
-    public Milestone(String title) {
-        if ("".equals(title)) {
-            throw new IllegalArgumentException("Name cannot be empty.");
-        }
-        this.name = title;
-        this.subtasks = new ArrayList<>();
-    }
-
     public Milestone(String name, String dueDate) {
         if ("".equals(name)) {
             throw new IllegalArgumentException("Name cannot be empty.");

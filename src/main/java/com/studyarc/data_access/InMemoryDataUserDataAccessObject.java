@@ -8,7 +8,7 @@ import com.studyarc.use_case.job_postings.JobPostingsDataAccessInterface;
 import com.studyarc.use_case.load_milestones.LoadMilestonesDataAccessInterface;
 import com.studyarc.use_case.login.LoginDataAccessInterface;
 import com.studyarc.use_case.milestone_tasks.MilestoneTasksDataAccessInterface;
-import com.studyarc.use_case.track_plan.TrackPlanDataAccessinterface;
+import com.studyarc.use_case.track_plan.TrackPlanDataAccessInterface;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessIn
         MilestoneTasksDataAccessInterface,
         LoadMilestonesDataAccessInterface,
         AddReflectionDataAccessInterface,
-        TrackPlanDataAccessinterface,
+        TrackPlanDataAccessInterface,
         AddPlanDataAccessInterface {
 
     private User user;
@@ -71,7 +71,7 @@ public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessIn
     @Override
     public StudyPlan getPlan(String planName) {
         if (user != null && planName != null) {
-            ArrayList<StudyPlan> userStudyPlans = user.getStudyPlans();
+            List<StudyPlan> userStudyPlans = user.getStudyPlans();
             for (StudyPlan plan : userStudyPlans) {
                 if (plan.getTitle().equals(planName)) {
                     return plan;
@@ -87,12 +87,12 @@ public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessIn
     }
 
     @Override
-    public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
+    public void saveAllPlansForUser(List<StudyPlan> plans) {
         this.user.setStudyPlans(plans);
     }
 
     @Override
-    public ArrayList<StudyPlan> getPlans() {
+    public List<StudyPlan> getPlans() {
         return user.getStudyPlans();
     }
 

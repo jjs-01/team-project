@@ -2,22 +2,22 @@ package com.studyarc.use_case.track_plan;
 
 import com.studyarc.entity.StudyPlan;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /***
  * Output Data class for the Track Plan use case
  */
 public class TrackPlanOutputData {
     private String username;
-    private final ArrayList<StudyPlan> listofplan;
+    private final List<StudyPlan> listOfPlan;
 
-    public TrackPlanOutputData(String username, ArrayList<StudyPlan> plans) {
+    public TrackPlanOutputData(String username, List<StudyPlan> plans) {
         this.username = username;
-        this.listofplan = plans;
+        this.listOfPlan = plans;
     }
 
-    public ArrayList<StudyPlan> getListofplan() {
-        return this.listofplan;
+    public List<StudyPlan> getListOfPlan() {
+        return this.listOfPlan;
     }
 
 

@@ -14,7 +14,7 @@ public class User implements Serializable {
     private final byte[] salt;
     private final byte[] passwordHash;
     private final String username;
-    private  ArrayList<StudyPlan> studyPlans = new ArrayList<>();
+    private List<StudyPlan> studyPlans = new ArrayList<>();
 
     private String focus;
 
@@ -50,11 +50,11 @@ public class User implements Serializable {
         return username;
     }
 
-    public void setStudyPlans(ArrayList<StudyPlan> studyPlans) {
+    public void setStudyPlans(List<StudyPlan> studyPlans) {
         this.studyPlans = studyPlans;
     }
 
-    public ArrayList<StudyPlan> getStudyPlans() {
+    public List<StudyPlan> getStudyPlans() {
         return studyPlans;
     }
 

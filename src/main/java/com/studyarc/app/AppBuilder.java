@@ -71,17 +71,12 @@ import com.studyarc.use_case.add_papers_to_plan.AddPapersToPlanInteractor;
 public class AppBuilder {
     // Data Access Objects
     private final DatabaseAccess databaseAccess = DatabaseAccess.getInstance();
-    private final SidebarDataAccessInterface sidebarDataAccess = new SidebarDataAccessObject();
     private final ReflectionFactory reflectionFactory = new ReflectionFactory();
 
     // Layout Components
     private final JPanel overallPanel = new JPanel(new BorderLayout());
     private final JPanel cardPanel = new JPanel(new CardLayout());
     private final CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-
-    private final BorderLayout borderLayout = new BorderLayout();
-    private final JPanel mainUIPanel = new JPanel();
-    private final JPanel usecasePanel = new JPanel();
 
     // ViewModels
     private SidebarViewModel sidebarViewModel;
@@ -149,7 +144,7 @@ public class AppBuilder {
 
     public AppBuilder addTrackPlanUsecase() {
         TrackPlanOutputBoundary presenter = new TrackPlanPresenter(trackPlanViewModel, viewManagerModel);
-      
+
         // Add LoadMilestone Controller to TrackPlanView
         LoadMilestonesOutputBoundary loadMilestonesPresenter = new LoadMilestonesPresenter(viewManagerModel, loadMilestonesViewModel);
         LoadMilestonesInputBoundary loadMilestonesInteractor = new LoadMilestonesInteractor(this.databaseAccess, loadMilestonesPresenter);
@@ -158,8 +153,7 @@ public class AppBuilder {
 
         // Add TrackPlan Controller to TrackPlanView
         TrackPlanInputBoundary interactor = new TrackPlanInteractor(presenter, this.databaseAccess);
-        TrackPlanController trackPlanController = new TrackPlanController(interactor);
-        this.trackPlanController = trackPlanController;
+        trackPlanController = new TrackPlanController(interactor);
         this.trackPlansView.setTrackPlanController(trackPlanController);
         sidePanelView.setTrackPlanController(trackPlanController);
         return this;
@@ -202,7 +196,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addAddPlanUseCase() {
-        final AddPlanOutputBoundary addPlanPresenter = new AddPlanPresenter(viewManagerModel, trackPlanViewModel);
+        final AddPlanOutputBoundary addPlanPresenter = new AddPlanPresenter(trackPlanViewModel);
         final AddPlanInputBoundary addPlanInteractor = new AddPlanInteractor(databaseAccess, addPlanPresenter);
         trackPlansView.setAddPlanController(new AddPlanController(addPlanInteractor));
         return this;
@@ -213,11 +207,10 @@ public class AppBuilder {
                 viewManagerModel,
                 sidebarViewModel,
                 jobPostingsViewModel,
-                milestoneTasksViewModel,
                 trackPlanViewModel,
                 viewingResearchPapersViewModel,
                 loginViewModel);
-        final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarDataAccess, sidebarOutputBoundary);
+        final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarOutputBoundary);
 
         SidebarController sidebarController = new SidebarController(sidebarInteractor);
         sidePanelView.setSidebarController(sidebarController);
@@ -253,7 +246,6 @@ public class AppBuilder {
 
     public AppBuilder addMilestoneTasksUseCase() {
         final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(
-                viewManagerModel,
                 milestoneTasksViewModel);
         final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(
                 this.databaseAccess,
@@ -266,7 +258,6 @@ public class AppBuilder {
 
     public AppBuilder addLoadMilestonesUseCase() {
         final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(
-                viewManagerModel,
                 milestoneTasksViewModel);
         final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(
                 this.databaseAccess,
@@ -309,7 +300,7 @@ public class AppBuilder {
         application.add(overallPanel);
         application.setMinimumSize(new Dimension(1000, 800));
 
-        // Set initial view to login
+        // Set initial view to the login view
         viewManagerModel.setState(loginViewModel.getViewName());
         viewManagerModel.firePropertyChange();
 

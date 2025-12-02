@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,7 +30,7 @@ public class TrackPlanInteractorTest {
         TrackPlanOutputBoundary presenter = new TrackPlanOutputBoundary() {
             @Override
             public void prepareShowPlans(TrackPlanOutputData outputData) {
-                assertEquals(outputData.getListofplan(), plans);
+                assertEquals(outputData.getListOfPlan(), plans);
             }
 
             @Override
@@ -40,9 +41,9 @@ public class TrackPlanInteractorTest {
             public void prepareShowSavingResult(String message) {
             }
         };
-        TrackPlanDataAccessinterface Dao = new TrackPlanDataAccessinterface() {
+        TrackPlanDataAccessInterface Dao = new TrackPlanDataAccessInterface() {
             @Override
-            public ArrayList<StudyPlan> getPlans() {
+            public List<StudyPlan> getPlans() {
                 return plans;
             }
 
@@ -51,7 +52,7 @@ public class TrackPlanInteractorTest {
             }
 
             @Override
-            public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
+            public void saveAllPlansForUser(List<StudyPlan> plans) {
             }
         };
         TrackPlanInteractor interactor = new TrackPlanInteractor(presenter, Dao);
@@ -68,7 +69,7 @@ public class TrackPlanInteractorTest {
 
             @Override
             public void prepareShowPlans(TrackPlanOutputData outputData) {
-                assertEquals(outputData.getListofplan(), user.getStudyPlans());
+                assertEquals(outputData.getListOfPlan(), user.getStudyPlans());
             }
 
             @Override
@@ -82,9 +83,9 @@ public class TrackPlanInteractorTest {
             }
         };
 
-        TrackPlanDataAccessinterface dao = new TrackPlanDataAccessinterface() {
+        TrackPlanDataAccessInterface dao = new TrackPlanDataAccessInterface() {
             @Override
-            public ArrayList<StudyPlan> getPlans() {
+            public List<StudyPlan> getPlans() {
                 return user.getStudyPlans();
             }
 
@@ -94,7 +95,7 @@ public class TrackPlanInteractorTest {
             }
 
             @Override
-            public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
+            public void saveAllPlansForUser(List<StudyPlan> plans) {
 
             }
         };
@@ -129,9 +130,9 @@ public class TrackPlanInteractorTest {
             }
         };
 
-        TrackPlanDataAccessinterface dao = new TrackPlanDataAccessinterface() {
+        TrackPlanDataAccessInterface dao = new TrackPlanDataAccessInterface() {
             @Override
-            public ArrayList<StudyPlan> getPlans() {
+            public List<StudyPlan> getPlans() {
                 return null;
             }
 
@@ -141,7 +142,7 @@ public class TrackPlanInteractorTest {
             }
 
             @Override
-            public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
+            public void saveAllPlansForUser(List<StudyPlan> plans) {
 
             }
         };
@@ -175,9 +176,9 @@ public class TrackPlanInteractorTest {
                 assertEquals(" Save complete! ", message);
             }
         };
-        TrackPlanDataAccessinterface dao = new TrackPlanDataAccessinterface() {
+        TrackPlanDataAccessInterface dao = new TrackPlanDataAccessInterface() {
             @Override
-            public ArrayList<StudyPlan> getPlans() {
+            public List<StudyPlan> getPlans() {
                 return null;
             }
 
@@ -187,7 +188,7 @@ public class TrackPlanInteractorTest {
             }
 
             @Override
-            public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
+            public void saveAllPlansForUser(List<StudyPlan> plans) {
 
             }
         };
@@ -204,9 +205,9 @@ public class TrackPlanInteractorTest {
         plans.add(this.testplan1);
         user.setStudyPlans(plans);
         TrackPlanSavingInputData input = new TrackPlanSavingInputData(plans, "peeko");
-        TrackPlanDataAccessinterface dao = new TrackPlanDataAccessinterface() {
+        TrackPlanDataAccessInterface dao = new TrackPlanDataAccessInterface() {
             @Override
-            public ArrayList<StudyPlan> getPlans() {
+            public List<StudyPlan> getPlans() {
                 return null;
             }
 
@@ -216,7 +217,7 @@ public class TrackPlanInteractorTest {
             }
 
             @Override
-            public void saveAllPlansForUser(ArrayList<StudyPlan> plans) {
+            public void saveAllPlansForUser(List<StudyPlan> plans) {
 
             }
         };

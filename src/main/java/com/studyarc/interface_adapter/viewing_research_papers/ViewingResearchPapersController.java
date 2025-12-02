@@ -1,7 +1,6 @@
 package com.studyarc.interface_adapter.viewing_research_papers;
 
 import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInputBoundary;
-import com.studyarc.use_case.viewing_research_papers.ViewingResearchPapersInputData;
 
 public class ViewingResearchPapersController {
     private ViewingResearchPapersInputBoundary inputBoundary;
@@ -17,7 +16,6 @@ public class ViewingResearchPapersController {
     }
 
     public void handleViewingResearchPapers() {
-        ViewingResearchPapersInputData inputData = new ViewingResearchPapersInputData();
-        inputBoundary.execute(inputData);
+        inputBoundary.execute();
     }
 }

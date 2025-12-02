@@ -13,13 +13,12 @@ import com.studyarc.interface_adapter.add_reflection.AddReflectionViewModel;
 
 public class AddReflectionView extends JDialog implements PropertyChangeListener {
 
-    private final AddReflectionViewModel viewModel;
-    private final AddReflectionController controller;
+    private final transient AddReflectionViewModel viewModel;
+    private final transient AddReflectionController controller;
     private final String planTitle;
     private final String username;
 
     private final JTextArea content = new JTextArea(6, 20);
-    private final JButton saveButton = new JButton("Save");
 
     public AddReflectionView(Window owner,
                              AddReflectionViewModel viewModel,
@@ -42,6 +41,7 @@ public class AddReflectionView extends JDialog implements PropertyChangeListener
         final JScrollPane scrollPane = new JScrollPane(content);
         panel.add(scrollPane, BorderLayout.CENTER);
 
+        JButton saveButton = new JButton("Save");
         panel.add(saveButton, BorderLayout.SOUTH);
         this.add(panel);
 
