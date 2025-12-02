@@ -1,5 +1,8 @@
 package com.studyarc.use_case.ui_sidebar;
 
+/**
+ * Class for the interactor for the sidebar (switching between views on the sidebar) use case
+ */
 public class SidebarInteractor implements SidebarInputBoundary {
     private final SidebarOutputBoundary userPresenter;
 

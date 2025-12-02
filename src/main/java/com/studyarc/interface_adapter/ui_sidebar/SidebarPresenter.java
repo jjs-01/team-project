@@ -4,7 +4,6 @@ import com.studyarc.interface_adapter.ViewManagerModel;
 import com.studyarc.interface_adapter.job_postings.JobPostingsViewModel;
 import com.studyarc.interface_adapter.login.LoginState;
 import com.studyarc.interface_adapter.login.LoginViewModel;
-import com.studyarc.interface_adapter.milestone_tasks.MilestoneTasksViewModel;
 import com.studyarc.interface_adapter.track_plan.TrackPlanState;
 import com.studyarc.interface_adapter.track_plan.TrackPlanViewModel;
 import com.studyarc.interface_adapter.viewing_research_papers.ViewingResearchPapersViewModel;

@@ -2,6 +2,9 @@ package com.studyarc.interface_adapter.ui_sidebar;
 
 import com.studyarc.use_case.ui_sidebar.SidebarInputBoundary;
 
+/**
+ * Controller for the sidebar (switching between view options on the side bar) use case
+ */
 public class SidebarController {
     private final SidebarInputBoundary sidebarUseCaseInteractor;
 
