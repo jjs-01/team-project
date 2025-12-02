@@ -6,7 +6,10 @@ import com.studyarc.use_case.track_plan.TrackPlanInputData;
 import com.studyarc.use_case.track_plan.TrackPlanSavingInputData;
 
 import java.util.ArrayList;
-
+/***
+ * Controller class for the Track Plan use case
+ * This class is responsible for handling the user input and invoking the Track Plan use case interactor.
+ */
 
 public class TrackPlanController {
     final TrackPlanInputBoundary trackplaninteractor;

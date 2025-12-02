@@ -7,6 +7,11 @@ import com.studyarc.use_case.delete_plan.DeletePlanOutputData;
 
 import java.util.ArrayList;
 
+/***
+ * Presenter class for the Delete Plan use case
+ * This class is responsible for updating the TrackPlanViewModel with the output data from the Delete Plan use case.
+ */
+
 public class DeletePlanPresenter implements DeletePlanOutputBoundary {
     private final TrackPlanViewModel trackPlanViewModel;
 

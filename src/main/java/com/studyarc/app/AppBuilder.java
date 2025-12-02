@@ -144,24 +144,12 @@ public class AppBuilder {
 
     public AppBuilder addTrackPlanUsecase() {
         TrackPlanOutputBoundary presenter = new TrackPlanPresenter(trackPlanViewModel, viewManagerModel);
-        // Add LoadMilestone Controller to TrackPlanView
 
+        // Add LoadMilestone Controller to TrackPlanView
         LoadMilestonesOutputBoundary loadMilestonesPresenter = new LoadMilestonesPresenter(viewManagerModel, loadMilestonesViewModel);
         LoadMilestonesInputBoundary loadMilestonesInteractor = new LoadMilestonesInteractor(this.databaseAccess, loadMilestonesPresenter);
         LoadMilestonesController loadMilestonesController = new LoadMilestonesController(loadMilestonesInteractor);
         this.trackPlansView.setLoadMilestonesController(loadMilestonesController);
-
-        // Add Sidebar Controller to TrackPlanView
-        final SidebarOutputBoundary sidebarOutputBoundary = new SidebarPresenter(
-                viewManagerModel,
-                sidebarViewModel,
-                jobPostingsViewModel,
-                trackPlanViewModel,
-                viewingResearchPapersViewModel,
-                loginViewModel);
-        final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarOutputBoundary);
-        final SidebarController sidebarController = new SidebarController(sidebarInteractor);
-        this.trackPlansView.setSidebarController(sidebarController);
 
         // Add TrackPlan Controller to TrackPlanView
         TrackPlanInputBoundary interactor = new TrackPlanInteractor(presenter, this.databaseAccess);
