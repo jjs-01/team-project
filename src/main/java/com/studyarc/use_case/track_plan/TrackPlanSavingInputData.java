@@ -4,6 +4,10 @@ import com.studyarc.entity.StudyPlan;
 
 import java.util.ArrayList;
 
+/***
+ * Input Data class for the Track Plan Saving use case
+ */
+
 public class TrackPlanSavingInputData {
     private String username;
     private ArrayList<StudyPlan> plans;

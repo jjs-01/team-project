@@ -2,6 +2,9 @@ package com.studyarc.use_case.delete_plan;
 
 import com.studyarc.entity.StudyPlan;
 
+/***
+ * Output Data class for the Delete Plan use case
+ */
 public class DeletePlanOutputData {
     private StudyPlan plan;
 

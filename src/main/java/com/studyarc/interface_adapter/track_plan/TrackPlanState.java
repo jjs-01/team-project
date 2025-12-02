@@ -3,12 +3,15 @@ package com.studyarc.interface_adapter.track_plan;
 import com.studyarc.entity.StudyPlan;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+/***
+ * State class for the Track Plan use case
+ * This class represents the state of the Track Plan use case,
+ * including the list of study plans and the username of the user.
+ */
 public class TrackPlanState {
-    private ArrayList<StudyPlan> studyPlans = new ArrayList<StudyPlan>();
+    private ArrayList<StudyPlan> studyPlans = new ArrayList<>();
     private String Username = "";
     private String savingMessage = "";
 
