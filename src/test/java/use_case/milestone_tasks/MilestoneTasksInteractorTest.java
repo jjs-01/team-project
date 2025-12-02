@@ -3,6 +3,7 @@ package use_case.milestone_tasks;
 import com.studyarc.data_access.InMemoryDataUserDataAccessObject;
 import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
+import com.studyarc.use_case.milestone_tasks.MilestoneTasksInteractor;
 import com.studyarc.use_case.milestone_tasks.*;
 
 import org.jetbrains.annotations.NotNull;
@@ -117,9 +118,21 @@ public class MilestoneTasksInteractorTest {
         milestoneDates.add("03/24/2025");
 
         List<List<String[]>> listsOfTasksPerMilestone = new ArrayList<>();
-        listsOfTasksPerMilestone.add(new ArrayList<>());
-        listsOfTasksPerMilestone.add(new ArrayList<>());
-        listsOfTasksPerMilestone.add(new ArrayList<>());
+        List<String[]> milestone1TaskList = new ArrayList<>();
+        milestone1TaskList.add(new String[]{"Task 1", "03/29/2025", "In progress"});
+        milestone1TaskList.add(new String[]{"Task 2", "04/30/2025", "Done"});
+
+        List<String[]> milestone2TaskList = new ArrayList<>();
+        milestone2TaskList.add(new String[]{"Task 3", "05/14/2025", "Not started"});
+
+        List<String[]> milestone3TaskList = new ArrayList<>();
+        milestone3TaskList.add(new String[]{"Task 4", "05/16/2025", "Not started"});
+        milestone3TaskList.add(new String[]{"Task 5", "05/19/2025", "Not started"});
+        milestone3TaskList.add(new String[]{"Task 6", "05/26/2025", "Not started"});
+
+        listsOfTasksPerMilestone.add(milestone1TaskList);
+        listsOfTasksPerMilestone.add(milestone2TaskList);
+        listsOfTasksPerMilestone.add(milestone3TaskList);
 
         // now return the input data
         return new MilestoneTasksInputData("Test plan",

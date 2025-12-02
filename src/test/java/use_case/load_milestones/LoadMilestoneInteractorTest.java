@@ -3,6 +3,7 @@ package use_case.load_milestones;
 import com.studyarc.data_access.InMemoryDataUserDataAccessObject;
 import com.studyarc.entity.Milestone;
 import com.studyarc.entity.StudyPlan;
+import com.studyarc.use_case.load_milestones.LoadMilestonesInteractor;
 import com.studyarc.use_case.load_milestones.*;
 
 import org.junit.Test;
