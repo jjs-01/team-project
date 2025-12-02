@@ -1,5 +1,9 @@
 package com.studyarc.use_case.track_plan;
-//since there is not userinput data when executes, no parameter needede.
+
+/***
+ * Input Boundary for TrackPlan usecase
+ */
+
 
 public interface TrackPlanInputBoundary {
     //execute the login usecase

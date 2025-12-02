@@ -79,6 +79,10 @@ public class AppBuilder {
     private final JPanel cardPanel = new JPanel(new CardLayout());
     private final CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
 
+    private final BorderLayout borderLayout = new BorderLayout();
+    private final JPanel mainUIPanel = new JPanel();
+    private final JPanel usecasePanel = new JPanel();
+
     // ViewModels
     private SidebarViewModel sidebarViewModel;
     private JobPostingsViewModel jobPostingsViewModel;
@@ -145,29 +149,17 @@ public class AppBuilder {
 
     public AppBuilder addTrackPlanUsecase() {
         TrackPlanOutputBoundary presenter = new TrackPlanPresenter(trackPlanViewModel, viewManagerModel);
+      
         // Add LoadMilestone Controller to TrackPlanView
-
         LoadMilestonesOutputBoundary loadMilestonesPresenter = new LoadMilestonesPresenter(viewManagerModel, loadMilestonesViewModel);
         LoadMilestonesInputBoundary loadMilestonesInteractor = new LoadMilestonesInteractor(this.databaseAccess, loadMilestonesPresenter);
         LoadMilestonesController loadMilestonesController = new LoadMilestonesController(loadMilestonesInteractor);
         this.trackPlansView.setLoadMilestonesController(loadMilestonesController);
 
-        // Add Sidebar Controller to TrackPlanView
-        final SidebarOutputBoundary sidebarOutputBoundary = new SidebarPresenter(
-                viewManagerModel,
-                sidebarViewModel,
-                jobPostingsViewModel,
-                milestoneTasksViewModel,
-                trackPlanViewModel,
-                viewingResearchPapersViewModel,
-                loginViewModel);
-        final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarDataAccess, sidebarOutputBoundary);
-        final SidebarController sidebarController = new SidebarController(sidebarInteractor);
-        this.trackPlansView.setSidebarController(sidebarController);
-
         // Add TrackPlan Controller to TrackPlanView
         TrackPlanInputBoundary interactor = new TrackPlanInteractor(presenter, this.databaseAccess);
-        trackPlanController = new TrackPlanController(interactor);
+        TrackPlanController trackPlanController = new TrackPlanController(interactor);
+        this.trackPlanController = trackPlanController;
         this.trackPlansView.setTrackPlanController(trackPlanController);
         sidePanelView.setTrackPlanController(trackPlanController);
         return this;
