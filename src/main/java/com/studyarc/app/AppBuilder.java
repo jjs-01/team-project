@@ -208,7 +208,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addAddPlanUseCase() {
-        final AddPlanOutputBoundary addPlanPresenter = new AddPlanPresenter(viewManagerModel, trackPlanViewModel);
+        final AddPlanOutputBoundary addPlanPresenter = new AddPlanPresenter(trackPlanViewModel);
         final AddPlanInputBoundary addPlanInteractor = new AddPlanInteractor(databaseAccess, addPlanPresenter);
         trackPlansView.setAddPlanController(new AddPlanController(addPlanInteractor));
         return this;
@@ -258,7 +258,6 @@ public class AppBuilder {
 
     public AppBuilder addMilestoneTasksUseCase() {
         final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(
-                viewManagerModel,
                 milestoneTasksViewModel);
         final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(
                 this.databaseAccess,
@@ -271,7 +270,6 @@ public class AppBuilder {
 
     public AppBuilder addLoadMilestonesUseCase() {
         final MilestoneTasksOutputBoundary milestonesOutputBoundary = new MilestoneTasksPresenter(
-                viewManagerModel,
                 milestoneTasksViewModel);
         final MilestoneTasksInputBoundary milestoneSaveInteractor = new MilestoneTasksInteractor(
                 this.databaseAccess,
@@ -314,7 +312,7 @@ public class AppBuilder {
         application.add(overallPanel);
         application.setMinimumSize(new Dimension(1000, 800));
 
-        // Set initial view to login
+        // Set initial view to the login view
         viewManagerModel.setState(loginViewModel.getViewName());
         viewManagerModel.firePropertyChange();
 
