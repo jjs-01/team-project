@@ -55,7 +55,7 @@ public class LoginInteractor implements LoginInputBoundary{
         User u = dao.getUser(username);
         if(username.isEmpty()){
             System.out.println("empty username for register");
-            loginPresenter.prepareView(new RegisterOutputData(false, false, "emptyUsername", username));
+            loginPresenter.prepareView(new RegisterOutputData(false, false, "Empty username!", username));
             return;
         }
         else if(u!=null){

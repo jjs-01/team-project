@@ -60,7 +60,14 @@ public class InMemoryDataUserDataAccessObject implements JobPostingsDataAccessIn
 
     @Override
     public User getUser(String username) {
-        return this.user;
+        if (username != null) {
+            for (User u : allUsers) {
+                if (u.getUsername().equals(username)) {
+                    return u;
+                }
+            }
+        }
+        return null;
     }
 
     @Override
