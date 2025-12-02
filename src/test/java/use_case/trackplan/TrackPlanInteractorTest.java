@@ -1,4 +1,4 @@
-package trackplan;
+package use_case.trackplan;
 
 
 import com.studyarc.entity.StudyPlan;

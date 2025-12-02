@@ -20,7 +20,7 @@ public class LoadMilestonesInteractor implements LoadMilestonesInputBoundary {
         StudyPlan studyPlan = loadMilestonesDataAccessObject.getPlan(loadMilestonesInputData.getStudyPlanName());
 
         if (studyPlan == null) {
-            loadPresenter.prepareFailView("Can't retrieve study plan");
+            loadPresenter.prepareFailView("Can't retrieve study plan.");
             return;
         }
 
