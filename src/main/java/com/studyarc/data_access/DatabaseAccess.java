@@ -35,7 +35,7 @@ public class DatabaseAccess implements JobPostingsDataAccessInterface,
     private List<User> allUsers;
     private CoreResearchAdapter researchAdapter;
 
-    protected DatabaseAccess() {
+    private DatabaseAccess() {
         File f = new File("studyarc-users.ser");
         if (f.exists()) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {

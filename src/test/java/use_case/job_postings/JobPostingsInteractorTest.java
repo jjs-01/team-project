@@ -1,6 +1,7 @@
 package use_case.job_postings;
 
 import com.studyarc.data_access.DatabaseAccess;
+import com.studyarc.data_access.InMemoryDataUserDataAccessObject;
 import com.studyarc.entity.job_postings.JobListing;
 import com.studyarc.entity.job_postings.KeywordList;
 import com.studyarc.use_case.job_postings.*;
@@ -282,7 +283,7 @@ public class JobPostingsInteractorTest {
             }
         };
 
-        DatabaseAccess mockDatabase = new DatabaseAccess() {
+        InMemoryDataUserDataAccessObject mockDatabase = new InMemoryDataUserDataAccessObject() {
             @Override
             public ArrayList<String> getFocuses() {
                 ArrayList<String> list = new ArrayList<>();
