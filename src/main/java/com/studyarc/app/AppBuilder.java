@@ -71,7 +71,6 @@ import com.studyarc.use_case.add_papers_to_plan.AddPapersToPlanInteractor;
 public class AppBuilder {
     // Data Access Objects
     private final DatabaseAccess databaseAccess = DatabaseAccess.getInstance();
-    private final SidebarDataAccessInterface sidebarDataAccess = new SidebarDataAccessObject();
     private final ReflectionFactory reflectionFactory = new ReflectionFactory();
 
     // Layout Components
@@ -157,11 +156,10 @@ public class AppBuilder {
                 viewManagerModel,
                 sidebarViewModel,
                 jobPostingsViewModel,
-                milestoneTasksViewModel,
                 trackPlanViewModel,
                 viewingResearchPapersViewModel,
                 loginViewModel);
-        final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarDataAccess, sidebarOutputBoundary);
+        final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarOutputBoundary);
         final SidebarController sidebarController = new SidebarController(sidebarInteractor);
         this.trackPlansView.setSidebarController(sidebarController);
 
@@ -221,11 +219,10 @@ public class AppBuilder {
                 viewManagerModel,
                 sidebarViewModel,
                 jobPostingsViewModel,
-                milestoneTasksViewModel,
                 trackPlanViewModel,
                 viewingResearchPapersViewModel,
                 loginViewModel);
-        final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarDataAccess, sidebarOutputBoundary);
+        final SidebarInputBoundary sidebarInteractor = new SidebarInteractor(sidebarOutputBoundary);
 
         SidebarController sidebarController = new SidebarController(sidebarInteractor);
         sidePanelView.setSidebarController(sidebarController);

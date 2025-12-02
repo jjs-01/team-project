@@ -1,12 +1,9 @@
 package com.studyarc.use_case.ui_sidebar;
 
 public class SidebarInteractor implements SidebarInputBoundary {
-    private final SidebarDataAccessInterface userDataAccessObject;
     private final SidebarOutputBoundary userPresenter;
 
-    public SidebarInteractor(SidebarDataAccessInterface sidebarDataAcessInterface,
-                             SidebarOutputBoundary sidebarOutputBoundary) {
-        this.userDataAccessObject = sidebarDataAcessInterface;
+    public SidebarInteractor(SidebarOutputBoundary sidebarOutputBoundary) {
         this.userPresenter = sidebarOutputBoundary;
     }
 
