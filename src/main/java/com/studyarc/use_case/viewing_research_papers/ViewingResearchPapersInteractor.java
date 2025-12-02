@@ -2,7 +2,7 @@ package com.studyarc.use_case.viewing_research_papers;
 
 import com.studyarc.entity.StudyPlan;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ViewingResearchPapersInteractor implements ViewingResearchPapersInputBoundary {
     private final ViewingResearchPapersDataAccessInterface repository;
@@ -17,7 +17,7 @@ public class ViewingResearchPapersInteractor implements ViewingResearchPapersInp
     @Override
     public void execute() {
         try {
-            ArrayList<StudyPlan> plans = repository.getPlans();
+            List<StudyPlan> plans = repository.getPlans();
             boolean hasPlans = !plans.isEmpty();
             ViewingResearchPapersOutputData outputData =
                     new ViewingResearchPapersOutputData(plans, hasPlans);

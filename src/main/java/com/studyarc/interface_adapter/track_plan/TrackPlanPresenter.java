@@ -22,7 +22,7 @@ public class TrackPlanPresenter implements TrackPlanOutputBoundary {
     public void prepareShowPlans(TrackPlanOutputData outputData) {
 
         TrackPlanState state = trackPlanViewModel.getState();
-        state.setStudyPlans(outputData.getListofplan());
+        state.setStudyPlans(outputData.getListOfPlan());
         trackPlanViewModel.firePropertyChange();
 
         this.viewManagerModel.setState(trackPlanViewModel.getViewName());

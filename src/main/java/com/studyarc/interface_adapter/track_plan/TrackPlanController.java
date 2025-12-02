@@ -5,29 +5,30 @@ import com.studyarc.use_case.track_plan.TrackPlanInputBoundary;
 import com.studyarc.use_case.track_plan.TrackPlanInputData;
 import com.studyarc.use_case.track_plan.TrackPlanSavingInputData;
 
-import java.util.ArrayList;
+import java.util.List;
+
 /***
  * Controller class for the Track Plan use case
  * This class is responsible for handling the user input and invoking the Track Plan use case interactor.
  */
 
 public class TrackPlanController {
-    final TrackPlanInputBoundary trackplaninteractor;
+    final TrackPlanInputBoundary trackPlanInteractor;
 
-    public TrackPlanController(TrackPlanInputBoundary trackplaninteractor){
-        this.trackplaninteractor = trackplaninteractor;
+    public TrackPlanController(TrackPlanInputBoundary trackPlanInteractor){
+        this.trackPlanInteractor = trackPlanInteractor;
     }
 
 
     public void execute(String username){
 
         TrackPlanInputData trackPlanInputData = new TrackPlanInputData(username);
-        this.trackplaninteractor.execute(trackPlanInputData);
+        this.trackPlanInteractor.execute(trackPlanInputData);
     }
 
-    public void execute(ArrayList<StudyPlan> plans, String username){
+    public void execute(List<StudyPlan> plans, String username){
         TrackPlanSavingInputData savingData = new TrackPlanSavingInputData(plans, username);
-        this.trackplaninteractor.execute(savingData);
+        this.trackPlanInteractor.execute(savingData);
     }
 
 }

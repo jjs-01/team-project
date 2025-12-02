@@ -11,11 +11,11 @@ import java.util.List;
  * including the list of study plans and the username of the user.
  */
 public class TrackPlanState {
-    private ArrayList<StudyPlan> studyPlans = new ArrayList<>();
-    private String Username = "";
+    private List<StudyPlan> studyPlans = new ArrayList<>();
+    private String username = "";
     private String savingMessage = "";
 
-    public ArrayList<StudyPlan> getStudyPlans() {
+    public List<StudyPlan> getStudyPlans() {
         return this.studyPlans;
     }
 
@@ -29,16 +29,16 @@ public class TrackPlanState {
         return planTitles;
     }
 
-    public void setStudyPlans(ArrayList<StudyPlan> studyPlans) {
+    public void setStudyPlans(List<StudyPlan> studyPlans) {
         this.studyPlans = studyPlans;
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        Username = username;
+        this.username = username;
     }
 
     public void setSavingMessage(String savingMessage) {
