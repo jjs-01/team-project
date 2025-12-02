@@ -1,15 +1,14 @@
 package com.studyarc.use_case.track_plan;
-//
-//use case Interactor for tracking a plan
-// To do next:
-// 1. Finish Implementing show plans on the view ✅
-
 
 import com.studyarc.entity.StudyPlan;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+/***
+ * use case Interactor for TrackPlan usecase
+ */
 
 public class TrackPlanInteractor implements TrackPlanInputBoundary {
     final TrackPlanOutputBoundary presenter;
@@ -43,7 +42,7 @@ public class TrackPlanInteractor implements TrackPlanInputBoundary {
         ArrayList<StudyPlan> plans = savingInputData.getPlans();
         Set<String> planTitles = new HashSet<>();
         for (StudyPlan plan : plans) {
-            if (plan.getTitle().strip().isEmpty()) {
+            if (plan.getTitle().isBlank()) {
                 presenter.prepareShowSavingResult(" Empty Plan Title! Not allowed!😡😡 ");
                 return;
             }
